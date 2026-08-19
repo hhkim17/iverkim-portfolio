@@ -10,7 +10,7 @@ const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'photography', 'painting', 'drawing'];
 const MEDIA_LABEL = {
   sound: 'sound', intermedia: 'intermedia', video: 'video', performance: 'performance',
-  installation: 'installation', photography: 'photography', painting: 'painting', drawing: 'drawing'
+  installation: 'installation', photography: 'residency archive', painting: 'painting', drawing: 'drawing'
 };
 
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
@@ -19,9 +19,10 @@ const MEDIA_LABEL = {
 const YEARS_NAV = [...new Set(require('./works').map(w => w.y))].sort((a, b) => b - a);
 const MEDIA_PAGE = {
   sound: 'sound.html',
-  painting: 'drawings.html', photography: 'residency-archive.html'
+  painting: 'paintings.html', drawing: 'drawings.html',
+  photography: 'residency-archive.html'
 };
-const MEDIA_NAV_LABEL = { photography: 'residency archive', painting: 'drawings & paintings' };
+const MEDIA_NAV_LABEL = { painting: 'paintings', drawing: 'drawings' };
 const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 
 const NAV = [
@@ -328,14 +329,14 @@ const byMediumCount = {};
 works.forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
 NAV.find(n => n.t === 'works').children[1].items =
-  MEDIA.filter(m => byMediumCount[m]).map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || m }));
+  MEDIA.filter(m => byMediumCount[m]).map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
 
 const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
+// Thumbnails only — the home plate shows the face of each work, not the
+// detail-page stills behind it.
 const stripImgs = [...new Set([
-  ...paintingItems.map(it => it.img),
-  ...c.photography.series.flatMap(s => s.images),
-  ...c.intermedia.groups[1].images,
-  ...works.flatMap(w => (w.det && w.det.images) || (w.img ? [w.img] : []))
+  ...works.map(w => w.img).filter(Boolean),
+  ...paintingItems.map(it => it.img)
 ])];
 
 const home = `
@@ -390,23 +391,6 @@ const soundBody = `
     ${c.sound.intro ? `<p class="intro">${esc(c.sound.intro)}</p>` : ''}
 
     <div class="rule"></div>
-    <div class="lbl" id="releases">releases</div>
-    <div class="rels">
-      ${rel.items.map(r => { const dest = r.slug ? `release-${r.slug}.html` : r.href;
-        const ext = r.slug ? '' : ' target="_blank" rel="noopener"';
-        return `<div class="rel">
-        <a class="cover" href="${dest}"${ext}><img loading="lazy" src="${r.art}" alt="${esc(r.title)} cover"></a>
-        <span class="rt"><a href="${dest}"${ext}>${esc(r.title)}</a> <span class="wk">${esc(r.kind)}</span></span>
-        <span class="ra">${esc(r.artist)}${r.detail ? '<br>' + esc(r.detail) : ''}</span>
-        <span class="rd">${esc(r.date)}</span>
-      </div>`; }).join('\n      ')}
-    </div>
-    <p style="margin-top:14px;color:var(--ink-2);max-width:56ch">${esc(rel.note)} &mdash;
-      <a href="https://kimiver.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">bandcamp</a>,
-      <a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">d\u00b3</a>,
-      <a href="https://soundcloud.com/kimiver" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">soundcloud</a>,
-      <a href="https://www.youtube.com/@iverkim" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">youtube</a>.</p>
-
     <div class="lbl" id="djsets" style="margin-top:34px">dj sets</div>
     <div class="wgroup" style="margin-top:10px">
       ${dj.items.map(d => `<div class="wrow">
@@ -487,16 +471,19 @@ const photoBody = `
     </div>` : ''}`).join('\n')}`;
 
 /* ---------------- drawings ---------------- */
-const drawBody = `
-    <h1 class="pt">Drawings &amp; Paintings</h1>
-    ${c.drawings.groups.filter(g => (g.items || []).length).map(g => `
+const artPage = (heading, key) => `
+    <h1 class="pt">${esc(heading)}</h1>
+    ${c.drawings.groups.filter(g => g.page === key && (g.items || []).length).map(g => `
     <div class="lbl" id="${g.id}" style="margin-top:30px">${esc(g.title.toLowerCase())} (${g.items.length})${g.note ? ' \u2014 ' + esc(g.note) : ''}</div>
     <div class="plates art">
       ${g.items.map(it => `<figure>
         <div class="ph"><img loading="lazy" src="${it.img}" alt="${esc(it.title)}"></div>
-        <figcaption><span class="pt-t">${esc(it.title)}</span><br>${esc(it.year)}<br>${esc(it.medium)}, ${esc(it.size)}</figcaption>
+        <figcaption><span class="pt-t">${esc(it.title)}</span>${it.year ? '<br>' + esc(it.year) : ''}${it.medium ? '<br>' + esc(it.medium) + (it.size ? ', ' + esc(it.size) : '') : ''}</figcaption>
       </figure>`).join('\n      ')}
     </div>`).join('\n')}`;
+
+const paintBody = artPage('Paintings', 'paintings');
+const drawBody  = artPage('Drawings', 'drawings');
 
 /* ---------------- about (bio + cv) ---------------- */
 const idFor = t => t.toLowerCase().split(/[^a-z]+/).filter(Boolean)[0];
@@ -751,7 +738,8 @@ const pages = [
   ['works.html', shell('works', 'works.html', worksBody)],
   ['sound.html', shell('sound', 'sound.html', soundBody)],
   ['residency-archive.html', shell('residency archive', 'residency-archive.html', photoBody)],
-  ['drawings.html', shell('drawings & paintings', 'drawings.html', drawBody)],
+  ['paintings.html', shell('paintings', 'paintings.html', paintBody)],
+  ['drawings.html', shell('drawings', 'drawings.html', drawBody)],
   ['discography.html', shell('discography', 'discography.html', discoBody)],
   ['texts.html', shell('texts', 'texts.html', textsBody)],
   ['about.html', shell('about', 'about.html', aboutBody)],

@@ -355,6 +355,7 @@ const content = {
     groups: [
       {
         id: 'paintings',
+        page: 'paintings',
         title: 'Paintings',
         items: [
           { title: 'Narcissus', year: '2021', medium: 'oil on linen', size: '72.7 \u00d7 90.9 cm', img: 'img/paintings/narcissus.jpg' },
@@ -374,6 +375,7 @@ const content = {
       },
       {
         id: 'study',
+        page: 'paintings',
         title: 'Study series',
         note: '2019 \u00b7 oil on paper',
         items: [
@@ -387,6 +389,7 @@ const content = {
       },
       {
         id: 'sound-drawings',
+        page: 'drawings',
         title: 'Sound Drawings',
         note: 'Casa de Lollo, 2025',
         items: [
@@ -405,6 +408,7 @@ const content = {
       },
       {
         id: 'drawings',
+        page: 'drawings',
         title: 'Drawings',
         items: [
           { title: 'Studies', year: '', medium: 'coloured pencil on paper', size: '', img: 'img/drawings/colour-pencil-studies.jpg' },
