@@ -108,7 +108,7 @@ const content = {
               text: [
                 'This started with our visit to Hosanger, a suburban town near Bergen, Norway. We collected field recordings all across Europe \u2014 the Hosanger cabin, a train-track apartment in D\u00fcsseldorf, churches in Frankfurt. Travelling with laptops and headphones we improvised noise and made sounds with a modular synthesizer, then layered them over the recordings. We composed in Seoul and in the Netherlands, and mixed and mastered in Utrecht.',
                 'We first conceived it as a short film; it came out as an album instead, at the suggestion of the Netherlands-based label Roof of Air.',
-                'Both of us are Korean but grew up in multicultural environments \u2014 Joon Pyo in Oregon, and me now based in the Netherlands \u2014 so we were no strangers to being strangers. As soon as we arrived in Hosanger we knew it was part of the spiritual home we had been looking for. What we caught there are the fragile moments of unheimlich, where belonging and unfamiliarity sit together.'
+                'Both of us are Korean but grew up in multicultural environments, so we were no strangers to being strangers. As soon as we arrived in Hosanger we knew it was part of the spiritual home we had been looking for. What we caught there are the fragile moments of unheimlich, where belonging and unfamiliarity sit together.'
               ],
               tracks: [
                 'there\u2019s no wifi in the barn',
@@ -123,7 +123,6 @@ const content = {
                 'Mixed by Bart Jilesen, Iver Kim (all tracks), Rebecca Baatjes (track 1) at Studio Bart Jilesen',
                 'Mastered by Bart Jilesen',
                 'Field recordings and synthesis by d\u00b3 (deep drone dreamer)',
-                'Guitar by milk of the sun',
                 'Art direction, artwork, photography, design by d\u00b3 (deep drone dreamer)',
                 'Released via Roof of Air'
               ],
@@ -135,14 +134,10 @@ const content = {
               about: {
                 heading: 'd\u00b3 (deep drone dreamer)',
                 lines: [
-                  'An audiovisual-ambient duo \u2014 me and Joon Pyo (a.k.a. milk of the sun), based in the Netherlands and South Korea. Working in ambient, drone and experimental, we weave synesthetic soundscapes that evoke nostalgia through dark yet sublime atmospheres, in a free-spirited but delicate structure.',
+                  'An audiovisual-ambient duo working between the Netherlands and South Korea. In ambient, drone and experimental, we weave synesthetic soundscapes that evoke nostalgia through dark yet sublime atmospheres, in a free-spirited but delicate structure.',
                   'By drastically modifying samples and letting incidental noise in, we try to make uncompromising yet introspective music \u2014 music for music decomposers.'
                 ],
                 genre: 'electronic \u00b7 ambient \u00b7 experimental \u00b7 drone \u00b7 field recordings \u00b7 electroacoustic \u00b7 noise \u00b7 dark ambient',
-                members: [
-                  { name: 'Iver Kim', img: 'img/d3/iver.jpg' },
-                  { name: 'Joon Pyo (milk of the sun)', img: 'img/d3/joonpyo.jpg' }
-                ]
               },
               gallery: ['img/d3/hero.jpg', 'img/d3/promo-1.jpg', 'img/d3/promo-2.jpg', 'img/d3/promo-3.jpg', 'img/d3/promo-4.jpg'],
               physical: { label: 'Physical CD', images: ['img/d3/cd-front.jpg', 'img/d3/cd-back.jpg', 'img/d3/cd-tracklist.jpg', 'img/d3/cd-discs.jpg'] },
@@ -385,6 +380,17 @@ const content = {
           { title: 'study (Gangwon-do, South Korea)', year: '2019', medium: 'oil on paper', size: '29.7 \u00d7 21 cm', img: 'img/paintings/study-gangwon-do.jpg' },
           { title: 'study (Ottawa, Canada) no.1', year: '2019', medium: 'oil on paper', size: '29.7 \u00d7 21 cm', img: 'img/paintings/study-ottawa-no1.jpg' },
           { title: 'study (Ottawa, Canada) no.2', year: '2019', medium: 'oil on paper', size: '29.7 \u00d7 21 cm', img: 'img/paintings/study-ottawa-no2.jpg' }
+        ]
+      },
+      {
+        id: 'tactile',
+        page: 'drawings',
+        title: 'Tactile drawing series',
+        note: '2016 \u00b7 pencil and oil pastel on paper',
+        items: [
+          { title: 'Tactile drawing', year: '2016', medium: 'pencil and oil pastel on paper', size: '', img: 'img/drawings/tactile-01.jpg' },
+          { title: 'Tactile drawing', year: '2016', medium: 'pencil and oil pastel on paper', size: '', img: 'img/drawings/tactile-02.jpg' },
+          { title: 'Tactile drawing', year: '2016', medium: 'pencil and oil pastel on paper', size: '', img: 'img/drawings/tactile-03.jpg' }
         ]
       },
       {

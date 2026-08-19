@@ -168,7 +168,7 @@ h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;
 .txt{padding:22px 0;border-bottom:1px solid var(--hair);max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
-.d3{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:34px;align-items:start;margin-top:10px}
+.d3{display:grid;grid-template-columns:minmax(0,1fr);gap:34px;align-items:start;margin-top:10px}
 .d3 .tx{max-width:56ch;margin-bottom:10px}
 .d3 .genre{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin-top:12px}
 .d3 .members{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
@@ -597,10 +597,10 @@ const releasePage = r => {
         ${pg.about.lines.map(l => `<p class="tx">${esc(l)}</p>`).join('\n        ')}
         <p class="genre">${esc(pg.about.genre)}</p>
       </div>
-      <div class="members">
+      ${(pg.about.members || []).length ? `<div class="members">
         ${pg.about.members.map(m => `<figure><div class="ph"><img loading="lazy" src="${m.img}" alt="${esc(m.name)}"></div>
         <figcaption>${esc(m.name)}</figcaption></figure>`).join('\n        ')}
-      </div>
+      </div>` : ''}
     </div>` : ''}
 
     ${pg.gallery ? `<div class="tiles" style="margin-top:26px">
@@ -624,6 +624,20 @@ const releasePage = r => {
     </div>`;
 };
 
+/* A watch link is worth more as a player. Recognise YouTube and Vimeo urls in a
+   work's links and turn them into embeds; anything else stays a link. */
+const videoEmbed = href => {
+  let m = href.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+  if (m) {
+    const t = (href.match(/[?&#]t=(\d+)/) || [])[1];
+    return `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1${t ? '&start=' + t : ''}`;
+  }
+  m = href.match(/vimeo\.com\/(?:video\/)?(\d+)(?:[?&]h=(\w+))?/);
+  if (m) return `https://player.vimeo.com/video/${m[1]}${m[2] ? '?h=' + m[2] : ''}`;
+  if (/player\.vimeo\.com|youtube\.com\/embed/.test(href)) return href;
+  return null;
+};
+
 /* ---------------- work detail pages ----------------
    Meta column on the left (title, back, counter, 50x50 thumbnail picker, role,
    rule, text), the selected image large on the right. Pure CSS + a tiny script:
@@ -631,6 +645,10 @@ const releasePage = r => {
 const workPage = w => {
   const d = w.det || {};
   const imgs = d.images || (w.img ? [w.img] : []);
+  const embedded = (d.links || []).filter(l => videoEmbed(l.href))
+    .map(l => ({ label: l.label.replace(/^watch\s*[—-]?\s*/i, '') || l.label, src: videoEmbed(l.href) }));
+  const plainLinks = (d.links || []).filter(l => !videoEmbed(l.href));
+  const videos = (d.video || []).concat(embedded);
   const para = t => `<p class="tx">${esc(t)}</p>`;
   return `
     <a class="backlink" href="works.html">\u2190 works</a>
@@ -649,15 +667,15 @@ const workPage = w => {
           ${w.x ? `<div>in \u2039${esc(w.x)}\u203a</div>` : ''}
           ${w.w ? `<div>with ${esc(w.w)}</div>` : ''}
         </div>
-        ${(d.links || []).length ? `<div class="dlinks">
-          ${d.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('\n          ')}
+        ${plainLinks.length ? `<div class="dlinks">
+          ${plainLinks.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('\n          ')}
         </div>` : ''}
         ${(d.text || []).length ? `<div class="dtext">${d.text.map(para).join('\n        ')}</div>` : ''}
         ${d.credit ? `<p class="credit">${esc(d.credit)}</p>` : ''}
       </div>
-      ${imgs.length || (d.video || []).length ? `<div class="stage">
+      ${imgs.length || videos.length ? `<div class="stage">
         ${imgs.length ? `<img id="stage-img" src="${imgs[0]}" alt="${esc(w.t)}">` : ''}
-        ${(d.video || []).map(v => `<figure class="vid">
+        ${videos.map(v => `<figure class="vid">
           <div class="vwrap"><iframe src="${v.src}" title="${esc(v.label)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <figcaption>${esc(v.label)}</figcaption>
         </figure>`).join('\n        ')}
