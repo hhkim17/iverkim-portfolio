@@ -10,8 +10,8 @@ const content = {
   based: 'Seoul, KR / Utrecht, NL',
 
   bio: [
-    "Iver Kim is a composer, visual artist, and intermedia artist whose work engages with themes of 'impossible dialogues' between nature, humanity, and the digital world. She works across mediums including sound, photography, painting, video, and performance, with a focus on exploring those elusive “in-between” spaces. Her work addresses the transition between memory and imagination, the blur between reality and theatrical imagination, and the boundary between painting and photography. Over the past years, during her time abroad, her interest in these 'ambiguous states' has expanded to explore the experience of the individual as an outsider or minority.",
-    "Iver has exhibited and performed in cities such as Seoul, Osaka, Münster, Amsterdam, Rotterdam, and more. Iver completed an undergraduate degree in Fine Arts at Korea National University of Arts and a master's in Music Design (Music & Technology) at Hogeschool voor de Kunsten Utrecht in the Netherlands."
+    "I am a composer, visual artist and intermedia artist, and my work turns on 'impossible dialogues' between nature, humanity and the digital world. I work across sound, photography, painting, video and performance, looking for those elusive “in-between” spaces: the passage from memory into imagination, the blur between reality and theatrical imagination, the boundary between painting and photography. Living abroad these past years, that interest in ambiguous states has widened into the experience of being an outsider or a minority.",
+    "I have exhibited and performed in Seoul, Osaka, Münster, Amsterdam, Rotterdam and elsewhere. I studied Fine Art at Korea National University of Arts, and took a master's in Music Design (Music & Technology) at Hogeschool voor de Kunsten Utrecht in the Netherlands."
   ],
 
   contact: {
@@ -106,9 +106,9 @@ const content = {
             page: {
               quote: '\u2026 Seeing the deepest night still bright, waking up at 9pm to get in the zone. Its foggy landscape was a newly found home, a spiritual one we unconsciously yearned for. Feeling nostalgia from something new, here we instinctively use our most comfortable language to create.',
               text: [
-                'This project started from the duo\u2019s visit to Hosanger, a suburban town near Bergen, Norway. Field recordings were collected all throughout Europe \u2014 the Hosanger cabin, a train-track apartment in D\u00fcsseldorf, churches in Frankfurt, and more. While traveling with laptops and headphones the two often improvised noise, and created sounds with a modular synthesizer. These were later layered over the field recordings. Composition took place in both Seoul and the Netherlands, with mixing and mastering completed in Utrecht.',
-                'Originally conceived as a short film, the project is now released as an album, as suggested by the Netherlands-based label Roof of Air.',
-                'Both Korean but grown up in multicultural environments \u2014 Joon Pyo in Oregon, US, and Iver Kim now based in the Netherlands \u2014 they were no strangers to being strangers. As soon as they came to Hosanger, they instinctively knew this was a part of the spiritual home they had longed for. Here they capture the fragile moments of unheimlich, where the senses of belonging and unfamiliarity coexist, through their own musical and visual language.'
+                'This started with our visit to Hosanger, a suburban town near Bergen, Norway. We collected field recordings all across Europe \u2014 the Hosanger cabin, a train-track apartment in D\u00fcsseldorf, churches in Frankfurt. Travelling with laptops and headphones we improvised noise and made sounds with a modular synthesizer, then layered them over the recordings. We composed in Seoul and in the Netherlands, and mixed and mastered in Utrecht.',
+                'We first conceived it as a short film; it came out as an album instead, at the suggestion of the Netherlands-based label Roof of Air.',
+                'Both of us are Korean but grew up in multicultural environments \u2014 Joon Pyo in Oregon, and me now based in the Netherlands \u2014 so we were no strangers to being strangers. As soon as we arrived in Hosanger we knew it was part of the spiritual home we had been looking for. What we caught there are the fragile moments of unheimlich, where belonging and unfamiliarity sit together.'
               ],
               tracks: [
                 'there\u2019s no wifi in the barn',
@@ -135,8 +135,8 @@ const content = {
               about: {
                 heading: 'd\u00b3 (deep drone dreamer)',
                 lines: [
-                  'An audiovisual-ambient duo of Iver Kim and Joon Pyo (a.k.a. milk of the sun), based in the Netherlands and South Korea. Working in ambient, drone and experimental, they weave synesthetic soundscapes that evoke nostalgia through dark yet sublime atmospheres, in a free-spirited but delicate structure.',
-                  'By drastically modifying samples and letting incidental noise in, they aim to make uncompromising yet introspective music \u2014 as they put it, music for music decomposers.'
+                  'An audiovisual-ambient duo \u2014 me and Joon Pyo (a.k.a. milk of the sun), based in the Netherlands and South Korea. Working in ambient, drone and experimental, we weave synesthetic soundscapes that evoke nostalgia through dark yet sublime atmospheres, in a free-spirited but delicate structure.',
+                  'By drastically modifying samples and letting incidental noise in, we try to make uncompromising yet introspective music \u2014 music for music decomposers.'
                 ],
                 genre: 'electronic \u00b7 ambient \u00b7 experimental \u00b7 drone \u00b7 field recordings \u00b7 electroacoustic \u00b7 noise \u00b7 dark ambient',
                 members: [
@@ -267,7 +267,7 @@ const content = {
         medium: 'Field recording, composition',
         context: 'SelvArt Residency',
         audio: AST + 'LkXd47a04uugPzzxF17hkKLxHFA.mp3',
-        text: 'Listening before looking \u2014 field recordings made in the woods and the village, and the composition that came out of them.',
+        text: 'Listening before looking. I made field recordings in the woods and the village, and the composition came out of them.',
         images: [IMG + 'oInnSOhWeXoYKol9H3gh1BQPDM.jpeg?width=1536&height=2048']
       },
       {
