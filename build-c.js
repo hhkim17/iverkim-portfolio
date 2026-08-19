@@ -19,9 +19,12 @@ const MEDIA_LABEL = {
 const YEARS_NAV = [...new Set(require('./works').map(w => w.y))].sort((a, b) => b - a);
 const MEDIA_PAGE = {
   sound: 'sound.html',
-  painting: 'paintings.html', drawing: 'drawings.html',
-  photography: 'residency-archive.html'
+  painting: 'paintings.html', drawing: 'drawings.html'
 };
+// photography reads as a medium tag on a work, but the archive itself is a
+// section of the site, so it sits at the top level of the nav rather than
+// inside `by medium`.
+const MEDIA_NAV_SKIP = ['photography'];
 const MEDIA_NAV_LABEL = { painting: 'paintings', drawing: 'drawings' };
 const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 
@@ -31,6 +34,7 @@ const NAV = [
       { group: 'by year', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
       { group: 'by medium', items: [] }
     ] },
+  { f: 'residency-archive.html', t: 'residency archive' },
   { f: 'discography.html', t: 'discography', children: [
       { group: '', items: [
         { f: 'discography.html#solo', t: 'solo' },
@@ -329,7 +333,8 @@ const byMediumCount = {};
 works.forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
 NAV.find(n => n.t === 'works').children[1].items =
-  MEDIA.filter(m => byMediumCount[m]).map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
+  MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
+    .map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
 
 const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
 // Thumbnails only — the home plate shows the face of each work, not the
@@ -456,7 +461,7 @@ const photoBody = `
     <h1 class="pt">Residency Archive</h1>
     ${c.photography.series.map(s => `
     <div class="rule" style="margin-top:26px"></div>
-    <h2 class="st">${esc(s.title)}</h2>
+    <h2 class="st" id="${s.id}">${esc(s.title)}</h2>
     <div class="dt" style="color:var(--ink-2);font-size:14px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
     <div class="dt" style="color:var(--ink-3);font-size:13px">${esc(s.context)}</div>
     ${s.text ? `<p class="tx" style="max-width:56ch;margin-top:10px">${esc(s.text)}</p>` : ''}
