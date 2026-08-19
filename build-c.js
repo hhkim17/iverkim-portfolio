@@ -18,7 +18,6 @@ const MEDIA_LABEL = {
 // (sound, intermedia, painting, photography); the rest are generated indexes.
 const YEARS_NAV = [...new Set(require('./works').map(w => w.y))].sort((a, b) => b - a);
 const MEDIA_PAGE = {
-  sound: 'sound.html',
   painting: 'paintings.html', drawing: 'drawings.html'
 };
 // photography reads as a medium tag on a work, but the archive itself is a
@@ -39,7 +38,8 @@ const NAV = [
       { group: '', items: [
         { f: 'discography.html#solo', t: 'solo' },
         { f: 'discography.html#collaborations', t: 'collaborations' },
-        { f: 'discography.html#compilations', t: 'compilations' }
+        { f: 'discography.html#compilations', t: 'compilations' },
+        { f: 'discography.html#djsets', t: 'dj sets' }
       ] }
     ] },
   { f: 'texts.html', t: 'texts' },
@@ -337,8 +337,9 @@ NAV.find(n => n.t === 'works').children[1].items =
     .map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
 
 const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
-// Thumbnails only — the home plate shows the face of each work, not the
-// detail-page stills behind it.
+// One image per work, plus the paintings and drawings. Residency photographs are
+// documentation rather than works, and there are 52 of them, so only the single
+// thumbnail each residency already carries reaches the home plate.
 const stripImgs = [...new Set([
   ...works.map(w => w.img).filter(Boolean),
   ...paintingItems.map(it => it.img)
@@ -565,7 +566,7 @@ const JS = `
 const releasePage = r => {
   const pg = r.page;
   return `
-    <a class="backlink" href="sound.html#releases">\u2190 releases</a>
+    <a class="backlink" href="discography.html">\u2190 discography</a>
     <h1 class="pt">${esc(r.title)}</h1>
     <p class="intro">${esc(r.artist)} \u00b7 ${esc(r.kind)}${r.detail ? ' \u00b7 ' + esc(r.detail) : ''} \u00b7 ${esc(r.date)}</p>
 
@@ -714,6 +715,16 @@ const discoBody = `
       ${list.map(relRow).join('\n      ')}
     </div>`;
     }).join('\n')}
+    <div class="rule" style="margin-top:26px"></div>
+    <div class="lbl" id="djsets">dj sets</div>
+    <div class="wgroup" style="margin-top:10px">
+      ${dj.items.map(d => `<div class="wrow">
+        <span class="wy">${esc(d.year)}</span>
+        <span class="wt"><a href="${d.href}" target="_blank" rel="noopener">${esc(d.title)}</a></span>
+        <span class="wv">${esc(d.venue)}</span>
+        <span class="wm">${esc(d.date)}</span>
+      </div>`).join('\n      ')}
+    </div>
     <p style="margin-top:22px;color:var(--ink-2);max-width:56ch">${esc(rel.note)} &mdash;
       <a href="https://kimiver.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">bandcamp</a>,
       <a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">d\u00b3</a>,
@@ -741,7 +752,6 @@ const contactBody = `
 const pages = [
   ['index.html', shell('index', 'index.html', home)],
   ['works.html', shell('works', 'works.html', worksBody)],
-  ['sound.html', shell('sound', 'sound.html', soundBody)],
   ['residency-archive.html', shell('residency archive', 'residency-archive.html', photoBody)],
   ['paintings.html', shell('paintings', 'paintings.html', paintBody)],
   ['drawings.html', shell('drawings', 'drawings.html', drawBody)],
