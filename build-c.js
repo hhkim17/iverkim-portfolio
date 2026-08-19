@@ -752,8 +752,11 @@ const pages = [
 ];
 
 const ASSETS = path.join(__dirname, 'assets');
+const IMGOUT = path.join(OUT, 'img');
 if (fs.existsSync(ASSETS)) {
-  fs.cpSync(ASSETS, path.join(OUT, 'img'), { recursive: true });
+  // mirror, don't merge — cpSync alone leaves files behind after a source delete
+  fs.rmSync(IMGOUT, { recursive: true, force: true });
+  fs.cpSync(ASSETS, IMGOUT, { recursive: true });
 }
 fs.writeFileSync(path.join(OUT, 'style.css'), CSS);
 fs.writeFileSync(path.join(OUT, 'app.js'), JS);
