@@ -10,8 +10,8 @@ const content = {
   based: 'Seoul, KR / Utrecht, NL',
 
   bio: [
-    "I am a composer, visual artist and intermedia artist, and my work turns on 'impossible dialogues' between nature, humanity and the digital world. I work across sound, photography, painting, video and performance, looking for those elusive “in-between” spaces: the passage from memory into imagination, the blur between reality and theatrical imagination, the boundary between painting and photography. Living abroad these past years, that interest in ambiguous states has widened into the experience of being an outsider or a minority.",
-    "I have exhibited and performed in Seoul, Osaka, Münster, Amsterdam, Rotterdam and elsewhere. I studied Fine Art at Korea National University of Arts, and took a master's in Music Design (Music & Technology) at Hogeschool voor de Kunsten Utrecht in the Netherlands."
+    "Iver Kim is a composer, visual artist, and intermedia artist whose work engages with themes of 'impossible dialogues' between nature, humanity, and the digital world. She works across mediums including sound, photography, painting, video, and performance, with a focus on exploring those elusive “in-between” spaces. Her work addresses the transition between memory and imagination, the blur between reality and theatrical imagination, and the boundary between painting and photography. Over the past years, during her time abroad, her interest in these 'ambiguous states' has expanded to explore the experience of the individual as an outsider or minority.",
+    "Iver Kim has exhibited and performed in cities such as Seoul, Osaka, Münster, Amsterdam, Rotterdam, and more. She completed an undergraduate degree in Fine Arts at Korea National University of Arts and a master's in Music Design (Music & Technology) at Hogeschool voor de Kunsten Utrecht in the Netherlands."
   ],
 
   contact: {
@@ -128,7 +128,7 @@ const content = {
               ],
               links: [
                 { label: 'listen on bandcamp', href: 'https://deepdronedreamer.bandcamp.com/album/theres-no-wifi-in-the-barn' },
-                { label: 'interview \u2014 Korean Indie', href: 'https://www.koreanindie.com/2025/02/04/interview-with-deep-drone-dreamer-d%C2%B3/' },
+                { label: 'press \u2014 Korean Indie interview', href: 'https://www.koreanindie.com/2025/02/04/interview-with-deep-drone-dreamer-d%C2%B3/' }, { label: 'press \u2014 AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' }, { label: 'press \u2014 mixmag korea', href: 'http://mixmag.kr/6857' },
                 { label: 'roof of air', href: 'https://roofofair.bandcamp.com' }
               ],
               about: {
@@ -139,7 +139,7 @@ const content = {
                 ],
                 genre: 'electronic \u00b7 ambient \u00b7 experimental \u00b7 drone \u00b7 field recordings \u00b7 electroacoustic \u00b7 noise \u00b7 dark ambient',
               },
-              gallery: ['img/d3/hero.jpg', 'img/d3/promo-1.jpg', 'img/d3/promo-2.jpg', 'img/d3/promo-3.jpg', 'img/d3/promo-4.jpg'],
+              gallery: ['img/d3/promo-1.jpg', 'img/d3/promo-2.jpg', 'img/d3/promo-3.jpg'],
               physical: { label: 'Physical CD', images: ['img/d3/cd-front.jpg', 'img/d3/cd-back.jpg', 'img/d3/cd-tracklist.jpg', 'img/d3/cd-discs.jpg'] },
               alsoSingle: { label: 'Single \u2014 safe in a womb of an everlasting night (2024)', img: 'img/d3/single-safe-womb.jpg' },
               related: { label: 'Performed live as \u201cThere\u2019s no wifi in the barn\u201d, World Music House Seoul, 2023', href: 'works.html#y-2023' }
@@ -167,8 +167,8 @@ const content = {
               ],
               links: [
                 { label: 'listen on bandcamp', href: 'https://deepdronedreamer.bandcamp.com/track/distant-dawn-dim' },
-                { label: 'AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' },
-                { label: 'mixmag korea', href: 'http://mixmag.kr/6857' }
+                { label: 'press \u2014 AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' },
+                { label: 'press \u2014 mixmag korea', href: 'http://mixmag.kr/6857' }
               ]
             }
           },

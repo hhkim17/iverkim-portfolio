@@ -764,8 +764,6 @@ const contactBody = `
     <div class="contact" style="margin-top:20px">
       <div class="row"><span class="k">email</span><span><a href="mailto:${c.contact.email}">${c.contact.email}</a></span></div>
       ${c.contact.links.map(l => `<div class="row"><span class="k">${esc(l.label.toLowerCase())}</span><span><a href="${l.href}" target="_blank" rel="noopener">${esc(l.href.replace(/^https?:\/\//, ''))}</a></span></div>`).join('\n      ')}
-      <div class="row"><span class="k">d\u00b3</span><span><a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener">deepdronedreamer.bandcamp.com</a></span></div>
-      <div class="row"><span class="k">based</span><span>${esc(c.based)}</span></div>
     </div>`;
 
 const pages = [
