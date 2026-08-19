@@ -27,8 +27,9 @@ const MEDIA_NAV_SKIP = ['photography'];
 const MEDIA_NAV_LABEL = { painting: 'paintings', drawing: 'drawings' };
 const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 
+// The name at the top of the sidebar already links to index.html, so the nav
+// does not repeat it.
 const NAV = [
-  { f: 'index.html', t: 'index' },
   { f: 'works.html', t: 'works', children: [
       { group: 'by year', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
       { group: 'by medium', items: [] }
