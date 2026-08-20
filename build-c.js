@@ -16,7 +16,7 @@ const MEDIA_LABEL = {
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
 // and a by-medium list. A medium points at its own rich page where one exists
 // (sound, intermedia, painting, photography); the rest are generated indexes.
-const YEARS_NAV = [...new Set(require('./works').filter(w => !w.archiveOnly).map(w => w.y))].sort((a, b) => b - a);
+const YEARS_NAV = [...new Set(require('./works').filter(w => !w.archiveOnly && !w.credit).map(w => w.y))].sort((a, b) => b - a);
 const MEDIA_PAGE = {
   painting: 'paintings.html', drawing: 'drawings.html'
 };
@@ -331,7 +331,7 @@ ${body}
 
 /* ---------------- home: full table of contents, nothing hidden ---------------- */
 const byMediumCount = {};
-works.filter(w => !w.archiveOnly).forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
+works.filter(w => !w.archiveOnly && !w.credit).forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
 NAV.find(n => n.t === 'works').children[1].items =
   MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
@@ -381,9 +381,27 @@ const worksPage = (heading, list, note) => `
 
 // Residencies are archive material; they live on the archive page and stay out
 // of the works index.
-const indexWorks = works.filter(w => !w.archiveOnly);
+const indexWorks = works.filter(w => !w.archiveOnly && !w.credit);
+const creditWorks = works.filter(w => w.credit).sort((a, b) => b.y - a.y);
 const byYear = indexWorks.slice().sort((a, b) => b.y - a.y || a.t.localeCompare(b.t));
-const worksBody = worksPage('Works', byYear);
+const creditRow = w => {
+  const dest = workHref(w);
+  const ext = dest.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
+  const what = (w.det && w.det.role) || '';
+  return `<div class="wrow">
+        <span class="wy">${w.y}</span>
+        <span class="wt">${dest ? `<a href="${dest}"${ext}>${esc(w.t)}</a>` : esc(w.t)}</span>
+        <span class="wv">${esc(w.v)}${w.w ? ' \u00b7 ' + esc(w.w) : ''}</span>
+        <span class="wm">${esc(what.replace(/^I (made|did|worked as|wrote) /, '').split(' \u00b7 ')[0])}</span>
+      </div>`;
+};
+const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
+    <div class="rule" style="margin-top:40px"></div>
+    <div class="lbl" id="credits">credits</div>
+    <p class="tx" style="max-width:56ch;margin-top:8px;color:var(--ink-3)">Work made for other people's projects.</p>
+    <div class="wgroup" style="margin-top:12px">
+      ${creditWorks.map(creditRow).join('\n      ')}
+    </div>` : '');
 
 const yearPages = YEARS_NAV.map(y => [`works-y-${y}.html`,
   shell(String(y), `works-y-${y}.html`, worksPage(String(y), indexWorks.filter(w => w.y === y)))]);
