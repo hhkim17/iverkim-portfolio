@@ -38,7 +38,8 @@ const NAV = [
       { group: '', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
       { group: '', items: [] }
     ] },
-  { f: 'discography.html', t: 'discography', children: [
+  { f: 'discography.html', t: 'discography', toggle: true, children: [
+      { group: '', items: [{ f: 'discography.html', t: 'all' }] },
       { group: '', items: [
         { f: 'discography.html#solo', t: 'solo' },
         { f: 'discography.html#collaborations', t: 'collaborations' },
@@ -97,6 +98,7 @@ em{font-style:italic}
 .side nav a[aria-current="page"]{color:#BDB7AC;border-color:transparent}
 .side nav a[aria-current="page"]:hover{color:#BDB7AC;border-color:transparent}
 .side nav .sub{display:flex;flex-direction:column;margin:3px 0 6px 12px;gap:0}
+.side nav .sub[hidden]{display:none}
 .side nav .sub .subgap{height:8px}
 .side nav .sub a{font-size:12px;color:var(--ink-3);padding:1.5px 0}
 .side nav .sub a:hover{color:var(--ink)}
@@ -181,6 +183,12 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .txt{padding:0 0 22px;max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
+.resrow{margin-bottom:36px}
+.rescover{display:block;width:220px;margin-top:14px}
+.rescover .ph{background:#F2F2EE;aspect-ratio:17/10;overflow:hidden}
+.rescover .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.rescover:hover .ph{opacity:.82}
+.rescover .tt{display:block;padding-top:7px;font-size:11px;color:var(--ink-3)}
 .textlist{list-style:none;margin-top:22px;max-width:78ch}
 .textlist li{padding:1px 0;padding-left:1.4em;text-indent:-1.4em}
 .textlist a{color:var(--ink-2);border-bottom:1px solid transparent}
@@ -286,6 +294,7 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
   .side nav{display:none;flex-direction:column;margin-top:18px}
   .side.open nav{display:flex}
   .side nav a{font-size:13px;padding:7px 0;letter-spacing:.02em}
+  .side nav .sub[hidden]{display:none}
   .side nav .sub{flex-direction:column;margin:0 0 0 14px;
     border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:4px 0}
   .side nav .sub a{font-size:13px;padding:5px 0}
@@ -381,12 +390,13 @@ function shell(title, current, body) {
   const nav = NAV.map(n => {
     if (!n.children) return link(n);
     const owns = n.f === current || n.children.some(g => g.items.some(i => i.f === current));
-    const sub = '<div class="sub"' + (owns ? '' : ' hidden') + '>' + n.children.map(g =>
+    // always starts closed; it opens on click, wherever you are
+    const sub = '<div class="sub" hidden>' + n.children.map(g =>
       (g.group ? `<span class="subhead">${esc(g.group)}</span>` : '') +
       g.items.map(link).join('')).join('<span class="subgap"></span>') + '</div>';
     // a toggle opens the list where you stand instead of loading a page
     const head = n.toggle
-      ? `<button class="branch" type="button" aria-expanded="${owns}"${n.f === current ? ' aria-current="page"' : ''}>${esc(n.t)}</button>`
+      ? `<button class="branch" type="button" aria-expanded="false"${owns ? ' aria-current="page"' : ''}>${esc(n.t)}</button>`
       : link(n);
     return head + '\n        ' + sub;
   }).join('\n        ');
@@ -577,22 +587,50 @@ const interBody = `
     </div>`;
 
 /* ---------------- photography ---------------- */
-const photoBody = `
-    <h1 class="pt">Archive</h1>
-    ${c.photography.series.map(s => `
-    <h2 class="st" id="${s.id}">${esc(s.title)}</h2>
-    <div class="dt" style="color:var(--ink-2);font-size:14px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
-    <div class="dt" style="color:var(--ink-3);font-size:13px">${esc(s.context)}</div>
+const resMeta = s => `
+    <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
+    <div class="dt" style="color:var(--ink-3);font-size:12.5px">${esc(s.context)}</div>
     ${s.text ? `<p class="tx" style="max-width:56ch;margin-top:10px">${esc(s.text)}</p>` : ''}
     ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}
-    ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}
-    <div class="tiles" style="margin-top:14px">
-      ${s.images.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt="${esc(s.title)}"></div></figure>`).join('\n      ')}
-    </div>
-    ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings \u00b7 ${s.drawings.length}</div>
+    ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}`;
+
+const resPlates = list => `<div class="tiles" style="margin-top:14px">
+      ${list.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt=""></div></figure>`).join('\n      ')}
+    </div>`;
+
+// A residency with more than one photograph gets its own page, so the index
+// stays readable; one photograph, or sound alone, sits inline.
+const resDeep = s => (s.images || []).length > 1;
+
+const photoBody = `
+    <h1 class="pt">Archive</h1>
+    ${c.photography.series.map(s => {
+      const n = (s.images || []).length + (s.drawings || []).length;
+      return `
+    <div class="resrow">
+      <h2 class="st" id="${s.id}">${resDeep(s) ? `<a href="archive-${s.id}.html">${esc(s.title)}</a>` : esc(s.title)}</h2>
+      ${resMeta(s)}
+      ${resDeep(s)
+        ? `<a class="rescover" href="archive-${s.id}.html">
+        <div class="ph"><img loading="lazy" src="${s.images[0]}" alt="${esc(s.title)}"></div>
+        <span class="tt">${n} images</span>
+      </a>`
+        : (s.images || []).length ? resPlates(s.images) : ''}
+    </div>`;
+    }).join('\n')}`;
+
+const resPage = s => `
+    <a class="backlink" href="residency-archive.html">\u2190 archive</a>
+    <h1 class="pt">${esc(s.title)}</h1>
+    ${resMeta(s)}
+    ${resPlates(s.images)}
+    ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings</div>
     <div class="plates art" style="margin-top:10px">
       ${s.drawings.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt="${esc(s.title)} drawing"></div></figure>`).join('\n      ')}
-    </div>` : ''}`).join('\n')}`;
+    </div>` : ''}`;
+
+const resPages = c.photography.series.filter(resDeep)
+  .map(s => [`archive-${s.id}.html`, shell(s.title, 'residency-archive.html', resPage(s))]);
 
 /* ---------------- drawings ---------------- */
 const artPage = (heading, key) => `
@@ -881,7 +919,7 @@ fs.readdirSync(OUT)
   .filter(f => /^(style\.[0-9a-f]{8}\.css|app\.[0-9a-f]{8}\.js|viewer\.[0-9a-f]{8}\.js)$/.test(f))
   .filter(f => ![CSS_FILE, JS_FILE, VIEWER_FILE].includes(f))
   .forEach(f => fs.unlinkSync(path.join(OUT, f)));
-const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, textPages);
+const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, textPages, resPages);
 // Remove pages left behind by earlier builds (a work removed from works.js used to
 // keep its stale work-*.html around). Scratch pages starting with _ are left alone.
 fs.readdirSync(OUT)
