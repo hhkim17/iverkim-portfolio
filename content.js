@@ -447,65 +447,69 @@ const content = {
     {
       title: 'Education',
       entries: [
-        { year: '2025', text: 'MFA, Master of Music Design. School of Music and Technology. HKU (Hogeschool voor de Kunsten Utrecht), NL', note: 'Nominated for HKU Awards 2025' },
-        { year: '2023', text: 'MFA, Multimedia Art. School of Film, TV & Multimedia. Korea National University of Arts', note: 'Unfinished' },
-        { year: '2021', text: 'BFA, Fine Art. School of Visual Art. Korea National University of Arts' }
+        { year: '2025', text: 'MA, Music Technology (Music Design). School of Music and Technology, HKU University of the Arts Utrecht, NL', note: 'nominated for the HKU Awards 2025' },
+        { year: '2023', text: 'MFA, Multimedia Art. School of Film, TV & Multimedia, Korea National University of Arts', note: 'withdrawn' },
+        { year: '2021', text: 'BFA, Fine Art. School of Visual Art, Korea National University of Arts' }
       ]
     },
     {
       title: 'Residency',
       entries: [
-        { year: '2026', text: 'Elektronmusikstudion EMS, Sweden' },
-        { year: '2025', text: 'Casa de Lollo, Italy' },
+        { year: '2026', text: 'Elektronmusikstudion (EMS), Sweden' },
+        { year: '2025', text: 'Casa Carlotta, Casa de Lollo, Italy' },
         { year: '2025', text: 'SelvArt, Italy' }
       ]
     },
     {
-      title: 'Solo Exhibition / Performance',
+      title: 'Exhibitions',
       entries: [
-        { year: '2025', text: 'at the barn: a listening party, Seoul, KR' },
-        { year: '2024', text: 'Patricas pillow, Nachbar, Amsterdam, NL' },
-        { year: '', text: 'Listening Session, KODA, Schiedam, NL' },
-        { year: '2023', text: 'The Hangout — Le Guess Who? x Kapitaal x Stranded FM, Utrecht, NL' },
-        { year: '', text: 'There’s no wifi in the barn, World Music House Seoul, Seoul, KR' },
-        { year: '', text: 'Mulsori, LPM Festival 2023, Münster, DE' },
-        { year: '', text: 'WFS Concert — ICLC 2023 (International Conference on Live Coding), HKU IBB, Utrecht, NL' },
-        { year: '', text: 'WFS Concert, Zaal 100, Amsterdam, NL' },
-        { year: '2022', text: '‘Dew on the eye’ Solo exhibition, CICA Museum, Gimpo, KR' }
+        { year: '2025', text: 'The Trained Gaze, AI Cinemaster track, G-Artience, Daejeon, KR' },
+        { year: '2023', text: 'Rooms by Humans: Spaceless Echo, interactive installation, De Nĳverheid, Utrecht, NL' },
+        { year: '2022\u20132023', text: 'Lost Air \u2014 Rave Geometry Series, data-visual director, MMCA Seoul, KR' },
+        { year: '2022', text: 'K-Arts in Osaka: Communication, \u2039milk \u2019n fridge\u203a interactive installation, Osaka Korean Culture Center, JP' },
+        { year: '2022', text: 'The Very First Cyborg, group exhibition, Gallery 175, Seoul, KR' },
+        { year: '2022', text: 'Dew on the eye, solo exhibition, CICA Museum, Gimpo, KR' },
+        { year: '2021', text: '\u2039Showcase 2021: Persona Society\u203a, \u2039\u201cmeet me at 1.048596 :)\u201d\u203a interactive installation, Seongbuk Young Art Space, Seoul, KR', note: 'K-Arts Convergence Art emerging artist programme' },
+        { year: '2021', text: 'Jong-Dal Jong-Dal, duo exhibition, K-Arts Bokdo Gallery, Seoul, KR' }
       ]
     },
     {
-      title: 'Collaborative Projects / Group Show',
+      title: 'Performances',
       entries: [
-        { year: '2025', text: 'The Trained Gaze, G-Artience, Daejeon, KR' },
-        { year: '', text: 'Not One, Not Two, The Performance Kitchen, Copenhagen, DK' },
-        { year: '', text: 'Not One, Not Two, Studio Theatre, London, UK' },
-        { year: '2024', text: 'Kontakt Group presents Birth of Bea, Garage Noord, Amsterdam, NL' },
-        { year: '', text: 'Welcome to the Micro World, Platform Theatre, London, UK' },
-        { year: '2023', text: 'Bad van Geluid #1, De Doelen Studio, Rotterdam, NL' },
-        { year: '', text: 'When Doves Cry.. Rage in Eden, ACS, Seoul, KR' },
-        { year: '', text: 'Rooms by Humans. Spaceless Echo, De Nijverheid, Utrecht, NL' },
-        { year: '', text: 'Mulsori, LPM Festival 2023, Münster, DE' },
-        { year: '', text: 'Snow Sequence, Veloso, Seoul, KR' },
-        { year: '2022', text: 'Rave Geometry Series, MMCA (National Museum of Modern and Contemporary Art, Korea), Seoul' },
-        { year: '', text: 'LostAirXZE01NE Day, Zer01ne, Seoul' },
-        { year: '', text: 'Milk ’n Fridge, Osaka Korean Culture Center, Osaka' },
-        { year: '', text: 'The Very First Cyborg, Gallery 175, Seoul', href: 'https://www.karts.ac.kr/usr/shw/exh/selectUsrShowDetail.do?exNo=3254' },
-        { year: '2021', text: '“meet me at 1.048596 :)”, Seongbuk Young Art Space, Seoul', href: 'https://sma.sbculture.or.kr/youngartspace/archive/reference.do?mode=view&articleNo=34430' },
-        { year: '', text: 'Jong-Dal Jong-Dal, K-Arts Bokdo Gallery, Seoul', href: 'https://youtu.be/UAhdYUyAOdM' }
+        { year: '2025', text: 'Not One, Not Two, music director, The Performance Kitchen, Copenhagen, DK' },
+        { year: '2025', text: 'Not One, Not Two, music director, Studio Theatre, London, UK' },
+        { year: '2025', text: 'at the barn: a listening party, concept, spatial audio and audiovisual, Seoul, KR' },
+        { year: '2024', text: 'Kontakt Group presents Birth of Bea, live performance, Garage Noord, Amsterdam, NL' },
+        { year: '2024', text: 'Welcome to the Micro World, music director, Platform Theatre, London, UK' },
+        { year: '2024', text: 'Patricas pillow, live performance, Nachbar, Amsterdam, NL' },
+        { year: '2024', text: 'Listening Session, live performance, KODA, Schiedam, NL' },
+        { year: '2023', text: 'There\u2019s no wifi in the barn, d\u00b3 (deep drone dreamer), World Music House Seoul, Seoul, KR' },
+        { year: '2023', text: 'The Hangout \u2014 Le Guess Who? x Kapitaal x Stranded FM, DJ set, Utrecht, NL' },
+        { year: '2023', text: 'Bad van Geluid #1, live performance, De Doelen Studio, Rotterdam, NL' },
+        { year: '2023', text: 'When Doves Cry.. Rage in Eden, projection visuals, ACS, Seoul, KR' },
+        { year: '2023', text: 'Mulsori, audiovisual performance, LPM Festival 2023, M\u00fcnster, DE' },
+        { year: '2023', text: 'Gerda \u2039Snow Sequence\u203a, audiovisual, Veloso, Seoul, KR' },
+        { year: '2023', text: 'WFS Concert \u2014 ICLC 2023, spatial audio composition, HKU IBB, Utrecht, NL' },
+        { year: '2023', text: 'WFS Concert, spatial audio composition, Zaal 100, Amsterdam, NL' },
+        { year: '2022', text: 'Lost Air \u00d7 ZER01NE Day, data-visual VJing, Seongsu D Factory, Seoul, KR' },
+        { year: '2022', text: 'Seoul Stage 11 \u2039\ud478\ub978, \uc9d9\uc740, \uc5ec\ub984\u203a with the singer-songwriter Zitten, audiovisual performance, SAPY, Seoul, KR' },
+        { year: '2022', text: 'Seoul Stage 11 \u2039Jazz Breeze on a lazy morning\u203a with the jazz band Prelude, audiovisual performance, SAPY, Seoul, KR' }
       ]
     },
     {
-      title: 'Presentation / Teaching',
+      title: 'Teaching and presentation',
       entries: [
-        { year: '2024–25', text: 'Audiovisual Potluck!, CCU (Creative Coding Utrecht), NL' },
-        { year: '2023', text: 'Makers Meet & Eat, Centraal Museum Utrecht, Utrecht, NL' },
-        { year: '', text: 'Pointclouds — make your own virtual space, CCU, Utrecht, NL' },
-        { year: '2022', text: 'ARKO Teaching plan improvement workshop for art instructors, TA, ARTE, Seoul' },
-        { year: '', text: 'Noise Jam 1 & 2, TouchDesigner workshop, TA, SAPY, Seoul' }
+        { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
+        { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL' },
+        { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL' },
+        { year: '2023', text: 'Pointclouds \u2014 make your own virtual space, TouchDesigner guest lecture, CCU, Utrecht, NL' },
+        { year: '2022', text: 'School Convergence Arts Education: Taking the Next Step Together, TouchDesigner teaching assistant, ArtE Academy, KR' },
+        { year: '2022', text: 'New Media Expansion Programme, Pipeline Tech Lab \u2039Noise Jam 2\u203a, TouchDesigner teaching assistant, SAPY, Seoul, KR' },
+        { year: '2022', text: 'New Media Expansion Programme, Pipeline Tech Lab \u2039Noise Jam 1\u203a, TouchDesigner teaching assistant, SAPY, Seoul, KR' }
       ]
     }
   ]
+
 };
 
 module.exports = content;
