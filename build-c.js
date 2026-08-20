@@ -754,13 +754,29 @@ const discoBody = `
 
 const textsBody = `
     <h1 class="pt">Texts</h1>
-    ${(c.texts.items || []).length
-      ? c.texts.items.map(t => `<article class="txt">
-      <h2 class="st">${esc(t.title)}</h2>
-      <div class="dt">${esc(t.meta || '')}</div>
-      ${(t.body || []).map(b => `<p class="tx">${esc(b)}</p>`).join('\n      ')}
-    </article>`).join('\n    ')
-      : `<p class="tx" style="max-width:56ch;margin-top:18px;color:var(--ink-3)">\u2014</p>`}`;
+    ${(c.texts.items || []).length ? `<div class="wgroup" style="margin-top:20px">
+      ${c.texts.items.map(t => `<div class="wrow">
+        <span class="wy">${esc(t.year)}</span>
+        <span class="wt"><a href="text-${t.slug}.html">${esc(t.title)}</a></span>
+        <span class="wv">${esc(t.meta)}</span>
+        <span class="wm"></span>
+      </div>`).join('\n      ')}
+    </div>` : ''}`;
+
+const textPage = t => `
+    <a class="backlink" href="texts.html">\u2190 texts</a>
+    <h1 class="pt">${esc(t.title)}</h1>
+    <div class="dt" style="color:var(--ink-3);font-size:12.5px;margin-top:6px">${esc(t.meta)}</div>
+    ${t.work ? `<div class="dt" style="font-size:12.5px;margin-top:2px">written for
+      <a href="${t.work.href}" style="border-bottom:1px solid var(--rule)">${esc(t.work.label)}</a></div>` : ''}
+    <div class="rule" style="margin-top:24px"></div>
+    <div class="statement">
+      <div>${t.ko.map(x => `<p class="tx">${esc(x)}</p>`).join('\n        ')}</div>
+      <div>${t.en.map(x => `<p class="tx">${esc(x)}</p>`).join('\n        ')}
+        ${t.note ? `<p class="credit">${esc(t.note)}</p>` : ''}</div>
+    </div>`;
+
+const textPages = (c.texts.items || []).map(t => [`text-${t.slug}.html`, shell(t.title, 'texts.html', textPage(t))]);
 
 const contactBody = `
     <h1 class="pt">Contact</h1>
@@ -799,7 +815,7 @@ if (fs.existsSync(ASSETS)) {
 fs.writeFileSync(path.join(OUT, 'style.css'), CSS);
 fs.writeFileSync(path.join(OUT, 'app.js'), JS);
 fs.writeFileSync(path.join(OUT, 'viewer.js'), VIEWER_JS);
-const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages);
+const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, textPages);
 // Remove pages left behind by earlier builds (a work removed from works.js used to
 // keep its stale work-*.html around). Scratch pages starting with _ are left alone.
 fs.readdirSync(OUT)
