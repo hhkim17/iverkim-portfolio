@@ -278,7 +278,7 @@ const content = {
         context: 'SelvArt Residency',
         audio: AST + 'LkXd47a04uugPzzxF17hkKLxHFA.mp3',
         text: 'Listening before looking. I made field recordings in the woods and the village, and the composition came out of them.',
-        images: [IMG + 'oInnSOhWeXoYKol9H3gh1BQPDM.jpeg?width=1536&height=2048']
+        images: []
       },
       {
         id: 'casa-carlotta',

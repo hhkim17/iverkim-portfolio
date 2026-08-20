@@ -7,7 +7,7 @@ const OUT = path.join(__dirname, 'c');
 fs.mkdirSync(OUT, { recursive: true });
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'photography', 'painting', 'drawing'];
+const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'painting', 'drawing'];
 const MEDIA_LABEL = {
   sound: 'sound', intermedia: 'intermedia', video: 'video', performance: 'performance',
   installation: 'installation', photography: 'photography', painting: 'painting', drawing: 'drawing'
@@ -23,7 +23,7 @@ const MEDIA_PAGE = {
 // photography reads as a medium tag on a work, but the archive itself is a
 // section of the site, so it sits at the top level of the nav rather than
 // inside `by medium`.
-const MEDIA_NAV_SKIP = ['photography'];
+const MEDIA_NAV_SKIP = [];
 const MEDIA_NAV_LABEL = { painting: 'paintings', drawing: 'drawings' };
 const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 
