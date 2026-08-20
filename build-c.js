@@ -168,6 +168,10 @@ h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;
 .txt{padding:22px 0;border-bottom:1px solid var(--hair);max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
+.textlist{list-style:none;margin-top:20px;max-width:70ch}
+.textlist li{padding:2px 0}
+.textlist a{color:var(--ink-2);border-bottom:1px solid transparent}
+.textlist a:hover{color:var(--ink);border-color:var(--ink)}
 .d3{display:grid;grid-template-columns:minmax(0,1fr);gap:34px;align-items:start;margin-top:10px}
 .d3 .tx{max-width:56ch;margin-bottom:10px}
 .d3 .genre{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin-top:12px}
@@ -754,14 +758,10 @@ const discoBody = `
 
 const textsBody = `
     <h1 class="pt">Texts</h1>
-    ${(c.texts.items || []).length ? `<div class="wgroup" style="margin-top:20px">
-      ${c.texts.items.map(t => `<div class="wrow">
-        <span class="wy">${esc(t.year)}</span>
-        <span class="wt"><a href="text-${t.slug}.html">${esc(t.title)}</a></span>
-        <span class="wv">${esc(t.meta)}</span>
-        <span class="wm"></span>
-      </div>`).join('\n      ')}
-    </div>` : ''}`;
+    <ul class="textlist">
+      ${(c.texts.items || []).map(t =>
+        `<li><a href="text-${t.slug}.html">${esc(t.title)}, ${esc(t.meta)}</a></li>`).join('\n      ')}
+    </ul>`;
 
 const textPage = t => `
     <a class="backlink" href="texts.html">\u2190 texts</a>
