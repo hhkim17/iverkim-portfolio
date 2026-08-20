@@ -18,7 +18,18 @@ const MEDIA_LABEL = {
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
 // and a by-medium list. A medium points at its own rich page where one exists
 // (sound, intermedia, painting, photography); the rest are generated indexes.
-const YEARS_NAV = [...new Set(require('./works').filter(w => !w.archiveOnly && !w.credit).map(w => w.y))].sort((a, b) => b - a);
+const ALL_YEARS = [...new Set(require('./works').filter(w => !w.archiveOnly && !w.credit).map(w => w.y))].sort((a, b) => b - a);
+// The early years hold one or two works each, so they read better as one range.
+const YEAR_SPLIT = 2021;
+const EARLY = ALL_YEARS.filter(y => y < YEAR_SPLIT);
+const YEAR_BUCKETS = [
+  ...ALL_YEARS.filter(y => y >= YEAR_SPLIT).map(y => ({ slug: String(y), label: String(y), from: y, to: y })),
+  ...(EARLY.length ? [{
+    slug: `${Math.min(...EARLY)}-${Math.max(...EARLY)}`,
+    label: `${Math.min(...EARLY)}\u2013${Math.max(...EARLY)}`,
+    from: Math.min(...EARLY), to: Math.max(...EARLY)
+  }] : [])
+];
 const MEDIA_PAGE = {
   painting: 'paintings.html', drawing: 'drawings.html'
 };
@@ -35,7 +46,7 @@ const NAV = [
   { f: 'about.html', t: 'about' },
   { f: 'works.html', t: 'works', toggle: true, children: [
       { group: '', items: [{ f: 'works.html', t: 'all' }] },
-      { group: '', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
+      { group: '', items: YEAR_BUCKETS.map(b => ({ f: `works-y-${b.slug}.html`, t: b.label })) },
       { group: '', items: [] }
     ] },
   { f: 'discography.html', t: 'discography', toggle: true, children: [
@@ -377,7 +388,7 @@ const JS = `
   // Old deep links (works.html#m-sound, #y-2023) now have pages of their own.
   var h=location.hash;
   if(h.indexOf('#m-')===0){ var m=h.slice(3), rich=${JSON.stringify(MEDIA_PAGE)}; location.replace(rich[m]||('works-m-'+m+'.html')); return; }
-  if(h.indexOf('#y-')===0){ location.replace('works-y-'+h.slice(3)+'.html'); return; }
+  if(h.indexOf('#y-')===0){ var y=+h.slice(3), b=${JSON.stringify(YEAR_BUCKETS.map(b => [b.from, b.to, b.slug]))}.find(function(x){return y>=x[0]&&y<=x[1];}); location.replace('works-y-'+(b?b[2]:h.slice(3))+'.html'); return; }
 })();
 `;
 
@@ -509,8 +520,9 @@ const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
       ${creditWorks.map(creditRow).join('\n      ')}
     </div>` : '');
 
-const yearPages = YEARS_NAV.map(y => [`works-y-${y}.html`,
-  shell(String(y), `works-y-${y}.html`, worksPage(String(y), indexWorks.filter(w => w.y === y)))]);
+const yearPages = YEAR_BUCKETS.map(b => [`works-y-${b.slug}.html`,
+  shell(b.label, `works-y-${b.slug}.html`,
+    worksPage(b.label, indexWorks.filter(w => w.y >= b.from && w.y <= b.to).sort((x, y) => y.y - x.y)))]);
 
 // only media without a rich page of their own need a generated index
 const mediumPages = MEDIA.filter(m => byMediumCount[m] && !MEDIA_PAGE[m]).map(m => [`works-m-${m}.html`,
