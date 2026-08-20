@@ -24,3 +24,29 @@ cd c && python3 -m http.server 8000
 | `assets/` | Image sources. Copied to `c/img/` on build. |
 
 See `HANDOFF.md` for project state, design references and open questions.
+
+## Custom domain
+
+The site is published at https://hhkim17.github.io/iverkim-portfolio/.
+
+To move it to `iverkim.com`, in this order:
+
+1. Register the domain.
+2. At the registrar, add these DNS records:
+
+   | type | name | value |
+   |---|---|---|
+   | A | @ | 185.199.108.153 |
+   | A | @ | 185.199.109.153 |
+   | A | @ | 185.199.110.153 |
+   | A | @ | 185.199.111.153 |
+   | CNAME | www | hhkim17.github.io |
+
+3. Wait for the records to resolve (`dig +short iverkim.com` should return the
+   four addresses).
+4. Set `CUSTOM_DOMAIN = 'iverkim.com'` in `build-c.js` and push.
+5. In the repository's Pages settings, enter the domain and enable
+   "Enforce HTTPS" once the certificate is issued.
+
+Step 4 before step 3 takes the site offline: Pages redirects the github.io
+address to the custom domain as soon as a CNAME file exists.

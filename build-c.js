@@ -778,6 +778,14 @@ const pages = [
   ['contact.html', shell('contact', 'contact.html', contactBody)]
 ];
 
+// Custom domain. GitHub Pages serves the site at the domain named in c/CNAME,
+// and redirects the github.io address to it — so this must stay empty until the
+// domain is registered and its DNS points at GitHub, or the site goes dark.
+// To switch over: register the domain, set the DNS records (see README), then
+// put 'iverkim.com' here and push.
+const CUSTOM_DOMAIN = '';
+if (CUSTOM_DOMAIN) fs.writeFileSync(path.join(OUT, 'CNAME'), CUSTOM_DOMAIN + '\n');
+
 const ASSETS = path.join(__dirname, 'assets');
 const IMGOUT = path.join(OUT, 'img');
 if (fs.existsSync(ASSETS)) {
