@@ -164,7 +164,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .txt{padding:22px 0;border-bottom:1px solid var(--hair);max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
-.textlist{list-style:none;margin-top:18px;max-width:78ch}
+.textlist{list-style:none;margin-top:22px;max-width:78ch}
 .textlist li{padding:1px 0;padding-left:1.4em;text-indent:-1.4em}
 .textlist a{color:var(--ink-2);border-bottom:1px solid transparent}
 .textlist a:hover{color:var(--ink);border-color:var(--ink)}
