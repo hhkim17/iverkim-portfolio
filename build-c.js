@@ -51,43 +51,39 @@ const NAV = [
 const CSS = `
 /* Redaction — Forest Young & Jeremy Mickel (OFL), served via jsDelivr/Fontsource.
    Supreme — Indian Type Foundry (free for commercial use), served via Fontshare. */
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/redaction@5.3.0/index.css");
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/redaction-35@5.3.0/index.css");
-@import url("https://api.fontshare.com/v2/css?f[]=supreme@400,500&display=swap");
 
 :root{
-  --bg:#FFFFFF; --ink:#111111; --ink-2:#4A4A48; --ink-3:#8C8C88;
+  --bg:#FFFFFF; --ink:#292727; --ink-2:#666666; --ink-3:#8C8C8C;
   --rule:#DCDCD8; --hair:#EEEEEA;
-  --serif:"Redaction",Georgia,"Times New Roman",serif;
-  --display:"Redaction 35","Redaction",Georgia,serif;
-  --sans:"Supreme",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
   --side:196px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--serif);
-  font-size:13.5px;line-height:1.6;-webkit-font-smoothing:antialiased;font-kerning:normal}
+body{background:var(--bg);color:var(--ink-2);font-family:var(--serif);
+  font-size:12px;line-height:18px;-webkit-font-smoothing:antialiased;font-kerning:normal}
 a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
 em{font-style:italic}
 
-.lbl{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:lowercase;
-  font-weight:500;color:var(--ink-3)}
+.lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
 
 /* ---- frame: persistent left index, like a printed table of contents ---- */
 .frame{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
 .side{border-right:1px solid var(--rule);padding:26px 20px 26px 26px;position:sticky;top:0;height:100vh;
   overflow-y:auto;display:flex;flex-direction:column;gap:26px}
-.side .name{font-family:var(--display);font-size:16px;line-height:1.15;letter-spacing:.005em}
+.side .name{font-size:12px;line-height:18px;font-weight:700;color:var(--ink)}
 .side nav{display:flex;flex-direction:column}
-.side nav a{padding:2px 0;font-size:12.5px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
+.side nav a{padding:0;font-size:12px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
 .side nav a:hover{color:var(--ink);border-color:var(--ink)}
 .side nav a[aria-current="page"]{color:#BDB7AC;border-color:transparent}
 .side nav a[aria-current="page"]:hover{color:#BDB7AC;border-color:transparent}
 .side nav .sub{display:flex;flex-direction:column;margin:3px 0 6px 12px}
-.side nav .sub a{font-size:11.5px;color:var(--ink-3);padding:1.5px 0}
+.side nav .sub a{font-size:12px;color:var(--ink-3);padding:1.5px 0}
 .side nav .sub a:hover{color:var(--ink)}
-.side nav .subhead{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:lowercase;
+.side nav .subhead{font-size:11px;
   color:var(--ink-3);opacity:.7;margin:6px 0 2px}
 .side .grp{margin-top:14px}
 .side .ext a{display:block;padding:2px 0;color:var(--ink-2)}
@@ -98,8 +94,8 @@ em{font-style:italic}
 .rule{height:1px;background:var(--rule);margin:30px 0}
 .hair{height:1px;background:var(--hair);margin:20px 0}
 
-h1.pt{font-family:var(--display);font-size:26px;line-height:1.1;font-weight:400;letter-spacing:.002em}
-h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;margin-bottom:4px}
+h1.pt{font-size:14px;line-height:18px;font-weight:700;color:var(--ink)}
+h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bottom:2px}
 .intro{max-width:62ch;margin-top:14px;color:var(--ink-2)}
 
 /* ---- home: everything visible at once ---- */
@@ -144,7 +140,7 @@ h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;
 .backlink:hover{color:var(--ink)}
 /* ---- work detail ---- */
 .detail{display:grid;grid-template-columns:190px minmax(0,1fr);gap:38px;align-items:start;margin-top:4px}
-.detail .dt-t{font-family:var(--display);font-size:19px;line-height:1.2;font-weight:400;margin-bottom:10px}
+.detail .dt-t{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .detail .counter{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin-bottom:7px}
 .picker{display:grid;grid-template-columns:repeat(3,50px);gap:10px;margin-bottom:14px}
 .picker .thumb{padding:0;border:0;background:#F2F2EE;width:50px;height:50px;cursor:pointer;overflow:hidden;opacity:.55}
@@ -217,9 +213,9 @@ h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;
 .plates{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
 .plates figure{background:#F2F2EE}
 .plates img{width:100%;height:100%;object-fit:cover}
-.plates figcaption{font-family:var(--sans);font-size:10px;letter-spacing:.06em;color:var(--ink-3);padding-top:7px;line-height:1.45}
-.plates.art figcaption{font-family:var(--serif);font-size:11.5px;letter-spacing:0}
-.plates figcaption .pt-t{font-style:italic;font-size:12.5px;letter-spacing:0;color:var(--ink-2)}
+.plates figcaption{font-size:11px;color:var(--ink-3);padding-top:7px;line-height:16px}
+.plates.art figcaption{font-size:11px}
+.plates figcaption .pt-t{font-style:italic;font-weight:700;color:var(--ink-2)}
 /* artwork plates: never crop a painting */
 .plates.art{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));column-gap:20px;row-gap:24px;align-items:start}
 .plates.art figure{background:none;display:flex;flex-direction:column}
@@ -242,8 +238,8 @@ h2.st{font-family:var(--display);font-size:17px;line-height:1.2;font-weight:400;
 .tiles .tt a:hover{border-color:var(--ink)}
 .tiles a.ph:hover{opacity:.82}
 .tiles figcaption{padding-top:7px;line-height:1.45}
-.tiles .tt{font-style:italic;font-size:12.5px;color:var(--ink-2)}
-.tiles .ty,.tiles .tr,.tiles .tv{display:block;font-size:11.5px;color:var(--ink-3)}
+.tiles .tt{font-style:italic;font-weight:700;font-size:11px;line-height:16px;color:var(--ink-2)}
+.tiles .ty,.tiles .tr,.tiles .tv{display:block;font-size:11px;line-height:16px;color:var(--ink-3)}
 .tiles .tr{margin-top:2px}
 
 /* ---- cv ---- */

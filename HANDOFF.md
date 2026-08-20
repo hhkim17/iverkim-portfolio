@@ -35,14 +35,21 @@ The invented page intros ("An ongoing archive of images and field recordings…"
 
 ## Design
 
-- White, no accent colour. Left index fixed on every page; the active item goes **lighter** (`#BDB7AC`), not darker.
-- Type: **Redaction** (Forest Young & Jeremy Mickel, OFL) for body and display, **Supreme** (Indian Type Foundry) for the small lowercase metadata labels. Both from CDN via `@import` at the top of the CSS block in `build-c.js`.
-- Home is a single image, auto-advancing randomly every 5s with a 0.7s fade. No manual controls.
-- `works.html` is the spine: one list, toggled between by-medium and by-year. Deep links: `works.html#m-sound`, `works.html#y-2023`.
-- `sound.html` order is **releases → dj sets → live & performance → scores**. Releases lead deliberately — they are the most important output.
-- Release detail pages are generated as `release-<slug>.html` for any release with a `page:` object. Album covers link there; releases without a detail page link straight to Bandcamp.
+Plain and dated on purpose, following inbetweennoise.com and christineodlund.se
+rather than a contemporary portfolio template. White, no accent colour. Helvetica
+at 12px/18px in #666, headings the same face at 12–14px bold, no letterspaced
+labels, no display type, no webfonts. The left index is fixed on every page and
+the active item goes lighter (#BDB7AC), not darker.
 
-Reference sites the design came from: inbetweennoise.com (Steve Roden) and christineodlund.se (left index + one image at a time, faded active state).
+Redaction and Supreme were used earlier and were dropped: they read as designed,
+which is the opposite of what this site wants. If type is revisited, keep the
+plainness.
+
+- Home is a single image, changing every 5s with a 0.7s fade, chosen at random
+  from the works' thumbnails, the paintings and the drawings. Residency
+  documentation, score photographs and anything flagged `noHome` stay out.
+- Thumbnails are 17:10 and cropped; artworks are never cropped.
+- `works.html` is the spine, with a page per year and per medium.
 
 ## Source material
 
