@@ -72,7 +72,7 @@ em{font-style:italic}
 
 /* ---- frame: persistent left index, like a printed table of contents ---- */
 .frame{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
-.side{border-right:1px solid var(--rule);padding:26px 20px 26px 26px;position:sticky;top:0;height:100vh;
+.side{padding:26px 20px 26px 26px;position:sticky;top:0;height:100vh;
   overflow-y:auto;display:flex;flex-direction:column;gap:26px}
 .side .name{font-size:12px;line-height:18px;font-weight:700;color:var(--ink)}
 .side nav{display:flex;flex-direction:column}
@@ -267,7 +267,7 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
 @media(max-width:1080px){ .toc{grid-template-columns:repeat(2,minmax(0,1fr))} .plates{grid-template-columns:repeat(3,1fr)} }
 @media(max-width:860px){
   .frame{grid-template-columns:1fr}
-  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule);padding:24px 22px}
+  .side{position:static;height:auto;padding:24px 22px}
   .side nav{flex-direction:row;flex-wrap:wrap;gap:0 16px;align-items:baseline}
   .side nav .sub{flex-basis:100%;flex-direction:row;flex-wrap:wrap;gap:0 12px;
     margin:2px 0 4px;align-items:baseline}
