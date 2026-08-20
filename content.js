@@ -34,7 +34,7 @@ const content = {
       {
         slug: 'impossible-dialogues',
         title: '\ubd88\uac00\ub2a5\ud55c \ub300\ud654 / Impossible Dialogues',
-        meta: 'artist statement, BETA TEST FOR AN-NYEONG, Korea National University of Arts, 2021',
+        meta: 'artist statement, 2021',
         year: '2021',
         work: { label: 'BETA TEST FOR AN-NYEONG (\uc548\ub155\uc744 \uc704\ud55c \ubca0\ud0c0\ud14c\uc2a4\ud2b8)', href: 'work-beta-test-for-an-nyeong.html' },
         note: 'English translation is not the artist\u2019s own.',

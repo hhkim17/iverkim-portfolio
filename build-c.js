@@ -10,13 +10,13 @@ const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'photography', 'painting', 'drawing'];
 const MEDIA_LABEL = {
   sound: 'sound', intermedia: 'intermedia', video: 'video', performance: 'performance',
-  installation: 'installation', photography: 'residency archive', painting: 'painting', drawing: 'drawing'
+  installation: 'installation', photography: 'photography', painting: 'painting', drawing: 'drawing'
 };
 
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
 // and a by-medium list. A medium points at its own rich page where one exists
 // (sound, intermedia, painting, photography); the rest are generated indexes.
-const YEARS_NAV = [...new Set(require('./works').map(w => w.y))].sort((a, b) => b - a);
+const YEARS_NAV = [...new Set(require('./works').filter(w => !w.archiveOnly).map(w => w.y))].sort((a, b) => b - a);
 const MEDIA_PAGE = {
   painting: 'paintings.html', drawing: 'drawings.html'
 };
@@ -30,11 +30,11 @@ const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 // The name at the top of the sidebar already links to index.html, so the nav
 // does not repeat it.
 const NAV = [
+  { f: 'about.html', t: 'about' },
   { f: 'works.html', t: 'works', children: [
       { group: 'by year', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
       { group: 'by medium', items: [] }
     ] },
-  { f: 'residency-archive.html', t: 'residency archive' },
   { f: 'discography.html', t: 'discography', children: [
       { group: '', items: [
         { f: 'discography.html#solo', t: 'solo' },
@@ -44,8 +44,8 @@ const NAV = [
       ] }
     ] },
   { f: 'texts.html', t: 'texts' },
-  { f: 'about.html', t: 'about' },
-  { f: 'contact.html', t: 'contact' }
+  { f: 'contact.html', t: 'contact' },
+  { f: 'residency-archive.html', t: 'archive' }
 ];
 
 const CSS = `
@@ -164,8 +164,8 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .txt{padding:22px 0;border-bottom:1px solid var(--hair);max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
-.textlist{list-style:none;margin-top:20px;max-width:70ch}
-.textlist li{padding:2px 0}
+.textlist{list-style:none;margin-top:18px;max-width:78ch}
+.textlist li{padding:1px 0;padding-left:1.4em;text-indent:-1.4em}
 .textlist a{color:var(--ink-2);border-bottom:1px solid transparent}
 .textlist a:hover{color:var(--ink);border-color:var(--ink)}
 .d3{display:grid;grid-template-columns:minmax(0,1fr);gap:34px;align-items:start;margin-top:10px}
@@ -331,7 +331,7 @@ ${body}
 
 /* ---------------- home: full table of contents, nothing hidden ---------------- */
 const byMediumCount = {};
-works.forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
+works.filter(w => !w.archiveOnly).forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
 NAV.find(n => n.t === 'works').children[1].items =
   MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
@@ -379,16 +379,19 @@ const worksPage = (heading, list, note) => `
     <div class="lbl" style="margin-top:22px">${list.length} work${list.length === 1 ? '' : 's'}${note ? ' \u00b7 ' + esc(note) : ''}</div>
     ${worksGrid(list)}`;
 
-const byYear = works.slice().sort((a, b) => b.y - a.y || a.t.localeCompare(b.t));
+// Residencies are archive material; they live on the archive page and stay out
+// of the works index.
+const indexWorks = works.filter(w => !w.archiveOnly);
+const byYear = indexWorks.slice().sort((a, b) => b.y - a.y || a.t.localeCompare(b.t));
 const worksBody = worksPage('Works', byYear);
 
 const yearPages = YEARS_NAV.map(y => [`works-y-${y}.html`,
-  shell(String(y), `works-y-${y}.html`, worksPage(String(y), works.filter(w => w.y === y)))]);
+  shell(String(y), `works-y-${y}.html`, worksPage(String(y), indexWorks.filter(w => w.y === y)))]);
 
 // only media without a rich page of their own need a generated index
 const mediumPages = MEDIA.filter(m => byMediumCount[m] && !MEDIA_PAGE[m]).map(m => [`works-m-${m}.html`,
   shell(MEDIA_LABEL[m], `works-m-${m}.html`,
-    worksPage(MEDIA_LABEL[m], works.filter(w => w.m.includes(m)).sort((a, b) => b.y - a.y)))]);
+    worksPage(MEDIA_LABEL[m], indexWorks.filter(w => w.m.includes(m)).sort((a, b) => b.y - a.y)))]);
 
 /* ---------------- sound ---------------- */
 const collab = c.sound.groups.find(g => g.id === 'collaborations');
@@ -463,7 +466,7 @@ const interBody = `
 
 /* ---------------- photography ---------------- */
 const photoBody = `
-    <h1 class="pt">Residency Archive</h1>
+    <h1 class="pt">Archive</h1>
     ${c.photography.series.map(s => `
     <div class="rule" style="margin-top:26px"></div>
     <h2 class="st" id="${s.id}">${esc(s.title)}</h2>
@@ -762,7 +765,7 @@ const textsBody = `
 const textPage = t => `
     <a class="backlink" href="texts.html">\u2190 texts</a>
     <h1 class="pt">${esc(t.title)}</h1>
-    <div class="dt" style="color:var(--ink-3);font-size:12.5px;margin-top:6px">${esc(t.meta)}</div>
+    <div class="dt" style="color:var(--ink-3);font-size:12px;margin-top:4px">${esc(t.meta)}</div>
     ${t.work ? `<div class="dt" style="font-size:12.5px;margin-top:2px">written for
       <a href="${t.work.href}" style="border-bottom:1px solid var(--rule)">${esc(t.work.label)}</a></div>` : ''}
     <div class="rule" style="margin-top:24px"></div>
@@ -784,7 +787,7 @@ const contactBody = `
 const pages = [
   ['index.html', shell('index', 'index.html', home)],
   ['works.html', shell('works', 'works.html', worksBody)],
-  ['residency-archive.html', shell('residency archive', 'residency-archive.html', photoBody)],
+  ['residency-archive.html', shell('archive', 'residency-archive.html', photoBody)],
   ['paintings.html', shell('paintings', 'paintings.html', paintBody)],
   ['drawings.html', shell('drawings', 'drawings.html', drawBody)],
   ['discography.html', shell('discography', 'discography.html', discoBody)],
