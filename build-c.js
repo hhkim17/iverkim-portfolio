@@ -5,6 +5,8 @@ const works = require('./works');
 
 const OUT = path.join(__dirname, 'c');
 fs.mkdirSync(OUT, { recursive: true });
+const crypto = require('crypto');
+const hash = str => crypto.createHash('sha1').update(str).digest('hex').slice(0, 8);
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'painting', 'drawing'];
@@ -303,6 +305,68 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 `;
 
+const VIEWER_JS = `
+(function(){
+  var data=document.getElementById('vdata');
+  if(data){
+    var imgs=JSON.parse(data.textContent);
+    var im=document.getElementById('vimg');
+    // Uniformly random, refusing anything seen in the recent window. A shuffle bag
+    // walks the whole set before repeating, which reads as an order; this does not.
+    var recent=[], window=Math.min(Math.max(3,Math.floor(imgs.length/3)),20);
+    function pick(){
+      if(imgs.length<2) return imgs[0];
+      var next, guard=0;
+      do { next=imgs[Math.floor(Math.random()*imgs.length)]; }
+      while(recent.indexOf(next)!==-1 && ++guard<40);
+      recent.push(next); if(recent.length>window) recent.shift();
+      return next;
+    }
+    recent.push(im.getAttribute('src'));
+    // only warm a handful; the pool is large now
+    imgs.slice(0,8).forEach(function(s){var p=new Image();p.src=s;});
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setInterval(function(){
+      if(document.hidden) return;
+      var tries=0;
+      (function attempt(){
+        var next=pick(), pre=new Image();
+        pre.onload=function(){
+          if(reduce){ im.src=next; return; }
+          im.classList.add('fade');
+          setTimeout(function(){ im.src=next; im.classList.remove('fade'); },700);
+        };
+        pre.onerror=function(){ if(++tries<3) attempt(); };
+        pre.src=next;
+      })();
+    },5000);
+  }
+})();
+`;
+
+const JS = `
+(function(){
+  // narrow screens: the index collapses behind a menu button
+  var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
+  if(btn){
+    btn.addEventListener('click',function(){
+      var open=side.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  }
+})();
+(function(){
+  // Old deep links (works.html#m-sound, #y-2023) now have pages of their own.
+  var h=location.hash;
+  if(h.indexOf('#m-')===0){ var m=h.slice(3), rich=${JSON.stringify(MEDIA_PAGE)}; location.replace(rich[m]||('works-m-'+m+'.html')); return; }
+  if(h.indexOf('#y-')===0){ location.replace('works-y-'+h.slice(3)+'.html'); return; }
+})();
+`;
+
+const CSS_FILE = `style.${hash(CSS)}.css`;
+const JS_FILE = `app.${hash(JS)}.js`;
+const VIEWER_FILE = `viewer.${hash(VIEWER_JS)}.js`;
+
 function shell(title, current, body) {
   const link = n => `<a href="${n.f}"${n.f === current ? ' aria-current="page"' : ''}>${esc(n.t)}</a>`;
   const nav = NAV.map(n => {
@@ -321,7 +385,7 @@ function shell(title, current, body) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(c.name)} — ${esc(title)}</title>
 <meta name="description" content="${esc(c.tagline)}">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="${CSS_FILE}">
 </head>
 <body>
 <div class="frame">
@@ -339,7 +403,7 @@ ${body}
     <div class="cr">${esc(c.copyright)}</div>
   </main>
 </div>
-<script src="viewer.js"></script>\n<script src="app.js"></script>
+<script src="${VIEWER_FILE}"></script>\n<script src="${JS_FILE}"></script>
 </body>
 </html>`;
 }
@@ -554,63 +618,6 @@ const cvBody = `
       ${s.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${e.href ? `<a href="${e.href}" target="_blank" rel="noopener">${esc(e.text)}</a>` : esc(e.text)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
     </div>`).join('\n    ')}`;
 
-const VIEWER_JS = `
-(function(){
-  var data=document.getElementById('vdata');
-  if(data){
-    var imgs=JSON.parse(data.textContent);
-    var im=document.getElementById('vimg');
-    // Uniformly random, refusing anything seen in the recent window. A shuffle bag
-    // walks the whole set before repeating, which reads as an order; this does not.
-    var recent=[], window=Math.min(Math.max(3,Math.floor(imgs.length/3)),20);
-    function pick(){
-      if(imgs.length<2) return imgs[0];
-      var next, guard=0;
-      do { next=imgs[Math.floor(Math.random()*imgs.length)]; }
-      while(recent.indexOf(next)!==-1 && ++guard<40);
-      recent.push(next); if(recent.length>window) recent.shift();
-      return next;
-    }
-    recent.push(im.getAttribute('src'));
-    // only warm a handful; the pool is large now
-    imgs.slice(0,8).forEach(function(s){var p=new Image();p.src=s;});
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setInterval(function(){
-      if(document.hidden) return;
-      var tries=0;
-      (function attempt(){
-        var next=pick(), pre=new Image();
-        pre.onload=function(){
-          if(reduce){ im.src=next; return; }
-          im.classList.add('fade');
-          setTimeout(function(){ im.src=next; im.classList.remove('fade'); },700);
-        };
-        pre.onerror=function(){ if(++tries<3) attempt(); };
-        pre.src=next;
-      })();
-    },5000);
-  }
-})();
-`;
-
-const JS = `
-(function(){
-  // narrow screens: the index collapses behind a menu button
-  var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
-  if(btn){
-    btn.addEventListener('click',function(){
-      var open=side.classList.toggle('open');
-      btn.setAttribute('aria-expanded',open?'true':'false');
-    });
-  }
-})();
-(function(){
-  // Old deep links (works.html#m-sound, #y-2023) now have pages of their own.
-  var h=location.hash;
-  if(h.indexOf('#m-')===0){ var m=h.slice(3), rich=${JSON.stringify(MEDIA_PAGE)}; location.replace(rich[m]||('works-m-'+m+'.html')); return; }
-  if(h.indexOf('#y-')===0){ location.replace('works-y-'+h.slice(3)+'.html'); return; }
-})();
-`;
 
 /* ---------------- release detail pages ---------------- */
 const releasePage = r => {
@@ -859,9 +866,14 @@ if (fs.existsSync(ASSETS)) {
   fs.rmSync(IMGOUT, { recursive: true, force: true });
   fs.cpSync(ASSETS, IMGOUT, { recursive: true });
 }
-fs.writeFileSync(path.join(OUT, 'style.css'), CSS);
-fs.writeFileSync(path.join(OUT, 'app.js'), JS);
-fs.writeFileSync(path.join(OUT, 'viewer.js'), VIEWER_JS);
+fs.writeFileSync(path.join(OUT, CSS_FILE), CSS);
+fs.writeFileSync(path.join(OUT, JS_FILE), JS);
+fs.writeFileSync(path.join(OUT, VIEWER_FILE), VIEWER_JS);
+// drop the previous build's hashed assets
+fs.readdirSync(OUT)
+  .filter(f => /^(style\.[0-9a-f]{8}\.css|app\.[0-9a-f]{8}\.js|viewer\.[0-9a-f]{8}\.js)$/.test(f))
+  .filter(f => ![CSS_FILE, JS_FILE, VIEWER_FILE].includes(f))
+  .forEach(f => fs.unlinkSync(path.join(OUT, f)));
 const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, textPages);
 // Remove pages left behind by earlier builds (a work removed from works.js used to
 // keep its stale work-*.html around). Scratch pages starting with _ are left alone.

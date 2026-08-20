@@ -11,8 +11,12 @@ const PAGES = (() => {
     (a.startsWith('release-') - b.startsWith('release-')) || a.localeCompare(b));
   return ['index', ...rest];
 })();
-const css = fs.readFileSync(path.join(dir, 'style.css'), 'utf8');
-const viewerJs = fs.readFileSync(path.join(dir, 'viewer.js'), 'utf8');
+const pick = re => fs.readdirSync(dir).find(f => re.test(f));
+const cssFile = pick(/^style\.[0-9a-f]{8}\.css$/);
+const viewerFile = pick(/^viewer\.[0-9a-f]{8}\.js$/);
+const appFile = pick(/^app\.[0-9a-f]{8}\.js$/);
+const css = fs.readFileSync(path.join(dir, cssFile), 'utf8');
+const viewerJs = fs.readFileSync(path.join(dir, viewerFile), 'utf8');
 const tpl = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
 
 const sections = PAGES.map(p => {
@@ -23,9 +27,9 @@ const sections = PAGES.map(p => {
 }).join('\n');
 
 let out = tpl.replace(/<main class="main">[\s\S]*?<\/main>/, `<main class="main">\n${sections}\n</main>`);
-out = out.replace(/<link rel="stylesheet" href="style\.css">/, `<style>\n${css}\n</style>`);
-out = out.replace(/<script src="app\.js"><\/script>/, '');
-out = out.replace(/<script src="viewer\.js"><\/script>/, `<script>${viewerJs}</script>`);
+out = out.replace(new RegExp(`<link rel="stylesheet" href="${cssFile}">`), `<style>\n${css}\n</style>`);
+out = out.replace(new RegExp(`<script src="${appFile}"><\\/script>`), '');
+out = out.replace(new RegExp(`<script src="${viewerFile}"><\\/script>`), `<script>${viewerJs}</script>`);
 out = out.replace(new RegExp(`href="(${PAGES.join('|')})\\.html(#[^"]*)?"`, 'g'), 'href="#$1$2"');
 out = out.replace(/ aria-current="page"/g, '');
 
