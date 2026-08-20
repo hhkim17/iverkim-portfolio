@@ -78,6 +78,12 @@ em{font-style:italic}
 .side{padding:26px 20px 26px 26px;position:sticky;top:0;height:100vh;
   overflow-y:auto;display:flex;flex-direction:column;gap:26px}
 .side .name{font-family:var(--name);font-size:19px;line-height:1.15;font-weight:400;letter-spacing:.005em;color:var(--ink)}
+.side>div:first-child{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.menu{display:none;background:none;border:0;padding:4px 0;cursor:pointer;width:26px;flex:none;
+  -webkit-tap-highlight-color:transparent}
+.menu:focus{outline:none}
+.menu:focus-visible{outline:1px solid var(--rule);outline-offset:3px}
+.menu span{display:block;height:1px;background:var(--ink-2);margin:5px 0}
 .side nav{display:flex;flex-direction:column}
 .side nav a{padding:0;font-size:12px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
 .side nav a:hover{color:var(--ink);border-color:var(--ink)}
@@ -272,10 +278,16 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
 @media(max-width:860px){
   .frame{grid-template-columns:1fr}
   .side{position:static;height:auto;padding:24px 22px}
-  .side nav{flex-direction:row;flex-wrap:wrap;gap:0 16px;align-items:baseline}
-  .side nav .sub{flex-basis:100%;flex-direction:row;flex-wrap:wrap;gap:0 12px;
-    margin:2px 0 4px;align-items:baseline}
-  .side nav .subhead{flex-basis:100%;margin:7px 0 0}
+  .menu{display:block}
+  .side nav{display:none;flex-direction:column;margin-top:18px}
+  .side.open nav{display:flex}
+  .side nav a{font-size:13px;padding:7px 0;letter-spacing:.02em}
+  .side nav .sub{flex-direction:column;margin:0 0 0 14px;
+    border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:4px 0}
+  .side nav .sub a{font-size:13px;padding:5px 0}
+  .side nav .sub .subgap{height:10px}
+  .side .cr{display:none}
+  .side.open .cr{display:block}
   .side .cr{margin-top:16px}
   .main{padding:26px 22px 70px}
   .entry{grid-template-columns:1fr;gap:20px}
@@ -319,6 +331,7 @@ function shell(title, current, body) {
   <div class="side">
     <div>
       <a class="name" href="index.html">${esc(c.name)}</a>
+      <button class="menu" type="button" aria-label="menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
     <nav>
         ${nav}
@@ -584,6 +597,16 @@ const VIEWER_JS = `
 `;
 
 const JS = `
+(function(){
+  // narrow screens: the index collapses behind a menu button
+  var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
+  if(btn){
+    btn.addEventListener('click',function(){
+      var open=side.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+  }
+})();
 (function(){
   // Old deep links (works.html#m-sound, #y-2023) now have pages of their own.
   var h=location.hash;
