@@ -470,7 +470,7 @@ const content = {
         { year: '2022', text: '\u2039The Very First Cyborg (\uac00\uc7a5 \uc624\ub798\ub41c \uc0ac\uc774\ubcf4\uadf8)\u203a, group exhibition with Youngmin Park and Taewan Jeong, Gallery 175, Seoul, KR', note: '20 May \u2013 1 June 2022 \u00b7 curated by Jiwon Yoo' },
         { year: '2022', text: 'Dew on the eye, solo exhibition, CICA Museum, Gimpo, KR' },
         { year: '2021', text: '\u2039Showcase 2021: Persona Society\u203a, \u2039\u201cmeet me at 1.048596 :)\u201d\u203a interactive installation, Seongbuk Young Art Space, Seoul, KR', note: 'K-Arts Convergence Art emerging artist programme' },
-        { year: '2021', text: 'Jong-Dal Jong-Dal, duo exhibition, K-Arts Bokdo Gallery, Seoul, KR' }
+        { year: '2021', text: 'Jong-Dal Jong-Dal, duo exhibition with Youngmin Park, K-Arts Bokdo Gallery, Seoul, KR' }
       ]
     },
     {
