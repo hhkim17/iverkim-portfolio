@@ -10,8 +10,12 @@ const content = {
   based: 'Seoul, KR / Utrecht, NL',
 
   bio: [
-    "Iver Kim is a composer, visual artist, and intermedia artist whose work engages with themes of 'impossible dialogues' between nature, humanity, and the digital world. She works across mediums including sound, photography, painting, video, and performance, with a focus on exploring those elusive “in-between” spaces. Her work addresses the transition between memory and imagination, the blur between reality and theatrical imagination, and the boundary between painting and photography. Over the past years, during her time abroad, her interest in these 'ambiguous states' has expanded to explore the experience of the individual as an outsider or minority.",
-    "Iver Kim has exhibited and performed in cities such as Seoul, Osaka, Münster, Amsterdam, Rotterdam, and more. She completed an undergraduate degree in Fine Arts at Korea National University of Arts and a master's in Music Design (Music & Technology) at Hogeschool voor de Kunsten Utrecht in the Netherlands."
+    "Iver Kim is a composer and visual artist based in Seoul. She works between sound and image, composing electroacoustic and drone music, recording in the field, building audiovisual installations, and making graphic scores.",
+    "Trained in fine art before music technology, she approaches sound as a spatial and painterly medium, occasionally drawing on classical music and instrumental performance inside electronic contexts. Her attention goes to subtle and often barely perceptible sonic events: small vibrations, fragile gestures, and the thresholds between noise, tone and silence.",
+    "She calls the subject impossible dialogues, between nature, humanity and the digital. She does not set out to depict nature. It shows up in the grain of the work, in forms and sounds that keep tending toward the organic. She stays in unstable states in between, where perception shifts and time stretches, asking how the smallest sonic matter can open into an immersive spatial and temporal experience.",
+    "The paintings hold the same question from the other side. She approaches memory as something that cannot be reached, and faces and rooms lose their original shape. What is sharp is smoothed or covered over with thick paint, what is ordinary takes on a sublime colour, and every portrait becomes a self portrait.",
+    "Her work has been presented in Seoul, Osaka, M\u00fcnster, Copenhagen, London, Amsterdam and Utrecht, and in spatial audio contexts such as ICLC using WFS Collider and performances with 4DSOUND. She has been in residence at Elektronmusikstudion in Sweden.",
+    "Iver Kim received her BFA in Fine Art from Korea National University of Arts in 2021 and her master\u2019s in Music Design from HKU Utrecht in 2025."
   ],
 
   contact: {
@@ -458,7 +462,6 @@ const content = {
       title: 'Education',
       entries: [
         { year: '2025', text: 'MFA, Master of Music Design. HKU (Hogeschool voor de Kunsten Utrecht), NL', note: 'Nominated for HKU Awards 2025' },
-        { year: '2023', text: 'Erasmus, Music and Technology. HKU (Hogeschool voor de Kunsten Utrecht), NL' },
         { year: '2023', text: 'MFA, Multimedia Art. School of Film, TV & Multimedia. Korea National University of Arts', note: 'Unfinished' },
         { year: '2021', text: 'BFA, Fine Art. School of Visual Art. Korea National University of Arts' }
       ]
@@ -466,7 +469,7 @@ const content = {
     {
       title: 'Residency',
       entries: [
-        { year: '2026', text: 'Elektronmusikstudion EMS, Sweden', note: 'planned' },
+        { year: '2026', text: 'Elektronmusikstudion EMS, Sweden' },
         { year: '2025', text: 'Casa de Lollo, Italy' },
         { year: '2025', text: 'SelvArt, Italy' }
       ]
