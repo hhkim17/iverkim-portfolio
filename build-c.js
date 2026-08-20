@@ -158,6 +158,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .detail .stage .vid{margin-top:18px;max-width:640px}
 .detail .stage .vwrap{position:relative;padding-top:56.25%;background:#F2F2EE}
 .detail .stage .vwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.detail .stage video{width:100%;height:auto;display:block;background:#F2F2EE;max-width:640px}
 .detail .stage .vid figcaption{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);padding-top:6px}
 .statement{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;margin-top:12px}
 .statement .tx{font-size:13.5px;line-height:1.72;max-width:52ch;margin-bottom:12px}
@@ -696,9 +697,14 @@ const workPage = w => {
         </div>` : ''}
         ${(d.text || []).length ? `<div class="dtext">${d.text.map(para).join('\n        ')}</div>` : ''}
         ${d.credit ? `<p class="credit">${esc(d.credit)}</p>` : ''}
+        ${d.audio ? `<audio controls preload="none" src="${d.audio}"></audio>` : ''}
       </div>
-      ${imgs.length || videos.length ? `<div class="stage">
+      ${imgs.length || videos.length || (d.files || []).length ? `<div class="stage">
         ${imgs.length ? `<img id="stage-img" src="${imgs[0]}" alt="${esc(w.t)}">` : ''}
+        ${(d.files || []).map(v => `<figure class="vid">
+          <video src="${v.src}" controls preload="metadata" playsinline></video>
+          <figcaption>${esc(v.label)}</figcaption>
+        </figure>`).join('\n        ')}
         ${videos.map(v => `<figure class="vid">
           <div class="vwrap"><iframe src="${v.src}" title="${esc(v.label)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <figcaption>${esc(v.label)}</figcaption>

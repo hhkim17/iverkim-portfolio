@@ -261,7 +261,7 @@ const content = {
         id: 'lab',
         title: 'Lab',
         note: 'Sketches, tests, and systems in progress.',
-        images: [IMG + 'qaTi0QgVuFzkXTPSjRxoAfF3AdE.jpeg?width=3021&height=3021', IMG + 'P7O2WWgsnDITNFYjydfMdvZx0.jpg?width=1503&height=1407']
+        images: ['img/lab/lab-01.jpg', 'img/lab/lab-02.jpg']
       }
     ]
   },
@@ -276,7 +276,7 @@ const content = {
         place: 'Verona, Italy',
         medium: 'Field recording, composition',
         context: 'SelvArt Residency',
-        audio: AST + 'LkXd47a04uugPzzxF17hkKLxHFA.mp3',
+        audio: 'img/audio/selvart-listen-to-the-small-sounds.mp3',
         text: 'Listening before looking. I made field recordings in the woods and the village, and the composition came out of them.',
         images: []
       },
@@ -438,21 +438,7 @@ const content = {
         // The images that used to sit here came across from the old Framer site and are
         // wrong \u2014 they are photographs of collaborative work, not drawings. Parked in
         // `_wrongImages` below.
-        _wrongImages: [
-          IMG + 'owE6OlOSW2drsMRGm7h2rCgo4lo.jpeg',
-          IMG + '1YZ612eD94Qh5zR76l0EBPfOwKI.jpeg',
-          IMG + 'HSduLI8pcCRpuJuYnhUWpp8G4Nw.jpeg',
-          IMG + '4Oq8wHPuoYpEZMwjMAGYf1Aas2E.jpg',
-          IMG + 'gNCsrRny9Vq2aoUWkZD2ahbrgY.jpg',
-          IMG + 'xIyN8w61tzWNmFwXX5VUyr4GBU.jpg',
-          IMG + 'UYNm4v8wJUaPTqsiCln0UuQRHLs.jpeg',
-          IMG + '2fSsfXPm3geXPeRcOGcmRKAOt4.jpeg',
-          IMG + 'RXZaeElotrcJATrdMVLOHudacfQ.jpeg',
-          IMG + 'EOhJ8eC5BUMmZUazdQsPxPRAJ0.jpeg',
-          IMG + 'YelUIaBRa6rn9Pt0UiPqNDdEDU.jpeg',
-          IMG + 'Y4d5hzUZ7wEwqIEFRdsK1oMmIrM.jpeg',
-          IMG + 'kIJ4rjvDX6eyLHKJAuIqDFGP88I.jpeg'
-        ]
+        // The photographs that used to sit here are in source/collaboration-photos/
       }
     ]
   },

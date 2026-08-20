@@ -21,7 +21,8 @@ cd c && python3 -m http.server 8000
 | `content.js` | Bio, CV, discography, residencies, drawings, contact. |
 | `build-c.js` | All CSS and page templates. Generates every page. |
 | `build-single-c.js` | Bundles the built site into one self-contained HTML file. |
-| `assets/` | Image sources. Copied to `c/img/` on build. |
+| `assets/` | Media the site serves. Copied wholesale to `c/img/` on build, so anything in here is published. |
+| `source/` | Material kept but not published. The build ignores it. |
 
 See `HANDOFF.md` for project state, design references and open questions.
 
@@ -45,3 +46,15 @@ Two things follow from Cloudflare proxying (the orange cloud):
 - http:// is not redirected to https:// by GitHub. Turn on **SSL/TLS → Edge
   Certificates → Always Use HTTPS** in the Cloudflare dashboard, and make sure
   the SSL mode is **Full**, not Flexible.
+
+## No hotlinks
+
+Nothing on the site points at a file on someone else's server. Everything the
+pages load lives in `assets/` and is deployed with them.
+
+This was not always true. The site was rebuilt from a Framer site and kept
+loading images and audio from `framerusercontent.com`; one of those had already
+gone 404 and taken the SelvArt plate with it. All 23 assets that were still
+alive were pulled down in August 2026 — three videos, two lab images, thirteen
+photographs, two audio files. If any Framer url reappears in the source, treat
+it as a bug.
