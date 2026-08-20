@@ -73,7 +73,7 @@ a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
 em{font-style:italic}
 
-.lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
+.lbl{font-size:12px;color:var(--ink-3)}
 
 /* ---- frame: persistent left index, like a printed table of contents ---- */
 .frame{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
@@ -100,10 +100,9 @@ em{font-style:italic}
 .side .grp{margin-top:14px}
 .side .ext a{display:block;padding:2px 0;color:var(--ink-2)}
 .side .ext a:hover{color:var(--ink)}
-.cr{margin-top:56px;padding-top:14px;border-top:1px solid var(--hair);color:var(--ink-3);font-size:11.5px}
+.cr{margin-top:56px;color:var(--ink-3);font-size:11.5px}
 
 .main{padding:30px 40px 90px;max-width:1180px}
-.rule{height:1px;background:var(--rule);margin:30px 0}
 .hair{height:1px;background:var(--hair);margin:20px 0}
 
 h1.pt{font-size:14px;line-height:18px;font-weight:700;color:var(--ink)}
@@ -128,8 +127,8 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 /* ---- releases ---- */
 .rels{margin-top:10px}
 .rel{display:grid;grid-template-columns:56px minmax(0,1.4fr) minmax(0,1fr) 108px;gap:16px;
-  padding:10px 0;border-bottom:1px solid var(--hair);align-items:start}
-.rel:hover{background:#FAFAF7}
+  padding:7px 0;align-items:start}
+
 .rel .cover{display:block;width:56px;height:56px;border:1px solid var(--hair)}
 .rel .cover img{width:100%;height:100%;object-fit:cover;display:block}
 .rel .rt{line-height:1.35}
@@ -144,7 +143,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .relhead .tx{max-width:60ch;margin-bottom:12px}
 .credits{font-size:13px;color:var(--ink-2);line-height:1.7}
 .tracklist{counter-reset:trk;margin-top:8px}
-.tracklist li{counter-increment:trk;list-style:none;padding:5px 0;border-bottom:1px solid var(--hair)}
+.tracklist li{counter-increment:trk;list-style:none;padding:2px 0}
 .tracklist li::before{content:counter(trk,decimal-leading-zero);font-family:var(--sans);font-size:10px;
   letter-spacing:.1em;color:var(--ink-3);margin-right:12px}
 .backlink{display:inline-block;margin-bottom:20px;font-family:var(--sans);font-size:10.5px;
@@ -174,7 +173,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .detail .stage .vid figcaption{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);padding-top:6px}
 .statement{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;margin-top:12px}
 .statement .tx{font-size:13.5px;line-height:1.72;max-width:52ch;margin-bottom:12px}
-.txt{padding:22px 0;border-bottom:1px solid var(--hair);max-width:60ch}
+.txt{padding:0 0 22px;max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
 .textlist{list-style:none;margin-top:22px;max-width:78ch}
@@ -197,11 +196,10 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .switch .count{margin-left:auto;color:var(--ink-3);font-size:12.5px}
 
 .wgroup{margin-top:26px}
-.wgroup>h3{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:lowercase;font-weight:500;
-  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:7px}
+.wgroup>h3{font-size:12px;font-weight:400;color:var(--ink-3);padding-bottom:2px}
 .wrow{display:grid;grid-template-columns:52px minmax(0,1.35fr) minmax(0,1fr) 128px;gap:16px;
-  padding:7px 0;border-bottom:1px solid var(--hair);align-items:baseline}
-.wrow:hover{background:#FAFAF7}
+  padding:3px 0;align-items:baseline}
+
 .wrow .wy{color:var(--ink-3);font-size:13px}
 .wrow .wt{line-height:1.35}
 .wrow .wt a{border-bottom:1px solid var(--rule)}
@@ -257,10 +255,9 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 
 /* ---- cv ---- */
 .cvblock{margin-top:26px}
-.cvblock h3{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:lowercase;font-weight:500;
-  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:7px;margin-bottom:8px}
-.cve{display:grid;grid-template-columns:58px minmax(0,1fr);gap:16px;padding:3.5px 0;align-items:baseline}
-.cve .y{color:var(--ink-3);font-size:13px}
+.cvblock h3{font-size:12px;font-weight:700;color:var(--ink-2);margin-bottom:4px}
+.cve{padding:1px 0}
+.cve .y{color:var(--ink-3);margin-right:10px}
 .cve a{border-bottom:1px solid var(--rule)}
 .cve a:hover{border-color:var(--ink)}
 .cve .nt{color:var(--ink-3);font-style:italic}
@@ -268,7 +265,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .bio{max-width:64ch}
 .bio p+p{margin-top:15px}
 .bio h1.pt{margin-bottom:18px}
-.contact{margin-top:32px;padding-top:18px;border-top:1px solid var(--rule);max-width:64ch}
+.contact{margin-top:26px;max-width:64ch}
 .contact a{border-bottom:1px solid var(--rule)}
 .contact a:hover{border-color:var(--ink)}
 .contact .row{display:grid;grid-template-columns:88px 1fr;gap:14px;padding:3px 0}
@@ -475,7 +472,6 @@ const creditRow = w => {
       </div>`;
 };
 const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
-    <div class="rule" style="margin-top:40px"></div>
     <div class="lbl" id="credits">credits</div>
     <p class="tx" style="max-width:56ch;margin-top:8px;color:var(--ink-3)">Work made for other people's projects.</p>
     <div class="wgroup" style="margin-top:12px">
@@ -499,8 +495,6 @@ const dj = c.sound.groups.find(g => g.id === 'djsets');
 const soundBody = `
     <h1 class="pt">Sound</h1>
     ${c.sound.intro ? `<p class="intro">${esc(c.sound.intro)}</p>` : ''}
-
-    <div class="rule"></div>
     <div class="lbl" id="djsets" style="margin-top:34px">dj sets</div>
     <div class="wgroup" style="margin-top:10px">
       ${dj.items.map(d => `<div class="wrow">
@@ -565,7 +559,6 @@ const interBody = `
 const photoBody = `
     <h1 class="pt">Archive</h1>
     ${c.photography.series.map(s => `
-    <div class="rule" style="margin-top:26px"></div>
     <h2 class="st" id="${s.id}">${esc(s.title)}</h2>
     <div class="dt" style="color:var(--ink-2);font-size:14px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
     <div class="dt" style="color:var(--ink-3);font-size:13px">${esc(s.context)}</div>
@@ -602,8 +595,6 @@ const aboutBody = `
       <h1 class="pt">About</h1>
       ${c.bio.map(p => `<p>${esc(p)}</p>`).join('\n      ')}
     </div>
-
-    <div class="rule" style="margin-top:38px"></div>
     ${c.cv.map(sec => `<div class="cvblock" id="${idFor(sec.title)}">
       <h3>${esc(sec.title.toLowerCase())}</h3>
       ${sec.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${e.href ? `<a href="${e.href}" target="_blank" rel="noopener">${esc(e.text)}</a>` : esc(e.text)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
@@ -626,8 +617,6 @@ const releasePage = r => {
     <a class="backlink" href="discography.html">\u2190 discography</a>
     <h1 class="pt">${esc(r.title)}</h1>
     <p class="intro">${esc(r.artist)} \u00b7 ${esc(r.kind)}${r.detail ? ' \u00b7 ' + esc(r.detail) : ''} \u00b7 ${esc(r.date)}</p>
-
-    <div class="rule"></div>
     <div class="relhead">
       <div class="art"><img src="${r.art}" alt="${esc(r.title)} cover"></div>
       <div>
@@ -646,7 +635,7 @@ const releasePage = r => {
       ${pg.tracks.map(t => `<li>${esc(t)}</li>`).join('\n      ')}
     </ol>` : ''}
 
-    ${pg.about ? `<div class="rule" style="margin-top:34px"></div>
+    ${pg.about ? `
     <div class="lbl">${esc(pg.about.heading)}</div>
     <div class="d3">
       <div>
@@ -743,7 +732,6 @@ const workPage = w => {
       </div>` : '<div></div>'}
     </div>
     ${d.statementKo ? `
-    <div class="rule" style="margin-top:40px"></div>
     <div class="lbl">${esc(d.statementTitle || 'statement')}</div>
     <div class="statement">
       <div>${d.statementKo.map(para).join('\n        ')}</div>
@@ -789,13 +777,12 @@ const discoBody = `
     ${DISCO.map(([id, label, key]) => {
       const list = rel.items.filter(r => r.group === key || (key === 'collaboration' && r.group === 'collective'));
       if (!list.length) return '';
-      return `<div class="rule" style="margin-top:26px"></div>
+      return `
     <div class="lbl" id="${id}">${label}</div>
     <div class="rels">
       ${list.map(relRow).join('\n      ')}
     </div>`;
     }).join('\n')}
-    <div class="rule" style="margin-top:26px"></div>
     <div class="lbl" id="djsets">dj sets</div>
     <div class="wgroup" style="margin-top:10px">
       ${dj.items.map(d => `<div class="wrow">
@@ -823,7 +810,6 @@ const textPage = t => `
     <div class="dt" style="color:var(--ink-3);font-size:12px;margin-top:4px">${esc(t.meta)}</div>
     ${t.work ? `<div class="dt" style="font-size:12.5px;margin-top:2px">written for
       <a href="${t.work.href}" style="border-bottom:1px solid var(--rule)">${esc(t.work.label)}</a></div>` : ''}
-    <div class="rule" style="margin-top:24px"></div>
     <div class="statement">
       <div>${t.ko.map(x => `<p class="tx">${esc(x)}</p>`).join('\n        ')}</div>
       <div>${t.en.map(x => `<p class="tx">${esc(x)}</p>`).join('\n        ')}
