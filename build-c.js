@@ -341,11 +341,11 @@ const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
 // One image per work, plus the paintings and drawings. Residency photographs are
 // documentation rather than works, and there are 52 of them, so only the single
 // thumbnail each residency already carries reaches the home plate.
-// One image per work, plus the paintings and drawings. Two kinds stay out: the
-// residency photographs (documentation, and there are 52 of them) and the
-// scores, whose images are of someone else's performance rather than my work.
+// One image per work, plus the paintings and drawings. Scores stay out — those
+// images document someone else's performance — as does anything marked
+// `noHome` in works.js.
 const stripImgs = [...new Set([
-  ...works.map(w => w.img).filter(im => im && !im.startsWith('img/scores/')),
+  ...works.filter(w => !w.noHome).map(w => w.img).filter(im => im && !im.startsWith('img/scores/')),
   ...paintingItems.map(it => it.img)
 ])];
 
