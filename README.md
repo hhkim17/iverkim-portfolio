@@ -27,26 +27,21 @@ See `HANDOFF.md` for project state, design references and open questions.
 
 ## Custom domain
 
-The site is published at https://hhkim17.github.io/iverkim-portfolio/.
+The site is served at **https://iverkim.com**, with
+https://hhkim17.github.io/iverkim-portfolio/ still working as the origin.
 
-To move it to `iverkim.com`, in this order:
+The domain is registered through Cloudflare, whose nameservers front GitHub
+Pages. `build-c.js` emits `c/CNAME` from `CUSTOM_DOMAIN`, which is what tells
+Pages the domain belongs to this repository — the file has to be inside the
+uploaded artifact, because Pages is built by Actions rather than from a branch.
 
-1. Register the domain.
-2. At the registrar, add these DNS records:
+Two things follow from Cloudflare proxying (the orange cloud):
 
-   | type | name | value |
-   |---|---|---|
-   | A | @ | 185.199.108.153 |
-   | A | @ | 185.199.109.153 |
-   | A | @ | 185.199.110.153 |
-   | A | @ | 185.199.111.153 |
-   | CNAME | www | hhkim17.github.io |
-
-3. Wait for the records to resolve (`dig +short iverkim.com` should return the
-   four addresses).
-4. Set `CUSTOM_DOMAIN = 'iverkim.com'` in `build-c.js` and push.
-5. In the repository's Pages settings, enter the domain and enable
-   "Enforce HTTPS" once the certificate is issued.
-
-Step 4 before step 3 takes the site offline: Pages redirects the github.io
-address to the custom domain as soon as a CNAME file exists.
+- TLS is terminated at Cloudflare's edge, so the certificate visitors see is
+  Cloudflare's, not GitHub's. GitHub's own "Enforce HTTPS" cannot be switched
+  on while the proxy is up, because GitHub cannot reach the domain to validate
+  it. Setting `cname` through the API also fails if `https_enforced` is sent in
+  the same call — send `cname` alone.
+- http:// is not redirected to https:// by GitHub. Turn on **SSL/TLS → Edge
+  Certificates → Always Use HTTPS** in the Cloudflare dashboard, and make sure
+  the SSL mode is **Full**, not Flexible.
