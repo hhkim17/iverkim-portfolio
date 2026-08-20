@@ -10,7 +10,7 @@ const content = {
   based: 'Seoul, KR / Utrecht, NL',
 
   bio: [
-    "Iver Kim is a composer and visual artist based in Seoul. She works between sound and image, composing electroacoustic and drone music, recording in the field, building audiovisual installations, and making graphic scores.",
+    "Iver Kim (b.1998) is a composer and visual artist based in Seoul. She works between sound and image, composing electroacoustic and drone music, recording in the field, building audiovisual installations, and making graphic scores.",
     "Trained in fine art before music technology, she approaches sound as a spatial and painterly medium, occasionally drawing on classical music and instrumental performance inside electronic contexts. Her attention goes to subtle and often barely perceptible sonic events: small vibrations, fragile gestures, and the thresholds between noise, tone and silence.",
     "She calls the subject impossible dialogues, between nature, humanity and the digital. Something organic runs through the forms and the sounds. She stays in unstable states in between, where perception shifts and time stretches, asking how the smallest sonic matter can open into an immersive spatial and temporal experience.",
     "The paintings hold the same question from the other side. She approaches memory as something that cannot be reached, and faces and rooms lose their original shape. What is sharp is smoothed or covered over with thick paint, what is ordinary takes on a sublime colour, and every portrait becomes a self portrait.",
@@ -409,36 +409,12 @@ const content = {
         ]
       },
       {
-        id: 'sound-drawings',
+        id: 'graphic-scores',
         page: 'drawings',
-        title: 'Sound Drawings',
-        note: 'Casa de Lollo, 2025',
+        title: 'Graphic scores',
         items: [
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-01.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-02.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-03.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-04.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-05.png' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-06.png' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-07.png' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-08.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-09.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-10.jpg' },
-          { title: 'Casa Lollo', year: '2025', medium: 'sound drawing', size: '', img: 'img/drawings/casa-lollo-11.jpg' }
+          { title: 'Waves Piece', year: '2024', medium: 'colour pencil on paper', size: '', img: 'img/drawings/waves-piece-graphic-score.jpg' }
         ]
-      },
-      {
-        id: 'drawings',
-        page: 'drawings',
-        title: 'Drawings',
-        items: [
-          { title: 'Studies', year: '', medium: 'coloured pencil on paper', size: '', img: 'img/drawings/colour-pencil-studies.jpg' },
-          { title: 'Berlin', year: '2017', medium: 'watercolour on paper', size: '', img: 'img/drawings/berlin-2017.jpg' }
-        ],
-        // The images that used to sit here came across from the old Framer site and are
-        // wrong \u2014 they are photographs of collaborative work, not drawings. Parked in
-        // `_wrongImages` below.
-        // The photographs that used to sit here are in source/collaboration-photos/
       }
     ]
   },

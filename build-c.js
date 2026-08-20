@@ -33,7 +33,8 @@ const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 // does not repeat it.
 const NAV = [
   { f: 'about.html', t: 'about' },
-  { f: 'works.html', t: 'works', children: [
+  { f: 'works.html', t: 'works', toggle: true, children: [
+      { group: '', items: [{ f: 'works.html', t: 'all' }] },
       { group: '', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
       { group: '', items: [] }
     ] },
@@ -87,8 +88,12 @@ em{font-style:italic}
 .menu:focus-visible{outline:1px solid var(--rule);outline-offset:3px}
 .menu span{display:block;height:1px;background:var(--ink-2);margin:5px 0}
 .side nav{display:flex;flex-direction:column}
-.side nav a{padding:0;font-size:12px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
-.side nav a:hover{color:var(--ink);border-color:var(--ink)}
+.side nav a,.side nav .branch{padding:0;font-size:12px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
+.side nav a:hover,.side nav .branch:hover{color:var(--ink);border-color:var(--ink)}
+.side nav .branch{background:none;border:0;border-bottom:1px solid transparent;font:inherit;
+  color:var(--ink-2);text-align:left;cursor:pointer;width:fit-content;-webkit-tap-highlight-color:transparent}
+.side nav .branch[aria-current="page"]{color:#BDB7AC}
+.side nav .branch:focus{outline:none}
 .side nav a[aria-current="page"]{color:#BDB7AC;border-color:transparent}
 .side nav a[aria-current="page"]:hover{color:#BDB7AC;border-color:transparent}
 .side nav .sub{display:flex;flex-direction:column;margin:3px 0 6px 12px;gap:0}
@@ -345,6 +350,13 @@ const JS = `
 (function(){
   // narrow screens: the index collapses behind a menu button
   var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
+  document.querySelectorAll('.side nav .branch').forEach(function(b){
+    b.addEventListener('click',function(){
+      var sub=b.nextElementSibling, open=sub.hasAttribute('hidden');
+      if(open){ sub.removeAttribute('hidden'); } else { sub.setAttribute('hidden',''); }
+      b.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
   if(btn){
     btn.addEventListener('click',function(){
       var open=side.classList.toggle('open');
@@ -368,12 +380,15 @@ function shell(title, current, body) {
   const link = n => `<a href="${n.f}"${n.f === current ? ' aria-current="page"' : ''}>${esc(n.t)}</a>`;
   const nav = NAV.map(n => {
     if (!n.children) return link(n);
-    // expand the branch whenever the current page belongs to it
     const owns = n.f === current || n.children.some(g => g.items.some(i => i.f === current));
-    if (!owns) return link(n);
-    return link(n) + '\n        <div class="sub">' + n.children.map(g =>
+    const sub = '<div class="sub"' + (owns ? '' : ' hidden') + '>' + n.children.map(g =>
       (g.group ? `<span class="subhead">${esc(g.group)}</span>` : '') +
       g.items.map(link).join('')).join('<span class="subgap"></span>') + '</div>';
+    // a toggle opens the list where you stand instead of loading a page
+    const head = n.toggle
+      ? `<button class="branch" type="button" aria-expanded="${owns}"${n.f === current ? ' aria-current="page"' : ''}>${esc(n.t)}</button>`
+      : link(n);
+    return head + '\n        ' + sub;
   }).join('\n        ');
   return `<!doctype html>
 <html lang="en">
@@ -409,7 +424,7 @@ ${body}
 const byMediumCount = {};
 works.filter(w => !w.archiveOnly && !w.credit).forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
-NAV.find(n => n.t === 'works').children[1].items =
+NAV.find(n => n.t === 'works').children[2].items =
   MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
     .map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
 
