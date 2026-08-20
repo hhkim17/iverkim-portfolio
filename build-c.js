@@ -422,7 +422,10 @@ const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
 // One image per work, plus the paintings and drawings. Scores stay out — those
 // images document someone else's performance — as does anything marked
 // `noHome` in works.js.
+// The plates the old Framer site opened with, kept in the rotation.
+const HOME_EXTRA = ['img/home/home-01.jpg', 'img/home/home-02.jpg', 'img/home/home-03.png', 'img/home/home-04.jpg', 'img/home/home-05.png', 'img/home/home-06.png'];
 const stripImgs = [...new Set([
+  ...HOME_EXTRA,
   ...works.filter(w => !w.noHome).map(thumb).filter(im => im && !im.startsWith('img/scores/')),
   ...paintingItems.map(it => it.img)
 ])];
