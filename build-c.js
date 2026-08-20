@@ -783,7 +783,7 @@ const pages = [
 // domain is registered and its DNS points at GitHub, or the site goes dark.
 // To switch over: register the domain, set the DNS records (see README), then
 // put 'iverkim.com' here and push.
-const CUSTOM_DOMAIN = '';
+const CUSTOM_DOMAIN = 'iverkim.com';
 if (CUSTOM_DOMAIN) fs.writeFileSync(path.join(OUT, 'CNAME'), CUSTOM_DOMAIN + '\n');
 
 const ASSETS = path.join(__dirname, 'assets');
