@@ -413,6 +413,8 @@ NAV.find(n => n.t === 'works').children[1].items =
   MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
     .map(m => ({ f: mediaHref(m), t: MEDIA_NAV_LABEL[m] || MEDIA_LABEL[m] || m }));
 
+// no thumbnail set? use the first detail image rather than showing an empty plate
+const thumb = w => w.img || ((w.det && w.det.images && w.det.images[0]) || '');
 const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
 // One image per work, plus the paintings and drawings. Residency photographs are
 // documentation rather than works, and there are 52 of them, so only the single
@@ -421,7 +423,7 @@ const paintingItems = c.drawings.groups.flatMap(g => g.items || []);
 // images document someone else's performance — as does anything marked
 // `noHome` in works.js.
 const stripImgs = [...new Set([
-  ...works.filter(w => !w.noHome).map(w => w.img).filter(im => im && !im.startsWith('img/scores/')),
+  ...works.filter(w => !w.noHome).map(thumb).filter(im => im && !im.startsWith('img/scores/')),
   ...paintingItems.map(it => it.img)
 ])];
 
@@ -439,7 +441,8 @@ const workHref = w => (w.slug ? `work-${w.slug}.html` : (w.link || w.href || '')
 const workTile = w => {
   const dest = workHref(w);
   const ext = dest.startsWith('http') ? ' target="_blank" rel="noopener"' : '';
-  const ph = `<div class="ph"${w.img ? '' : ' data-empty="1"'}>${w.img ? `<img loading="lazy" src="${w.img}" alt="${esc(w.t)}">` : ''}</div>`;
+  const im = thumb(w);
+  const ph = `<div class="ph"${im ? '' : ' data-empty="1"'}>${im ? `<img loading="lazy" src="${im}" alt="${esc(w.t)}">` : ''}</div>`;
   return `<figure>
         ${dest ? `<a class="ph-link" href="${dest}"${ext}>${ph}</a>` : ph}
         <figcaption><span class="tt">${dest ? `<a href="${dest}"${ext}>${esc(w.t)}</a>` : esc(w.t)}</span>
