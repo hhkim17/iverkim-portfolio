@@ -32,8 +32,8 @@ const mediaHref = m => MEDIA_PAGE[m] || `works-m-${m}.html`;
 const NAV = [
   { f: 'about.html', t: 'about' },
   { f: 'works.html', t: 'works', children: [
-      { group: 'by year', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
-      { group: 'by medium', items: [] }
+      { group: '', items: YEARS_NAV.map(y => ({ f: `works-y-${y}.html`, t: String(y) })) },
+      { group: '', items: [] }
     ] },
   { f: 'discography.html', t: 'discography', children: [
       { group: '', items: [
@@ -52,12 +52,15 @@ const CSS = `
 /* Redaction — Forest Young & Jeremy Mickel (OFL), served via jsDelivr/Fontsource.
    Supreme — Indian Type Foundry (free for commercial use), served via Fontshare. */
 
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/redaction-35@5.3.0/index.css");
+
 :root{
   --bg:#FFFFFF; --ink:#292727; --ink-2:#666666; --ink-3:#8C8C8C;
   --rule:#DCDCD8; --hair:#EEEEEA;
   --serif:"Helvetica Neue",Helvetica,Arial,sans-serif;
   --display:"Helvetica Neue",Helvetica,Arial,sans-serif;
   --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --name:"Redaction 35",Georgia,"Times New Roman",serif;
   --side:196px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -74,13 +77,14 @@ em{font-style:italic}
 .frame{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
 .side{padding:26px 20px 26px 26px;position:sticky;top:0;height:100vh;
   overflow-y:auto;display:flex;flex-direction:column;gap:26px}
-.side .name{font-size:12px;line-height:18px;font-weight:700;color:var(--ink)}
+.side .name{font-family:var(--name);font-size:19px;line-height:1.15;font-weight:400;letter-spacing:.005em;color:var(--ink)}
 .side nav{display:flex;flex-direction:column}
 .side nav a{padding:0;font-size:12px;color:var(--ink-2);border-bottom:1px solid transparent;width:fit-content}
 .side nav a:hover{color:var(--ink);border-color:var(--ink)}
 .side nav a[aria-current="page"]{color:#BDB7AC;border-color:transparent}
 .side nav a[aria-current="page"]:hover{color:#BDB7AC;border-color:transparent}
-.side nav .sub{display:flex;flex-direction:column;margin:3px 0 6px 12px}
+.side nav .sub{display:flex;flex-direction:column;margin:3px 0 6px 12px;gap:0}
+.side nav .sub .subgap{height:8px}
 .side nav .sub a{font-size:12px;color:var(--ink-3);padding:1.5px 0}
 .side nav .sub a:hover{color:var(--ink)}
 .side nav .subhead{font-size:11px;
@@ -298,8 +302,8 @@ function shell(title, current, body) {
     const owns = n.f === current || n.children.some(g => g.items.some(i => i.f === current));
     if (!owns) return link(n);
     return link(n) + '\n        <div class="sub">' + n.children.map(g =>
-      `<span class="subhead">${esc(g.group)}</span>` +
-      g.items.map(link).join('')).join('') + '</div>';
+      (g.group ? `<span class="subhead">${esc(g.group)}</span>` : '') +
+      g.items.map(link).join('')).join('<span class="subgap"></span>') + '</div>';
   }).join('\n        ');
   return `<!doctype html>
 <html lang="en">
