@@ -98,7 +98,7 @@ em{font-style:italic}
 .side .grp{margin-top:14px}
 .side .ext a{display:block;padding:2px 0;color:var(--ink-2)}
 .side .ext a:hover{color:var(--ink)}
-.side .cr{margin-top:auto;color:var(--ink-3);font-size:12px;padding-top:20px}
+.cr{margin-top:56px;padding-top:14px;border-top:1px solid var(--hair);color:var(--ink-3);font-size:11.5px}
 
 .main{padding:30px 40px 90px;max-width:1180px}
 .rule{height:1px;background:var(--rule);margin:30px 0}
@@ -286,9 +286,6 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
     border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:4px 0}
   .side nav .sub a{font-size:13px;padding:5px 0}
   .side nav .sub .subgap{height:10px}
-  .side .cr{display:none}
-  .side.open .cr{display:block}
-  .side .cr{margin-top:16px}
   .main{padding:26px 22px 70px}
   .entry{grid-template-columns:1fr;gap:20px}
   .wrow{grid-template-columns:44px 1fr;gap:8px}
@@ -336,10 +333,10 @@ function shell(title, current, body) {
     <nav>
         ${nav}
     </nav>
-    <div class="cr">${esc(c.copyright)}</div>
   </div>
   <main class="main">
 ${body}
+    <div class="cr">${esc(c.copyright)}</div>
   </main>
 </div>
 <script src="viewer.js"></script>\n<script src="app.js"></script>
