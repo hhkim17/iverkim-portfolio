@@ -309,12 +309,12 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
   .menu{display:block}
   .side nav{display:none;flex-direction:column;margin-top:18px}
   .side.open nav{display:flex}
-  .side nav a{font-size:13px;padding:7px 0;letter-spacing:.02em}
+  /* the toggle is a button, so it needs the same rhythm as the links */
+  .side nav a,.side nav .branch{font-size:13px;padding:7px 0;letter-spacing:.02em;line-height:1.3}
   .side nav .sub[hidden]{display:none}
-  .side nav .sub{flex-direction:column;margin:0 0 0 14px;
-    border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);padding:4px 0}
-  .side nav .sub a{font-size:13px;padding:5px 0}
-  .side nav .sub .subgap{height:10px}
+  .side nav .sub{flex-direction:column;margin:0 0 0 14px;padding:0}
+  .side nav .sub a{font-size:13px;padding:7px 0}
+  .side nav .sub .subgap{height:8px}
   .main{padding:26px 22px 70px}
   .entry{grid-template-columns:1fr;gap:20px}
   .wrow{grid-template-columns:44px 1fr;gap:8px}
