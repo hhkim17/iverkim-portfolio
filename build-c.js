@@ -394,11 +394,24 @@ const JS = `
     lb.addEventListener('click',close);
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
   }
+  // a branch stays open across pages until it is clicked shut again
+  var OPEN='ik-nav-open';
+  function openSet(){ try{ return new Set(JSON.parse(localStorage.getItem(OPEN)||'[]')); }catch(e){ return new Set(); } }
+  function saveOpen(set){ try{ localStorage.setItem(OPEN, JSON.stringify([...set])); }catch(e){} }
+  var opened=openSet();
   document.querySelectorAll('.side nav .branch').forEach(function(b){
+    var name=b.textContent.trim(), sub=b.nextElementSibling;
+    function set(on){
+      if(on){ sub.removeAttribute('hidden'); } else { sub.setAttribute('hidden',''); }
+      b.setAttribute('aria-expanded', on?'true':'false');
+    }
+    if(opened.has(name)) set(true);
     b.addEventListener('click',function(){
-      var sub=b.nextElementSibling, open=sub.hasAttribute('hidden');
-      if(open){ sub.removeAttribute('hidden'); } else { sub.setAttribute('hidden',''); }
-      b.setAttribute('aria-expanded',open?'true':'false');
+      var on=sub.hasAttribute('hidden');
+      set(on);
+      var cur=openSet();
+      if(on){ cur.add(name); } else { cur.delete(name); }
+      saveOpen(cur);
     });
   });
   if(btn){
