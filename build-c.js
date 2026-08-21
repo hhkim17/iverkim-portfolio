@@ -255,6 +255,16 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .plates.art{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));column-gap:20px;row-gap:24px;align-items:start}
 .plates.art figure{background:none;display:flex;flex-direction:column}
 .plates.art .ph{background:#F2F2EE;aspect-ratio:1/1;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:12px}
+.plates.art button.ph{border:0;width:100%;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.plates.art button.ph:hover{opacity:.85}
+.plates.art button.ph:focus{outline:none}
+.lightbox{position:fixed;inset:0;background:rgba(255,255,255,.97);display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:40px;z-index:50;cursor:zoom-out}
+.lightbox[open]{display:flex}
+.lightbox img{max-width:100%;max-height:calc(100vh - 130px);width:auto;height:auto;object-fit:contain}
+.lightbox figcaption{font-size:11px;color:var(--ink-3);text-align:center}
+.lightbox .close{position:absolute;top:18px;right:22px;background:none;border:0;font:inherit;
+  font-size:12px;color:var(--ink-3);cursor:pointer}
 .plates.art .ph img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
 /* ---- thumbnail tiles ----
    Proportions taken from inbetweennoise.com: 170x100 thumb (17:10), 20px column
@@ -265,6 +275,8 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
   column-gap:20px;row-gap:24px;margin-top:16px;align-items:start}
 .tiles figure{display:flex;flex-direction:column;max-width:220px}
 .tiles .ph{background:#F2F2EE;aspect-ratio:17/10;flex:none;overflow:hidden}
+.tiles.covers .ph{aspect-ratio:1/1}
+.tiles.covers figure{max-width:170px}
 .tiles .ph img{width:100%;height:100%;object-fit:cover;display:block}
 .tiles .ph[data-empty]{background:repeating-linear-gradient(135deg,#F4F4F0,#F4F4F0 6px,#EFEFEA 6px,#EFEFEA 12px)}
 .tiles .ph-link{display:block}
@@ -370,6 +382,18 @@ const JS = `
 (function(){
   // narrow screens: the index collapses behind a menu button
   var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
+  var lb=document.getElementById('lightbox');
+  if(lb){
+    var lbImg=document.getElementById('lightbox-img'), lbCap=document.getElementById('lightbox-cap');
+    function close(){ lb.removeAttribute('open'); lbImg.src=''; }
+    document.querySelectorAll('button.zoom').forEach(function(b){
+      b.addEventListener('click',function(){
+        lbImg.src=b.dataset.full; lbCap.textContent=b.dataset.cap||''; lb.setAttribute('open','');
+      });
+    });
+    lb.addEventListener('click',close);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+  }
   document.querySelectorAll('.side nav .branch').forEach(function(b){
     b.addEventListener('click',function(){
       var sub=b.nextElementSibling, open=sub.hasAttribute('hidden');
@@ -436,6 +460,11 @@ ${body}
     <div class="cr">${esc(c.copyright)}</div>
   </main>
 </div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="close" type="button" aria-label="close">close</button>
+  <img id="lightbox-img" src="" alt="">
+  <figcaption id="lightbox-cap"></figcaption>
+</div>
 <script src="${VIEWER_FILE}"></script>\n<script src="${JS_FILE}"></script>
 </body>
 </html>`;
@@ -490,12 +519,33 @@ const workTile = w => {
           <span class="tv">${esc(w.v)}${w.w ? ' \u00b7 with ' + esc(w.w) : ''}</span></figcaption>
       </figure>`;
 };
-const worksGrid = list => `<div class="tiles">\n      ${list.map(workTile).join('\n      ')}\n    </div>`;
+// Paintings and drawings live on their own pages; a single tile each puts them
+// in the works grid instead of leaving them only in the nav.
+const COLLECTIONS = [
+  { key: 'paintings', title: 'Paintings', href: 'paintings.html' },
+  { key: 'drawings', title: 'Drawings', href: 'drawings.html' }
+];
+const collItems = key => c.drawings.groups.filter(g => g.page === key).flatMap(g => g.items || []);
+const collYears = it => (parseInt(it.year, 10) || 0);
+const collTile = (col, from, to) => {
+  const items = collItems(col.key).filter(it => from == null || (collYears(it) >= from && collYears(it) <= to));
+  if (!items.length) return '';
+  const media = [...new Set(items.map(it => it.medium).filter(Boolean))];
+  return `<figure>
+        <a class="ph-link" href="${col.href}"><div class="ph"><img loading="lazy" src="${items[0].img}" alt="${esc(col.title)}"></div></a>
+        <figcaption><span class="tt"><a href="${col.href}">${esc(col.title)}</a></span>
+          <span class="ty">${items.length} works</span>
+          <span class="tr">${esc(media.slice(0, 2).join(' \u00b7 '))}</span></figcaption>
+      </figure>`;
+};
+const worksGrid = (list, from, to) => `<div class="tiles">
+      ${list.map(workTile).concat(COLLECTIONS.map(col => collTile(col, from, to)).filter(Boolean)).join('\n      ')}
+    </div>`;
 
-const worksPage = (heading, list, note) => `
+const worksPage = (heading, list, from, to) => `
     <h1 class="pt">${esc(heading)}</h1>
-    <div class="lbl" style="margin-top:22px">${list.length} work${list.length === 1 ? '' : 's'}${note ? ' \u00b7 ' + esc(note) : ''}</div>
-    ${worksGrid(list)}`;
+    <div class="lbl" style="margin-top:22px">${list.length} work${list.length === 1 ? '' : 's'}</div>
+    ${worksGrid(list, from, to)}`;
 
 // Residencies are archive material; they live on the archive page and stay out
 // of the works index.
@@ -522,7 +572,7 @@ const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
 
 const yearPages = YEAR_BUCKETS.map(b => [`works-y-${b.slug}.html`,
   shell(b.label, `works-y-${b.slug}.html`,
-    worksPage(b.label, indexWorks.filter(w => w.y >= b.from && w.y <= b.to).sort((x, y) => y.y - x.y)))]);
+    worksPage(b.label, indexWorks.filter(w => w.y >= b.from && w.y <= b.to).sort((x, y) => y.y - x.y), b.from, b.to))]);
 
 // only media without a rich page of their own need a generated index
 const mediumPages = MEDIA.filter(m => byMediumCount[m] && !MEDIA_PAGE[m]).map(m => [`works-m-${m}.html`,
@@ -651,7 +701,7 @@ const artPage = (heading, key) => `
     <div class="lbl" id="${g.id}" style="margin-top:30px">${esc(g.title.toLowerCase())} (${g.items.length})${g.note ? ' \u2014 ' + esc(g.note) : ''}</div>
     <div class="plates art">
       ${g.items.map(it => `<figure>
-        <div class="ph"><img loading="lazy" src="${it.img}" alt="${esc(it.title)}"></div>
+        <button class="ph zoom" type="button" data-full="${it.img}" data-cap="${esc(it.title)}${it.year ? ', ' + esc(it.year) : ''}${it.medium ? ' \u00b7 ' + esc(it.medium) + (it.size ? ', ' + esc(it.size) : '') : ''}"><img loading="lazy" src="${it.img}" alt="${esc(it.title)}"></button>
         <figcaption><span class="pt-t">${esc(it.title)}</span>${it.year ? '<br>' + esc(it.year) : ''}${it.medium ? '<br>' + esc(it.medium) + (it.size ? ', ' + esc(it.size) : '') : ''}</figcaption>
       </figure>`).join('\n      ')}
     </div>`).join('\n')}`;
@@ -828,16 +878,19 @@ const releasePages = rel.items.filter(r => r.slug && r.page)
   .map(r => [`release-${r.slug}.html`, shell(r.title, 'sound.html', releasePage(r))]);
 
 /* ---------------- discography / texts / contact ---------------- */
-const relRow = r => {
+const relTile = r => {
   const dest = r.slug ? `release-${r.slug}.html` : r.href;
   const ext = r.slug ? '' : ' target="_blank" rel="noopener"';
-  return `<div class="rel">
-        <a class="cover" href="${dest}"${ext}><img loading="lazy" src="${r.art}" alt="${esc(r.title)} cover"></a>
-        <span class="rt"><a href="${dest}"${ext}>${esc(r.title)}</a> <span class="wk">${esc(r.kind)}</span></span>
-        <span class="ra">${esc(r.artist)}${r.role ? '<br>' + esc(r.role) : ''}${r.detail ? '<br>' + esc(r.detail) : ''}</span>
-        <span class="rd">${esc(r.date)}</span>
-      </div>`;
+  const second = r.artist === c.name ? '' : r.artist;
+  return `<figure>
+        <a class="ph-link" href="${dest}"${ext}><div class="ph"><img loading="lazy" src="${r.art}" alt="${esc(r.title)} cover"></div></a>
+        <figcaption><span class="tt"><a href="${dest}"${ext}>${esc(r.title)}</a></span>
+          <span class="ty">${esc(r.year)}</span>
+          ${second ? `<span class="tr">${esc(second)}</span>` : ''}
+          <span class="tv">${esc(r.kind)}${r.detail ? ' \u00b7 ' + esc(r.detail) : ''}</span></figcaption>
+      </figure>`;
 };
+
 const DISCO = [
   ['solo', 'solo', 'solo'],
   ['collaborations', 'collaborations', 'collaboration'],
@@ -848,25 +901,21 @@ const discoBody = `
     ${DISCO.map(([id, label, key]) => {
       const list = rel.items.filter(r => r.group === key || (key === 'collaboration' && r.group === 'collective'));
       if (!list.length) return '';
-      return `
-    <div class="lbl" id="${id}">${label}</div>
-    <div class="rels">
-      ${list.map(relRow).join('\n      ')}
+      return `<div class="lbl" id="${id}" style="margin-top:26px">${label}</div>
+    <div class="tiles covers">
+      ${list.map(relTile).join('\n      ')}
     </div>`;
     }).join('\n')}
-    <div class="lbl" id="djsets">dj sets</div>
-    <div class="wgroup" style="margin-top:10px">
-      ${dj.items.map(d => `<div class="wrow">
-        <span class="wy">${esc(d.year)}</span>
-        <span class="wt"><a href="${d.href}" target="_blank" rel="noopener">${esc(d.title)}</a></span>
-        <span class="wv">${esc(d.venue)}</span>
-        <span class="wm">${esc(d.date)}</span>
-      </div>`).join('\n      ')}
-    </div>
-    <p style="margin-top:22px;color:var(--ink-2);max-width:56ch">${esc(rel.note)} &mdash;
-      <a href="https://kimiver.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">bandcamp</a>,
-      <a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">d\u00b3</a>,
-      <a href="https://soundcloud.com/kimiver" target="_blank" rel="noopener" style="border-bottom:1px solid var(--rule)">soundcloud</a>.</p>`;
+
+    <div class="lbl" id="djsets" style="margin-top:34px">dj sets</div>
+    <ul class="textlist" style="margin-top:12px">
+      ${dj.items.map(d => `<li><a href="${d.href}" target="_blank" rel="noopener">${esc(d.title)}</a>, ${esc(d.venue)}, ${esc(d.date)}</li>`).join('\n      ')}
+    </ul>
+
+    <p class="tx" style="margin-top:26px;color:var(--ink-3);max-width:56ch">${esc(rel.note)} \u2014
+      <a href="https://kimiver.bandcamp.com" target="_blank" rel="noopener">bandcamp</a>,
+      <a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener">d\u00b3</a>,
+      <a href="https://soundcloud.com/kimiver" target="_blank" rel="noopener">soundcloud</a>.</p>`;
 
 const textsBody = `
     <h1 class="pt">Texts</h1>

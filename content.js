@@ -475,6 +475,7 @@ const content = {
     {
       title: 'Teaching and presentation',
       entries: [
+        { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026' },
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
         { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL' },
         { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL' },
