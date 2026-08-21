@@ -267,6 +267,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
   column-gap:20px;row-gap:24px;margin-top:16px;align-items:start}
 .tiles figure{display:flex;flex-direction:column;max-width:220px}
 .tiles .ph{background:#F2F2EE;aspect-ratio:17/10;flex:none;overflow:hidden}
+.tiles.covers{grid-template-columns:repeat(auto-fill,170px);justify-content:start;column-gap:18px;row-gap:22px}
 .tiles.covers .ph{aspect-ratio:1/1}
 .tiles.covers figure{max-width:170px}
 .tiles .ph img{width:100%;height:100%;object-fit:cover;display:block}
@@ -659,8 +660,7 @@ const resMeta = s => `
     <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
     <div class="dt" style="color:var(--ink-3);font-size:12.5px">${esc(s.context)}</div>
     ${s.text ? `<p class="tx" style="max-width:56ch;margin-top:10px">${esc(s.text)}</p>` : ''}
-    ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}
-    ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}`;
+    ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}`;
 
 const resPlates = list => `<div class="tiles" style="margin-top:14px">
       ${list.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt=""></div></figure>`).join('\n      ')}
@@ -691,6 +691,7 @@ const resPage = s => `
     <a class="backlink" href="residency-archive.html">\u2190 archive</a>
     <h1 class="pt">${esc(s.title)}</h1>
     ${resMeta(s)}
+    ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}
     ${resPlates(s.images)}
     ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings</div>
     <div class="plates art" style="margin-top:10px">
@@ -917,11 +918,7 @@ const discoBody = `
     <ul class="textlist" style="margin-top:12px">
       ${dj.items.map(d => `<li><a href="${d.href}" target="_blank" rel="noopener">${esc(d.title)}</a>, ${esc(d.venue)}, ${esc(d.date)}</li>`).join('\n      ')}
     </ul>
-
-    <p class="tx" style="margin-top:26px;color:var(--ink-3);max-width:56ch">${esc(rel.note)} \u2014
-      <a href="https://kimiver.bandcamp.com" target="_blank" rel="noopener">bandcamp</a>,
-      <a href="https://deepdronedreamer.bandcamp.com" target="_blank" rel="noopener">d\u00b3</a>,
-      <a href="https://soundcloud.com/kimiver" target="_blank" rel="noopener">soundcloud</a>.</p>`;
+`;
 
 const textsBody = `
     <h1 class="pt">Texts</h1>
