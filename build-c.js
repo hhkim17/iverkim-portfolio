@@ -49,15 +49,7 @@ const NAV = [
       { group: '', items: YEAR_BUCKETS.map(b => ({ f: `works-y-${b.slug}.html`, t: b.label })) },
       { group: '', items: [] }
     ] },
-  { f: 'discography.html', t: 'discography', toggle: true, children: [
-      { group: '', items: [{ f: 'discography.html', t: 'all' }] },
-      { group: '', items: [
-        { f: 'discography.html#solo', t: 'solo' },
-        { f: 'discography.html#collaborations', t: 'collaborations' },
-        { f: 'discography.html#compilations', t: 'compilations' },
-        { f: 'discography.html#djsets', t: 'dj sets' }
-      ] }
-    ] },
+  { f: 'discography.html', t: 'discography' },
   { f: 'texts.html', t: 'texts' },
   { f: 'contact.html', t: 'contact' },
   { f: 'residency-archive.html', t: 'archive' }
@@ -551,14 +543,15 @@ const collTile = (col, from, to) => {
           <span class="tr">${esc(media.slice(0, 2).join(' \u00b7 '))}</span></figcaption>
       </figure>`;
 };
-const worksGrid = (list, from, to) => `<div class="tiles">
-      ${list.map(workTile).concat(COLLECTIONS.map(col => collTile(col, from, to)).filter(Boolean)).join('\n      ')}
+const worksGrid = (list, from, to, withCollections) => `<div class="tiles">
+      ${(withCollections ? list.map(workTile).concat(COLLECTIONS.map(col => collTile(col, from, to)).filter(Boolean))
+                         : list.map(workTile)).join('\n      ')}
     </div>`;
 
-const worksPage = (heading, list, from, to) => `
+const worksPage = (heading, list, from, to, withCollections) => `
     <h1 class="pt">${esc(heading)}</h1>
     <div class="lbl" style="margin-top:22px">${list.length} work${list.length === 1 ? '' : 's'}</div>
-    ${worksGrid(list, from, to)}`;
+    ${worksGrid(list, from, to, withCollections)}`;
 
 // Residencies are archive material; they live on the archive page and stay out
 // of the works index.
@@ -576,7 +569,7 @@ const creditRow = w => {
         <span class="wm">${esc(what.replace(/^I (made|did|worked as|wrote) /, '').split(' \u00b7 ')[0])}</span>
       </div>`;
 };
-const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
+const worksBody = worksPage('Works', byYear, null, null, true) + (creditWorks.length ? `
     <div class="lbl" id="credits">credits</div>
     <p class="tx" style="max-width:56ch;margin-top:8px;color:var(--ink-3)">Work made for other people's projects.</p>
     <div class="wgroup" style="margin-top:12px">
@@ -585,7 +578,7 @@ const worksBody = worksPage('Works', byYear) + (creditWorks.length ? `
 
 const yearPages = YEAR_BUCKETS.map(b => [`works-y-${b.slug}.html`,
   shell(b.label, `works-y-${b.slug}.html`,
-    worksPage(b.label, indexWorks.filter(w => w.y >= b.from && w.y <= b.to).sort((x, y) => y.y - x.y), b.from, b.to))]);
+    worksPage(b.label, indexWorks.filter(w => w.y >= b.from && w.y <= b.to).sort((x, y) => y.y - x.y), b.from, b.to, true))]);
 
 // only media without a rich page of their own need a generated index
 const mediumPages = MEDIA.filter(m => byMediumCount[m] && !MEDIA_PAGE[m]).map(m => [`works-m-${m}.html`,
