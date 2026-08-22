@@ -2,6 +2,9 @@
 c/
 iverkim-C-index.html
 
+# local tooling config — holds machine-specific absolute paths
+.claude/
+
 # scratch / working files
 works.js.bak
 works.js.bak2

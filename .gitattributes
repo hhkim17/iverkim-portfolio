@@ -1,0 +1,18 @@
+# Store text as LF in the repository and check it out as LF everywhere, so the
+# working tree matches whether it was cloned on macOS, Linux or Windows. Without
+# this the result depends on each machine's core.autocrlf setting.
+* text=auto eol=lf
+
+# Binaries git should never touch.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.mp3 binary
+*.wav binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
