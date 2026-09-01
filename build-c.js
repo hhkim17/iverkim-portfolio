@@ -182,7 +182,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .detail .stage video{width:100%;height:auto;display:block;background:#F2F2EE;max-width:640px}
 .detail .stage .vid figcaption{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);padding-top:6px}
 .statement{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;margin-top:12px}
-.statement .tx{font-size:13.5px;line-height:1.72;max-width:52ch;margin-bottom:12px}
+.statement .tx{max-width:52ch;margin-bottom:15px}
 .txt{padding:0 0 22px;max-width:60ch}
 .txt .dt{color:var(--ink-3);font-size:12px;margin:2px 0 10px}
 .txt .tx{margin-bottom:10px}
