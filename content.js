@@ -413,6 +413,7 @@ const content = {
         page: 'drawings',
         title: 'Graphic scores',
         items: [
+          { title: 'Score #1', year: '2022', medium: 'pencil on paper', size: '', img: 'img/drawings/score-no1.jpg' },
           { title: 'Waves Piece', year: '2024', medium: 'colour pencil on paper', size: '', img: 'img/drawings/waves-piece-graphic-score.jpg' }
         ]
       }
