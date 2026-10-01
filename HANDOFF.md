@@ -23,11 +23,15 @@ cd c && python3 -m http.server 8000
 
 ## Medium vocabulary
 
-`MEDIA` in build-c.js:10 — order here is the display order in tag arrays.
+`MEDIA` in build-c.js — order here is the display order in tag arrays.
 
-    sound · intermedia · video · performance · installation · photography · painting · drawing
+    sound · intermedia · video · performance · installation · painting · drawing · commercial
 
-`video` was added 2026-08 for *The Trained Gaze*. `drawing` is currently unused (see gap 1).
+`video` was added 2026-08 for *The Trained Gaze*. `commercial` was added 2026-10;
+it is not a medium but a context, which is why it sits last — a work reads
+"intermedia · performance · commercial". A tag only appears in the nav once at
+least one work carries it (`byMediumCount` gates it), so adding one costs nothing
+until it is used.
 
 ## Editorial voice
 

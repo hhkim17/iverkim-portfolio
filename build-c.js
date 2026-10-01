@@ -9,10 +9,12 @@ const crypto = require('crypto');
 const hash = str => crypto.createHash('sha1').update(str).digest('hex').slice(0, 8);
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'painting', 'drawing'];
+// `commercial` is not a medium but a context; it sits last so a work reads
+// "intermedia · performance · commercial".
+const MEDIA = ['sound', 'intermedia', 'video', 'performance', 'installation', 'painting', 'drawing', 'commercial'];
 const MEDIA_LABEL = {
   sound: 'sound', intermedia: 'intermedia', video: 'video', performance: 'performance',
-  installation: 'installation', photography: 'photography', painting: 'painting', drawing: 'drawing'
+  installation: 'installation', photography: 'photography', painting: 'painting', drawing: 'drawing', commercial: 'commercial'
 };
 
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
