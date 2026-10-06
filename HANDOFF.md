@@ -15,7 +15,7 @@ cd c && python3 -m http.server 8000
 | file | what it is |
 |---|---|
 | `content.js` | All text: bio, CV, sound (releases / dj sets / live / collaborations), photography, drawings, contact. |
-| `works.js` | The unified works index (26 entries). `m:` = medium tags, `k:` = kind, `w:` = collaborator, `link:`/`href:` = detail target. |
+| `works.js` | The unified works index (36 entries; 34 in the index, 2 archive-only). `m:` = medium tags, `k:` = kind, `w:` = collaborator, `x:` = the show when it differs from the work, `link:`/`href:` = detail target. Its header comment documents every field. |
 | `build-c.js` | Generates the site into `c/`. Contains all CSS, page templates, and the `MEDIA` tag vocabulary. |
 | `build-single-c.js` | Bundles `c/` into one self-contained HTML with hash routing. |
 | `c/` | Build output — don't edit by hand, it gets overwritten. |
@@ -65,19 +65,25 @@ Most useful so far — extract with `pdftotext -layout`:
 
 - `2025/CV_2025.2.pdf` — latest CV (Korean). Contains works missing from the site.
 - `2025/포트폴리오_2025.8(페인팅+인터미디어).pdf` — painting + intermedia, with titles/years/media/dimensions.
-- `2024/portfolio_2024.4/portfolio_2024.4.20.pdf`, `2023/Hwan Hee Kim_Portfolio(04.2023HKUmasters).pdf` — not yet mined.
+- `2024/portfolio_2024.4/portfolio_2024.4.20.pdf` and the 2023 HKU masters portfolio
+  (its filename carries the former name) — not yet mined.
 
 External references used for the d³ pages: the d³ EPK (Notion) and the Korean Indie interview (Feb 2025). Album copy on the detail page is taken from the artist's own EPK only — the interview is third-party and is linked, not quoted.
 
 ## Known gaps
 
-1. **`drawing` tag is still unused in works.js.** The paintings themselves now live on `drawings.html` (19 works, extracted from the 2025.8 portfolio into `assets/paintings/`), but the works *index* still lists only painting exhibitions, not the individual works. Short films 2016–2020 are also not yet added (decided: they get the `video` tag).
+1. ~~**`drawing` tag is still unused.**~~ Resolved — paintings and drawings have their own
+   pages, and the four short films carry the `video` tag.
 1b. **The Drawings section is empty.** The 13 images that used to sit there came from the old Framer site and are wrong — photographs of collaborative work, not drawings. They are parked in `content.js` → `drawings.groups[id:'drawings']._wrongImages` and render nowhere. Real drawing files still needed; the collaboration photos should be relocated to whichever project they belong to.
-2. **works.js conflates exhibition titles with work titles.** Confirmed cases: *meet me at 1.048596 :)* is the work, 페르소나 사회 is the show; *Milk 'n Fridge* is the work, *K-Arts in Osaka: Communication* is the show. Needs a decision on how to represent both.
+2. ~~**works.js conflates exhibition titles with work titles.**~~ Resolved — the `x:` field
+   carries the show when it differs from the work, and renders as “in ‹show›”.
 3. **works.js has not yet absorbed the CV/portfolio findings.** The English CV (`2024/portfolio_2024.4/IverKim CV-2024.3.pdf`) is the richest source found so far — it gives English titles, roles and collaborators for everything. Still to fold in: the four missing 2022 works (JunYuEumMu; Purun, Zitten, Summer; Jazz Breeze on a lazy morning; Catering Service/avcd), *Waves Piece*, the `dim` interactive music video, the five short films, and role corrections (The Hangout is a DJ set, not a live set; the 2023 barn show was a d³ collective show). Old wording of this gap:
    **Works in the 2025 CV that are missing from works.js**: 전유음무(專有陰霧) 공상온도 2022 · 푸른, 짙은, 여름 SAPY 2022 · Jazz Breeze on a lazy morning SAPY 2022 · Catering Service pixelcounting 2022. Also *Waves Piece* (2024, with Laura Kampman) and the *dim* interactive music video (2022, Unity).
-4. **Photography, intermedia and album-cover images are still hotlinked** to `framerusercontent.com` and `f4.bcbits.com`. Paintings are now local. Move the rest into `assets/`.
-5. **d³ (deep drone dreamer) is not introduced anywhere** — 2 of 4 releases are under that name. It's a duo with Joon Pyo (milk of the sun); the artist writes the music.
+4. ~~**Images are hotlinked.**~~ Resolved — everything is local under `assets/`. Do not
+   reintroduce hotlinks; the sources (Framer, Cargo, Bandcamp) expire or block referers.
+5. ~~**d³ (deep drone dreamer) is not introduced anywhere.**~~ Resolved — d³ has its own
+   release page. It is a duo; the artist writes the music and is credited as the
+   collective, not by the other member's name, at her request.
 6. *The Very First Cyborg* was removed from intermedia (it is a painting group show) but has no home on `drawings.html` yet.
 6b. **`intermedia.html` is now a thumbnail grid** of 18 projects using the icon images from the old Framer site, downloaded into `assets/intermedia/`. Six of those projects are not in works.js at all: A World Observing a World (2025), Pishu 'Penguin' Teaser (2024), computing-composing (2022), Seoul Stage 11 (2022), avcd (2022), Duet / Trio for piano and computer (2021).
 6c. **Date conflict**: the old site dates *When Doves Cry.. Rage in Eden* to 2024, both CVs say 2023. Unresolved — works.js currently says 2023.
@@ -98,7 +104,10 @@ Detail pages must be able to carry, later: multiple detail images, a description
 
 ## Naming
 
-The artist published earlier as **김환희 / Hwan Hee Kim**. That is a former name — it must not appear anywhere on the site, even though it is still on source pages such as kartsfaa.org. Use **Iver Kim / 김이베** only.
+The artist published under a former name until 2025. It must not appear anywhere on
+the site or in this repository, even though it is still on source pages such as
+kartsfaa.org and on some source PDF filenames. Use **Iver Kim / 김이베** only.
+This repository is public, so the rule applies to notes and commit messages too.
 
 ## Direction
 
@@ -114,7 +123,10 @@ The artist wants `works.html` to look and behave like Steve Roden's inbetweennoi
 
 The branch expands only on pages that belong to it. A medium points at its own rich page where one exists (`MEDIA_PAGE` in build-c.js) and at a generated `works-m-*.html` otherwise; years are always generated (`works-y-*.html`). `app.js` is now just a shim redirecting the old `works.html#m-…` / `#y-…` deep links to the new pages.
 
-works.js now holds **42 works** (2016–2025); 21 have a thumbnail and 16 have a detail page. The rest render a hatched empty plate. `drawing` is still an unused medium tag.
+works.js now holds **36 entries** (2016–2026): 34 in the works index plus 2 archive-only.
+33 have a thumbnail and 32 have a detail page; the rest render a hatched empty plate.
+Medium spread: intermedia 20 · performance 10 · sound 8 · installation 4 · painting 4 ·
+video 4 · commercial 1 · drawing 1.
 
 ## Videos
 
@@ -138,3 +150,33 @@ Unresolved conflicts: the portfolio dates *Untitled* to 2020, YouTube says 2017 
 - Restructure `works.js` and the nav to the Roden shape (by-period and by-category as separate pages, releases split solo / collective / collaboration), then build work detail pages to the spec above.
 - Resolve the exhibition-vs-work split (option (a): work title leads, exhibition is secondary).
 - Deploy: `c/` is plain static files — drop it on Netlify, Vercel, or GitHub Pages as-is.
+
+## Continuing from another account or machine
+
+Everything needed is in this repository; nothing lives only in a home folder.
+
+    git clone https://github.com/hhkim17/iverkim-portfolio.git
+    cd iverkim-portfolio
+    node build-c.js            # regenerates c/
+    cd c && python3 -m http.server 8777
+
+What is **not** in the clone, and why that is fine:
+
+- `c/` and `iverkim-C-index.html` are gitignored build output — `node build-c.js`
+  and `node build-single-c.js` regenerate them. GitHub Actions does the same on push,
+  so the deployed site never depends on a local build.
+- `.claude/` is gitignored because it holds machine-specific absolute paths.
+- `works.js.bak*` are scratch files; ignore them.
+
+What the new account needs set up once:
+
+- **node** — already global at `/opt/homebrew/bin/node`, so any account on this Mac has it.
+- **GitHub push access** — the remote is HTTPS and credentials live in the login
+  keychain, which is per-account. Run `gh auth login` on the new account.
+- **The Extreme SSD** — source material (portfolio PDFs, photos, videos, TouchDesigner
+  projects). It is exFAT, so it mounts for whichever account is logged in and
+  permissions carry over. Paths used so far: `PROJECT/<year>/`, `WORK/<year>/`,
+  `DOCUMENTS/Portfolio, CV/`, `PHOTO/`, `MUSIC/`.
+
+Deploys are automatic: push to `main` and the Actions workflow builds `c/` and
+publishes it to GitHub Pages at iverkim.com. Check a run with `gh run list`.
