@@ -271,6 +271,20 @@ const content = {
   workshops: {
     series: [
       {
+        id: 'makers-meet-and-eat',
+        title: 'Makers Meet & Eat',
+        year: '2023',
+        place: 'Utrecht, Netherlands',
+        medium: 'Art and technology workshop',
+        context: 'Centraal Museum Utrecht \u00b7 June 2023',
+        images: [
+          'img/works/makers-meet-and-eat/01.jpg',
+          'img/works/makers-meet-and-eat/02.jpg',
+          'img/works/makers-meet-and-eat/03.jpg',
+          'img/works/makers-meet-and-eat/04.jpg'
+        ]
+      },
+      {
         id: 'pointclouds',
         title: 'Pointclouds \u2014 make your own virtual space',
         year: '2023',
@@ -676,7 +690,7 @@ const content = {
         { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026' },
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
         { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL' },
-        { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL' },
+        { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL', archive: 'makers-meet-and-eat' },
         { year: '2023', text: 'Pointclouds \u2014 make your own virtual space, TouchDesigner guest lecture, CCU, Utrecht, NL', archive: 'pointclouds' },
         { year: '2022', text: 'School Convergence Arts Education: Taking the Next Step Together, TouchDesigner teaching assistant, ArtE Academy, KR' },
         { year: '2022', text: 'New Media Expansion Programme, Pipeline Tech Lab \u2039Noise Jam 2\u203a, TouchDesigner teaching assistant, SAPY, Seoul, KR' },
