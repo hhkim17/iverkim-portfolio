@@ -344,6 +344,7 @@ const content = {
         place: 'Verona, Italy',
         medium: 'Field recording, composition',
         context: 'SelvArt Residency',
+        credit: 'Photographs by Iver Kim',
         audio: 'img/audio/selvart-listen-to-the-small-sounds.mp3',
         text: 'Listening before looking. I made field recordings in the woods and the village, and the composition came out of them.',
         images: [
