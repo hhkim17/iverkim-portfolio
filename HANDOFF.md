@@ -33,6 +33,10 @@ it is not a medium but a context, which is why it sits last — a work reads
 least one work carries it (`byMediumCount` gates it), so adding one costs nothing
 until it is used.
 
+A work tagged `commercial` appears only on the commercial page — not in `all`, the
+year pages, or its other media (`isCommercial` in build-c.js). Its detail page and
+CV entry are unaffected.
+
 ## Editorial voice
 
 The invented page intros ("An ongoing archive of images and field recordings…" etc.) were removed at the artist's request — `intro` fields are now empty strings and the nav `blurb` fields are gone. Do not reintroduce descriptive flavour text; captions and metadata only.

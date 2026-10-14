@@ -20,7 +20,10 @@ const MEDIA_LABEL = {
 // Nav is a tree, following inbetweennoise.com: `works` opens into a by-year list
 // and a by-medium list. A medium points at its own rich page where one exists
 // (sound, intermedia, painting, photography); the rest are generated indexes.
-const ALL_YEARS = [...new Set(require('./works').filter(w => !w.archiveOnly && !w.credit).map(w => w.y))].sort((a, b) => b - a);
+// Commercial work is kept to its own page: it stays out of `all`, the year
+// pages and the other media.
+const isCommercial = w => w.m.includes('commercial');
+const ALL_YEARS = [...new Set(require('./works').filter(w => !w.archiveOnly && !w.credit && !isCommercial(w)).map(w => w.y))].sort((a, b) => b - a);
 // The early years hold one or two works each, so they read better as one range.
 const YEAR_SPLIT = 2021;
 const EARLY = ALL_YEARS.filter(y => y < YEAR_SPLIT);
@@ -480,7 +483,7 @@ ${body}
 
 /* ---------------- home: full table of contents, nothing hidden ---------------- */
 const byMediumCount = {};
-works.filter(w => !w.archiveOnly && !w.credit).forEach(w => w.m.forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
+works.filter(w => !w.archiveOnly && !w.credit).forEach(w => (isCommercial(w) ? ['commercial'] : w.m).forEach(m => { byMediumCount[m] = (byMediumCount[m] || 0) + 1; }));
 const years = [...new Set(works.map(w => w.y))].sort((a, b) => b - a);
 NAV.find(n => n.t === 'works').children[2].items =
   MEDIA.filter(m => byMediumCount[m] && !MEDIA_NAV_SKIP.includes(m))
@@ -558,7 +561,8 @@ const worksPage = (heading, list, from, to, withCollections) => `
 
 // Residencies are archive material; they live on the archive page and stay out
 // of the works index.
-const indexWorks = works.filter(w => !w.archiveOnly && !w.credit);
+const indexWorks = works.filter(w => !w.archiveOnly && !w.credit && !isCommercial(w));
+const commercialWorks = works.filter(w => !w.archiveOnly && !w.credit && isCommercial(w));
 const creditWorks = works.filter(w => w.credit).sort((a, b) => b.y - a.y);
 const byYear = indexWorks.slice().sort((a, b) => b.y - a.y || a.t.localeCompare(b.t));
 const creditRow = w => {
@@ -586,7 +590,7 @@ const yearPages = YEAR_BUCKETS.map(b => [`works-y-${b.slug}.html`,
 // only media without a rich page of their own need a generated index
 const mediumPages = MEDIA.filter(m => byMediumCount[m] && !MEDIA_PAGE[m]).map(m => [`works-m-${m}.html`,
   shell(MEDIA_LABEL[m], `works-m-${m}.html`,
-    worksPage(MEDIA_LABEL[m], indexWorks.filter(w => w.m.includes(m)).sort((a, b) => b.y - a.y)))]);
+    worksPage(MEDIA_LABEL[m], (m === 'commercial' ? commercialWorks : indexWorks.filter(w => w.m.includes(m))).sort((a, b) => b.y - a.y)))]);
 
 /* ---------------- sound ---------------- */
 const collab = c.sound.groups.find(g => g.id === 'collaborations');
