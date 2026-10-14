@@ -663,7 +663,7 @@ const interBody = `
 
 /* ---------------- photography ---------------- */
 const resMeta = s => `
-    <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${esc(s.year)} \u00b7 ${esc(s.place)} \u00b7 ${esc(s.medium)}</div>
+    <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${[s.year, s.place, s.medium].filter(Boolean).map(esc).join(' \u00b7 ')}</div>
     <div class="dt" style="color:var(--ink-3);font-size:12.5px">${esc(s.context)}</div>
     ${s.text ? `<p class="tx" style="max-width:56ch;margin-top:10px">${esc(s.text)}</p>` : ''}
     ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}`;
