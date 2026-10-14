@@ -266,6 +266,12 @@ const content = {
     ]
   },
 
+  // Workshops in the archive: same fields as photography.series below
+  // (id, title, year, place, medium, context, text, credit, cover, images, drawings).
+  workshops: {
+    series: []
+  },
+
   photography: {
     intro: '',
     series: [

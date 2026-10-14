@@ -57,7 +57,8 @@ const NAV = [
   { f: 'discography.html', t: 'discography' },
   { f: 'texts.html', t: 'texts' },
   { f: 'contact.html', t: 'contact' },
-  { f: 'residency-archive.html', t: 'archive' }
+  // filled in from ARCHIVE once the content is loaded
+  { f: 'residency-archive.html', t: 'archive', toggle: true, children: [{ group: '', items: [] }] }
 ];
 
 const CSS = `
@@ -700,9 +701,17 @@ const resPlates = list => `<div class="tiles" style="margin-top:14px">
 // stays readable; one photograph, or sound alone, sits inline.
 const resDeep = s => (s.images || []).length > 1;
 
-const photoBody = `
-    <h1 class="pt">Archive</h1>
-    ${c.photography.series.map(s => {
+// The archive holds groups of the same kind of entry. A group shows in the nav
+// once it has an entry, as a medium does.
+const ARCHIVE = [
+  { f: 'residency-archive.html', t: 'residency', heading: 'Residency', list: c.photography.series },
+  { f: 'workshops.html', t: 'workshops', heading: 'Workshops', list: (c.workshops && c.workshops.series) || [] }
+].filter(g => g.list.length);
+NAV.find(n => n.t === 'archive').children[0].items = ARCHIVE.map(g => ({ f: g.f, t: g.t }));
+
+const archiveBody = g => `
+    <h1 class="pt">${esc(g.heading)}</h1>
+    ${g.list.map(s => {
       const n = (s.images || []).length + (s.drawings || []).length;
       return `
     <div class="resrow">
@@ -717,8 +726,8 @@ const photoBody = `
     </div>`;
     }).join('\n')}`;
 
-const resPage = s => `
-    <a class="backlink" href="residency-archive.html">\u2190 archive</a>
+const resPage = (s, g) => `
+    <a class="backlink" href="${g.f}">\u2190 ${esc(g.t)}</a>
     <h1 class="pt">${esc(s.title)}</h1>
     ${resMeta(s)}
     ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}
@@ -728,8 +737,9 @@ const resPage = s => `
       ${s.drawings.map(im => `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt="${esc(s.title)} drawing"></button></figure>`).join('\n      ')}
     </div>` : ''}`;
 
-const resPages = c.photography.series.filter(resDeep)
-  .map(s => [`archive-${s.id}.html`, shell(s.title, 'residency-archive.html', resPage(s))]);
+const archivePages = ARCHIVE.map(g => [g.f, shell(g.t, g.f, archiveBody(g))]);
+const resPages = ARCHIVE.flatMap(g => g.list.filter(resDeep)
+  .map(s => [`archive-${s.id}.html`, shell(s.title, g.f, resPage(s, g))]));
 
 /* ---------------- drawings ---------------- */
 const artPage = (heading, key) => `
@@ -989,7 +999,6 @@ const contactBody = `
 const pages = [
   ['index.html', shell('index', 'index.html', home)],
   ['works.html', shell('works', 'works.html', worksBody)],
-  ['residency-archive.html', shell('archive', 'residency-archive.html', photoBody)],
   ['paintings.html', shell('paintings', 'paintings.html', paintBody)],
   ['drawings.html', shell('drawings', 'drawings.html', drawBody)],
   ['discography.html', shell('discography', 'discography.html', discoBody)],
@@ -1021,7 +1030,7 @@ fs.readdirSync(OUT)
   .filter(f => /^(style\.[0-9a-f]{8}\.css|app\.[0-9a-f]{8}\.js|viewer\.[0-9a-f]{8}\.js)$/.test(f))
   .filter(f => ![CSS_FILE, JS_FILE, VIEWER_FILE].includes(f))
   .forEach(f => fs.unlinkSync(path.join(OUT, f)));
-const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, textPages, resPages);
+const emitted = pages.concat(archivePages, releasePages, yearPages, mediumPages, workPages, textPages, resPages);
 // Remove pages left behind by earlier builds (a work removed from works.js used to
 // keep its stale work-*.html around). Scratch pages starting with _ are left alone.
 fs.readdirSync(OUT)

@@ -124,6 +124,12 @@ The artist wants `works.html` to look and behave like Steve Roden's inbetweennoi
           └ by medium ─ sound / intermedia / video / performance /
                         installation / residency archive / drawings & paintings
     about
+    archive ─ residency / workshops
+
+`archive` is a branch like `works`. Its groups are `ARCHIVE` in build-c.js:
+residency reads `content.photography.series`, workshops reads
+`content.workshops.series`, both with the same fields. A group appears in the nav
+only once it has an entry, so workshops is hidden while it is empty.
 
 The branch expands only on pages that belong to it. A medium points at its own rich page where one exists (`MEDIA_PAGE` in build-c.js) and at a generated `works-m-*.html` otherwise; years are always generated (`works-y-*.html`). `app.js` is now just a shim redirecting the old `works.html#m-…` / `#y-…` deep links to the new pages.
 
