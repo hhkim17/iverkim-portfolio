@@ -276,6 +276,7 @@ const content = {
         place: 'Casa de Lollo, Italy',
         context: 'Casa de Lollo Residency \u00b7 July\u2013August 2026',
         cover: 'img/works/casa-carlotta-2026/26.jpg',
+        credit: 'Photographs by Jeremy Cox',
         images: [
           'img/works/casa-carlotta-2026/01.jpg',
           'img/works/casa-carlotta-2026/02.jpg',
