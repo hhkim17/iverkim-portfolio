@@ -398,7 +398,7 @@ const content = {
         place: 'Casa de Lollo, Italy',
         medium: 'Photography, drawing, field recording, flute',
         context: 'Casa de Lollo Residency \u00b7 July 2025',
-        cover: 'img/works/casa-carlotta/01.jpg',
+        cover: 'img/works/casa-carlotta/film-01.jpg',
         credit: 'Photographs by Iver Kim, Laura Kampman and Jeremy Cox',
         text: 'Recording sessions in the chapel and the upstairs room, field recording in the village, and the days around them.',
         images: [
