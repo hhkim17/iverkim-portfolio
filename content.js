@@ -304,7 +304,6 @@ const content = {
           'img/works/ems/18.jpg',
           'img/works/ems/19.jpg',
           'img/works/ems/20.jpg',
-          'img/works/ems/21.jpg',
           'img/works/ems/22.jpg'
         ]
       },
@@ -382,7 +381,7 @@ const content = {
         year: '2025',
         place: 'Verona, Italy',
         medium: 'Field recording, composition',
-        context: 'SelvArt Residency',
+        context: 'SelvArt Residency \u00b7 April\u2013May 2025',
         credit: 'Photographs by Iver Kim',
         audio: 'img/audio/selvart-listen-to-the-small-sounds.mp3',
         text: 'Listening before looking. I made field recordings in the woods and the village, and the composition came out of them.',
