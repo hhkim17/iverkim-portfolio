@@ -278,6 +278,14 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .tiles .ph img{width:100%;height:100%;object-fit:cover;display:block}
 .tiles .ph[data-empty]{background:repeating-linear-gradient(135deg,#F4F4F0,#F4F4F0 6px,#EFEFEA 6px,#EFEFEA 12px)}
 .tiles .ph-link{display:block}
+.tiles button.ph{display:block;width:100%;border:0;padding:0;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.tiles button.ph:hover{opacity:.82}
+.lightbox .step{position:absolute;top:50%;transform:translateY(-50%);background:none;border:0;font:inherit;
+  font-size:12px;color:var(--ink-3);cursor:pointer;padding:20px 14px}
+.lightbox .step:hover,.lightbox .close:hover{color:var(--ink)}
+.lightbox .prev{left:4px}
+.lightbox .next{right:4px}
+.lightbox .step[hidden]{display:none}
 .tiles .ph-link:hover .ph{opacity:.82}
 .tiles .tt a{border-bottom:1px solid var(--rule)}
 .tiles .tt a:hover{border-color:var(--ink)}
@@ -383,14 +391,28 @@ const JS = `
   var lb=document.getElementById('lightbox');
   if(lb){
     var lbImg=document.getElementById('lightbox-img'), lbCap=document.getElementById('lightbox-cap');
-    function close(){ lb.removeAttribute('open'); lbImg.src=''; }
-    document.querySelectorAll('button.zoom').forEach(function(b){
-      b.addEventListener('click',function(){
-        lbImg.src=b.dataset.full; lbCap.textContent=b.dataset.cap||''; lb.setAttribute('open','');
-      });
-    });
+    // every zoomable image on the page is one sequence, stepped with prev/next or the arrow keys
+    var zooms=[].slice.call(document.querySelectorAll('button.zoom')), at=-1;
+    var prev=lb.querySelector('.prev'), next=lb.querySelector('.next');
+    function show(i){
+      at=(i+zooms.length)%zooms.length;
+      var b=zooms[at], cap=b.dataset.cap||'';
+      lbImg.src=b.dataset.full;
+      lbCap.textContent=zooms.length>1 ? (cap ? cap+' \u00b7 ' : '')+(at+1)+' / '+zooms.length : cap;
+      lb.setAttribute('open','');
+    }
+    function close(){ lb.removeAttribute('open'); lbImg.src=''; at=-1; }
+    prev.hidden=next.hidden=zooms.length<2;
+    zooms.forEach(function(b,i){ b.addEventListener('click',function(){ show(i); }); });
+    prev.addEventListener('click',function(e){ e.stopPropagation(); show(at-1); });
+    next.addEventListener('click',function(e){ e.stopPropagation(); show(at+1); });
     lb.addEventListener('click',close);
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+    document.addEventListener('keydown',function(e){
+      if(at<0) return;
+      if(e.key==='Escape') close();
+      else if(e.key==='ArrowLeft') show(at-1);
+      else if(e.key==='ArrowRight') show(at+1);
+    });
   }
   // a branch stays open across pages until it is clicked shut again
   var OPEN='ik-nav-open';
@@ -473,6 +495,8 @@ ${body}
 </div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
   <button class="close" type="button" aria-label="close">close</button>
+  <button class="step prev" type="button" aria-label="previous">&lt; prev</button>
+  <button class="step next" type="button" aria-label="next">next &gt;</button>
   <img id="lightbox-img" src="" alt="">
   <figcaption id="lightbox-cap"></figcaption>
 </div>
@@ -669,7 +693,7 @@ const resMeta = s => `
     ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}`;
 
 const resPlates = list => `<div class="tiles" style="margin-top:14px">
-      ${list.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt=""></div></figure>`).join('\n      ')}
+      ${list.map(im => `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt=""></button></figure>`).join('\n      ')}
     </div>`;
 
 // A residency with more than one photograph gets its own page, so the index
@@ -686,7 +710,7 @@ const photoBody = `
       ${resMeta(s)}
       ${resDeep(s)
         ? `<a class="rescover" href="archive-${s.id}.html">
-        <div class="ph"><img loading="lazy" src="${s.images[0]}" alt="${esc(s.title)}"></div>
+        <div class="ph"><img loading="lazy" src="${s.cover || s.images[0]}" alt="${esc(s.title)}"></div>
         <span class="tt">${n} images</span>
       </a>`
         : (s.images || []).length ? resPlates(s.images) : ''}
@@ -701,7 +725,7 @@ const resPage = s => `
     ${resPlates(s.images)}
     ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings</div>
     <div class="plates art" style="margin-top:10px">
-      ${s.drawings.map(im => `<figure><div class="ph"><img loading="lazy" src="${im}" alt="${esc(s.title)} drawing"></div></figure>`).join('\n      ')}
+      ${s.drawings.map(im => `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt="${esc(s.title)} drawing"></button></figure>`).join('\n      ')}
     </div>` : ''}`;
 
 const resPages = c.photography.series.filter(resDeep)
