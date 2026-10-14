@@ -276,6 +276,38 @@ const content = {
     intro: '',
     series: [
       {
+        id: 'ems',
+        title: 'Elektronmusikstudion (EMS)',
+        year: '2026',
+        place: 'Stockholm, Sweden',
+        context: 'EMS Residency \u00b7 August\u2013September 2026',
+        cover: 'img/works/ems/01.jpg',
+        images: [
+          'img/works/ems/01.jpg',
+          'img/works/ems/02.jpg',
+          'img/works/ems/03.jpg',
+          'img/works/ems/04.jpg',
+          'img/works/ems/05.jpg',
+          'img/works/ems/06.jpg',
+          'img/works/ems/07.jpg',
+          'img/works/ems/08.jpg',
+          'img/works/ems/09.jpg',
+          'img/works/ems/10.jpg',
+          'img/works/ems/11.jpg',
+          'img/works/ems/12.jpg',
+          'img/works/ems/13.jpg',
+          'img/works/ems/14.jpg',
+          'img/works/ems/15.jpg',
+          'img/works/ems/16.jpg',
+          'img/works/ems/17.jpg',
+          'img/works/ems/18.jpg',
+          'img/works/ems/19.jpg',
+          'img/works/ems/20.jpg',
+          'img/works/ems/21.jpg',
+          'img/works/ems/22.jpg'
+        ]
+      },
+      {
         id: 'casa-carlotta-2026',
         title: 'Casa Carlotta',
         year: '2026',
