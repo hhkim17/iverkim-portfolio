@@ -440,45 +440,45 @@ const content = {
     {
       title: 'Exhibitions',
       entries: [
-        { year: '2025', text: 'The Trained Gaze, AI Cinemaster track, G-Artience, Daejeon, KR' },
-        { year: '2023', text: 'Rooms by Humans: Spaceless Echo, interactive installation, De Nĳverheid, Utrecht, NL' },
-        { year: '2022\u20132023', text: 'Lost Air \u2014 Rave Geometry Series, data-visual director, MMCA Seoul, KR' },
-        { year: '2022', text: 'K-Arts in Osaka: Communication, \u2039milk \u2019n fridge\u203a interactive installation, Osaka Korean Culture Center, JP' },
-        { year: '2022', text: '\u2039The Very First Cyborg (\uac00\uc7a5 \uc624\ub798\ub41c \uc0ac\uc774\ubcf4\uadf8)\u203a, group exhibition with Youngmin Park and Taewan Jeong, Gallery 175, Seoul, KR', note: '20 May \u2013 1 June 2022 \u00b7 curated by Jiwon Yoo' },
-        { year: '2022', text: 'Dew on the eye, solo exhibition, CICA Museum, Gimpo, KR' },
-        { year: '2021', text: '\u2039Showcase 2021: Persona Society\u203a, \u2039\u201cmeet me at 1.048596 :)\u201d\u203a interactive installation, Seongbuk Young Art Space, Seoul, KR', note: 'K-Arts Convergence Art emerging artist programme' },
-        { year: '2021', text: 'Jong-Dal Jong-Dal, duo exhibition with Youngmin Park, K-Arts Bokdo Gallery, Seoul, KR' }
+        { year: '2025', text: 'The Trained Gaze, AI Cinemaster track, G-Artience, Daejeon, KR', work: 'the-trained-gaze' },
+        { year: '2023', text: 'Rooms by Humans: Spaceless Echo, interactive installation, De Nĳverheid, Utrecht, NL', work: 'rooms-by-humans' },
+        { year: '2022\u20132023', text: 'Lost Air \u2014 Rave Geometry Series, data-visual director, MMCA Seoul, KR', work: 'rave-geometry' },
+        { year: '2022', text: 'K-Arts in Osaka: Communication, \u2039milk \u2019n fridge\u203a interactive installation, Osaka Korean Culture Center, JP', work: 'milk-n-fridge' },
+        { year: '2022', text: '\u2039The Very First Cyborg (\uac00\uc7a5 \uc624\ub798\ub41c \uc0ac\uc774\ubcf4\uadf8)\u203a, group exhibition with Youngmin Park and Taewan Jeong, Gallery 175, Seoul, KR', note: '20 May \u2013 1 June 2022 \u00b7 curated by Jiwon Yoo', work: 'the-very-first-cyborg' },
+        { year: '2022', text: 'Dew on the eye, solo exhibition, CICA Museum, Gimpo, KR', work: 'dew-on-the-eye' },
+        { year: '2021', text: '\u2039Showcase 2021: Persona Society\u203a, \u2039\u201cmeet me at 1.048596 :)\u201d\u203a interactive installation, Seongbuk Young Art Space, Seoul, KR', note: 'K-Arts Convergence Art emerging artist programme', work: 'meet-me-at-1048596' },
+        { year: '2021', text: 'Jong-Dal Jong-Dal, duo exhibition with Youngmin Park, K-Arts Bokdo Gallery, Seoul, KR', work: 'jong-dal-jong-dal' }
       ]
     },
     {
       title: 'Performances',
       entries: [
-        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039\u201cNuance\u201d Glyph Duet\u203a with Eunsong Shin, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR' },
-        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039Rhizome\u203a with Jihoo Lee, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR' },
-        { year: '2025', text: 'Not One, Not Two, music director, The Performance Kitchen, Copenhagen, DK' },
-        { year: '2025', text: 'Not One, Not Two, music director, Studio Theatre, London, UK' },
-        { year: '2025', text: 'at the barn: a listening party, concept, spatial audio and audiovisual, Seoul, KR' },
+        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039\u201cNuance\u201d Glyph Duet\u203a with Eunsong Shin, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR', work: 'nuance-glyph-duet' },
+        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039Rhizome\u203a with Jihoo Lee, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR', work: 'rhizome' },
+        { year: '2025', text: 'Not One, Not Two, music director, The Performance Kitchen, Copenhagen, DK', work: 'not-one-not-two' },
+        { year: '2025', text: 'Not One, Not Two, music director, Studio Theatre, London, UK', work: 'not-one-not-two' },
+        { year: '2025', text: 'at the barn: a listening party, concept, spatial audio and audiovisual, Seoul, KR', work: 'at-the-barn' },
         { year: '2024', text: 'Kontakt Group presents Birth of Bea, live performance, Garage Noord, Amsterdam, NL' },
-        { year: '2024', text: 'Welcome to the Micro World, music director, Platform Theatre, London, UK' },
+        { year: '2024', text: 'Welcome to the Micro World, music director, Platform Theatre, London, UK', work: 'welcome-to-the-micro-world' },
         { year: '2024', text: 'Patricas pillow, live performance, Nachbar, Amsterdam, NL' },
         { year: '2024', text: 'Listening Session, live performance, KODA, Schiedam, NL' },
         { year: '2023', text: 'There\u2019s no wifi in the barn, d\u00b3 (deep drone dreamer), World Music House Seoul, Seoul, KR' },
         { year: '2023', text: 'The Hangout \u2014 Le Guess Who? x Kapitaal x Stranded FM, DJ set, Utrecht, NL' },
         { year: '2023', text: 'Bad van Geluid #1, live performance, De Doelen Studio, Rotterdam, NL' },
         { year: '2023', text: 'When Doves Cry.. Rage in Eden, projection visuals, ACS, Seoul, KR' },
-        { year: '2023', text: 'Mulsori, audiovisual performance, LPM Festival 2023, M\u00fcnster, DE' },
-        { year: '2023', text: 'Gerda \u2039Snow Sequence\u203a, audiovisual, Veloso, Seoul, KR' },
-        { year: '2023', text: 'WFS Concert \u2014 ICLC 2023, spatial audio composition, HKU IBB, Utrecht, NL' },
-        { year: '2023', text: 'WFS Concert, spatial audio composition, Zaal 100, Amsterdam, NL' },
-        { year: '2022', text: 'Lost Air \u00d7 ZER01NE Day, data-visual VJing, Seongsu D Factory, Seoul, KR' },
-        { year: '2022', text: 'Seoul Stage 11 \u2039\ud478\ub978, \uc9d9\uc740, \uc5ec\ub984\u203a with the singer-songwriter Zitten, audiovisual performance, SAPY, Seoul, KR' },
-        { year: '2022', text: 'Seoul Stage 11 \u2039Jazz Breeze on a lazy morning\u203a with the jazz band Prelude, audiovisual performance, SAPY, Seoul, KR' }
+        { year: '2023', text: 'Mulsori, audiovisual performance, LPM Festival 2023, M\u00fcnster, DE', work: 'mulsori' },
+        { year: '2023', text: 'Gerda \u2039Snow Sequence\u203a, audiovisual, Veloso, Seoul, KR', work: 'snow-sequence' },
+        { year: '2023', text: 'WFS Concert \u2014 ICLC 2023, spatial audio composition, HKU IBB, Utrecht, NL', work: 'wfs-concert' },
+        { year: '2023', text: 'WFS Concert, spatial audio composition, Zaal 100, Amsterdam, NL', work: 'wfs-concert' },
+        { year: '2022', text: 'Lost Air \u00d7 ZER01NE Day, data-visual VJing, Seongsu D Factory, Seoul, KR', work: 'lostair-zer01ne' },
+        { year: '2022', text: 'Seoul Stage 11 \u2039\ud478\ub978, \uc9d9\uc740, \uc5ec\ub984\u203a with the singer-songwriter Zitten, audiovisual performance, SAPY, Seoul, KR', work: 'seoul-stage-11' },
+        { year: '2022', text: 'Seoul Stage 11 \u2039Jazz Breeze on a lazy morning\u203a with the jazz band Prelude, audiovisual performance, SAPY, Seoul, KR', work: 'seoul-stage-11' }
       ]
     },
     {
       title: 'Commercial',
       entries: [
-        { year: '2026', text: 'NCT 10th Anniversary Pop-up \u2039NEO GROUND\u203a, interactive running zone, interactive content development, Pie Factory, Seoul, KR', note: '15\u201323 May 2026' }
+        { year: '2026', text: 'NCT 10th Anniversary Pop-up \u2039NEO GROUND\u203a, interactive running zone, interactive content development, Pie Factory, Seoul, KR', note: '15\u201323 May 2026', work: 'neo-ground' }
       ]
     },
     {

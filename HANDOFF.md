@@ -14,7 +14,7 @@ cd c && python3 -m http.server 8000
 
 | file | what it is |
 |---|---|
-| `content.js` | All text: bio, CV, sound (releases / dj sets / live / collaborations), photography, drawings, contact. |
+| `content.js` | All text: bio, CV, sound (releases / dj sets / live / collaborations), photography, drawings, contact. A CV entry with `work: '<slug>'` links to that work's page; the build fails if the slug has no page. |
 | `works.js` | The unified works index (36 entries; 34 in the index, 2 archive-only). `m:` = medium tags, `k:` = kind, `w:` = collaborator, `x:` = the show when it differs from the work, `link:`/`href:` = detail target. Its header comment documents every field. |
 | `build-c.js` | Generates the site into `c/`. Contains all CSS, page templates, and the `MEDIA` tag vocabulary. |
 | `build-single-c.js` | Bundles `c/` into one self-contained HTML with hash routing. |

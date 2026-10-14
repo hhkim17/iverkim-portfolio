@@ -719,6 +719,14 @@ const paintBody = artPage('Paintings', 'paintings');
 const drawBody  = artPage('Drawings', 'drawings');
 
 /* ---------------- about (bio + cv) ---------------- */
+// A CV entry with `work:` links to that work's detail page; `href:` links out.
+const cvText = e => {
+  if (e.work) {
+    if (!works.some(w => w.slug === e.work && w.det)) throw new Error(`cv: no work page for "${e.work}"`);
+    return `<a href="work-${e.work}.html">${esc(e.text)}</a>`;
+  }
+  return e.href ? `<a href="${e.href}" target="_blank" rel="noopener">${esc(e.text)}</a>` : esc(e.text);
+};
 const idFor = t => t.toLowerCase().split(/[^a-z]+/).filter(Boolean)[0];
 const aboutBody = `
     <div class="bio">
@@ -727,7 +735,7 @@ const aboutBody = `
     </div>
     ${c.cv.map(sec => `<div class="cvblock" id="${idFor(sec.title)}">
       <h3>${esc(sec.title.toLowerCase())}</h3>
-      ${sec.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${e.href ? `<a href="${e.href}" target="_blank" rel="noopener">${esc(e.text)}</a>` : esc(e.text)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
+      ${sec.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${cvText(e)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
     </div>`).join('\n    ')}`;
 
 /* ---------------- cv (folded into about) ---------------- */
@@ -736,7 +744,7 @@ const cvBody = `
     <p class="intro">Full listing. See <a href="works.html" style="border-bottom:1px solid var(--rule)">works</a> for the same material sorted by medium.</p>
     ${c.cv.map(s => `<div class="cvblock" id="${idFor(s.title)}">
       <h3>${esc(s.title.toLowerCase())}</h3>
-      ${s.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${e.href ? `<a href="${e.href}" target="_blank" rel="noopener">${esc(e.text)}</a>` : esc(e.text)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
+      ${s.entries.map(e => `<div class="cve"><span class="y">${esc(e.year)}</span><span>${cvText(e)}${e.note ? ` <span class="nt">(${esc(e.note)})</span>` : ''}</span></div>`).join('\n      ')}
     </div>`).join('\n    ')}`;
 
 
