@@ -174,9 +174,9 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .picker .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .picker .thumb.on,.picker .thumb:hover{opacity:1}
 .detail .facts{font-size:12.5px;color:var(--ink-2);line-height:1.65}
-.detail .dlinks{margin-top:12px;display:flex;flex-direction:column;gap:3px}
-.detail .dlinks a{font-size:12.5px;color:var(--ink-2);border-bottom:1px solid var(--rule);width:fit-content}
-.detail .dlinks a:hover{border-color:var(--ink)}
+.dlinks{margin-top:12px;display:flex;flex-direction:column;gap:3px}
+.dlinks a{font-size:12.5px;color:var(--ink-2);border-bottom:1px solid var(--rule);width:fit-content}
+.dlinks a:hover{border-color:var(--ink)}
 .detail .dtext{margin-top:14px}
 .detail .dtext .tx{font-size:13px;line-height:1.6}
 .detail .credit{font-family:var(--sans);font-size:10px;letter-spacing:.1em;color:var(--ink-3);margin-top:10px}
@@ -691,7 +691,10 @@ const resMeta = s => `
     <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${[s.year, s.place, s.medium].filter(Boolean).map(esc).join(' \u00b7 ')}</div>
     <div class="dt" style="color:var(--ink-3);font-size:12.5px">${esc(s.context)}</div>
     ${s.text ? `<p class="tx" style="max-width:56ch;margin-top:10px">${esc(s.text)}</p>` : ''}
-    ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}`;
+    ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}
+    ${(s.links || []).length ? `<div class="dlinks" style="margin-top:8px">
+      ${s.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('\n      ')}
+    </div>` : ''}`;
 
 const resPlates = list => `<div class="tiles" style="margin-top:14px">
       ${list.map(im => `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt=""></button></figure>`).join('\n      ')}

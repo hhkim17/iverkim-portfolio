@@ -282,6 +282,7 @@ const content = {
         place: 'Stockholm, Sweden',
         context: 'EMS Residency \u00b7 August\u2013September 2026',
         cover: 'img/works/ems/01.jpg',
+        links: [{ label: 'Elektronmusikstudion', href: 'https://elektronmusikstudion.se/en/guest-composers/guest-composers-2026/iver-kim/' }],
         images: [
           'img/works/ems/01.jpg',
           'img/works/ems/02.jpg',
