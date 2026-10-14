@@ -453,6 +453,8 @@ const content = {
     {
       title: 'Performances',
       entries: [
+        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039\u201cNuance\u201d Glyph Duet\u203a with Eunsong Shin, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR' },
+        { year: '2026', text: 'Sori Mokkoji: Playing Sound Together \u2039Rhizome\u203a with Jihoo Lee, live audiovisual performance, Understand Avenue Art Stand, Seoul, KR' },
         { year: '2025', text: 'Not One, Not Two, music director, The Performance Kitchen, Copenhagen, DK' },
         { year: '2025', text: 'Not One, Not Two, music director, Studio Theatre, London, UK' },
         { year: '2025', text: 'at the barn: a listening party, concept, spatial audio and audiovisual, Seoul, KR' },
