@@ -1027,5 +1027,15 @@ const emitted = pages.concat(releasePages, yearPages, mediumPages, workPages, te
 fs.readdirSync(OUT)
   .filter(f => f.endsWith('.html') && !f.startsWith('_') && !emitted.some(([n]) => n === f))
   .forEach(f => fs.unlinkSync(path.join(OUT, f)));
-emitted.forEach(([f, html]) => fs.writeFileSync(path.join(OUT, f), html));
+// Cloudflare sits in front of Pages and caches media by url, so a file replaced
+// under the same name (a photograph turned upright) kept serving the old copy.
+// Every local media reference gets ?v=<content hash>; the url changes only when
+// the file does.
+const assetVer = {};
+const versioned = html => html.replace(/(["'(])(img\/[^"'()?#\s]+)/g, (m, q, ref) => {
+  const file = path.join(OUT, ref);
+  if (!(ref in assetVer)) assetVer[ref] = fs.existsSync(file) ? hash(fs.readFileSync(file)) : '';
+  return assetVer[ref] ? `${q}${ref}?v=${assetVer[ref]}` : m;
+});
+emitted.forEach(([f, html]) => fs.writeFileSync(path.join(OUT, f), versioned(html)));
 console.log('built C:', pages.map(p => p[0]).join(', '));
