@@ -476,6 +476,12 @@ const content = {
       ]
     },
     {
+      title: 'Commercial',
+      entries: [
+        { year: '2026', text: 'NCT 10th Anniversary Pop-up \u2039NEO GROUND\u203a, interactive running zone, interactive content development, Pie Factory, Seoul, KR', note: '15\u201323 May 2026' }
+      ]
+    },
+    {
       title: 'Teaching and presentation',
       entries: [
         { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026' },
