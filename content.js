@@ -604,10 +604,10 @@ const content = {
     {
       title: 'Residency',
       entries: [
-        { year: '2026', text: 'Elektronmusikstudion (EMS), Sweden' },
-        { year: '2026', text: 'Casa Carlotta, Casa de Lollo, Italy' },
-        { year: '2025', text: 'Casa Carlotta, Casa de Lollo, Italy' },
-        { year: '2025', text: 'SelvArt, Italy' }
+        { year: '2026', text: 'Elektronmusikstudion (EMS), Sweden', archive: 'ems' },
+        { year: '2026', text: 'Casa Carlotta, Casa de Lollo, Italy', archive: 'casa-carlotta-2026' },
+        { year: '2025', text: 'Casa Carlotta, Casa de Lollo, Italy', archive: 'casa-carlotta' },
+        { year: '2025', text: 'SelvArt, Italy', archive: 'selvart' }
       ]
     },
     {

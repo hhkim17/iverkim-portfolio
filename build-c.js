@@ -757,8 +757,13 @@ const paintBody = artPage('Paintings', 'paintings');
 const drawBody  = artPage('Drawings', 'drawings');
 
 /* ---------------- about (bio + cv) ---------------- */
-// A CV entry with `work:` links to that work's detail page; `href:` links out.
+// A CV entry with `work:` links to that work's detail page, `archive:` to an
+// archive entry's page; `href:` links out.
 const cvText = e => {
+  if (e.archive) {
+    if (!ARCHIVE.some(g => g.list.some(x => x.id === e.archive && resDeep(x)))) throw new Error(`cv: no archive page for "${e.archive}"`);
+    return `<a href="archive-${e.archive}.html">${esc(e.text)}</a>`;
+  }
   if (e.work) {
     if (!works.some(w => w.slug === e.work && w.det)) throw new Error(`cv: no work page for "${e.work}"`);
     return `<a href="work-${e.work}.html">${esc(e.text)}</a>`;
