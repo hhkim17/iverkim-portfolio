@@ -269,7 +269,23 @@ const content = {
   // Workshops in the archive: same fields as photography.series below
   // (id, title, year, place, medium, context, text, credit, cover, images, drawings).
   workshops: {
-    series: []
+    series: [
+      {
+        id: 'pointclouds',
+        title: 'Pointclouds \u2014 make your own virtual space',
+        year: '2023',
+        place: 'Utrecht, Netherlands',
+        medium: 'TouchDesigner guest lecture',
+        context: 'TouchDesigner Meetup Utrecht, CCU (Creative Coding Utrecht) \u00b7 15 June 2023',
+        images: [
+          'img/works/pointclouds/01.jpg',
+          'img/works/pointclouds/02.jpg',
+          'img/works/pointclouds/03.jpg',
+          'img/works/pointclouds/04.jpg',
+          'img/works/pointclouds/05.jpg'
+        ]
+      }
+    ]
   },
 
   photography: {
@@ -661,7 +677,7 @@ const content = {
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
         { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL' },
         { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL' },
-        { year: '2023', text: 'Pointclouds \u2014 make your own virtual space, TouchDesigner guest lecture, CCU, Utrecht, NL' },
+        { year: '2023', text: 'Pointclouds \u2014 make your own virtual space, TouchDesigner guest lecture, CCU, Utrecht, NL', archive: 'pointclouds' },
         { year: '2022', text: 'School Convergence Arts Education: Taking the Next Step Together, TouchDesigner teaching assistant, ArtE Academy, KR' },
         { year: '2022', text: 'New Media Expansion Programme, Pipeline Tech Lab \u2039Noise Jam 2\u203a, TouchDesigner teaching assistant, SAPY, Seoul, KR' },
         { year: '2022', text: 'New Media Expansion Programme, Pipeline Tech Lab \u2039Noise Jam 1\u203a, TouchDesigner teaching assistant, SAPY, Seoul, KR' }
