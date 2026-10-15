@@ -687,12 +687,12 @@ const interBody = `
     </div>`;
 
 /* ---------------- photography ---------------- */
-// `brief` is the archive index: only the first paragraph of the text, the
-// rest waits on the entry's own page.
+// `brief` is the archive index: an entry with its own page keeps its text
+// for that page.
 const resMeta = (s, brief) => `
     <div class="dt" style="color:var(--ink-2);font-size:13px;margin-top:4px">${[s.year, s.place, s.medium].filter(Boolean).map(esc).join(' \u00b7 ')}</div>
     <div class="dt" style="color:var(--ink-3);font-size:12.5px">${esc(s.context)}</div>
-    ${[].concat(s.text || []).slice(0, brief && resDeep(s) ? 1 : undefined).map((t, i) => `<p class="tx" style="max-width:56ch;margin-top:${i ? 6 : 10}px">${esc(t)}</p>`).join('\n    ')}
+    ${[].concat(s.text || []).slice(0, brief && resDeep(s) ? 0 : undefined).map((t, i) => `<p class="tx" style="max-width:56ch;margin-top:${i ? 6 : 10}px">${esc(t)}</p>`).join('\n    ')}
     ${s.audio ? `<audio controls preload="none" src="${s.audio}"></audio>` : ''}
     ${(s.links || []).length ? `<div class="dlinks" style="margin-top:8px">
       ${s.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('\n      ')}
