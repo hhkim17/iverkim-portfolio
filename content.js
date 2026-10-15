@@ -271,6 +271,38 @@ const content = {
   workshops: {
     series: [
       {
+        id: 'audiovisual-potluck',
+        title: 'Audiovisual Potluck!',
+        year: '2024\u20132025',
+        place: 'Utrecht, Netherlands',
+        medium: 'Audiovisual workshop, organiser and lead instructor',
+        context: 'CCU (Creative Coding Utrecht)',
+        cover: 'img/works/audiovisual-potluck/09.jpg',
+        images: [
+          'img/works/audiovisual-potluck/01.jpg',
+          'img/works/audiovisual-potluck/02.jpg',
+          'img/works/audiovisual-potluck/03.jpg',
+          'img/works/audiovisual-potluck/04.jpg',
+          'img/works/audiovisual-potluck/05.jpg',
+          'img/works/audiovisual-potluck/06.jpg',
+          'img/works/audiovisual-potluck/07.jpg',
+          'img/works/audiovisual-potluck/08.jpg',
+          'img/works/audiovisual-potluck/09.jpg',
+          'img/works/audiovisual-potluck/10.jpg',
+          'img/works/audiovisual-potluck/11.jpg',
+          'img/works/audiovisual-potluck/12.jpg',
+          'img/works/audiovisual-potluck/13.jpg',
+          'img/works/audiovisual-potluck/14.jpg',
+          'img/works/audiovisual-potluck/15.jpg',
+          'img/works/audiovisual-potluck/16.jpg',
+          'img/works/audiovisual-potluck/17.jpg',
+          'img/works/audiovisual-potluck/18.jpg',
+          'img/works/audiovisual-potluck/19.jpg',
+          'img/works/audiovisual-potluck/20.jpg',
+          'img/works/audiovisual-potluck/21.jpg'
+        ]
+      },
+      {
         id: 'makers-meet-and-eat',
         title: 'Makers Meet & Eat',
         year: '2023',
@@ -689,7 +721,7 @@ const content = {
       entries: [
         { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026' },
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
-        { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL' },
+        { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL', archive: 'audiovisual-potluck' },
         { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL', archive: 'makers-meet-and-eat' },
         { year: '2023', text: 'Pointclouds \u2014 make your own virtual space, TouchDesigner guest lecture, CCU, Utrecht, NL', archive: 'pointclouds' },
         { year: '2022', text: 'School Convergence Arts Education: Taking the Next Step Together, TouchDesigner teaching assistant, ArtE Academy, KR' },
