@@ -239,7 +239,11 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .entry .media{display:flex;flex-direction:column;gap:8px}
 .entry .media img{width:100%;background:#F2F2EE}
 .entry .media video{width:100%;background:#F2F2EE}
-.resvid{margin-top:14px;max-width:360px;width:100%;height:auto;background:#F2F2EE}
+.tiles .ph video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.tiles .ph .play{position:absolute;right:6px;bottom:4px;font-size:10px;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.6)}
+.tiles button.ph{position:relative}
+.lightbox video{max-width:100%;max-height:calc(100vh - 130px);width:auto;height:auto;cursor:auto}
+.lightbox video[hidden],.lightbox img[hidden]{display:none}
 .entry .more{display:inline-block;margin-top:14px;border-bottom:1px solid var(--rule)}
 .entry .more:hover{border-color:var(--ink)}
 
@@ -392,18 +396,23 @@ const JS = `
   var side=document.querySelector('.side'), btn=side&&side.querySelector('.menu');
   var lb=document.getElementById('lightbox');
   if(lb){
-    var lbImg=document.getElementById('lightbox-img'), lbCap=document.getElementById('lightbox-cap');
+    var lbImg=document.getElementById('lightbox-img'), lbVid=document.getElementById('lightbox-vid'), lbCap=document.getElementById('lightbox-cap');
     // every zoomable image on the page is one sequence, stepped with prev/next or the arrow keys
     var zooms=[].slice.call(document.querySelectorAll('button.zoom')), at=-1;
     var prev=lb.querySelector('.prev'), next=lb.querySelector('.next');
     function show(i){
       at=(i+zooms.length)%zooms.length;
       var b=zooms[at], cap=b.dataset.cap||'';
-      lbImg.src=b.dataset.full;
+      var vid='video' in b.dataset;
+      lbVid.pause();
+      lbImg.hidden=vid; lbVid.hidden=!vid;
+      if(vid){ lbImg.src=''; lbVid.src=b.dataset.full; lbVid.play(); } else { lbVid.removeAttribute('src'); lbImg.src=b.dataset.full; }
       lbCap.textContent=zooms.length>1 ? (cap ? cap+' \u00b7 ' : '')+(at+1)+' / '+zooms.length : cap;
       lb.setAttribute('open','');
     }
-    function close(){ lb.removeAttribute('open'); lbImg.src=''; at=-1; }
+    function close(){ lb.removeAttribute('open'); lbImg.src=''; lbVid.pause(); lbVid.removeAttribute('src'); at=-1; }
+    // the video's own controls must not close the lightbox
+    lbVid.addEventListener('click',function(e){ e.stopPropagation(); });
     prev.hidden=next.hidden=zooms.length<2;
     zooms.forEach(function(b,i){ b.addEventListener('click',function(){ show(i); }); });
     prev.addEventListener('click',function(e){ e.stopPropagation(); show(at-1); });
@@ -500,6 +509,7 @@ ${body}
   <button class="step prev" type="button" aria-label="previous">&lt; prev</button>
   <button class="step next" type="button" aria-label="next">next &gt;</button>
   <img id="lightbox-img" src="" alt="">
+  <video id="lightbox-vid" controls playsinline hidden></video>
   <figcaption id="lightbox-cap"></figcaption>
 </div>
 <script src="${VIEWER_FILE}"></script>\n<script src="${JS_FILE}"></script>
@@ -699,8 +709,12 @@ const resMeta = (s, brief) => `
       ${s.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('\n      ')}
     </div>` : ''}`;
 
+// A video in the list sits in the grid like a photograph and plays in the lightbox.
+const isVideo = f => /\.mp4$/i.test(f);
 const resPlates = list => `<div class="tiles" style="margin-top:14px">
-      ${list.map(im => `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt=""></button></figure>`).join('\n      ')}
+      ${list.map(im => isVideo(im)
+        ? `<figure><button class="ph zoom" type="button" data-full="${im}" data-video><video src="${im}#t=0.1" muted playsinline preload="metadata"></video><span class="play">\u25b6</span></button></figure>`
+        : `<figure><button class="ph zoom" type="button" data-full="${im}"><img loading="lazy" src="${im}" alt=""></button></figure>`).join('\n      ')}
     </div>`;
 
 // A residency with more than one photograph gets its own page, so the index
@@ -737,7 +751,6 @@ const resPage = (s, g) => `
     <h1 class="pt">${esc(s.title)}</h1>
     ${resMeta(s)}
     ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}
-    ${(s.videos || []).map(v => `<video class="resvid" src="${v}" controls playsinline preload="metadata"></video>`).join('\n    ')}
     ${resPlates(s.images)}
     ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings</div>
     <div class="plates art" style="margin-top:10px">
