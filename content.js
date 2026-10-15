@@ -271,6 +271,28 @@ const content = {
   workshops: {
     series: [
       {
+        id: 'ccu-image-to-sound',
+        title: 'Image to Sound in TouchDesigner',
+        year: '2026',
+        place: 'Utrecht, Netherlands',
+        medium: 'TouchDesigner workshop',
+        context: 'CCU (Creative Coding Utrecht) \u00b7 12 September 2026',
+        text: [
+          'What does an image sound like? In this hands-on workshop we\u2019ll build a video-to-sound generator entirely inside TouchDesigner \u2014 no other software required.',
+          'We\u2019ll start with a short look at different graphic scores, with examples of how artists and composers have used images as instructions for sound. Then we get into the practice: converting image data into signals and turning that into an instrument you can actually play. Using the Audio Oscillator CHOP and Trigger CHOP, you\u2019ll build your own small synthesizer with different waveforms, envelopes, and your own videos as input.'
+        ],
+        cover: 'img/works/ccu-image-to-sound/03.jpg',
+        images: [
+          'img/works/ccu-image-to-sound/01.jpg',
+          'img/works/ccu-image-to-sound/02.jpg',
+          'img/works/ccu-image-to-sound/03.jpg',
+          'img/video/ccu-image-to-sound.mp4',
+          'img/works/ccu-image-to-sound/04.jpg',
+          'img/works/ccu-image-to-sound/05.jpg',
+          'img/works/ccu-image-to-sound/06.jpg'
+        ]
+      },
+      {
         id: 'karts-lecture-2026',
         title: 'Audio-visual workshop: Graphic Notation',
         year: '2026',
@@ -755,6 +777,7 @@ const content = {
     {
       title: 'Teaching and presentation',
       entries: [
+        { year: '2026', text: 'Image to Sound in TouchDesigner, workshop, CCU (Creative Coding Utrecht), Utrecht, NL', note: 'September 2026', archive: 'ccu-image-to-sound' },
         { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026', archive: 'karts-lecture-2026' },
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
         { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL', archive: 'audiovisual-potluck' },
