@@ -271,6 +271,35 @@ const content = {
   workshops: {
     series: [
       {
+        id: 'karts-lecture-2026',
+        title: 'Audio-visual workshop: Graphic Notation',
+        year: '2026',
+        place: 'Seoul, Korea',
+        medium: 'Audiovisual guest lecture',
+        context: 'Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts \u00b7 28 May 2026',
+        text: [
+          'An audiovisual guest lecture for the Digital Video Production class of the MA in Multimedia Art at the Korea National University of Arts.',
+          'We went through the methods audiovisual work is made with, one example at a time, and then built a system in TouchDesigner that turns an image into signal, so it can be played as an instrument.'
+        ],
+        images: [
+          'img/works/karts-lecture-2026/01.jpg',
+          'img/works/karts-lecture-2026/02.jpg',
+          'img/works/karts-lecture-2026/03.jpg',
+          'img/works/karts-lecture-2026/04.jpg',
+          'img/works/karts-lecture-2026/05.jpg',
+          'img/works/karts-lecture-2026/06.jpg',
+          'img/works/karts-lecture-2026/07.jpg',
+          'img/works/karts-lecture-2026/08.jpg',
+          'img/works/karts-lecture-2026/09.jpg',
+          'img/works/karts-lecture-2026/10.jpg',
+          'img/works/karts-lecture-2026/11.jpg',
+          'img/works/karts-lecture-2026/12.jpg',
+          'img/works/karts-lecture-2026/13.jpg',
+          'img/works/karts-lecture-2026/14.jpg',
+          'img/works/karts-lecture-2026/15.jpg'
+        ]
+      },
+      {
         id: 'audiovisual-potluck',
         title: 'Audiovisual Potluck!',
         year: '2024\u20132025',
@@ -725,7 +754,7 @@ const content = {
     {
       title: 'Teaching and presentation',
       entries: [
-        { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026' },
+        { year: '2026', text: 'Audiovisual guest lecture, Digital Video Production, MA in Multimedia Art, School of Film, TV & Multimedia, Korea National University of Arts, Seoul, KR', note: 'May 2026', archive: 'karts-lecture-2026' },
         { year: '2025', text: 'TouchDesigner guest lecture, SBS A&T, Seoul, KR' },
         { year: '2024\u20132025', text: 'Audiovisual Potluck!, audiovisual workshop, organiser and lead instructor, CCU (Creative Coding Utrecht), NL', archive: 'audiovisual-potluck' },
         { year: '2023', text: 'Makers Meet & Eat, art and technology workshop, Centraal Museum Utrecht, NL', archive: 'makers-meet-and-eat' },

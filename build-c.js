@@ -239,6 +239,7 @@ h2.st{font-size:12px;line-height:18px;font-weight:700;color:var(--ink);margin-bo
 .entry .media{display:flex;flex-direction:column;gap:8px}
 .entry .media img{width:100%;background:#F2F2EE}
 .entry .media video{width:100%;background:#F2F2EE}
+.resvid{margin-top:14px;max-width:360px;width:100%;height:auto;background:#F2F2EE}
 .entry .more{display:inline-block;margin-top:14px;border-bottom:1px solid var(--rule)}
 .entry .more:hover{border-color:var(--ink)}
 
@@ -736,6 +737,7 @@ const resPage = (s, g) => `
     <h1 class="pt">${esc(s.title)}</h1>
     ${resMeta(s)}
     ${s.credit ? `<p class="credit">${esc(s.credit)}</p>` : ''}
+    ${(s.videos || []).map(v => `<video class="resvid" src="${v}" controls playsinline preload="metadata"></video>`).join('\n    ')}
     ${resPlates(s.images)}
     ${(s.drawings || []).length ? `<div class="lbl" style="margin-top:26px">drawings</div>
     <div class="plates art" style="margin-top:10px">
