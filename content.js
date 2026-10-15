@@ -277,6 +277,10 @@ const content = {
         place: 'Utrecht, Netherlands',
         medium: 'Audiovisual workshop, organiser and lead instructor',
         context: 'CCU (Creative Coding Utrecht)',
+        text: [
+          '1st edition \u2014 A look at the history of audiovisual work, then Ableton Live connected to TouchDesigner: MIDI sent from Live drives a drawing-based audiovisual piece.',
+          '2nd edition \u2014 Building your own 3D fractal structures in the open-source Mandelbulb3D and rendering moving images from them, then bringing the exports into TouchDesigner as point clouds and meshes and working variations on them.'
+        ],
         cover: 'img/works/audiovisual-potluck/09.jpg',
         images: [
           'img/works/audiovisual-potluck/01.jpg',
