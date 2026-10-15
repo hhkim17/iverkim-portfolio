@@ -281,7 +281,7 @@ const content = {
           'What does an image sound like? In this hands-on workshop we\u2019ll build a video-to-sound generator entirely inside TouchDesigner \u2014 no other software required.',
           'We\u2019ll start with a short look at different graphic scores, with examples of how artists and composers have used images as instructions for sound. Then we get into the practice: converting image data into signals and turning that into an instrument you can actually play. Using the Audio Oscillator CHOP and Trigger CHOP, you\u2019ll build your own small synthesizer with different waveforms, envelopes, and your own videos as input.'
         ],
-        cover: 'img/works/ccu-image-to-sound/03.jpg',
+        cover: 'img/works/ccu-image-to-sound/07.jpg',
         images: [
           'img/works/ccu-image-to-sound/01.jpg',
           'img/works/ccu-image-to-sound/02.jpg',
@@ -289,7 +289,9 @@ const content = {
           'img/video/ccu-image-to-sound.mp4',
           'img/works/ccu-image-to-sound/04.jpg',
           'img/works/ccu-image-to-sound/05.jpg',
-          'img/works/ccu-image-to-sound/06.jpg'
+          'img/works/ccu-image-to-sound/06.jpg',
+          'img/works/ccu-image-to-sound/07.jpg',
+          'img/video/ccu-image-to-sound-2.mp4'
         ]
       },
       {
