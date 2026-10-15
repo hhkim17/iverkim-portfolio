@@ -281,6 +281,7 @@ const content = {
           'An audiovisual guest lecture for the Digital Video Production class of the MA in Multimedia Art at the Korea National University of Arts.',
           'We went through the methods audiovisual work is made with, one example at a time, and then built a system in TouchDesigner that turns an image into signal, so it can be played as an instrument.'
         ],
+        videos: ['img/video/karts-lecture-2026.mp4'],
         images: [
           'img/works/karts-lecture-2026/01.jpg',
           'img/works/karts-lecture-2026/02.jpg',
