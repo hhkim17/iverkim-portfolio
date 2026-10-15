@@ -276,8 +276,11 @@ const content = {
         year: '2024\u20132025',
         place: 'Utrecht, Netherlands',
         medium: 'Audiovisual workshop, organiser and lead instructor',
-        context: 'CCU (Creative Coding Utrecht)',
+        context: 'CCU (Creative Coding Utrecht) \u00b7 from 24 September 2024',
         text: [
+          'Creative Coding Utrecht is proud to present Audiovisual Potluck!, a new audiovisual meetup format organized by Iver Kim and ARDEMAR. This new meetup format joins the three most interesting parts of audiovisual events into one, the sharing of knowledge, the playfulness of a jam and meeting new people in the audiovisual world!',
+          'This contains an initial workshop that will introduce the less talked about ways of creating visuals. With the progress of technology, the charm of audiovisuals previously limited by their software and hardware, have been slowly disappearing from the environment that we work on. These incredibly varied and creative styles of audiovisual art, such as graphic scores, 16-bit video game art, 3d fractal environments and much more have been on a losing battle against new technologies, gathering dust as their outputs do not represent elements as truthful to real life as current visual techniques, but ironically, these limited visuals are getting harder and harder to create as programs develop towards realistic lighting, more and more complex shaders, forgetting the implementations of previously basic tools. We propose you to either learn these techniques on the original software or create these from scratch in newer software.',
+          'This workshop is presented by the organizers, or an invited lecturer explaining a specific technique inside TouchDesigner, Max/MSP, or other new/old school predetermined program. After the participants fully understand this new information, the workshop turns into an audiovisual jam with a projector and a designated wall per visual artist and everyone is free to create their own artwork based on the new knowledge, with the ability to ask the organizers for feedback and help.',
           '1st edition \u2014 A look at the history of audiovisual work, then Ableton Live connected to TouchDesigner: MIDI sent from Live drives a drawing-based audiovisual piece.',
           '2nd edition \u2014 Building your own 3D fractal structures in the open-source Mandelbulb3D and rendering moving images from them, then bringing the exports into TouchDesigner as point clouds and meshes and working variations on them.'
         ],
