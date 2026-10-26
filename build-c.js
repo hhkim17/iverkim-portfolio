@@ -1047,6 +1047,13 @@ if (fs.existsSync(ASSETS)) {
   fs.rmSync(IMGOUT, { recursive: true, force: true });
   fs.cpSync(ASSETS, IMGOUT, { recursive: true });
 }
+// Standalone pages kept outside the site's templates and nav, published at
+// their own path (iverkim.com/<dir>/) exactly as they are. Not linked from the site.
+for (const dir of ['td-workshop']) {
+  const src = path.join(__dirname, dir), dest = path.join(OUT, dir);
+  fs.rmSync(dest, { recursive: true, force: true });
+  if (fs.existsSync(src)) fs.cpSync(src, dest, { recursive: true });
+}
 fs.writeFileSync(path.join(OUT, CSS_FILE), CSS);
 fs.writeFileSync(path.join(OUT, JS_FILE), JS);
 fs.writeFileSync(path.join(OUT, VIEWER_FILE), VIEWER_JS);

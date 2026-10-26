@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>TouchDesigner Beginner Course — Iver Kim</title>
+<meta name="description" content="Iver Kim의 터치디자이너 오프라인 기초 워크샵. 5주 소규모 그룹 과정, 2026년 11월 시작.">
+<meta property="og:title" content="TouchDesigner Beginner Course — Iver Kim">
+<meta property="og:description" content="터치디자이너 오프라인 기초 워크샵 · 5주 소규모 그룹 · 2026년 11월 시작">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://iverkim.com/td-workshop/">
+<meta property="og:image" content="https://iverkim.com/td-workshop/media/week3b.png">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a TouchDesigner network read top to bottom — each week is an operator node, tagged by operator family colours. */
+:root{
+  --bg:#eceef1; --surface:#ffffff; --fg:#17191d; --muted:#5b616c; --line:#d3d7de; --soft:#f5f6f8;
+  --accent:#d9862b; --accent-ink:#ffffff;
+  --top:#7d58c2; --chop:#4f9437; --sop:#3a72b5; --mat:#a68f1f; --pop:#b0457f; --comp:#6d737d; --dat:#b5503f;
+  --break:#e9a2a2; --break-ink:#7a2121;
+  --f-display:"Bricolage Grotesque","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1b1d21; --surface:#24272c; --fg:#e8eaee; --muted:#9aa0aa; --line:#363a41; --soft:#2b2e34;
+  --accent:#f0a24a; --accent-ink:#1b1d21;
+  --top:#a585e6; --chop:#7cc263; --sop:#6ea4e6; --mat:#d6c050; --pop:#e57bb6; --comp:#9ba1ab; --dat:#e5826f;
+  --break:#5a2a2d; --break-ink:#ffc9c9; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#1b1d21; --surface:#24272c; --fg:#e8eaee; --muted:#9aa0aa; --line:#363a41; --soft:#2b2e34;
+  --accent:#f0a24a; --accent-ink:#1b1d21;
+  --top:#a585e6; --chop:#7cc263; --sop:#6ea4e6; --mat:#d6c050; --pop:#e57bb6; --comp:#9ba1ab; --dat:#e5826f;
+  --break:#5a2a2d; --break-ink:#ffc9c9; color-scheme:dark;}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono)}
+.label{font:500 12px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* language */
+:root[data-lang="en"] .ko{display:none!important}
+:root:not([data-lang="en"]) .en{display:none!important}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--bg)}
+.bar .wrap{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
+.bar .crumb{font:500 13px var(--f-mono);color:var(--muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .crumb b{color:var(--fg);font-weight:500}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 12px var(--f-mono);border:0;background:none;color:var(--muted);padding:6px 10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible,.cta:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+.hero{padding-block:56px 40px;display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:end}
+.hero > *{min-width:0}
+.hero h1{font:800 clamp(40px,7vw,76px)/.95 var(--f-display);letter-spacing:-.025em}
+.hero h1 span{display:block;color:var(--muted);font-weight:500;font-size:.42em;letter-spacing:0;margin-top:14px}
+.hero .sub{font-size:19px;font-weight:600;margin:22px 0 0;max-width:30ch}
+.scope{background:#111316;border-radius:10px;border:1px solid var(--line);overflow:hidden}
+.scope .head{display:flex;justify-content:space-between;padding:8px 12px;font:500 11px var(--f-mono);color:#8b919b;border-bottom:1px solid #2c3036}
+.scope canvas{display:block;width:100%;height:190px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:28px}
+.facts div{background:var(--surface);padding:16px 18px;min-width:0}
+.facts .v{font-weight:600;font-size:15px;line-height:1.5;margin-top:4px}
+.ctarow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:64px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:700;padding:13px 20px;border-radius:8px}
+.cta:hover{filter:brightness(1.06)}
+.ctarow small{color:var(--muted);font-size:14px}
+
+section{padding-block:56px;border-top:1px solid var(--line)}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.sec-h h2{font:700 clamp(26px,3.6vw,34px)/1.15 var(--f-display);letter-spacing:-.01em}
+.prose{max-width:none;word-break:keep-all}
+#about .prose{columns:2;column-gap:56px;font-size:17px}
+#about .prose p{break-inside:avoid}
+@media (max-width:760px){#about .prose{columns:1}}
+body{word-break:keep-all}
+.prose p{margin:0 0 1em}
+.prose strong{font-weight:600}
+
+.fields{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.fields span{font:500 13px var(--f-mono);border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--muted);background:var(--surface)}
+
+/* op chips */
+.chip{display:inline-flex;align-items:center;gap:6px;font:500 11px/1 var(--f-mono);letter-spacing:.06em;padding:5px 8px 5px 6px;border-radius:4px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}
+.chip::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.c-top{--c:var(--top)}.c-chop{--c:var(--chop)}.c-sop{--c:var(--sop)}.c-mat{--c:var(--mat)}.c-pop{--c:var(--pop)}.c-comp{--c:var(--comp)}.c-dat{--c:var(--dat)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:-8px 0 28px}
+
+.notes{display:flex;flex-wrap:wrap;gap:8px 24px;color:var(--muted);font-size:14px;margin-bottom:32px}
+.notes li{list-style:none}
+.notes{padding:0}
+
+/* week nodes */
+.weeks{display:grid;gap:18px}
+.node{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.node.nomedia{grid-template-columns:1fr}
+.node .body{padding:22px 24px;min-width:0;border-left:4px solid var(--c, var(--comp))}
+.node .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.node .wk{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.06em}
+.node h3{font:700 21px/1.3 var(--f-body);margin-bottom:12px}
+.node ul{margin:0;padding-left:1.1em}
+.node li{margin:2px 0}
+.node li::marker{color:var(--muted)}
+.ex{margin-top:14px;padding:10px 12px;background:var(--soft);border-radius:6px;font-size:15px}
+.ex b{font:500 11px var(--f-mono);letter-spacing:.08em;color:var(--accent);display:block;margin-bottom:2px}
+.media{background:#0f1012;display:flex;align-items:center;justify-content:center;min-height:240px;min-width:0}
+.media video,.media img{width:100%;height:100%;max-height:420px;object-fit:contain;display:block}
+.media.cover img{object-fit:cover}
+.media.stack{flex-direction:column;gap:2px}
+.media.stack video,.media.stack img{max-height:300px}
+.plan{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.plan li{display:flex;gap:8px;align-items:baseline;font-size:13px;line-height:1.4;padding:5px 10px;border:1px solid var(--line);border-radius:6px}
+.plan li span:first-child{font:500 11.5px var(--f-mono);color:var(--c,var(--accent))}
+.plan li.br{border-style:dashed;color:var(--muted)}
+.plan li.br span:first-child{color:var(--muted)}
+
+/* schedule */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.sched{border-collapse:collapse;width:100%;min-width:600px;font-variant-numeric:tabular-nums}
+.sched th,.sched td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--line);font-size:15px}
+.sched thead th{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.06em;background:var(--soft)}
+.sched tbody th{text-align:left;font-weight:600;white-space:nowrap;padding-left:16px}
+.sched tr:last-child th,.sched tr:last-child td{border-bottom:0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:0}
+.d-mon{background:#e9a6dc}.d-tue{background:#e8cd99}.d-fri{background:#a9aaea}
+.sched td.jul{color:var(--accent);font-weight:600}
+.breakbar{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--break);color:var(--break-ink);border-radius:8px;padding:10px 14px;font-weight:600;font-size:15px}
+.breakbar .mono{font-size:13px;font-weight:500}
+
+/* months */
+.months{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px;gap:18px;margin-top:22px}
+.month{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.month h4{margin:0 0 8px;font:600 14px var(--f-mono)}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font:400 12px var(--f-mono);text-align:center;font-variant-numeric:tabular-nums}
+.grid7 .dh{color:var(--muted);font-size:10px;padding-bottom:2px}
+.grid7 .d{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:4px;position:relative;max-width:100%}
+.grid7 .d.s{font-weight:600}
+.grid7 .d.s::after{content:"";position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--dc)}
+.grid7 .d.br{background:var(--break);color:var(--break-ink)}
+.grid7 .d.out{visibility:hidden}
+
+/* spec */
+.spec{border-collapse:collapse;width:100%;min-width:560px}
+.spec th,.spec td{padding:14px 16px;vertical-align:top;border-bottom:1px solid var(--line);text-align:left;font-size:15px}
+.spec thead th{background:var(--soft);font-weight:600}
+.spec tbody th{white-space:nowrap;font-weight:600;color:var(--muted);width:110px}
+.spec tr:last-child th,.spec tr:last-child td{border-bottom:0}
+.spec ul{margin:0;padding-left:1.1em}
+.rec{font:500 11px var(--f-mono);color:var(--accent);margin-left:6px}
+.srclink{margin-top:12px;font-size:14px;color:var(--muted)}
+
+/* instructor */
+.inst{display:grid;grid-template-columns:300px minmax(0,1fr);gap:40px}
+.inst > *{min-width:0}
+.inst .who h3{font:800 40px/1 var(--f-display);letter-spacing:-.02em}
+.inst .bio{font-size:14px;color:var(--muted);line-height:1.7;margin:0 0 18px}
+.inst .who .role{color:var(--muted);margin:12px 0 18px;font-style:italic}
+.inst .links{display:flex;flex-direction:column;gap:6px;font:500 14px var(--f-mono)}
+.inst .links a{text-decoration:none;border-bottom:1px solid var(--line);padding:6px 0;display:flex;justify-content:space-between;gap:8px}
+.inst .links a:hover{color:var(--accent)}
+.cv{display:grid;gap:28px}
+.cv h4{margin:0 0 8px;font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cv ol{list-style:none;margin:0;padding:0}
+.cv li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.55}
+.cv li .y{font:500 13px var(--f-mono);color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
+.cv li i{font-style:italic}
+footer{padding-block:40px 64px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+section{scroll-margin-top:64px}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding-top:36px}
+  .facts{grid-template-columns:1fr 1fr}
+  .node{grid-template-columns:1fr}
+  .projects{grid-template-columns:1fr}
+  .months{grid-template-columns:1fr 1fr}
+  .inst{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:520px){
+  .facts{grid-template-columns:1fr}
+  .months{grid-template-columns:1fr}
+  .cv li{grid-template-columns:1fr;gap:0}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="crumb">/ project1 / <b>td_beginner_course</b></div>
+    <div class="seg" role="group" aria-label="Language">
+      <button id="lang-ko" type="button" data-lang="ko" aria-pressed="true">KO</button>
+      <button id="lang-en" type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <div class="label" style="margin-bottom:14px">Iver Kim · 2026</div>
+      <h1>TouchDesigner<br>Beginner Course<span class="ko">데이터로 만드는 인터랙티브 비주얼</span><span class="en">Creating Interactive Visuals with Data</span></h1>
+    </div>
+    <div class="scope" aria-hidden="true">
+      <div class="head"><span>noise1 · CHOP</span><span>chan1 chan2 chan3</span></div>
+      <canvas id="scope"></canvas>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div><div class="label ko">장소</div><div class="label en">Location</div>
+      <div class="v ko">Points Room<br>서울 마포구 동교로 145, 2층</div><div class="v en">Points Room<br>2F, 145 Donggyo-ro, Mapo-gu, Seoul</div></div>
+    <div><div class="label ko">기간</div><div class="label en">Schedule</div>
+      <div class="v ko">2026.11.11 – 12.12<br>수 · 토반</div><div class="v en">Nov 11 – Dec 12, 2026<br>Wed or Sat class</div></div>
+    <div><div class="label ko">구성</div><div class="label en">Format</div>
+      <div class="v ko">주 1회 · 회당 3시간<br>총 5회</div><div class="v en">Weekly · 3 hours<br>5 sessions</div></div>
+    <div><div class="label ko">수강료</div><div class="label en">Fee</div>
+      <div class="v ko">50만원</div><div class="v en">500,000 KRW</div></div>
+  </div>
+
+  <div class="ctarow">
+    <a class="cta" href="https://form.typeform.com/to/Cp2FW04b" target="_blank" rel="noopener">
+      <span class="ko">레슨 등록 폼</span><span class="en">Registration form</span> →</a>
+    <small class="ko">11월 8일(일) 마감 · English course available</small>
+    <small class="en">Deadline: Sun, Nov 8 · Also taught in Korean</small>
+  </div>
+</main>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-h"><span class="label">About</span><h2 class="ko">수업 소개</h2><h2 class="en">About the class</h2></div>
+    <div class="prose ko">
+      <p>이 수업은 노드 기반 비주얼 프로그래밍 툴 터치디자이너를 활용해 이미지, 사운드, 움직임을 연결하는 기본 구조를 배우는 입문 과정입니다.</p>
+      <p>TOP, CHOP, SOP의 기초 개념을 기반으로 하여 비주얼을 생성하고 제어하는 원리를 이해하고, 데이터를 자신의 방식으로 변형하고 응용하는 경험을 쌓습니다.</p>
+      <p>TouchDesigner는 인터랙티브 설치, 제너레이티브 아트, 맵핑, 오디오비주얼, VJ, 소프트웨어간 연결, 네트워크 설계, 게임 제작 등 다양한 영역으로 확장될 수 있는 도구입니다. 이 수업에서는 이러한 폭넓은 가능성을 함께 살펴보고 기본기를 다지는 데 초점을 두면서 수강생이 관심 있는 방향으로 작업을 발전시킬 수 있도록 구체적인 방법과 노하우를 공유합니다.</p>
+      <p>관련 프로그래밍 경험이 없어도 수강 가능하며, 인터랙티브 아트, 미디어아트, 공연 비주얼에 관심 있는 분들에게 적합한 수업입니다. 특히 기초를 다루고 나서 심화적인 내용으로 자연스럽게 연결될 수 있도록 설계한 커리큘럼으로, 클래스가 끝난 후에도 스스로 지속적인 학습을 하시고자 하는 분들께 적합합니다.</p>
+      <p>마지막 주차에는 터치디자이너 공식 MCP를 활용해 AI와 함께 작업하는 방법도 살펴봅니다.</p>
+    </div>
+    <div class="prose en">
+      <p>This introductory class explores the fundamentals of TouchDesigner, a node-based visual programming tool, focusing on how to connect images, sound, and motion within a unified system.</p>
+      <p>Based on the core concepts of TOP, CHOP, and SOP, participants will learn the principles of generating and controlling visuals, while developing the ability to transform and apply data in their own way.</p>
+      <p>TouchDesigner is a versatile tool that can be expanded across various fields, including interactive installations, generative art, projection mapping, audiovisual performance, VJing, software integration, network design, and game development. This class introduces these possibilities while focusing on building a strong foundation, and provides practical methods and insights to help participants develop their work in directions that interest them.</p>
+      <p>No prior programming experience is required. This class is suitable for those interested in interactive art, media art, and performance visuals. The curriculum is designed to move naturally from foundational concepts to more advanced ideas, enabling participants to continue developing their skills independently even after the course ends.</p>
+      <p>In the final week, we also look at working alongside AI using the official TouchDesigner MCP.</p>
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="wrap">
+    <div class="sec-h"><span class="label">Curriculum</span><h2 class="ko">5주 커리큘럼</h2><h2 class="en">5-week curriculum</h2></div>
+    <ul class="notes ko">
+      <li>회당 3시간, 주 1회씩 총 5회차</li>
+      <li>개인 노트북 및 마우스 지참 필수 (권장 사양은 아래 참고)</li>
+    </ul>
+    <ul class="notes en">
+      <li>3 hours per session, once a week, 5 sessions</li>
+      <li>Bring your own laptop and mouse (see specs below)</li>
+    </ul>
+
+    <div class="weeks">
+      <article class="node" style="--c:var(--top)">
+        <div class="body">
+          <div class="top"><span class="wk">WEEK 01</span></div>
+          <h3>TOP, CHOP Basic &amp; Feedback</h3>
+          <ul class="ko">
+            <li>터치디자이너 소개와 UI</li>
+            <li>TOP·CHOP 기본 오퍼레이터</li>
+            <li>매핑과 CHOP Reference</li>
+            <li>Feedback 루프, 프리셋과 .tox 저장</li>
+          </ul>
+          <ul class="en">
+            <li>Introduction to TouchDesigner and its UI</li>
+            <li>Core TOP and CHOP operators</li>
+            <li>Mapping and CHOP references</li>
+            <li>Feedback loops, presets and saving .tox files</li>
+          </ul>
+          <div class="ex"><b>EXERCISE</b><span class="ko">움직이는 캐릭터 또는 무빙 포스터</span><span class="en">Animated character or moving poster</span></div>
+        </div>
+        <div class="media"><video src="media/week1.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div>
+      </article>
+
+      <article class="node" style="--c:var(--sop)">
+        <div class="body">
+          <div class="top"><span class="wk">WEEK 02</span></div>
+          <h3>3D Render &amp; Instancing</h3>
+          <ul class="ko">
+            <li>3D 렌더 파이프라인과 PBR 재질</li>
+            <li>CHOP·TOP·SOP 데이터 기반 인스턴싱</li>
+            <li>POP Copy to Points</li>
+            <li>노이즈로 만드는 인스턴싱</li>
+          </ul>
+          <ul class="en">
+            <li>The 3D render pipeline and PBR materials</li>
+            <li>Instancing with CHOP, TOP and SOP data</li>
+            <li>POP copy to points</li>
+            <li>Instancing driven by noise</li>
+          </ul>
+          <div class="ex"><b>EXERCISE</b><span class="ko">궤적을 따라 도는 행성 · 노이즈로 춤추는 3D 제너레이티브 아트</span><span class="en">Planets on a trajectory · noise-driven 3D generative visuals</span></div>
+        </div>
+        <div class="media stack"><video src="media/week2.mp4" autoplay muted loop playsinline controls preload="metadata"></video><img src="media/week3.png" alt="TOP, CHOP, SOP, POP 인스턴싱 네트워크 예시" loading="lazy"></div>
+      </article>
+
+      <article class="node" style="--c:var(--pop)">
+        <div class="body">
+          <div class="top"><span class="wk">WEEK 03</span></div>
+          <h3>Point Cloud</h3>
+          <ul class="ko">
+            <li>2D 이미지를 포인트 클라우드로 바꾸기 (TOP / POP)</li>
+            <li>Point File In으로 직접 3D 스캔한 PLY 불러오기</li>
+            <li>Noise·Texture 3D·Trail로 포인트 클라우드 움직이기</li>
+          </ul>
+          <ul class="en">
+            <li>Turning 2D images into point clouds (TOP / POP)</li>
+            <li>Importing your own 3D-scanned PLY files with Point File In</li>
+            <li>Moving point clouds with Noise, Texture 3D and Trail</li>
+          </ul>
+          <div class="ex"><b>EXERCISE</b><span class="ko">노이즈로 모핑하는 포인트 클라우드</span><span class="en">Morphing noise point cloud</span></div>
+        </div>
+        <div class="media cover"><img src="media/week3b.png" alt="포인트 클라우드 렌더링과 네트워크 화면" loading="lazy"></div>
+      </article>
+
+      <article class="node" style="--c:var(--chop)">
+        <div class="body">
+          <div class="top"><span class="wk">WEEK 04</span></div>
+          <h3>MediaPipe &amp; Feedback</h3>
+          <ul class="ko">
+            <li>MediaPipe 플러그인 설치와 웹캠 세팅</li>
+            <li>손·얼굴·포즈 트래킹 데이터를 CHOP으로 이해하기</li>
+            <li>Feedback 심화: Slope로 만드는 유화·수채화</li>
+          </ul>
+          <ul class="en">
+            <li>Installing the MediaPipe plugin and setting up a webcam</li>
+            <li>Reading hand, face and pose tracking data as CHOPs</li>
+            <li>Advanced feedback: oil-paint and watercolor looks with Slope</li>
+          </ul>
+          <div class="ex"><b>EXERCISE</b><span class="ko">내 손으로 퍼트려 그리는 웹캠 수채화 인터랙션</span><span class="en">A webcam watercolor painted with your hands</span></div>
+        </div>
+        <div class="media"><video src="media/week4b.mp4" autoplay muted loop playsinline controls preload="metadata"></video></div>
+      </article>
+
+      <article class="node" style="--c:var(--dat)">
+        <div class="body">
+          <div class="top"><span class="wk">WEEK 05</span></div>
+          <h3>Audiovisual Basics</h3>
+          <ul class="ko">
+            <li>오디오 분석과 정규화</li>
+            <li>버튼 모드: momentary · toggle · linear</li>
+            <li>CHOP Execute로 맛보는 Python</li>
+            <li>터치디자이너 공식 MCP 활용해보기</li>
+          </ul>
+          <ul class="en">
+            <li>Audio analysis and normalization</li>
+            <li>Button modes: momentary, toggle, linear</li>
+            <li>A first taste of Python with CHOP Execute</li>
+            <li>Trying the official TouchDesigner MCP</li>
+          </ul>
+          <div class="ex"><b>EXERCISE</b><span class="ko">오디오 리액티브 다면체 · 나만의 VJ 시스템</span><span class="en">Audio-reactive polyhedron · your own VJ system</span></div>
+        </div>
+        <div class="media cover"><img src="media/week6.png" alt="오디오 반응 폴리곤과 VJ 인터페이스 네트워크" loading="lazy"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="calendar">
+  <div class="wrap">
+    <div class="sec-h"><span class="label">Calendar</span><h2 class="ko">수업 캘린더</h2><h2 class="en">Class calendar</h2></div>
+    <p class="prose ko" style="margin:0 0 20px">수요일 저녁반 또는 토요일 오전반 중 선택해 5주간 수강. 두 반 수업 내용 동일.</p>
+    <p class="prose en" style="margin:0 0 20px">Choose the Wednesday evening or Saturday morning class and attend for 5 weeks. Both classes cover the same content.</p>
+    <div class="tablewrap">
+      <table class="sched">
+        <thead><tr><th></th><th>WEEK 1</th><th>WEEK 2</th><th>WEEK 3</th><th>WEEK 4</th><th>WEEK 5</th></tr></thead>
+        <tbody id="sched-body"></tbody>
+      </table>
+    </div>
+    <div class="months" id="months"></div>
+  </div>
+</section>
+
+<section id="apply">
+  <div class="wrap">
+    <div class="sec-h"><span class="label">Apply</span><h2 class="ko">레슨 등록</h2><h2 class="en">Registration</h2></div>
+    <p class="prose ko" style="margin:0 0 24px">11월 8일(일) 마감. 반별 선착순 마감 가능.</p>
+    <p class="prose en" style="margin:0 0 24px">Deadline Sun, Nov 8. Each class may close early once full.</p>
+    <a class="cta" href="https://form.typeform.com/to/Cp2FW04b" target="_blank" rel="noopener"><span class="ko">레슨 등록 폼 작성하기</span><span class="en">Fill in the registration form</span> ↗</a>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap">
+    <div class="sec-h"><span class="label">Laptop</span><h2 class="ko">노트북 사양</h2><h2 class="en">Laptop requirements</h2></div>
+    <div class="tablewrap">
+      <table class="spec">
+        <thead><tr><th></th><th><span class="ko">윈도우</span><span class="en">Windows</span><span class="rec ko">권장</span><span class="rec en">RECOMMENDED</span></th><th><span class="ko">애플 맥</span><span class="en">Apple Mac</span></th></tr></thead>
+        <tbody>
+          <tr><th><span class="ko">운영 체제</span><span class="en">OS</span></th><td>Windows 10 / Windows 11</td><td>macOS 13 (Ventura) <span class="ko">이상</span><span class="en">or later</span></td></tr>
+          <tr><th><span class="ko">하드웨어</span><span class="en">Hardware</span></th>
+            <td><ul class="ko">
+              <li>GPU 최소 4GB (8GB 이상 권장)</li>
+              <li>Nvidia GeForce 1000 시리즈 이상, Quadro/RTX Pascal 시리즈 이상, 드라이버 530.00 이상</li>
+              <li>AMD Radeon 5000 시리즈 이상 (RDNA 아키텍처 GPU)</li>
+              <li>Intel 500 시리즈 이상 GPU (5000, 6000 시리즈 제외)</li>
+              <li>Vulkan 1.1</li></ul>
+              <ul class="en">
+              <li>GPU with at least 4GB (8GB+ recommended)</li>
+              <li>Nvidia GeForce 1000 series or newer, Quadro/RTX Pascal or newer, driver 530.00+</li>
+              <li>AMD Radeon 5000 series or newer (RDNA GPUs)</li>
+              <li>Intel 500 series GPUs or newer (excluding 5000, 6000 series)</li>
+              <li>Vulkan 1.1</li></ul></td>
+            <td><ul class="ko">
+              <li>Mac Pro / iMac / Mac mini / MacBook Pro / MacBook Air 2020년형 이후 모델</li>
+              <li>macOS 13 이상</li>
+              <li>Apple Silicon 또는 Intel AMD GPU</li></ul>
+              <ul class="en">
+              <li>Mac Pro / iMac / Mac mini / MacBook Pro / MacBook Air, 2020 models or later</li>
+              <li>macOS 13 or later</li>
+              <li>Apple Silicon or Intel with AMD GPU</li></ul></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="srclink"><span class="ko">출처</span><span class="en">Source</span>: <a href="https://derivative.ca/UserGuide/System_Requirements" target="_blank" rel="noopener">derivative.ca / System Requirements</a></p>
+  </div>
+</section>
+
+<section id="instructor">
+  <div class="wrap inst">
+    <div class="who">
+      <div class="label" style="margin-bottom:12px"><span class="ko">강사</span><span class="en">Instructor</span></div>
+      <h3>Iver Kim</h3>
+      <div class="ko" style="font-weight:600;margin-top:8px">김이베</div>
+      <p class="role ko">작곡가 · 인터미디어 아티스트</p>
+      <p class="role en">Composer and intermedia artist</p>
+      <p class="bio ko">음악을 기반으로 시각예술, 퍼포먼스, 인터미디어 실험을 결합하는 다학제적 작업을 해왔습니다. 익숙함과 낯섦, 개인과 타자, 자연·인간과 디지털 사이의 역동성을 탐구하며, 시각적 요소를 음악적 구조로 전환하는 오디오비주얼 퍼포먼스를 이어가고 있습니다.</p>
+      <p class="bio en">Rooted in music, Iver Kim works across disciplines, combining visual art, performance and intermedia experiments. Exploring the dynamics between the familiar and the unfamiliar, the self and the other, and nature, humanity and the digital, she continues to develop audiovisual performances that turn visual elements into musical structures.</p>
+      <div class="links">
+        <a href="https://iverkim.com/" target="_blank" rel="noopener"><span>Website · iverkim.com</span><span>↗</span></a>
+        <a href="https://www.instagram.com/iverhkim/" target="_blank" rel="noopener"><span>Instagram @iverhkim</span><span>↗</span></a>
+        <a href="https://iverkim.com/about.html" target="_blank" rel="noopener"><span>CV</span><span>↗</span></a>
+      </div>
+    </div>
+    <div class="cv ko">
+      <div><h4>학력</h4><ol>
+        <li><span class="y">2025</span><span>네덜란드 HKU 위트레흐트 예술대학교 음악 디자인(음악테크놀로지) 석사 졸업 · HKU Awards 2025 노미네이트</span></li>
+        <li><span class="y">2023</span><span>한국예술종합학교 영상원 멀티미디어영상과 전문사 중퇴</span></li>
+        <li><span class="y">2021</span><span>한국예술종합학교 미술원 조형예술과 예술사 졸업</span></li>
+      </ol></div>
+      <div><h4>레지던시</h4><ol>
+        <li><span class="y">2026</span><span>Elektronmusikstudion (EMS), 스웨덴</span></li>
+        <li><span class="y">2026</span><span>Casa Carlotta, Casa de Lollo, 이탈리아</span></li>
+        <li><span class="y">2025</span><span>Casa Carlotta, Casa de Lollo, 이탈리아</span></li>
+        <li><span class="y">2025</span><span>SelvArt, 이탈리아</span></li>
+      </ol></div>
+      <div><h4>교육 / 프레젠테이션</h4><ol>
+        <li><span class="y">2026</span><span><i>Image to Sound in TouchDesigner</i>, 워크숍, CCU, 위트레흐트, 네덜란드 (9월)</span></li>
+        <li><span class="y">2026</span><span>오디오비주얼 특강, 한국예술종합학교 멀티미디어영상과 전문사, 서울 (5월)</span></li>
+        <li><span class="y">2025</span><span>터치디자이너 특강, SBS A&amp;T, 서울</span></li>
+        <li><span class="y">2024–25</span><span><i>Audiovisual Potluck!</i>, 오디오비주얼 워크숍, 기획 및 주강사, CCU (크리에이티브코딩 위트레흐트), 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>Makers Meet &amp; Eat</i>, 아트테크놀로지 워크숍, 위트레흐트 중앙미술관, 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>Pointclouds – make your own virtual space</i>, 터치디자이너 특강, CCU, 네덜란드</span></li>
+        <li><span class="y">2022</span><span>학교 융복합 문화예술교육: 함께하는 다음 걸음, 터치디자이너 보조강사, ArtE 아카데미</span></li>
+        <li><span class="y">2022</span><span>뉴미디어 매체확장 활성화 사업: 파이프라인_기술랩 <i>Noise Jam 1 · 2</i>, 터치디자이너 보조강사, 청년예술청</span></li>
+      </ol></div>
+      <div><h4>커머셜</h4><ol>
+        <li><span class="y">2026</span><span>NCT 10주년 팝업 <i>NEO GROUND</i>, 인터랙티브 러닝존 및 인터랙티브 콘텐츠 개발, 파이팩토리, 서울 (5.15–5.23)</span></li>
+      </ol></div>
+      <div><h4>공연</h4><ol>
+        <li><span class="y">2026</span><span><i>Nuance Glyph Duet</i> (with 신은송), 라이브 오디오비주얼, 언더스탠드에비뉴 아트스탠드, 서울 · 소리모꼬지 시리즈</span></li>
+        <li><span class="y">2026</span><span><i>Rhizome</i> (with 이지후), 라이브 오디오비주얼, 언더스탠드에비뉴 아트스탠드, 서울 · 소리모꼬지 시리즈</span></li>
+        <li><span class="y">2025</span><span><i>Not One, Not Two</i>, The Performance Kitchen, 음악감독, 코펜하겐, 덴마크</span></li>
+        <li><span class="y">2025</span><span><i>Not One, Not Two</i>, Studio Theatre, 음악감독, 런던, 영국</span></li>
+        <li><span class="y">2025</span><span><i>at the barn: a listening party</i>, 기획·공간음향·오디오비주얼, 서울</span></li>
+        <li><span class="y">2024</span><span>Kontakt Group presents <i>Birth of Bea</i>, Garage Noord, 라이브 퍼포먼스, 암스테르담</span></li>
+        <li><span class="y">2024</span><span><i>Welcome to the Micro World</i>, Platform Theatre, 음악감독, 런던</span></li>
+        <li><span class="y">2024</span><span><i>Patricas pillow</i>, Nachbar, 라이브 퍼포먼스, 암스테르담</span></li>
+        <li><span class="y">2024</span><span><i>Listening Session</i>, KODA, 라이브 퍼포먼스, 스키담, 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>There's no wifi in the barn</i>, d³ (deep drone dreamer), 서울남산국악당(World Music House Seoul), 서울</span></li>
+        <li><span class="y">2023</span><span><i>The Hangout</i> (Le Guess Who? × Kapitaal × Stranded FM), DJ 셋, 위트레흐트, 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>Bad van Geluid #1</i>, De Doelen Studio, 라이브 퍼포먼스, 로테르담, 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>When Doves Cry.. Rage in Eden</i>, 프로젝션 비주얼, ACS, 서울</span></li>
+        <li><span class="y">2023</span><span><i>Mulsori</i>, LPM Festival 2023, 오디오비주얼 퍼포먼스, 뮌스터, 독일</span></li>
+        <li><span class="y">2023</span><span><i>Gerda</i> 단독공연 <i>Snow Sequence</i>, 벨로소, 오디오비주얼, 서울</span></li>
+        <li><span class="y">2023</span><span><i>WFS Concert</i> – ICLC 2023 (International Conference on Live Coding), 공간음향 컴포지션, HKU IBB, 위트레흐트, 네덜란드</span></li>
+        <li><span class="y">2023</span><span><i>WFS Concert</i>, 공간음향 컴포지션, Zaal 100, 암스테르담</span></li>
+        <li><span class="y">2022</span><span><i>Lost Air × ZER01NE Day</i>, 데이터 비주얼 VJing, 성수 d팩토리</span></li>
+        <li><span class="y">2022</span><span>서울스테이지11 《푸른, 짙은, 여름》: 싱어송라이터 짙은, 오디오비주얼 퍼포먼스, 청년예술청, 서울</span></li>
+        <li><span class="y">2022</span><span>서울스테이지11 《나른한 아침의 재즈 브리즈》: 재즈밴드 프렐류드, 오디오비주얼 퍼포먼스, 청년예술청, 서울</span></li>
+      </ol></div>
+      <div><h4>전시</h4><ol>
+        <li><span class="y">2025</span><span><i>The Trained Gaze</i>, AI 시네마스터 트랙, G-Artience, 대전</span></li>
+        <li><span class="y">2023</span><span><i>Rooms by Humans: Spaceless Echo</i>, De Nijverheid, 인터랙티브 설치, 위트레흐트, 네덜란드</span></li>
+        <li><span class="y">2022–23</span><span><i>Lost Air – Rave Geometry Series</i>, 데이터 비주얼 디렉터, 국립현대미술관 서울관</span></li>
+        <li><span class="y">2022</span><span><i>K-Arts in Osaka: 커뮤니케이션</i>, <i>milk 'n fridge</i> 인터랙티브 설치, 오사카한국문화원, 일본</span></li>
+        <li><span class="y">2022</span><span><i>The Very First Cyborg</i>, 단체전 (박영민, 정태완), 갤러리175, 서울 · 기획 유지원</span></li>
+        <li><span class="y">2022</span><span><i>Dew on the eye</i>, 개인전, CICA Museum, 김포</span></li>
+        <li><span class="y">2021</span><span>한국예술종합학교 융합예술 신진예술가 창작프로그램 《쇼케이스 2021: 페르소나 사회》, <i>meet me at 1.048596 :)</i> 인터랙티브 설치, 성북예술창작터, 서울</span></li>
+        <li><span class="y">2021</span><span><i>종달종달</i>, 2인전 (박영민), 한국예술종합학교 복도갤러리, 서울</span></li>
+      </ol></div>
+    </div>
+    <div class="cv en">
+      <div><h4>Education</h4><ol>
+        <li><span class="y">2025</span><span>MMus Music Design (Music Technology), HKU University of the Arts Utrecht, NL · nominated for HKU Awards 2025</span></li>
+        <li><span class="y">2023</span><span>MA Multimedia Art, Korea National University of Arts (withdrawn)</span></li>
+        <li><span class="y">2021</span><span>BA Fine Art, Korea National University of Arts</span></li>
+      </ol></div>
+      <div><h4>Residencies</h4><ol>
+        <li><span class="y">2026</span><span>Elektronmusikstudion (EMS), Sweden</span></li>
+        <li><span class="y">2026</span><span>Casa Carlotta, Casa de Lollo, Italy</span></li>
+        <li><span class="y">2025</span><span>Casa Carlotta, Casa de Lollo, Italy</span></li>
+        <li><span class="y">2025</span><span>SelvArt, Italy</span></li>
+      </ol></div>
+      <div><h4>Teaching &amp; presentations</h4><ol>
+        <li><span class="y">2026</span><span><i>Image to Sound in TouchDesigner</i>, workshop, CCU, Utrecht, NL (Sept)</span></li>
+        <li><span class="y">2026</span><span>Audiovisual guest lecture, MA Multimedia Art, Korea National University of Arts, Seoul (May)</span></li>
+        <li><span class="y">2025</span><span>TouchDesigner guest lecture, SBS A&amp;T, Seoul</span></li>
+        <li><span class="y">2024–25</span><span><i>Audiovisual Potluck!</i>, organiser and lead instructor, CCU, NL</span></li>
+        <li><span class="y">2023</span><span><i>Makers Meet &amp; Eat</i>, art and technology workshop, Centraal Museum Utrecht, NL</span></li>
+        <li><span class="y">2023</span><span><i>Pointclouds</i>, TouchDesigner guest lecture, CCU, Utrecht, NL</span></li>
+        <li><span class="y">2022</span><span>TouchDesigner teaching assistant, School Convergence Arts Education, ArtE Academy</span></li>
+        <li><span class="y">2022</span><span>TouchDesigner teaching assistant, New Media Expansion Programme <i>Noise Jam 1 &amp; 2</i>, SAPY, Seoul</span></li>
+      </ol></div>
+      <div><h4>Commercial</h4><ol>
+        <li><span class="y">2026</span><span>NCT 10th Anniversary Pop-up <i>NEO GROUND</i>, interactive running zone and interactive content development, Pie Factory, Seoul (15–23 May)</span></li>
+      </ol></div>
+      <div><h4>Performances</h4><ol>
+        <li><span class="y">2026</span><span><i>Nuance Glyph Duet</i> with Eunsong Shin, live audiovisual, Understand Avenue Art Stand, Seoul · Sori Mokkoji series</span></li>
+        <li><span class="y">2026</span><span><i>Rhizome</i> with Jihoo Lee, live audiovisual, Understand Avenue Art Stand, Seoul · Sori Mokkoji series</span></li>
+        <li><span class="y">2025</span><span><i>Not One, Not Two</i>, music director, The Performance Kitchen, Copenhagen, DK</span></li>
+        <li><span class="y">2025</span><span><i>Not One, Not Two</i>, music director, Studio Theatre, London, UK</span></li>
+        <li><span class="y">2025</span><span><i>at the barn: a listening party</i>, concept, spatial audio and audiovisual, Seoul</span></li>
+        <li><span class="y">2024</span><span><i>Birth of Bea</i> (Kontakt Group), live performance, Garage Noord, Amsterdam, NL</span></li>
+        <li><span class="y">2024</span><span><i>Welcome to the Micro World</i>, music director, Platform Theatre, London, UK</span></li>
+        <li><span class="y">2024</span><span><i>Patricas pillow</i>, live performance, Nachbar, Amsterdam, NL</span></li>
+        <li><span class="y">2024</span><span><i>Listening Session</i>, live performance, KODA, Schiedam, NL</span></li>
+        <li><span class="y">2023</span><span><i>There's no wifi in the barn</i>, d³ (deep drone dreamer), World Music House Seoul</span></li>
+        <li><span class="y">2023</span><span><i>The Hangout</i> (Le Guess Who? × Kapitaal × Stranded FM), DJ set, Utrecht, NL</span></li>
+        <li><span class="y">2023</span><span><i>Bad van Geluid #1</i>, live performance, De Doelen Studio, Rotterdam, NL</span></li>
+        <li><span class="y">2023</span><span><i>When Doves Cry.. Rage in Eden</i>, projection visuals, ACS, Seoul</span></li>
+        <li><span class="y">2023</span><span><i>Mulsori</i>, audiovisual, LPM Festival 2023, Münster, DE</span></li>
+        <li><span class="y">2023</span><span><i>Gerda: Snow Sequence</i>, audiovisual, Veloso, Seoul</span></li>
+        <li><span class="y">2023</span><span><i>WFS Concert</i>, spatial audio composition, ICLC 2023, HKU IBB, Utrecht, NL</span></li>
+        <li><span class="y">2023</span><span><i>WFS Concert</i>, spatial audio composition, Zaal 100, Amsterdam, NL</span></li>
+        <li><span class="y">2022</span><span><i>Lost Air × ZER01NE Day</i>, data-visual VJing, Seongsu D Factory, Seoul</span></li>
+        <li><span class="y">2022</span><span><i>Seoul Stage 11</i> with Zitten, audiovisual, SAPY, Seoul</span></li>
+        <li><span class="y">2022</span><span><i>Seoul Stage 11</i> with Prelude, audiovisual, SAPY, Seoul</span></li>
+      </ol></div>
+      <div><h4>Exhibitions</h4><ol>
+        <li><span class="y">2025</span><span><i>The Trained Gaze</i> (AI Cinemaster track), G-Artience, Daejeon</span></li>
+        <li><span class="y">2023</span><span><i>Rooms by Humans: Spaceless Echo</i>, interactive installation, De Nijverheid, Utrecht, NL</span></li>
+        <li><span class="y">2022–23</span><span><i>Lost Air – Rave Geometry Series</i>, data-visual director, MMCA Seoul</span></li>
+        <li><span class="y">2022</span><span><i>K-Arts in Osaka: Communication</i> (<i>milk 'n fridge</i>), Osaka Korean Culture Center, JP</span></li>
+        <li><span class="y">2022</span><span><i>The Very First Cyborg</i>, group exhibition with Youngmin Park and Taewan Jeong, Gallery 175, Seoul · curated by Jiwon Yoo</span></li>
+        <li><span class="y">2022</span><span><i>Dew on the eye</i>, solo exhibition, CICA Museum, Gimpo</span></li>
+        <li><span class="y">2021</span><span><i>Showcase 2021: Persona Society</i> (<i>meet me at 1.048596 :)</i>), Seongbuk Young Art Space, Seoul</span></li>
+        <li><span class="y">2021</span><span><i>Jong-Dal Jong-Dal</i>, duo exhibition with Youngmin Park, K-Arts Bokdo Gallery, Seoul</span></li>
+      </ol></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">TouchDesigner Beginner Course · Iver Kim · Seoul 2026</div></footer>
+
+<script>
+(function(){
+  // language toggle
+  const root=document.documentElement;
+  function setLang(l){
+    root.setAttribute('data-lang',l);root.lang=l;
+    document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+    try{localStorage.setItem('td-lang',l)}catch(e){}
+  }
+  let saved='ko';try{saved=localStorage.getItem('td-lang')||'ko'}catch(e){}
+  setLang(saved);
+  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // schedule
+  const S={
+    wed:{ko:'수요일 저녁반',en:'Wed evening',t:'19:00–22:00',d:['11/11','11/18','11/25','12/2','12/9'],c:'#a9aaea'},
+    sat:{ko:'토요일 오전반',en:'Sat morning',t:'10:00–13:00',d:['11/14','11/21','11/28','12/5','12/12'],c:'#e8cd99'}
+  };
+  const tb=document.getElementById('sched-body'),lookup={};
+  for(const k in S){const r=S[k];r.d.forEach(x=>lookup[x]=r.c);
+    tb.insertAdjacentHTML('beforeend',`<tr><th><span class="dot" style="background:${r.c}"></span><span class="ko">${r.ko}</span><span class="en">${r.en}</span><div class="mono" style="font-size:12px;color:var(--muted);font-weight:400;margin-left:18px">${r.t}</div></th>`+r.d.map(x=>`<td>${x}</td>`).join('')+'</tr>');}
+  const mw=document.getElementById('months');
+  for(const [y,m,label] of [[2026,10,'November 2026'],[2026,11,'December 2026']]){
+    const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+    let h=`<div class="month"><h4>${label}</h4><div class="grid7">`+['S','M','T','W','T','F','S'].map(x=>`<div class="dh">${x}</div>`).join('');
+    for(let i=0;i<first;i++)h+='<div class="d out"></div>';
+    for(let x=1;x<=days;x++){const c=lookup[`${m+1}/${x}`];h+=`<div class="d${c?' s':''}"${c?` style="--dc:${c}"`:''}>${x}</div>`}
+    mw.insertAdjacentHTML('beforeend',h+'</div></div>');
+  }
+
+  // CHOP-style noise scope
+  const cv=document.getElementById('scope'),ctx=cv.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const chans=[['#a585e6',0.9,0],['#7cc263',1.7,3.1],['#e8a33d',0.6,7.4]];
+  function noise(x,s){return Math.sin(x*1.3+s)*.5+Math.sin(x*2.9+s*1.7)*.28+Math.sin(x*6.1+s*.6)*.14+Math.sin(x*11.7+s*2.3)*.08}
+  function size(){const r=cv.getBoundingClientRect(),p=devicePixelRatio||1;cv.width=r.width*p;cv.height=r.height*p;ctx.setTransform(p,0,0,p,0,0)}
+  size();addEventListener('resize',size);
+  function draw(t){
+    const w=cv.clientWidth,h=cv.clientHeight;ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle='#23272d';ctx.lineWidth=1;
+    for(let i=1;i<4;i++){const y=h*i/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+    ctx.fillStyle='#5f6670';ctx.font='10px "IBM Plex Mono", monospace';ctx.fillText('1',6,14);ctx.fillText('0',6,h/2-4);ctx.fillText('-1',6,h-6);
+    chans.forEach(([c,sp,seed],i)=>{
+      ctx.strokeStyle=c;ctx.lineWidth=1.6;ctx.beginPath();
+      for(let x=0;x<=w;x+=2){const v=noise(x/w*6+t*.0004*sp,seed);const y=h/2+v*h*.32+(i-1)*8;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}
+      ctx.stroke();
+    });
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+
+</body>
+</html>

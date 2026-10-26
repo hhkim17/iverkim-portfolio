@@ -18,6 +18,7 @@ cd c && python3 -m http.server 8000
 | `works.js` | The unified works index (36 entries; 34 in the index, 2 archive-only). `m:` = medium tags, `k:` = kind, `w:` = collaborator, `x:` = the show when it differs from the work, `link:`/`href:` = detail target. Its header comment documents every field. |
 | `build-c.js` | Generates the site into `c/`. Contains all CSS, page templates, and the `MEDIA` tag vocabulary. |
 | `build-single-c.js` | Bundles `c/` into one self-contained HTML with hash routing. |
+| `td-workshop/` | A standalone course page (TouchDesigner Beginner Course, Nov 2026), published as-is at iverkim.com/td-workshop/. Not linked from the site and marked noindex. `build-c.js` copies it into `c/`. |
 | `c/` | Build output — don't edit by hand, it gets overwritten. |
 | `assets/` | Local image sources: `paintings/` (19, from the 2025.8 portfolio PDF), `intermedia/` (18 icon thumbnails from the old Framer site), `releases/` (6 covers), `karts/` (21 from kartsfaa.org — k19–k23 are installation views of *Dew on the eye*, the rest are lower-resolution duplicates of paintings we already have at higher res). `freight.cargo.site` blocks hotlinking, so those needed `curl -e https://kartsfaa.org/`. Originally: `build-c.js` copies the whole tree to `c/img/` on every build. `assets/paintings/` holds the 19 paintings extracted from the 2025.8 portfolio PDF. |
 
