@@ -1049,7 +1049,7 @@ if (fs.existsSync(ASSETS)) {
 }
 // Standalone pages kept outside the site's templates and nav, published at
 // their own path (iverkim.com/<dir>/) exactly as they are. Not linked from the site.
-for (const dir of ['td-workshop']) {
+for (const dir of ['td-workshop', 'td-beginner-course']) {
   const src = path.join(__dirname, dir), dest = path.join(OUT, dir);
   fs.rmSync(dest, { recursive: true, force: true });
   if (fs.existsSync(src)) fs.cpSync(src, dest, { recursive: true });
