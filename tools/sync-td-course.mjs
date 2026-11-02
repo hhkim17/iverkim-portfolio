@@ -12,6 +12,8 @@
 //                    td-beginner-course/img/blob/<assetId>.<ext> and run again (exit 2)
 //   UNCHANGED        the mirror already matches the artifact (exit 0)
 //   CHANGED          td-beginner-course/index.html was rewritten (exit 0)
+//
+// The instructor-only session plan (<div class="plan">) is removed from the mirror.
 import fs from 'node:fs';
 import path from 'node:path';
 import { webcrypto as c } from 'node:crypto';
@@ -55,6 +57,11 @@ for (const lang of Object.keys(art.data)) {
   });
 }
 if (need) process.exit(2);
+
+// the 3-hour session plan is for the instructor only: keep it out of the public mirror
+for (const lang of Object.keys(art.data)) {
+  art.data[lang] = art.data[lang].replace(/\s*<div class="plan"[^>]*>[\s\S]*?<\/ol><\/div>/g, '');
+}
 
 if (fs.existsSync(OUT)) {
   try {
