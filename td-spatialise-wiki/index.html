@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://iverkim.com/td-spatialise-wiki/media/ui-3d.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono&family=Roboto:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono&family=Roboto:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
 <style>
 /* Same sheet as the tool: White = paper + black ink, Black = night + chalk. Hairlines, corner ticks, "01 — SECTION" captions. */
 :root{
@@ -56,6 +56,9 @@ nav.side{position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 22px 40
 .side .btns{display:flex;gap:6px;margin-top:22px}
 .btn{font:12px/1 var(--f-mono);letter-spacing:.04em;background:var(--bg);color:var(--ink);border:1px solid var(--ink);padding:9px 10px;cursor:pointer;flex:1;text-align:center}
 .btn:hover{background:var(--fill)}
+.lang .btn.on{background:var(--ink);color:var(--bg)}
+main[lang="ko"]{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
+main[lang="ko"] h3{font-family:inherit}
 
 main{padding:40px 56px 120px;min-width:0}
 .hero{position:relative;padding:34px 30px 30px;margin-bottom:56px}
@@ -144,10 +147,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><a href="#roadmap"><span>10</span>ROADMAP</a></li>
     <li><a href="#log"><span>11</span>CHANGELOG</a></li>
   </ol>
-  <div class="btns"><button class="btn" id="themeBtn">THEME: WHITE</button></div>
+  <div class="btns lang" role="group" aria-label="Language"><button class="btn" data-set="en">ENGLISH</button><button class="btn" data-set="ko">한국어</button></div>
 </nav>
 
-<main>
+<main data-lang="en" lang="en-GB">
 <header class="hero ticks"><div class="t"></div>
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>SPATIALISE</h1>
@@ -438,22 +441,315 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="copy">© 2026 Iver Kim. All rights reserved.</div>
 </footer>
 </main>
+<main data-lang="ko" lang="ko" hidden>
+<header class="hero ticks"><div class="t"></div>
+  <div class="cap">FIG. 0 / WIKI</div>
+  <h1>SPATIALISE</h1>
+  <p>Ableton Live의 트랙 하나를 공간 속 소리 오브젝트 하나로 만들고, TouchDesigner에서 3D로 보면서 움직임을 편집하는 툴. 소리는 Live 안에서 바이노럴(헤드폰) 또는 스피커 배열로 렌더링되고, 트랙 이름·색·볼륨·뮤트는 양쪽이 계속 맞춰진다.</p>
+  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · OSC / UDP 9001 ↔ 9002</div>
+</header>
+
+<section id="ko-overview">
+  <div class="cap">00 — Overview</div>
+  <h2>구조 한눈에 보기</h2>
+  <p>세 부분으로 나뉜다. <strong>소리는 전부 Live 안에서</strong> 처리되고, TouchDesigner는 위치를 보여주고 편집하는 화면이다. 둘은 로컬 OSC(UDP)로만 이어져 있어서 TouchDesigner를 꺼도 Live의 소리는 그대로 난다.</p>
+  <figure class="ticks"><div class="t"></div>
+  <svg class="flow" viewBox="0 0 900 300" role="img" aria-label="신호 흐름: 각 트랙의 Spatial Object가 Spatial Master를 거쳐 OSC 9001로 TouchDesigner에 위치를 보내고, TouchDesigner는 9002로 편집을 돌려보낸다.">
+    <text x="20" y="24" class="m" font-size="11">ABLETON LIVE</text>
+    <rect class="box" x="20" y="36" width="190" height="34"/><text x="32" y="58" font-size="12">Track 1 · Spatial Object</text>
+    <rect class="box" x="20" y="80" width="190" height="34"/><text x="32" y="102" font-size="12">Track 2 · Spatial Object</text>
+    <rect class="box" x="20" y="124" width="190" height="34"/><text x="32" y="146" font-size="12">Track n · Spatial Object</text>
+    <rect class="fillbox" x="290" y="80" width="170" height="34"/><text x="304" y="102" font-size="12" class="inv">Spatial Master</text>
+    <path class="wire" d="M210 53 H250 V97 H290 M210 97 H290 M210 141 H250 V97"/>
+    <rect class="box" x="20" y="200" width="190" height="34"/><text x="32" y="222" font-size="12">Returns · SPK 1…n</text>
+    <path class="dash" d="M115 158 V200"/><text x="124" y="186" class="m" font-size="10">SPEAKERS: sends</text>
+    <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">Main → HP / interface</text>
+    <path class="dash" d="M210 217 H290"/>
+    <text x="620" y="24" class="m" font-size="11">TOUCHDESIGNER</text>
+    <rect class="box" x="620" y="60" width="260" height="76"/>
+    <text x="634" y="84" font-size="12">Spatialisation_test</text><text x="634" y="104" class="m" font-size="10.5">3D preview · speaker layouts</text><text x="634" y="122" class="m" font-size="10.5">osc_dat · objects · render</text>
+    <rect class="box" x="620" y="150" width="260" height="56"/>
+    <text x="634" y="174" font-size="12">Spatialize_UI</text><text x="634" y="192" class="m" font-size="10.5">sidebar · 3D VIEW · OBJECT EDITOR</text>
+    <path class="wire" d="M460 90 H620"/><text x="480" y="82" font-size="11">UDP 9001 →</text><text x="480" y="62" class="m" font-size="10">/spat/obj · name · form…</text>
+    <path class="wire" d="M620 112 H460"/><text x="480" y="130" font-size="11">← UDP 9002</text><text x="480" y="148" class="m" font-size="10">/spat/objset · pathset…</text>
+  </svg>
+  <figcaption>FIG. 0.1 — 신호 흐름. 실선 = OSC, 점선 = 오디오 라우팅(스피커 모드)</figcaption></figure>
+  <div class="grid2">
+    <div class="card"><div class="k">01 · Live</div><div class="v">Spatial Object</div><p>트랙마다 하나. 위치·움직임·모양·경로를 갖고, 바이노럴/스피커 패닝을 직접 계산한다.</p></div>
+    <div class="card"><div class="k">02 · Live</div><div class="v">Spatial Master</div><p>세트에 하나. 모든 오브젝트를 모아 TouchDesigner로 보내고, TouchDesigner에서 온 편집을 해당 오브젝트에 전달한다. 렌더 모드(Off / Binaural / Speakers) 스위치.</p></div>
+    <div class="card"><div class="k">03 · TD</div><div class="v">Spatialise UI</div><p>1920×1080 화면. 3D 프리뷰, 트랙 목록, 스피커 레이아웃, 오브젝트 에디터, 로그.</p></div>
+  </div>
+</section>
+
+<section id="ko-setup">
+  <div class="cap">01 — Set-up</div>
+  <h2>설치와 첫 실행</h2>
+  <h3>필요한 것</h3>
+  <ul>
+    <li>Ableton Live 12 Suite (또는 Max for Live가 있는 Standard)</li>
+    <li>TouchDesigner 2025 버전대 (무료 Non-Commercial 라이선스도 가능)</li>
+    <li>헤드폰 — 바이노럴 모니터링용. 스피커 모드는 다채널 오디오 인터페이스가 필요하다.</li>
+  </ul>
+  <h3>Live 쪽</h3>
+  <ol>
+    <li>Live 브라우저에서 <strong>Places → Add Folder…</strong> 로 <code>Spatialize M4L</code> 폴더를 추가한다.</li>
+    <li><strong>Spatial Master</strong>를 세트에 하나 넣는다 (마스터 트랙 권장).</li>
+    <li>소리 오브젝트로 쓸 트랙마다 <strong>Spatial Object</strong>를 넣는다. 오브젝트 ID(UID)는 자동으로 붙고 세트와 함께 저장된다. 트랙을 복제하면 복제본은 새 UID를 받는다.</li>
+    <li>Master를 <span class="pill on">BINAURAL</span>로 두면 헤드폰으로 바로 들린다.</li>
+  </ol>
+  <h3>TouchDesigner 쪽</h3>
+  <ol>
+    <li>프로젝트(<code>.toe</code>)를 연다. <code>/project1/Spatialize_UI</code>가 메인 화면이다.</li>
+    <li>사이드바 <span class="pill">LIVE</span> 탭에서 PORT가 <code>9001</code>인지 확인한다. 트랙이 Live 순서대로 목록에 뜨면 연결된 것.</li>
+    <li>작업이 끝나면 <strong>TouchDesigner는 <kbd>Ctrl</kbd>+<kbd>S</kbd>, Live 세트도 따로 저장</strong>. 경로·움직임 설정은 Live 세트에, 화면·테마 설정은 TouchDesigner 쪽에 저장된다.</li>
+  </ol>
+  <div class="note"><b>NOTE</b>Windows와 macOS 모두 동작한다. 다른 앱으로 소리를 보낼 때 Mac은 BlackHole, Windows는 VB-Cable이나 JACK을 쓰면 된다.</div>
+</section>
+
+<section id="ko-devices">
+  <div class="cap">02 — Live devices</div>
+  <h2>Spatial Object · Spatial Master</h2>
+  <h3>Spatial Object 파라미터</h3>
+  <p>전부 Live 파라미터라서 오토메이션·매크로·모듈레이터로 움직일 수 있다. 위치 다이얼(Azimuth / Elevation / Distance)은 움직임의 <em>중심</em>이다.</p>
+  <div class="tw"><table>
+    <tr><th>Parameter</th><th>범위</th><th>뜻</th></tr>
+    <tr><td>Azimuth</td><td>−180 … 180°</td><td>0 = 정면, + = 왼쪽(반시계), ±180 = 뒤</td></tr>
+    <tr><td>Elevation</td><td>−90 … 90°</td><td>0 = 귀 높이, 90 = 바로 위</td></tr>
+    <tr><td>Distance</td><td>0 … 2</td><td>1.0 = 스피커 반지름 위</td></tr>
+    <tr><td>Motion</td><td>7가지</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path</td></tr>
+    <tr><td>Rate / Size</td><td>Hz / 0 … 1</td><td>움직임 속도와 크기 (Path에는 쓰이지 않음)</td></tr>
+    <tr><td>Path Length</td><td>1 … 64 bars</td><td>경로 한 바퀴의 길이. Live 송 포지션에 동기화</td></tr>
+    <tr><td>Path Mode</td><td>Loop · Ping-Pong · Once</td><td>경로 재생 방식</td></tr>
+    <tr><td>Closed</td><td>Open · Closed</td><td>마지막 점을 첫 점과 이을지</td></tr>
+    <tr><td>Shape</td><td>Point · Line</td><td>점 하나, 또는 중심을 지나는 직선 음원</td></tr>
+    <tr><td>Length</td><td>0 … 2</td><td>직선 길이 (반지름 단위)</td></tr>
+    <tr><td>Rotate / Tilt</td><td>±180° / ±90°</td><td>직선의 수평 방향 / 위아래 기울기</td></tr>
+    <tr><td>Facing</td><td>Centre · Fixed</td><td>Centre = 오브젝트와 함께 돌아 늘 청취자를 향함, Fixed = 방에 고정</td></tr>
+    <tr><td>Object (UID)</td><td>자동</td><td>오브젝트 고유 번호. 세트와 함께 저장. 숨김 파라미터</td></tr>
+  </table></div>
+  <h3>Spatial Master</h3>
+  <ul>
+    <li><strong>모드</strong>: <span class="pill">OFF</span> <span class="pill on">BINAURAL</span> <span class="pill">SPEAKERS</span> — TouchDesigner 사이드바의 MONITOR 버튼과 같은 스위치.</li>
+    <li>오브젝트들의 OSC를 모아 <code>127.0.0.1:9001</code>로 보내고, <code>9002</code>로 TouchDesigner의 편집을 받는다.</li>
+    <li>TouchDesigner에서 바꾼 트랙 뮤트, 마스터 볼륨, 트랙 색도 Master를 거쳐 Live에 반영된다.</li>
+  </ul>
+  <div class="note"><b>TIP</b>트랙 순서를 바꿔도 안전하다. 오브젝트는 트랙 번호가 아니라 UID로 구분되고, TouchDesigner 목록은 Live의 트랙 순서를 그대로 따라간다.</div>
+</section>
+
+<section id="ko-ui">
+  <div class="cap">03 — TD interface</div>
+  <h2>화면 구성</h2>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg" alt="Spatialise UI 3D VIEW: 왼쪽에 3D 공간 프리뷰, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW. 오브젝트 주변의 번짐(haze), 트랙 이름 콜아웃, 점선 돔 가이드</figcaption></figure>
+  <h3>상단 바</h3>
+  <p><span class="pill on">3D VIEW</span> <span class="pill">OBJECT EDITOR</span> 로 가운데 화면을 바꾼다. 오른쪽에는 프로젝트 이름 · 레이아웃 · OSC 포트.</p>
+  <h3>3D 뷰 조작</h3>
+  <div class="tw"><table>
+    <tr><th>입력</th><th>동작</th></tr>
+    <tr><td>왼쪽 드래그</td><td>카메라 회전 (orbit)</td></tr>
+    <tr><td>휠 / 가운데 버튼 드래그</td><td>줌</td></tr>
+    <tr><td>VIEW 탭 → AUTO ORBIT</td><td>천천히 자동 회전</td></tr>
+    <tr><td>VIEW 탭 → RESET VIEW</td><td>기본 시점으로</td></tr>
+  </table></div>
+  <h3>사이드바</h3>
+  <p>오른쪽 패널은 가장자리의 <span class="pill">›</span> 버튼으로 접고 펼 수 있다. 위쪽 탭은 세 개.</p>
+  <div class="tw"><table>
+    <tr><th>탭</th><th>항목</th></tr>
+    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> 포트(편집 가능), MASTER 볼륨 슬라이더 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
+    <tr><td>VIEW</td><td><strong>01 SPEAKER LAYOUT</strong> 클릭하면 목록이 뜬다 · <strong>02 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>03 VIEW</strong> Auto orbit, Reset view, Dome guide, Names, Ears, Source, Theme, Object editor</td></tr>
+    <tr><td>LOG</td><td>OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
+  </table></div>
+  <h3>트랙 색 바꾸기</h3>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 펼쳐진 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.2 — 색 칸을 누르면 Ableton과 같은 70색 팔레트가 그 줄 아래에 뜬다</figcaption></figure>
+  <p>트랙 줄의 색 칸을 누르면 팔레트가 열린다. 고르면 TouchDesigner와 Live 트랙 색이 함께 바뀐다. 같은 칸을 다시 누르거나 <span class="mono">×</span>로 닫는다. 지금 색은 테두리로 표시된다.</p>
+</section>
+
+<section id="ko-editor">
+  <div class="cap">04 — Object editor</div>
+  <h2>오브젝트 에디터</h2>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE</figcaption></figure>
+  <p>상단 <span class="pill">OBJECT EDITOR</span> 또는 VIEW 탭의 OBJECT EDITOR 버튼으로 연다. 여기서 바꾼 값은 곧바로 Live 디바이스 파라미터로 가고, 디바이스가 돌려보낸 값이 화면에 표시된다 — 양쪽 어디서 바꿔도 결과가 같다.</p>
+  <h3>시점</h3>
+  <ul>
+    <li><span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> 버튼, 또는 캔버스 오른쪽 위의 T / F / S 점.</li>
+    <li>오른쪽 위 둥근 영역(<span class="mono">DRAG TO ORBIT</span>)을 왼쪽 버튼으로 드래그하면 자유 각도로 돌아간다. 안의 F(정면)·L(왼쪽)·U(위) 축이 같이 돌고, 캡션은 <span class="mono">FREE VIEW · YAW / PITCH</span>가 된다.</li>
+  </ul>
+  <h3>경로 그리기</h3>
+  <div class="tw"><table>
+    <tr><th>입력</th><th>동작</th></tr>
+    <tr><td>빈 곳 클릭</td><td>점 추가 (오브젝트가 PATH 모션으로 바뀐다)</td></tr>
+    <tr><td>점 드래그</td><td>이동. 보는 방향의 깊이는 유지된다</td></tr>
+    <tr><td>오른쪽 클릭</td><td>점 삭제</td></tr>
+    <tr><td>CURVE / CORNER</td><td>선택한 점을 곡선(●) ↔ 모서리(■)로</td></tr>
+    <tr><td>POINT HEIGHT</td><td>선택한 점의 높이</td></tr>
+    <tr><td>OPEN / CLOSED PATH</td><td>닫힌 고리인지</td></tr>
+    <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전부 곡선으로 · 경로 지우기 · Live에서 다시 읽기</td></tr>
+  </table></div>
+  <p>곡선은 Catmull-Rom(Hermite) 스플라인이고, 재생은 길이를 따라 등속으로 진행한다. 위치 = Live 송 포지션 ÷ (Path Length × 4박).</p>
+  <h3>저장</h3>
+  <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/&lt;시간&gt;.json</code>과 <code>latest.json</code>으로 남기고 TouchDesigner 프로젝트도 저장한다. <span class="pill">LOAD LAST</span>로 마지막 스냅샷을 되돌린다. Live 세트는 따로 저장해야 한다.</p>
+</section>
+
+<section id="ko-render">
+  <div class="cap">05 — Rendering</div>
+  <h2>렌더링 — 바이노럴과 스피커</h2>
+  <h3>BINAURAL (헤드폰)</h3>
+  <p>오브젝트 방향마다 양쪽 귀의 도달 시간 차(ITD)와 머리 그림자(head shadow)를 계산해 스테레오로 만든다. 3D 뷰의 머리 모형 귀 색이 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>이고, 오브젝트에서 귀로 가는 선의 밝기가 그 귀에 닿는 양이다. 이름표 아래 <span class="mono">ITD 0.45 ms R</span>은 어느 귀에 얼마나 먼저 닿는지를 뜻한다.</p>
+  <p>Line 모양은 직선 양 끝을 두 개의 바이노럴 체인으로 나눠 입력 L → 끝 A, 입력 R → 끝 B로 보낸다.</p>
+  <h3>SPEAKERS</h3>
+  <p>3D VBAP으로 스피커별 게인을 구하고, 트랙의 Send로 <code>SPK 1</code> … <code>SPK n</code>이라는 이름의 리턴 트랙에 보낸다. 각 리턴의 출력을 인터페이스 채널에 연결하면 된다. 스피커 모드에서 오브젝트 트랙의 출력은 Sends Only가 된다.</p>
+  <div class="note"><b>NOTE</b>오디오 드라이버(ASIO / Core Audio), 샘플레이트, 버퍼는 Live <strong>환경설정 → Audio</strong>에서 정한다. 소리는 Live가 처리하므로 TouchDesigner 쪽 설정은 없다.</div>
+  <h3>스피커 레이아웃</h3>
+  <div class="tw"><table>
+    <tr><th>ID</th><th>이름</th></tr>
+    <tr><td>stereo</td><td>Stereo</td></tr>
+    <tr><td>quad</td><td>Quad</td></tr>
+    <tr><td>5_1 · 7_1</td><td>5.1 (ITU-R BS.775) · 7.1</td></tr>
+    <tr><td>5_1_4 · 7_1_4 · 9_1_6</td><td>5.1.4 · 7.1.4 · 9.1.6 (Atmos)</td></tr>
+    <tr><td>hex6 · oct8 · ring16</td><td>Hexagon 6 · Octagon 8 ring · Ring 16</td></tr>
+    <tr><td>cube8</td><td>Cube 8</td></tr>
+    <tr><td>dome25</td><td>Dome 25 (12 / 8 / 4 / 1)</td></tr>
+    <tr><td>wfs_line32 · wfs_rect64</td><td>WFS line 32 (front) · WFS rectangle 64</td></tr>
+  </table></div>
+  <h3>패닝 모델 (프리뷰)</h3>
+  <p>VIEW 탭의 PANNING MODEL은 3D 뷰에서 <em>스피커가 어떻게 빛나는지</em>를 고른다 — VBAP-like(각도), DBAP-like(거리), Ambisonics 3차(AllRAD), WFS(파면). 스피커 박스의 밝기가 그 오브젝트의 게인이다.</p>
+</section>
+
+<section id="ko-coords">
+  <div class="cap">06 — Co-ordinates</div>
+  <h2>좌표계</h2>
+  <div class="grid2">
+    <div class="card"><div class="k">Device (Live)</div><div class="v mono">x 앞 · y 왼쪽 · z 위</div><p>거리 1 = 스피커 반지름. Azimuth + = 왼쪽, Elevation + = 위.</p></div>
+    <div class="card"><div class="k">TouchDesigner</div><div class="v mono">앞 = −Z · 위 = +Y</div><p>오른쪽 = +X. 변환은 <code>layouts</code> 모듈의 <code>aed_to_dev</code> / <code>dev_to_aed</code>.</p></div>
+  </div>
+  <p>직선 음원: 중심 <code>c = aed_to_dev(az, el, d)</code>, 수평 방향 <code>h = (Facing이 Centre면 az, Fixed면 0) + 90° + Rotate</code>, 기울기 <code>t = Tilt</code>, 방향 <code>u = (cos t·cos h, cos t·sin h, sin t)</code>, 양 끝 <code>c ± u·Length/2</code>.</p>
+</section>
+
+<section id="ko-osc">
+  <div class="cap">07 — OSC protocol</div>
+  <h2>OSC 메시지</h2>
+  <p>모두 로컬 UDP. Live → TouchDesigner는 <code>127.0.0.1:9001</code>, TouchDesigner → Live(Spatial Master)는 <code>9002</code>.</p>
+  <h3>Live → TD (9001)</h3>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>내용</th></tr>
+    <tr><td>/spat/obj</td><td>오브젝트 위치·레벨·색 (약 30 Hz)</td></tr>
+    <tr><td>/spat/name</td><td>트랙 이름과 Live 트랙 순서</td></tr>
+    <tr><td>/spat/form</td><td>모션·모양 설정 (motion, shape, len, rot, tilt, rate, size, bars, pmode, muted, facing, closed)</td></tr>
+    <tr><td>/spat/path</td><td>저장된 경로 점들</td></tr>
+    <tr><td>/spat/off</td><td>디바이스가 지워졌을 때</td></tr>
+    <tr><td>/spat/master</td><td>Master 상태 (렌더 모드 등)</td></tr>
+    <tr><td>/spat/dbg</td><td>디버그 메시지 → LOG 탭</td></tr>
+  </table></div>
+  <h3>TD → Live (9002, Spatial Master)</h3>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>내용</th></tr>
+    <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
+    <tr><td>/spat/spk</td><td>스피커 레이아웃 (단위 벡터 + LFE 플래그)</td></tr>
+    <tr><td>/spat/color</td><td><code>&lt;id&gt; r g b</code> → Live 트랙 색</td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 파라미터 변경 · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code></td></tr>
+    <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code> 경로 저장</td></tr>
+    <tr><td>/spat/req</td><td>전체 상태 다시 보내기 (LOG → RESEND)</td></tr>
+    <tr><td>/spat/info</td><td>정보 요청</td></tr>
+  </table></div>
+<pre><code># 예: 오브젝트 598428의 모션을 Circle로
+/spat/objset 598428 motion 1
+
+# 점 3개짜리 경로 (x y z curve)
+/spat/pathset 598428 3  0.8 0.4 0.0 1  -0.2 0.9 0.3 1  -0.7 -0.5 0.0 0</code></pre>
+</section>
+
+<section id="ko-look">
+  <div class="cap">08 — Themes &amp; display</div>
+  <h2>테마와 표시</h2>
+  <div class="grid2">
+    <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>같은 디자인에 종이와 잉크만 뒤집힌다. VIEW 탭 THEME 버튼.</p></div>
+    <div class="card"><div class="k">Type</div><div class="v mono">PT Mono · Roboto</div><p>화면 글자, 트랙 이름, 3D 뷰 HUD 모두 같은 서체.</p></div>
+    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>오브젝트 주변이 자기 색으로 뿌옇게 번진다. Spatialisation_test → Theme → Object Haze (기본 2.5, 0이면 끔).</p></div>
+  </div>
+  <ul>
+    <li><strong>트랙 이름</strong>: 오브젝트에서 사선 리더 → 가는 가로 줄, 위에 색 사각형 + 이름, 아래에 <span class="mono">AZ EL D ITD</span>. 화면 가장자리에 닿으면 반대편으로 뒤집힌다.</li>
+    <li><strong>돔 가이드</strong>: 점선. 간격은 <code>geo_dome/dome_dash</code> 스크립트 맨 위 <code>DASH, GAP</code>.</li>
+    <li><strong>청취자</strong>: 회색 머리 모형에 L/R 색 귀, 하얀 선으로 그린 감은 눈과 입. 입은 3.2초마다 무표정 · 미소 · "오" · 하품 중 하나로 바뀔 수 있다 (<code>geo_eyes/eyes</code>의 <code>SLOT</code>, <code>WEIGHTS</code>).</li>
+    <li><strong>밝기</strong>: 오브젝트 밝기는 페이더 뒤 트랙 레벨을 따른다 — dB 맵 <code>(20·log10(a) + 48) / 48</code>.</li>
+  </ul>
+</section>
+
+<section id="ko-trouble">
+  <div class="cap">09 — Troubleshooting</div>
+  <h2>문제 해결</h2>
+  <div class="tw"><table>
+    <tr><th>증상</th><th>해결</th></tr>
+    <tr><td>트랙이 TD에 안 뜬다</td><td>LIVE 탭 PORT = 9001인지, 세트에 Spatial Master가 있는지 확인. LOG 탭에서 RESEND.</td></tr>
+    <tr><td>에디터에 "old Spatial Object"</td><td>그 트랙의 디바이스가 이전 버전. Live 세트를 닫았다가 다시 열거나 디바이스를 새로 넣는다.</td></tr>
+    <tr><td>위치가 0으로 돌아갔다</td><td>디바이스 스크립트가 다시 로드된 직후일 수 있다. 세트를 다시 열면 저장된 값이 돌아온다.</td></tr>
+    <tr><td>오브젝트 둘이 같은 번호</td><td>복제된 트랙은 자동으로 새 UID를 받는다. 그래도 겹치면 디바이스를 지웠다 다시 넣는다.</td></tr>
+    <tr><td>TD 버튼이 하얗게 비어 보인다</td><td>프로젝트를 다시 연다. UI는 <code>Uitick</code>(10 Hz)으로 갱신되므로 이 파라미터가 있어야 한다.</td></tr>
+    <tr><td>스피커 모드에서 소리가 안 난다</td><td>리턴 트랙 이름이 <code>SPK 1</code> … <code>SPK n</code>인지, 각 리턴 출력이 인터페이스 채널로 가는지, Live 출력 채널이 켜져 있는지 확인.</td></tr>
+  </table></div>
+</section>
+
+<section id="ko-roadmap">
+  <div class="cap">10 — Roadmap</div>
+  <h2>다음 작업</h2>
+  <ul>
+    <li><strong>씬 / 타임라인</strong> — 모든 오브젝트 상태를 스냅샷으로 저장하고, Live 어레인지먼트 로케이터와 양방향으로 연동.</li>
+    <li><strong>오디오 상태 표시</strong> — Live의 샘플레이트·버퍼를 LIVE 탭에 읽기 전용으로.</li>
+    <li><strong>Line 오브젝트 haze</strong> — 직선 음원에도 번짐 효과.</li>
+    <li><strong>이름표 겹침 방지</strong> — 가까운 오브젝트의 콜아웃이 서로 비켜나도록.</li>
+    <li>에디터 오른쪽 설정 패널 접기.</li>
+  </ul>
+</section>
+
+<section id="ko-log">
+  <div class="cap">11 — Changelog</div>
+  <h2>변경 이력</h2>
+  <div class="tw"><table>
+    <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.08</td><td>에디터 자유 시점(orbit 기즈모) · 트랙 이름 콜아웃 재디자인 · 오브젝트 haze · Ableton 70색 팔레트 · 점선 돔 · 회색 머리 모형과 표정 · 서체·글자 크기 통일 · 위키</td></tr>
+    <tr><td>2026.11.08</td><td>v7: 모션 7종, Line 모양(길이·회전·기울기·Facing), 경로 편집(Open/Closed), UID, 트랙 뮤트·마스터 볼륨, 오브젝트 에디터를 메인 UI 탭으로</td></tr>
+    <tr><td>2026.11</td><td>그래픽 스코어 테마(White/Black), 사이드바 탭(LIVE/VIEW/LOG), 사이드바 접기, 레이아웃 목록, 모니터 선택</td></tr>
+  </table></div>
+</section>
+<footer>
+  <div class="foot">
+    <span>SPATIALISE WIKI</span>
+    <a href="https://iverkim.com">IVERKIM.COM</a>
+    <a href="https://www.instagram.com/iverhkim/" rel="noopener" target="_blank">INSTAGRAM @IVERHKIM</a>
+    <a href="mailto:iverhkim@gmail.com">IVERHKIM@GMAIL.COM</a>
+  </div>
+  <div class="copy">© 2026 Iver Kim. All rights reserved.</div>
+</footer>
+</main>
+
 </div>
 <script>
 (function(){
-  var root=document.documentElement, btn=document.getElementById('themeBtn');
-  function cur(){var t=root.getAttribute('data-theme'); if(t) return t; return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
-  function label(){btn.textContent='THEME: '+(cur()==='dark'?'BLACK':'WHITE');}
-  try{var s=localStorage.getItem('spat-wiki-theme'); if(s) root.setAttribute('data-theme',s);}catch(e){}
-  label();
-  btn.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('spat-wiki-theme',n);}catch(e){} label();});
-  var menu=document.getElementById('menuBtn'), toc=document.getElementById('toc');
+  // theme follows the system (prefers-color-scheme); language: ?lang= / saved choice / browser language
+  var root=document.documentElement, mains=document.querySelectorAll('main[data-lang]');
+  var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a'));
+  links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
+  var btns=[].slice.call(document.querySelectorAll('.lang .btn'));
+  function setLang(l, keep){
+    mains.forEach(function(m){m.hidden=(m.dataset.lang!==l);});
+    root.lang=(l==='ko'?'ko':'en-GB');
+    links.forEach(function(a){a.href='#'+(l==='ko'?'ko-':'')+a.dataset.id;});
+    btns.forEach(function(b){b.classList.toggle('on',b.dataset.set===l); b.setAttribute('aria-pressed',b.dataset.set===l);});
+    if(keep){try{localStorage.setItem('spat-wiki-lang',l);}catch(e){}}
+  }
+  var q=(new URLSearchParams(location.search)).get('lang'), saved=null;
+  try{saved=localStorage.getItem('spat-wiki-lang');}catch(e){}
+  var lang=(q==='ko'||q==='en')?q:(saved||((navigator.language||'').toLowerCase().indexOf('ko')===0?'ko':'en'));
+  if(!q&&location.hash.indexOf('#ko-')===0) lang='ko';
+  setLang(lang,false);
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    var id=(location.hash||'').replace('#','').replace(/^ko-/,'');
+    setLang(b.dataset.set,true);
+    if(id){var t=document.getElementById((b.dataset.set==='ko'?'ko-':'')+id); if(t) t.scrollIntoView();}
+  });});
+  var menu=document.getElementById('menuBtn');
   menu.addEventListener('click',function(){var o=toc.classList.toggle('open'); menu.setAttribute('aria-expanded',o);});
   toc.addEventListener('click',function(e){if(e.target.closest('a')){toc.classList.remove('open');menu.setAttribute('aria-expanded',false);}});
-  var links=[].slice.call(toc.querySelectorAll('a')), map={};
-  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')}); var a=map[e.target.id]; if(a) a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id.replace(/^ko-/,''); links.forEach(function(a){a.classList.toggle('on',a.dataset.id===id);});}});},{rootMargin:'-20% 0px -70% 0px'});
     document.querySelectorAll('main section').forEach(function(s){io.observe(s);});
   }
 })();
