@@ -135,7 +135,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v7.1 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v7.2 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -147,10 +147,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><a href="#render"><span>06</span>RENDERING</a></li>
     <li><a href="#coords"><span>07</span>CO-ORDINATES</a></li>
     <li><a href="#osc"><span>08</span>OSC PROTOCOL</a></li>
-    <li><a href="#look"><span>09</span>THEMES &amp; DISPLAY</a></li>
-    <li><a href="#trouble"><span>10</span>TROUBLESHOOTING</a></li>
-    <li><a href="#roadmap"><span>11</span>ROADMAP</a></li>
-    <li><a href="#log"><span>12</span>CHANGELOG</a></li>
+    <li><a href="#link"><span>09</span>OSC OUT · ORBIT LINK</a></li>
+    <li><a href="#look"><span>10</span>THEMES &amp; DISPLAY</a></li>
+    <li><a href="#trouble"><span>11</span>TROUBLESHOOTING</a></li>
+    <li><a href="#roadmap"><span>12</span>ROADMAP</a></li>
+    <li><a href="#log"><span>13</span>CHANGELOG</a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -160,7 +161,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>ORBIT SCORE</h1>
   <p>Each Ableton Live track becomes one sound object in space. TouchDesigner shows the objects in 3D and lets you shape how they move. The sound itself is rendered inside Live, binaurally for headphones or across a speaker array, while track names, colours, volume and mute stay in step on both sides.</p>
-  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · OSC / UDP 9001 ↔ 9002 · formerly "Spatialise"</div>
+  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · OSC / UDP 9001 ↔ 9002 · 9010 → other apps · formerly "Spatialise"</div>
 </header>
 
 <!-- 00 -->
@@ -205,6 +206,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>Ableton Live 12 Suite (or Standard with Max for Live)</li>
     <li>TouchDesigner, 2025 series (the free Non-Commercial licence works)</li>
     <li>Headphones for binaural monitoring. Speaker mode needs a multichannel audio interface.</li>
+    <li>Optional: a virtual audio device to carry Live's sound into TouchDesigner (see below). Not needed for the 3D preview or the editor.</li>
   </ul>
   <h3>In Live</h3>
   <ol>
@@ -219,7 +221,26 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>On the <span class="pill">LIVE</span> tab of the sidebar, check that PORT reads <code>9001</code>. Once the tracks appear in Live's order, you are connected.</li>
     <li>When you finish, <strong>save TouchDesigner with <kbd>Ctrl</kbd>+<kbd>S</kbd> and save the Live set as well</strong>. Paths and motion settings live in the Live set; the TouchDesigner save keeps the screen and theme settings.</li>
   </ol>
-  <div class="note"><b>NOTE</b>It runs on both Windows and macOS. To send the sound on to another application, use BlackHole on a Mac, or VB-Cable or JACK on Windows.</div>
+  <h3>Audio into TouchDesigner (optional)</h3>
+  <p>Live owns the audio; TouchDesigner never needs it for the preview. If you want Live's sound inside TouchDesigner as well (meters, audio-reactive visuals, later: per-track levels from the audio itself), route it through a virtual device. The <strong>04 AUDIO IN</strong> section of the LIVE tab knows which operating system it is running on and shows the matching steps; the same project file works on both.</p>
+  <div class="grid2">
+    <div class="card"><div class="k">macOS</div><div class="v">BlackHole 16ch</div>
+      <ol>
+        <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16ch).</li>
+        <li>Live → Preferences → Audio → <strong>Audio Output Device = BlackHole 16ch</strong>. To keep hearing it on headphones, make a Multi-Output Device in Audio MIDI Setup (BlackHole + your interface) and choose that instead.</li>
+        <li>TouchDesigner, LIVE tab → 04 AUDIO IN → <strong>DEVICE: BlackHole 16ch</strong>, then AUDIO IN: ON. Or press the <span class="mono">found BlackHole 16ch · USE →</span> badge, which does both.</li>
+        <li>Same sample rate on both sides (48 kHz recommended).</li>
+      </ol></div>
+    <div class="card"><div class="k">Windows</div><div class="v">JACK · QjackCtl</div>
+      <ol>
+        <li>Install <a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> (comes with QjackCtl and the JACK ASIO driver).</li>
+        <li>Start QjackCtl, set the sample rate and buffer to match Live, press <strong>Start</strong>.</li>
+        <li>Live → Preferences → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>.</li>
+        <li>TouchDesigner, LIVE tab → 04 AUDIO IN → driver button to <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, AUDIO IN: ON — or press the <span class="mono">found … · USE →</span> badge.</li>
+        <li>In QjackCtl's Connections window, wire Live's outputs to TouchDesigner's inputs. VB-Cable works too if you only need a stereo feed.</li>
+      </ol></div>
+  </div>
+  <div class="note"><b>NOTE</b>The AUDIO IN section is in place but the routing is not finished yet: today it gives per-channel meters; the track → channel mapping and audio-derived levels come next (see <a href="#roadmap">12</a>).</div>
 </section>
 
 <!-- 02 -->
@@ -266,14 +287,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Left drag</td><td>Orbit the camera</td></tr>
     <tr><td>Wheel / middle drag</td><td>Zoom</td></tr>
     <tr><td>VIEW tab → AUTO ORBIT</td><td>Slow automatic rotation</td></tr>
-    <tr><td>VIEW tab → RESET VIEW</td><td>Back to the default viewpoint</td></tr>
+    <tr><td>VIEW tab → RESET VIEW</td><td>Back to the default viewpoint; auto orbit starts again from there and the editor returns to TOP</td></tr>
   </table></div>
   <h3>Sidebar</h3>
   <p>The right-hand panel folds away with the <span class="pill">›</span> button on its edge. It has three tabs.</p>
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> port (editable) and MASTER volume slider · <strong>AUDIO</strong> Live's DSP state, sample rate and vector size (read-only; warns if not 48 kHz) · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
-    <tr><td>VIEW</td><td><strong>01 SPEAKER LAYOUT</strong> click to open the list · <strong>02 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>03 VIEW</strong> auto orbit, reset view, dome guide, names, ears, source, theme, object editor</td></tr>
+    <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>04 AUDIO IN</strong> BlackHole / JACK into TouchDesigner: on/off, device list, driver (Windows), status, per-channel meters, virtual-device badge · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
+    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
@@ -287,13 +308,13 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">04 — Object editor</div>
   <h2>Object editor</h2>
   <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, MOTION / PATH / SHAPE settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Left: objects · centre: path canvas · right: position read-out, MOTION, PATH, SHAPE</figcaption></figure>
-  <p>Open it from <span class="pill">OBJECT EDITOR</span> in the top bar or on the VIEW tab. Anything you change here goes straight to the Live device's parameters, and the screen shows what the device sends back, so editing in either place gives the same result.</p>
+  <p>Open it from <span class="pill">OBJECT EDITOR</span> in the top bar. Anything you change here goes straight to the Live device's parameters, and the screen shows what the device sends back, so editing in either place gives the same result.</p>
   <h3>Viewpoint</h3>
   <ul>
     <li>The <span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> buttons, or the T / F / S dots at the top right of the canvas.</li>
     <li>Drag with the left button inside the round area at the top right (<span class="mono">DRAG TO ORBIT</span>) to turn the view to any angle. The F (front), L (left) and U (up) axes inside it turn too, and the caption reads <span class="mono">FREE VIEW · YAW / PITCH</span>.</li>
   </ul>
-  <p>The <span class="pill">›</span> button between the canvas and the settings folds the settings column away; the canvas grows.</p>
+  <p>The <span class="pill">›</span> button between the canvas and the settings folds the settings column away; the canvas grows. When the timeline bar is open the editor shrinks to sit above it, so SAVE / LOAD LAST stay visible.</p>
   <h3>Drawing a path</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
@@ -302,7 +323,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Right-click</td><td>Delete a point</td></tr>
     <tr><td>CURVE / CORNER</td><td>Toggle the selected point between curve (●) and corner (■)</td></tr>
     <tr><td>POINT HEIGHT</td><td>Height of the selected point</td></tr>
-    <tr><td>OPEN / CLOSED PATH</td><td>Whether the path is a closed loop</td></tr>
+    <tr><td>PATH: OPEN / CLOSED LOOP</td><td>One button; click to toggle whether the last point joins back to the first</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>Make every point a curve · clear the path · read it again from Live</td></tr>
   </table></div>
   <p>Curves are Catmull-Rom (Hermite) splines, and playback moves at constant speed along the arc length. Position = Live song position ÷ (Path Length × 4 beats).</p>
@@ -345,7 +366,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>A Line shape is split into two binaural chains, one per end: input L → end A, input R → end B.</p>
   <h3>SPEAKERS</h3>
   <p>3D VBAP gives a gain per speaker, which the track's sends deliver to return tracks named <code>SPK 1</code> … <code>SPK n</code>. Route each return's output to a channel of your interface. In speaker mode the object tracks' outputs switch to Sends Only.</p>
-  <div class="note"><b>NOTE</b>The audio driver (ASIO / Core Audio), sample rate and buffer size are set in Live under <strong>Preferences → Audio</strong>. Live handles the audio, so there is nothing to set in TouchDesigner.</div>
+  <div class="note"><b>NOTE</b>The audio driver (ASIO / Core Audio), sample rate and buffer size are set in Live under <strong>Preferences → Audio</strong>. Live handles the audio; the AUDIO line on the LIVE tab only reports it. The optional AUDIO IN section (<a href="#setup">01</a>) is for bringing that sound into TouchDesigner, not for playing it.</div>
   <h3>Speaker layouts</h3>
   <div class="tw"><table>
     <tr><th>ID</th><th>Name</th></tr>
@@ -358,7 +379,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>dome25</td><td>Dome 25 (12 / 8 / 4 / 1)</td></tr>
     <tr><td>wfs_line32 · wfs_rect64</td><td>WFS line 32 (front) · WFS rectangle 64</td></tr>
   </table></div>
-  <h3>Panning model (preview)</h3>
+  <h3>Panning model · speaker glow</h3>
   <p>PANNING MODEL on the VIEW tab chooses <em>how the speakers light up</em> in the 3D view: VBAP-like (angle), DBAP-like (distance), Ambisonics 3rd order (AllRAD) or WFS (wavefront). A speaker box's brightness is that object's gain.</p>
 </section>
 
@@ -413,9 +434,58 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 /spat/pathset 598428 3  0.8 0.4 0.0 1  -0.2 0.9 0.3 1  -0.7 -0.5 0.0 0</code></pre>
 </section>
 
-<!-- 08 -->
+<!-- 09 link -->
+<section id="link">
+  <div class="cap">09 — OSC out · Orbit Link</div>
+  <h2>Driving other projects — OSC out and the Orbit Link tox</h2>
+  <p>Orbit Score broadcasts every object as plain OSC, so another TouchDesigner project (or anything that speaks OSC: Max, Unity, Resolume…) on the same computer or elsewhere on the network can follow the sound objects. The other direction works too: a project can push positions and settings back into the Live devices.</p>
+  <h3>Orbit Score side</h3>
+  <p>Parameters on <code>Spatialisation_test</code> (Objects page):</p>
+  <div class="tw"><table>
+    <tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr>
+    <tr><td>OSC Out Enable</td><td>on</td><td>Broadcast on / off</td></tr>
+    <tr><td>OSC Out Host · Port</td><td>127.0.0.1 · 9010</td><td>Where the stream goes. For another computer, its IP address</td></tr>
+    <tr><td>OSC Out Rate</td><td>30 Hz</td><td>Messages per second</td></tr>
+    <tr><td>OSC Set In Enable · Port</td><td>on · 9011</td><td>Listens for <code>/orbit/set/…</code> from other projects</td></tr>
+  </table></div>
+  <h3>Broadcast — <code>/orbit/…</code> (→ 9010)</h3>
+  <p><code>n</code> is the object's number in Live's track order (1-based), the same order as the TRACKS list. The TD frame is right = +X, up = +Y, front = −Z, radius 1 = the speaker ring.</p>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>Arguments</th></tr>
+    <tr><td>/orbit/n/name</td><td>track name</td></tr>
+    <tr><td>/orbit/n/pos</td><td>x y z (TD frame)</td></tr>
+    <tr><td>/orbit/n/aed</td><td>azimuth elevation distance (° ° radius)</td></tr>
+    <tr><td>/orbit/n/color</td><td>r g b (0 … 1)</td></tr>
+    <tr><td>/orbit/n/level</td><td>track level 0 … 1</td></tr>
+    <tr><td>/orbit/n/shape</td><td>0 point · 1 line</td></tr>
+    <tr><td>/orbit/count</td><td>number of objects</td></tr>
+    <tr><td>/orbit/layout</td><td>layout id, speaker count</td></tr>
+  </table></div>
+  <h3>Set — <code>/orbit/set/…</code> (→ 9011)</h3>
+  <p>Anything received here is forwarded to the Live device as <code>/spat/objset</code>, exactly like an edit in the object editor, so it ends up in the Live set. A position only shows while that object's motion is MANUAL — send <code>/orbit/set/n/motion 0</code> once first.</p>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>Arguments</th></tr>
+    <tr><td>/orbit/set/n/pos</td><td>x y z (TD frame; converted to az / el / dist)</td></tr>
+    <tr><td>/orbit/set/n/aed</td><td>azimuth elevation distance</td></tr>
+    <tr><td>/orbit/set/n/az · el · dist</td><td>one component</td></tr>
+    <tr><td>/orbit/set/n/&lt;key&gt;</td><td>motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed</td></tr>
+  </table></div>
+  <h3>Orbit Link (.tox)</h3>
+  <p><code>OrbitLink.tox</code> is a drop-in component for the other project. It opens one socket for the whole stream and turns it into tidy CHOP channels you can reference from any custom parameter — no OSC parsing in the receiving project.</p>
+  <div class="grid2">
+    <div class="card"><div class="k">Receive</div><div class="v mono">out1 · names_out</div>
+      <p><strong>out1</strong> (CHOP): <code>count</code>, then per object <code>o1_x o1_y o1_z · o1_r o1_g o1_b · o1_level · o1_az o1_el o1_dist · o1_shape</code>. <strong>names_out</strong> (DAT): n, name, shape, r g b. Bind a parameter with <code>op('orbit_link/out1')['o1_x']</code> or drag the channel onto it.</p>
+      <p>Parameters: Port (9010), Active, Max Objects, Smooth (s), Signal Timeout; read-only Status (<span class="mono">3 objects · live</span>), Objects, Speaker Layout.</p></div>
+    <div class="card"><div class="k">Send</div><div class="v mono">in1 → /orbit/set</div>
+      <p>Wire a CHOP into <strong>in1</strong> with channels named like the output — <code>o2_x o2_y o2_z</code> or <code>o2_az o2_el o2_dist</code>, plus any <code>o2_motion</code>, <code>o2_rate</code>, … — and turn on <strong>Send Enable</strong>. Only changed values are sent, at Send Rate (30 Hz), to Orbit Score Host : Set Port (9011).</p></div>
+  </div>
+  <p>The <code>test Audiovisual</code> project is the worked example: three bouncing spheres stand on the objects' floor positions in the track colours, hop higher with the track level and squash on landing. Its <code>Room</code>, <code>Bounce</code>, <code>Speed</code>, <code>Ballsize</code> and <code>Glow</code> parameters are plain custom parameters fed from the tox.</p>
+  <div class="note"><b>NOTE</b>One UDP port can be opened by one process at a time. Two projects on the same computer cannot both listen on 9010; give the second one another port (and send to it from Orbit Score, or forward from the first).</div>
+</section>
+
+<!-- 10 -->
 <section id="look">
-  <div class="cap">09 — Themes &amp; display</div>
+  <div class="cap">10 — Themes &amp; display</div>
   <h2>Themes and display</h2>
   <div class="grid2">
     <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>The same design with paper and ink swapped. THEME button on the VIEW tab.</p></div>
@@ -432,7 +502,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 09 -->
 <section id="trouble">
-  <div class="cap">10 — Troubleshooting</div>
+  <div class="cap">11 — Troubleshooting</div>
   <h2>Troubleshooting</h2>
   <div class="tw"><table>
     <tr><th>Symptom</th><th>Fix</th></tr>
@@ -442,26 +512,32 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Two objects share a number</td><td>Duplicated tracks get a new UID automatically. If they still clash, delete the device and add it again.</td></tr>
     <tr><td>TD buttons look blank or white</td><td>Reopen the project. The UI refreshes on <code>Uitick</code> (10 Hz), so that parameter must exist.</td></tr>
     <tr><td>No sound in speaker mode</td><td>Check the returns are named <code>SPK 1</code> … <code>SPK n</code>, that each return is routed to an interface channel, and that Live's output channels are enabled.</td></tr>
+    <tr><td>Orbit Link says "no signal"</td><td>OSC Out Enable on in Orbit Score, host = the receiving computer, same port both sides, nothing else holding that port.</td></tr>
+    <tr><td>A position sent with /orbit/set doesn't show</td><td>The object is still on Circle / Path / …; send <code>/orbit/set/n/motion 0</code> (MANUAL) first.</td></tr>
+    <tr><td>AUDIO IN shows 1 ch at 44.1 kHz</td><td>The default device is selected. Pick the virtual device (BlackHole / JackRouter) and match Live's sample rate.</td></tr>
   </table></div>
 </section>
 
-<!-- 10 -->
+<!-- 12 -->
 <section id="roadmap">
-  <div class="cap">11 — Roadmap</div>
+  <div class="cap">12 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
     <li><strong>Scene crossfades</strong>: blend positions over a set time instead of switching at the locator.</li>
     <li><strong>Per-scene object selection</strong>: leave some objects out of a scene.</li>
     <li><strong>Speaker output check</strong>: warn when Live has fewer output channels than the chosen layout.</li>
+    <li><strong>Audio routing</strong>: track → BlackHole / JACK channel mapping in the TRACKS list, and an option to take the level meters from that audio instead of the M4L device.</li>
+    <li><strong>Orbit Link</strong>: a per-object select mode, and sending scene recalls from the other project.</li>
 </ul>
 </section>
 
 <!-- 11 -->
 <section id="log">
-  <div class="cap">12 — Changelog</div>
+  <div class="cap">13 — Changelog</div>
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.10</td><td>v7.2: OSC broadcast of every object (/orbit/…), OSC set-in (/orbit/set/…), Orbit Link tox (receive + send) with the test Audiovisual example · AUDIO IN section (BlackHole / JACK, OS-aware, device list, meters) · LIVE / VIEW tabs reorganised · single PATH: OPEN / CLOSED LOOP toggle · leader lines, far path points and loop recall fixed · editor fits above the timeline bar · RESET VIEW restarts auto orbit</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: scenes stored in the Live set, timeline bar linked both ways with Live locators, audio status, haze for line objects, callouts avoid each other, collapsible editor settings</td></tr>
     <tr><td>2026.11.08</td><td>Free orbit view in the editor · redesigned track-name callouts · object haze · Ableton 70-colour palette · dashed dome · grey head model with expressions · unified typeface and sizes · this wiki</td></tr>
     <tr><td>2026.11.08</td><td>v7: seven motion modes, Line shape (length, rotation, tilt, facing), path editing (open / closed), UIDs, track mute and master volume, object editor moved into the main UI</td></tr>
@@ -527,6 +603,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>Ableton Live 12 Suite (또는 Max for Live가 있는 Standard)</li>
     <li>TouchDesigner 2025 버전대 (무료 Non-Commercial 라이선스도 가능)</li>
     <li>헤드폰 — 바이노럴 모니터링용. 스피커 모드는 다채널 오디오 인터페이스가 필요하다.</li>
+    <li>선택: Live의 소리를 TouchDesigner로 가져오려면 가상 오디오 장치(아래). 3D 프리뷰와 에디터에는 필요 없다.</li>
   </ul>
   <h3>Live 쪽</h3>
   <ol>
@@ -541,7 +618,26 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>사이드바 <span class="pill">LIVE</span> 탭에서 PORT가 <code>9001</code>인지 확인한다. 트랙이 Live 순서대로 목록에 뜨면 연결된 것.</li>
     <li>작업이 끝나면 <strong>TouchDesigner는 <kbd>Ctrl</kbd>+<kbd>S</kbd>, Live 세트도 따로 저장</strong>. 경로·움직임 설정은 Live 세트에, 화면·테마 설정은 TouchDesigner 쪽에 저장된다.</li>
   </ol>
-  <div class="note"><b>NOTE</b>Windows와 macOS 모두 동작한다. 다른 앱으로 소리를 보낼 때 Mac은 BlackHole, Windows는 VB-Cable이나 JACK을 쓰면 된다.</div>
+  <h3>TouchDesigner로 오디오 가져오기 (선택)</h3>
+  <p>소리는 Live가 담당하고, 프리뷰에는 TouchDesigner에 오디오가 필요 없다. 그래도 Live의 소리를 TouchDesigner 안에서도 쓰고 싶다면(미터, 오디오 리액티브 비주얼, 나중에는 오디오에서 직접 뽑는 트랙 레벨) 가상 장치로 라우팅한다. LIVE 탭의 <strong>04 AUDIO IN</strong> 섹션은 실행 중인 OS를 스스로 알아내서 그에 맞는 안내를 보여준다 — 프로젝트 파일은 하나로 양쪽 모두 쓴다.</p>
+  <div class="grid2">
+    <div class="card"><div class="k">macOS</div><div class="v">BlackHole 16ch</div>
+      <ol>
+        <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a>(16ch) 설치.</li>
+        <li>Live → 환경설정 → Audio → <strong>Audio Output Device = BlackHole 16ch</strong>. 헤드폰으로도 계속 들으려면 Audio MIDI 설정에서 다중 출력 장치(BlackHole + 인터페이스)를 만들어 그걸 고른다.</li>
+        <li>TouchDesigner LIVE 탭 → 04 AUDIO IN → <strong>DEVICE: BlackHole 16ch</strong>, AUDIO IN: ON. 또는 <span class="mono">found BlackHole 16ch · USE →</span> 배지를 누르면 둘 다 된다.</li>
+        <li>양쪽 샘플레이트를 맞춘다 (48 kHz 권장).</li>
+      </ol></div>
+    <div class="card"><div class="k">Windows</div><div class="v">JACK · QjackCtl</div>
+      <ol>
+        <li><a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> 설치 (QjackCtl과 JACK ASIO 드라이버 포함).</li>
+        <li>QjackCtl 실행, 샘플레이트·버퍼를 Live와 맞추고 <strong>Start</strong>.</li>
+        <li>Live → 환경설정 → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>.</li>
+        <li>TouchDesigner LIVE 탭 → 04 AUDIO IN → 드라이버 버튼을 <strong>ASIO</strong>로, <strong>DEVICE: JackRouter</strong>, AUDIO IN: ON — 또는 <span class="mono">found … · USE →</span> 배지.</li>
+        <li>QjackCtl의 Connections 창에서 Live 출력을 TouchDesigner 입력에 연결한다. 스테레오만 필요하면 VB-Cable도 된다.</li>
+      </ol></div>
+  </div>
+  <div class="note"><b>NOTE</b>AUDIO IN 섹션은 자리만 먼저 잡아둔 상태다. 지금은 채널별 미터까지 되고, 트랙 → 채널 매핑과 오디오 기반 레벨은 다음 작업이다 (<a href="#ko-roadmap">12</a>).</div>
 </section>
 
 <section id="ko-devices">
@@ -586,14 +682,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>왼쪽 드래그</td><td>카메라 회전 (orbit)</td></tr>
     <tr><td>휠 / 가운데 버튼 드래그</td><td>줌</td></tr>
     <tr><td>VIEW 탭 → AUTO ORBIT</td><td>천천히 자동 회전</td></tr>
-    <tr><td>VIEW 탭 → RESET VIEW</td><td>기본 시점으로</td></tr>
+    <tr><td>VIEW 탭 → RESET VIEW</td><td>기본 시점으로. 자동 회전도 거기서 다시 시작하고 에디터는 TOP으로 돌아간다</td></tr>
   </table></div>
   <h3>사이드바</h3>
   <p>오른쪽 패널은 가장자리의 <span class="pill">›</span> 버튼으로 접고 펼 수 있다. 위쪽 탭은 세 개.</p>
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
-    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> 포트(편집 가능), MASTER 볼륨 슬라이더 · <strong>AUDIO</strong> Live의 DSP 상태·샘플레이트·벡터 크기 (읽기 전용, 48 kHz가 아니면 경고) · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
-    <tr><td>VIEW</td><td><strong>01 SPEAKER LAYOUT</strong> 클릭하면 목록이 뜬다 · <strong>02 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>03 VIEW</strong> Auto orbit, Reset view, Dome guide, Names, Ears, Source, Theme, Object editor</td></tr>
+    <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>04 AUDIO IN</strong> BlackHole / JACK → TouchDesigner: 켜고 끄기, 장치 목록, 드라이버(Windows), 상태, 채널별 미터, 가상 장치 배지 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
+    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
@@ -606,13 +702,13 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">04 — Object editor</div>
   <h2>오브젝트 에디터</h2>
   <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE</figcaption></figure>
-  <p>상단 <span class="pill">OBJECT EDITOR</span> 또는 VIEW 탭의 OBJECT EDITOR 버튼으로 연다. 여기서 바꾼 값은 곧바로 Live 디바이스 파라미터로 가고, 디바이스가 돌려보낸 값이 화면에 표시된다 — 양쪽 어디서 바꿔도 결과가 같다.</p>
+  <p>상단 바의 <span class="pill">OBJECT EDITOR</span>로 연다. 여기서 바꾼 값은 곧바로 Live 디바이스 파라미터로 가고, 디바이스가 돌려보낸 값이 화면에 표시된다 — 양쪽 어디서 바꿔도 결과가 같다.</p>
   <h3>시점</h3>
   <ul>
     <li><span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> 버튼, 또는 캔버스 오른쪽 위의 T / F / S 점.</li>
     <li>오른쪽 위 둥근 영역(<span class="mono">DRAG TO ORBIT</span>)을 왼쪽 버튼으로 드래그하면 자유 각도로 돌아간다. 안의 F(정면)·L(왼쪽)·U(위) 축이 같이 돌고, 캡션은 <span class="mono">FREE VIEW · YAW / PITCH</span>가 된다.</li>
   </ul>
-  <p>캔버스와 설정 사이의 <span class="pill">›</span> 버튼으로 오른쪽 설정 칸을 접을 수 있다. 접으면 캔버스가 커진다.</p>
+  <p>캔버스와 설정 사이의 <span class="pill">›</span> 버튼으로 오른쪽 설정 칸을 접을 수 있다. 접으면 캔버스가 커진다. 타임라인 바를 열면 에디터가 그 위로 줄어들어 SAVE / LOAD LAST가 가려지지 않는다.</p>
   <h3>경로 그리기</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
@@ -621,7 +717,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>오른쪽 클릭</td><td>점 삭제</td></tr>
     <tr><td>CURVE / CORNER</td><td>선택한 점을 곡선(●) ↔ 모서리(■)로</td></tr>
     <tr><td>POINT HEIGHT</td><td>선택한 점의 높이</td></tr>
-    <tr><td>OPEN / CLOSED PATH</td><td>닫힌 고리인지</td></tr>
+    <tr><td>PATH: OPEN / CLOSED LOOP</td><td>버튼 하나. 누를 때마다 마지막 점을 첫 점과 이을지 토글</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전부 곡선으로 · 경로 지우기 · Live에서 다시 읽기</td></tr>
   </table></div>
   <p>곡선은 Catmull-Rom(Hermite) 스플라인이고, 재생은 길이를 따라 등속으로 진행한다. 위치 = Live 송 포지션 ÷ (Path Length × 4박).</p>
@@ -662,7 +758,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>Line 모양은 직선 양 끝을 두 개의 바이노럴 체인으로 나눠 입력 L → 끝 A, 입력 R → 끝 B로 보낸다.</p>
   <h3>SPEAKERS</h3>
   <p>3D VBAP으로 스피커별 게인을 구하고, 트랙의 Send로 <code>SPK 1</code> … <code>SPK n</code>이라는 이름의 리턴 트랙에 보낸다. 각 리턴의 출력을 인터페이스 채널에 연결하면 된다. 스피커 모드에서 오브젝트 트랙의 출력은 Sends Only가 된다.</p>
-  <div class="note"><b>NOTE</b>오디오 드라이버(ASIO / Core Audio), 샘플레이트, 버퍼는 Live <strong>환경설정 → Audio</strong>에서 정한다. 소리는 Live가 처리하므로 TouchDesigner 쪽 설정은 없다.</div>
+  <div class="note"><b>NOTE</b>오디오 드라이버(ASIO / Core Audio), 샘플레이트, 버퍼는 Live <strong>환경설정 → Audio</strong>에서 정한다. 소리는 Live가 처리하고 LIVE 탭의 AUDIO 줄은 그 상태를 보여줄 뿐이다. 선택 항목인 AUDIO IN(<a href="#ko-setup">01</a>)은 그 소리를 TouchDesigner로 가져오는 용도지 재생용이 아니다.</div>
   <h3>스피커 레이아웃</h3>
   <div class="tw"><table>
     <tr><th>ID</th><th>이름</th></tr>
@@ -675,7 +771,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>dome25</td><td>Dome 25 (12 / 8 / 4 / 1)</td></tr>
     <tr><td>wfs_line32 · wfs_rect64</td><td>WFS line 32 (front) · WFS rectangle 64</td></tr>
   </table></div>
-  <h3>패닝 모델 (프리뷰)</h3>
+  <h3>패닝 모델 · speaker glow</h3>
   <p>VIEW 탭의 PANNING MODEL은 3D 뷰에서 <em>스피커가 어떻게 빛나는지</em>를 고른다 — VBAP-like(각도), DBAP-like(거리), Ambisonics 3차(AllRAD), WFS(파면). 스피커 박스의 밝기가 그 오브젝트의 게인이다.</p>
 </section>
 
@@ -728,8 +824,56 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 /spat/pathset 598428 3  0.8 0.4 0.0 1  -0.2 0.9 0.3 1  -0.7 -0.5 0.0 0</code></pre>
 </section>
 
+<section id="ko-link">
+  <div class="cap">09 — OSC out · Orbit Link</div>
+  <h2>다른 프로젝트 연동 — OSC 송출과 Orbit Link tox</h2>
+  <p>Orbit Score는 모든 오브젝트를 일반 OSC로 송출한다. 같은 컴퓨터나 네트워크 안의 다른 TouchDesigner 프로젝트(또는 OSC를 받는 무엇이든 — Max, Unity, Resolume…)가 소리 오브젝트를 따라갈 수 있다. 반대 방향도 된다 — 다른 프로젝트에서 위치와 설정을 Live 디바이스로 밀어 넣을 수 있다.</p>
+  <h3>Orbit Score 쪽</h3>
+  <p><code>Spatialisation_test</code>의 파라미터(Objects 페이지):</p>
+  <div class="tw"><table>
+    <tr><th>Parameter</th><th>기본값</th><th>뜻</th></tr>
+    <tr><td>OSC Out Enable</td><td>on</td><td>송출 켜기/끄기</td></tr>
+    <tr><td>OSC Out Host · Port</td><td>127.0.0.1 · 9010</td><td>보낼 곳. 다른 컴퓨터면 그 IP</td></tr>
+    <tr><td>OSC Out Rate</td><td>30 Hz</td><td>초당 메시지 수</td></tr>
+    <tr><td>OSC Set In Enable · Port</td><td>on · 9011</td><td>다른 프로젝트의 <code>/orbit/set/…</code>을 받는 포트</td></tr>
+  </table></div>
+  <h3>송출 — <code>/orbit/…</code> (→ 9010)</h3>
+  <p><code>n</code>은 Live 트랙 순서상의 오브젝트 번호(1부터), TRACKS 목록과 같은 순서. TD 좌표는 오른쪽 = +X, 위 = +Y, 앞 = −Z, 반지름 1 = 스피커 링.</p>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>인자</th></tr>
+    <tr><td>/orbit/n/name</td><td>트랙 이름</td></tr>
+    <tr><td>/orbit/n/pos</td><td>x y z (TD 좌표)</td></tr>
+    <tr><td>/orbit/n/aed</td><td>azimuth elevation distance (° ° 반지름)</td></tr>
+    <tr><td>/orbit/n/color</td><td>r g b (0 … 1)</td></tr>
+    <tr><td>/orbit/n/level</td><td>트랙 레벨 0 … 1</td></tr>
+    <tr><td>/orbit/n/shape</td><td>0 point · 1 line</td></tr>
+    <tr><td>/orbit/count</td><td>오브젝트 수</td></tr>
+    <tr><td>/orbit/layout</td><td>레이아웃 id, 스피커 수</td></tr>
+  </table></div>
+  <h3>설정 받기 — <code>/orbit/set/…</code> (→ 9011)</h3>
+  <p>여기로 들어온 값은 <code>/spat/objset</code>으로 Live 디바이스에 전달된다 — 오브젝트 에디터에서 고친 것과 똑같이 Live 세트에 남는다. 위치는 그 오브젝트의 모션이 MANUAL일 때만 보이므로 먼저 <code>/orbit/set/n/motion 0</code>을 한 번 보낸다.</p>
+  <div class="tw"><table>
+    <tr><th>Address</th><th>인자</th></tr>
+    <tr><td>/orbit/set/n/pos</td><td>x y z (TD 좌표 → az / el / dist로 변환)</td></tr>
+    <tr><td>/orbit/set/n/aed</td><td>azimuth elevation distance</td></tr>
+    <tr><td>/orbit/set/n/az · el · dist</td><td>한 성분만</td></tr>
+    <tr><td>/orbit/set/n/&lt;key&gt;</td><td>motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed</td></tr>
+  </table></div>
+  <h3>Orbit Link (.tox)</h3>
+  <p><code>OrbitLink.tox</code>는 상대 프로젝트에 떨구는 컴포넌트다. 소켓 하나로 스트림 전체를 받아 커스텀 파라미터에서 바로 참조할 수 있는 CHOP 채널로 바꿔준다 — 받는 쪽에서 OSC를 파싱할 필요가 없다.</p>
+  <div class="grid2">
+    <div class="card"><div class="k">받기</div><div class="v mono">out1 · names_out</div>
+      <p><strong>out1</strong>(CHOP): <code>count</code>, 그리고 오브젝트마다 <code>o1_x o1_y o1_z · o1_r o1_g o1_b · o1_level · o1_az o1_el o1_dist · o1_shape</code>. <strong>names_out</strong>(DAT): n, name, shape, r g b. 파라미터에 <code>op('orbit_link/out1')['o1_x']</code>를 넣거나 채널을 드래그한다.</p>
+      <p>파라미터: Port(9010), Active, Max Objects, Smooth(s), Signal Timeout; 읽기 전용 Status(<span class="mono">3 objects · live</span>), Objects, Speaker Layout.</p></div>
+    <div class="card"><div class="k">보내기</div><div class="v mono">in1 → /orbit/set</div>
+      <p><strong>in1</strong>에 출력과 같은 이름 규칙의 CHOP을 연결한다 — <code>o2_x o2_y o2_z</code> 또는 <code>o2_az o2_el o2_dist</code>, 필요하면 <code>o2_motion</code>, <code>o2_rate</code>… — 그리고 <strong>Send Enable</strong>을 켠다. 바뀐 값만 Send Rate(30 Hz)로 Orbit Score Host : Set Port(9011)에 보낸다.</p></div>
+  </div>
+  <p><code>test Audiovisual</code> 프로젝트가 예제다. 구 세 개가 오브젝트의 바닥 위치에 트랙 색으로 서서, 트랙 레벨이 클수록 높이 튀고 착지할 때 찌그러진다. <code>Room</code>, <code>Bounce</code>, <code>Speed</code>, <code>Ballsize</code>, <code>Glow</code>는 tox에서 값을 받는 평범한 커스텀 파라미터다.</p>
+  <div class="note"><b>NOTE</b>UDP 포트 하나는 한 프로세스만 열 수 있다. 같은 컴퓨터의 두 프로젝트가 동시에 9010을 들을 수는 없으니 두 번째는 다른 포트를 쓴다 (Orbit Score에서 그 포트로 보내거나, 첫 프로젝트에서 전달).</div>
+</section>
+
 <section id="ko-look">
-  <div class="cap">09 — Themes &amp; display</div>
+  <div class="cap">10 — Themes &amp; display</div>
   <h2>테마와 표시</h2>
   <div class="grid2">
     <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>같은 디자인에 종이와 잉크만 뒤집힌다. VIEW 탭 THEME 버튼.</p></div>
@@ -745,7 +889,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-trouble">
-  <div class="cap">10 — Troubleshooting</div>
+  <div class="cap">11 — Troubleshooting</div>
   <h2>문제 해결</h2>
   <div class="tw"><table>
     <tr><th>증상</th><th>해결</th></tr>
@@ -755,24 +899,30 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>오브젝트 둘이 같은 번호</td><td>복제된 트랙은 자동으로 새 UID를 받는다. 그래도 겹치면 디바이스를 지웠다 다시 넣는다.</td></tr>
     <tr><td>TD 버튼이 하얗게 비어 보인다</td><td>프로젝트를 다시 연다. UI는 <code>Uitick</code>(10 Hz)으로 갱신되므로 이 파라미터가 있어야 한다.</td></tr>
     <tr><td>스피커 모드에서 소리가 안 난다</td><td>리턴 트랙 이름이 <code>SPK 1</code> … <code>SPK n</code>인지, 각 리턴 출력이 인터페이스 채널로 가는지, Live 출력 채널이 켜져 있는지 확인.</td></tr>
+    <tr><td>Orbit Link가 "no signal"</td><td>Orbit Score의 OSC Out Enable이 켜져 있는지, 호스트가 받는 컴퓨터인지, 양쪽 포트가 같은지, 다른 프로세스가 그 포트를 잡고 있지 않은지.</td></tr>
+    <tr><td>/orbit/set으로 보낸 위치가 안 보인다</td><td>오브젝트가 아직 Circle / Path … 모션이다. 먼저 <code>/orbit/set/n/motion 0</code>(MANUAL)을 보낸다.</td></tr>
+    <tr><td>AUDIO IN이 1 ch · 44.1 kHz로 뜬다</td><td>기본 장치가 선택된 상태. 가상 장치(BlackHole / JackRouter)를 고르고 Live 샘플레이트에 맞춘다.</td></tr>
   </table></div>
 </section>
 
 <section id="ko-roadmap">
-  <div class="cap">11 — Roadmap</div>
+  <div class="cap">12 — Roadmap</div>
   <h2>다음 작업</h2>
   <ul>
     <li><strong>씬 크로스페이드</strong> — 로케이터에서 바로 바뀌는 대신 정한 시간 동안 위치를 섞어 넘어가기.</li>
     <li><strong>씬별 오브젝트 선택</strong> — 일부 오브젝트는 씬에서 빼기.</li>
     <li><strong>스피커 출력 확인</strong> — Live 출력 채널이 고른 레이아웃보다 적으면 경고.</li>
+    <li><strong>오디오 라우팅</strong> — TRACKS 목록에 트랙 → BlackHole / JACK 채널 매핑, 레벨 미터를 M4L 대신 그 오디오에서 뽑는 옵션.</li>
+    <li><strong>Orbit Link</strong> — 오브젝트별 선택 모드, 상대 프로젝트에서 씬 리콜 보내기.</li>
 </ul>
 </section>
 
 <section id="ko-log">
-  <div class="cap">12 — Changelog</div>
+  <div class="cap">13 — Changelog</div>
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.10</td><td>v7.2: 모든 오브젝트 OSC 송출(/orbit/…), 설정 수신(/orbit/set/…), 받기+보내기 Orbit Link tox와 test Audiovisual 예제 · AUDIO IN 섹션(BlackHole / JACK, OS 자동 감지, 장치 목록, 미터) · LIVE / VIEW 탭 재정리 · PATH: OPEN / CLOSED LOOP 단일 토글 · 이름표 선, 먼 경로 점, 루프 리콜 수정 · 타임라인 바 위로 줄어드는 에디터 · RESET VIEW가 자동 회전도 재시작</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: Live 세트에 저장되는 씬, Live 로케이터와 양방향 연동되는 타임라인 바, 오디오 상태 표시, 직선 오브젝트 haze, 이름표 겹침 방지, 에디터 설정 칸 접기</td></tr>
     <tr><td>2026.11.08</td><td>에디터 자유 시점(orbit 기즈모) · 트랙 이름 콜아웃 재디자인 · 오브젝트 haze · Ableton 70색 팔레트 · 점선 돔 · 회색 머리 모형과 표정 · 서체·글자 크기 통일 · 위키</td></tr>
     <tr><td>2026.11.08</td><td>v7: 모션 7종, Line 모양(길이·회전·기울기·Facing), 경로 편집(Open/Closed), UID, 트랙 뮤트·마스터 볼륨, 오브젝트 에디터를 메인 UI 탭으로</td></tr>
