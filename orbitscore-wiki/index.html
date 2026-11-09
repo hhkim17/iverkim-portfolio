@@ -525,7 +525,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li><strong>Scene crossfades</strong>: blend positions over a set time instead of switching at the locator.</li>
     <li><strong>Per-scene object selection</strong>: leave some objects out of a scene.</li>
-    <li><strong>Speaker output check</strong>: warn when Live has fewer output channels than the chosen layout.</li>
+    <li><strong>Output channel check</strong>: warn when Live's audio device has fewer output channels than the chosen speaker layout needs (5.1.4 = 10, Dome 25 = 25). SPEAKER OUT already compares against the device TouchDesigner sees; next, the Spatial Master reports the output channels Live actually has enabled.</li>
     <li><strong>Speaker routing</strong>: speaker → output channel map in the LAYOUT list, automatic <code>SPK 1 … n</code> return set-up in Live, and an option to take the track meters from the audio instead of the M4L device.</li>
     <li><strong>Orbit Link</strong>: a per-object select mode, and sending scene recalls from the other project.</li>
 </ul>
@@ -911,7 +911,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li><strong>씬 크로스페이드</strong> — 로케이터에서 바로 바뀌는 대신 정한 시간 동안 위치를 섞어 넘어가기.</li>
     <li><strong>씬별 오브젝트 선택</strong> — 일부 오브젝트는 씬에서 빼기.</li>
-    <li><strong>스피커 출력 확인</strong> — Live 출력 채널이 고른 레이아웃보다 적으면 경고.</li>
+    <li><strong>출력 채널 수 확인</strong> — 고른 스피커 레이아웃에 필요한 채널 수(5.1.4 = 10, Dome 25 = 25)보다 Live 오디오 장치의 출력 채널이 적으면 경고. 지금은 SPEAKER OUT이 TD가 보는 장치로 비교하고, 다음엔 Spatial Master가 Live에서 실제로 켜 둔 출력 채널 수를 보고하게.</li>
     <li><strong>스피커 라우팅</strong> — LAYOUT 목록에 스피커 → 출력 채널 맵, Live의 <code>SPK 1 … n</code> 리턴 자동 생성, 트랙 미터를 M4L 대신 오디오에서 뽑는 옵션.</li>
     <li><strong>Orbit Link</strong> — 오브젝트별 선택 모드, 상대 프로젝트에서 씬 리콜 보내기.</li>
 </ul>
