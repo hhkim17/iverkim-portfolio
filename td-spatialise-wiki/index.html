@@ -135,7 +135,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">SPATIALISE</div>
-  <div class="status">WIKI · v7 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v7.1 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -143,13 +143,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><a href="#devices"><span>02</span>LIVE DEVICES</a></li>
     <li><a href="#ui"><span>03</span>TD INTERFACE</a></li>
     <li><a href="#editor"><span>04</span>OBJECT EDITOR</a></li>
-    <li><a href="#render"><span>05</span>RENDERING</a></li>
-    <li><a href="#coords"><span>06</span>CO-ORDINATES</a></li>
-    <li><a href="#osc"><span>07</span>OSC PROTOCOL</a></li>
-    <li><a href="#look"><span>08</span>THEMES &amp; DISPLAY</a></li>
-    <li><a href="#trouble"><span>09</span>TROUBLESHOOTING</a></li>
-    <li><a href="#roadmap"><span>10</span>ROADMAP</a></li>
-    <li><a href="#log"><span>11</span>CHANGELOG</a></li>
+    <li><a href="#scenes"><span>05</span>SCENES &amp; TIMELINE</a></li>
+    <li><a href="#render"><span>06</span>RENDERING</a></li>
+    <li><a href="#coords"><span>07</span>CO-ORDINATES</a></li>
+    <li><a href="#osc"><span>08</span>OSC PROTOCOL</a></li>
+    <li><a href="#look"><span>09</span>THEMES &amp; DISPLAY</a></li>
+    <li><a href="#trouble"><span>10</span>TROUBLESHOOTING</a></li>
+    <li><a href="#roadmap"><span>11</span>ROADMAP</a></li>
+    <li><a href="#log"><span>12</span>CHANGELOG</a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -271,8 +272,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>The right-hand panel folds away with the <span class="pill">›</span> button on its edge. It has three tabs.</p>
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> port (editable) and MASTER volume slider · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
+    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> port (editable) and MASTER volume slider · <strong>AUDIO</strong> Live's DSP state, sample rate and vector size (read-only; warns if not 48 kHz) · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
     <tr><td>VIEW</td><td><strong>01 SPEAKER LAYOUT</strong> click to open the list · <strong>02 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>03 VIEW</strong> auto orbit, reset view, dome guide, names, ears, source, theme, object editor</td></tr>
+    <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
   <h3>Changing a track's colour</h3>
@@ -291,6 +293,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>The <span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> buttons, or the T / F / S dots at the top right of the canvas.</li>
     <li>Drag with the left button inside the round area at the top right (<span class="mono">DRAG TO ORBIT</span>) to turn the view to any angle. The F (front), L (left) and U (up) axes inside it turn too, and the caption reads <span class="mono">FREE VIEW · YAW / PITCH</span>.</li>
   </ul>
+  <p>The <span class="pill">›</span> button between the canvas and the settings folds the settings column away; the canvas grows.</p>
   <h3>Drawing a path</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
@@ -307,9 +310,35 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/&lt;time&gt;.json</code> and <code>latest.json</code>, and saves the TouchDesigner project. <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
 </section>
 
-<!-- 05 -->
+<!-- 05 scenes -->
+<section id="scenes">
+  <div class="cap">05 — Scenes &amp; timeline</div>
+  <h2>Scenes and timeline</h2>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab (right) and the timeline bar (bottom): filled markers are locators linked to a scene</figcaption></figure>
+  <p>A <strong>scene</strong> is a snapshot of every Spatial Object: position (the centre dials), motion, shape and path. Scenes are stored <strong>in the Live set</strong>, inside the Spatial Master, so they save with the set and play back with TouchDesigner closed.</p>
+  <h3>SCENES tab</h3>
+  <div class="tw"><table>
+    <tr><th>Control</th><th>Action</th></tr>
+    <tr><td>+ CAPTURE</td><td>Save the current state as a new scene</td></tr>
+    <tr><td>RECALL</td><td>Apply the scene to every object</td></tr>
+    <tr><td>UPDATE</td><td>Overwrite the scene with the current state</td></tr>
+    <tr><td>→ TL</td><td>Put a locator with the scene's name at Live's playhead</td></tr>
+    <tr><td>×</td><td>Delete the scene and its locators</td></tr>
+    <tr><td>Name field</td><td>Click, type, Enter: renames the scene and its locators in Live</td></tr>
+  </table></div>
+  <h3>Timeline bar</h3>
+  <p>The <span class="pill">TIMELINE ▲</span> tab at the bottom of the main view opens and closes the bar. It shows Live's arrangement locators on a bar ruler: a <strong>filled</strong> marker is linked to a scene (same name), a hollow one is not. The active scene's stretch is shaded and the line is the playhead. Click the ruler to move the playhead.</p>
+  <ul>
+    <li><strong>FOLLOW: ON</strong> — when the playhead reaches a linked locator, its scene is applied. After a jump, a loop or starting mid-song, the last scene before the playhead is applied.</li>
+    <li><strong>Locator cards</strong> — GO jumps there; CAPTURE saves the current state under that locator's name (links it); × deletes the locator.</li>
+    <li><strong>Two-way</strong> — renaming a locator in Live to a scene's name links it; renaming a scene here renames its locators.</li>
+  </ul>
+  <div class="note"><b>NOTE</b>Live can only add or remove a locator at the playhead, so moving or deleting locators from TouchDesigner works while Live is stopped. Save the Live set to keep the scenes.</div>
+</section>
+
+<!-- 06 -->
 <section id="render">
-  <div class="cap">05 — Rendering</div>
+  <div class="cap">06 — Rendering</div>
   <h2>Rendering — binaural and speakers</h2>
   <h3>BINAURAL (headphones)</h3>
   <p>For each object's direction, the device works out the interaural time difference (ITD) and head shadow and renders to stereo. In the 3D view the listener's ears are tinted <span class="L">L blue</span> / <span class="R">R red</span>, and the brightness of each line from an object to an ear shows how much of the sound reaches that ear. The <span class="mono">ITD 0.45 ms R</span> under a name tells you which ear hears it first, and by how much.</p>
@@ -335,7 +364,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 06 -->
 <section id="coords">
-  <div class="cap">06 — Co-ordinates</div>
+  <div class="cap">07 — Co-ordinates</div>
   <h2>Co-ordinate systems</h2>
   <div class="grid2">
     <div class="card"><div class="k">Device (Live)</div><div class="v mono">x front · y left · z up</div><p>Distance 1 = speaker radius. Azimuth + = left, Elevation + = up.</p></div>
@@ -346,7 +375,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 07 -->
 <section id="osc">
-  <div class="cap">07 — OSC protocol</div>
+  <div class="cap">08 — OSC protocol</div>
   <h2>OSC messages</h2>
   <p>All local UDP. Live → TouchDesigner on <code>127.0.0.1:9001</code>; TouchDesigner → Live (Spatial Master) on <code>9002</code>.</p>
   <h3>Live → TD (9001)</h3>
@@ -358,6 +387,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/path</td><td>Stored path points</td></tr>
     <tr><td>/spat/off</td><td>Sent when a device is removed</td></tr>
     <tr><td>/spat/master</td><td>Master state (render mode and so on)</td></tr>
+    <tr><td>/spat/audio</td><td>DSP on/off, sample rate, vector size (every 2 s)</td></tr>
+    <tr><td>/spat/scenes</td><td>Follow flag, active scene, scene names</td></tr>
+    <tr><td>/spat/cues</td><td>Song length, time signature, locators (name, beat)</td></tr>
+    <tr><td>/spat/play</td><td>Playing flag and playhead (beats)</td></tr>
+    <tr><td>/spat/sceneon</td><td>A scene was applied</td></tr>
     <tr><td>/spat/dbg</td><td>Debug messages → LOG tab</td></tr>
   </table></div>
   <h3>TD → Live (9002, Spatial Master)</h3>
@@ -366,9 +400,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>Speaker layout (unit vectors + LFE flag)</td></tr>
     <tr><td>/spat/color</td><td><code>&lt;id&gt; r g b</code> → Live track colour</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> parameter change · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code></td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> parameter change · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code></td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code> store a path</td></tr>
     <tr><td>/spat/req</td><td>Send the whole state again (LOG → RESEND)</td></tr>
+    <tr><td>/spat/scene</td><td><code>save &lt;name&gt; &lt;data&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;beats&gt;</code> · <code>follow 0|1</code> · <code>sync</code></td></tr>
     <tr><td>/spat/info</td><td>Information request</td></tr>
   </table></div>
 <pre><code># e.g. set object 598428's motion to Circle
@@ -380,15 +415,15 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 08 -->
 <section id="look">
-  <div class="cap">08 — Themes &amp; display</div>
+  <div class="cap">09 — Themes &amp; display</div>
   <h2>Themes and display</h2>
   <div class="grid2">
     <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>The same design with paper and ink swapped. THEME button on the VIEW tab.</p></div>
     <div class="card"><div class="k">Type</div><div class="v mono">PT Mono · Roboto</div><p>The UI, the track names and the 3D-view HUD all share one typeface.</p></div>
-    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>A soft blur in each object's own colour. Spatialisation_test → Theme → Object Haze (default 2.5; 0 turns it off).</p></div>
+    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>A soft blur in each object's own colour, line sources included. Spatialisation_test → Theme → Object Haze (default 2.5; 0 turns it off).</p></div>
   </div>
   <ul>
-    <li><strong>Track names</strong>: a diagonal leader from the object to a fine horizontal rule, with a colour square and the name above and <span class="mono">AZ EL D ITD</span> below. Near the edge of the screen the callout flips to the other side.</li>
+    <li><strong>Track names</strong>: a diagonal leader from the object to a fine horizontal rule, with a colour square and the name above and <span class="mono">AZ EL D ITD</span> below. Callouts of nearby objects move out of each other's way, and flip sides near the edge of the screen.</li>
     <li><strong>Dome guide</strong>: dashed lines. Spacing is <code>DASH, GAP</code> at the top of the <code>geo_dome/dome_dash</code> script.</li>
     <li><strong>Listener</strong>: a grey head model with L/R-coloured ears, and closed eyes and a mouth drawn in white line. Every 3.2 seconds the mouth may change between neutral, a smile, an "o" and a yawn (<code>SLOT</code> and <code>WEIGHTS</code> in <code>geo_eyes/eyes</code>).</li>
     <li><strong>Brightness</strong>: each object's brightness follows its track level after the fader, using the dB map <code>(20·log10(a) + 48) / 48</code>.</li>
@@ -397,7 +432,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 09 -->
 <section id="trouble">
-  <div class="cap">09 — Troubleshooting</div>
+  <div class="cap">10 — Troubleshooting</div>
   <h2>Troubleshooting</h2>
   <div class="tw"><table>
     <tr><th>Symptom</th><th>Fix</th></tr>
@@ -412,23 +447,22 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
 <!-- 10 -->
 <section id="roadmap">
-  <div class="cap">10 — Roadmap</div>
+  <div class="cap">11 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
-    <li><strong>Scenes / timeline</strong>: snapshots of every object, linked both ways with Live's arrangement locators.</li>
-    <li><strong>Audio status</strong>: Live's sample rate and buffer size, read-only, on the LIVE tab.</li>
-    <li><strong>Haze for Line objects</strong>: the blur effect on line sources too.</li>
-    <li><strong>Label collision</strong>: callouts of nearby objects move out of each other's way.</li>
-    <li>A collapsible settings panel in the editor.</li>
-  </ul>
+    <li><strong>Scene crossfades</strong>: blend positions over a set time instead of switching at the locator.</li>
+    <li><strong>Per-scene object selection</strong>: leave some objects out of a scene.</li>
+    <li><strong>Speaker output check</strong>: warn when Live has fewer output channels than the chosen layout.</li>
+</ul>
 </section>
 
 <!-- 11 -->
 <section id="log">
-  <div class="cap">11 — Changelog</div>
+  <div class="cap">12 — Changelog</div>
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.09</td><td>v7.1: scenes stored in the Live set, timeline bar linked both ways with Live locators, audio status, haze for line objects, callouts avoid each other, collapsible editor settings</td></tr>
     <tr><td>2026.11.08</td><td>Free orbit view in the editor · redesigned track-name callouts · object haze · Ableton 70-colour palette · dashed dome · grey head model with expressions · unified typeface and sizes · this wiki</td></tr>
     <tr><td>2026.11.08</td><td>v7: seven motion modes, Line shape (length, rotation, tilt, facing), path editing (open / closed), UIDs, track mute and master volume, object editor moved into the main UI</td></tr>
     <tr><td>2026.11</td><td>Graphic-score themes (White / Black), sidebar tabs (LIVE / VIEW / LOG), collapsible sidebar, layout list, monitor selector</td></tr>
@@ -558,8 +592,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>오른쪽 패널은 가장자리의 <span class="pill">›</span> 버튼으로 접고 펼 수 있다. 위쪽 탭은 세 개.</p>
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
-    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> 포트(편집 가능), MASTER 볼륨 슬라이더 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
+    <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 OSC IN</strong> 포트(편집 가능), MASTER 볼륨 슬라이더 · <strong>AUDIO</strong> Live의 DSP 상태·샘플레이트·벡터 크기 (읽기 전용, 48 kHz가 아니면 경고) · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
     <tr><td>VIEW</td><td><strong>01 SPEAKER LAYOUT</strong> 클릭하면 목록이 뜬다 · <strong>02 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>03 VIEW</strong> Auto orbit, Reset view, Dome guide, Names, Ears, Source, Theme, Object editor</td></tr>
+    <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
   <h3>트랙 색 바꾸기</h3>
@@ -577,6 +612,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> 버튼, 또는 캔버스 오른쪽 위의 T / F / S 점.</li>
     <li>오른쪽 위 둥근 영역(<span class="mono">DRAG TO ORBIT</span>)을 왼쪽 버튼으로 드래그하면 자유 각도로 돌아간다. 안의 F(정면)·L(왼쪽)·U(위) 축이 같이 돌고, 캡션은 <span class="mono">FREE VIEW · YAW / PITCH</span>가 된다.</li>
   </ul>
+  <p>캔버스와 설정 사이의 <span class="pill">›</span> 버튼으로 오른쪽 설정 칸을 접을 수 있다. 접으면 캔버스가 커진다.</p>
   <h3>경로 그리기</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
@@ -593,8 +629,33 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/&lt;시간&gt;.json</code>과 <code>latest.json</code>으로 남기고 TouchDesigner 프로젝트도 저장한다. <span class="pill">LOAD LAST</span>로 마지막 스냅샷을 되돌린다. Live 세트는 따로 저장해야 한다.</p>
 </section>
 
+<section id="ko-scenes">
+  <div class="cap">05 — Scenes &amp; timeline</div>
+  <h2>씬과 타임라인</h2>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg" alt="사이드바의 SCENES 탭과 아래쪽 타임라인 바. Intro와 Verse 로케이터가 씬에 연결되어 있다" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭(오른쪽)과 타임라인 바(아래). 채워진 표시 = 씬에 연결된 로케이터</figcaption></figure>
+  <p><strong>씬</strong>은 모든 Spatial Object의 상태 스냅샷이다 — 위치(중심 다이얼), 모션, 모양, 경로. 씬은 <strong>Live 세트 안</strong>(Spatial Master)에 저장되므로 세트와 함께 저장되고, TouchDesigner를 꺼도 재생된다.</p>
+  <h3>SCENES 탭</h3>
+  <div class="tw"><table>
+    <tr><th>버튼</th><th>동작</th></tr>
+    <tr><td>+ CAPTURE</td><td>지금 상태를 새 씬으로 저장</td></tr>
+    <tr><td>RECALL</td><td>씬을 모든 오브젝트에 적용</td></tr>
+    <tr><td>UPDATE</td><td>지금 상태로 씬을 덮어쓰기</td></tr>
+    <tr><td>→ TL</td><td>Live 재생 위치에 씬 이름의 로케이터를 놓기</td></tr>
+    <tr><td>×</td><td>씬과 그 로케이터 삭제</td></tr>
+    <tr><td>이름 칸</td><td>클릭 → 입력 → Enter: 씬 이름과 Live 로케이터 이름이 함께 바뀐다</td></tr>
+  </table></div>
+  <h3>타임라인 바</h3>
+  <p>메인 화면 아래의 <span class="pill">TIMELINE ▲</span> 탭으로 열고 닫는다. 마디 눈금 위에 Live 어레인지먼트 로케이터가 보이고, <strong>채워진</strong> 표시는 같은 이름의 씬에 연결된 것, 빈 표시는 연결되지 않은 것이다. 활성 씬 구간은 음영, 세로선은 재생 위치. 눈금을 클릭하면 재생 위치가 옮겨진다.</p>
+  <ul>
+    <li><strong>FOLLOW: ON</strong> — 재생 위치가 연결된 로케이터에 닿으면 그 씬이 적용된다. 점프·루프·중간에서 재생할 때는 재생 위치 앞의 마지막 씬이 적용된다.</li>
+    <li><strong>로케이터 카드</strong> — GO로 이동, CAPTURE로 지금 상태를 그 로케이터 이름의 씬으로 저장(연결), ×로 로케이터 삭제.</li>
+    <li><strong>양방향</strong> — Live에서 로케이터 이름을 씬 이름으로 바꾸면 연결되고, 여기서 씬 이름을 바꾸면 로케이터 이름도 바뀐다.</li>
+  </ul>
+  <div class="note"><b>NOTE</b>Live는 재생 위치에서만 로케이터를 추가·삭제할 수 있어서, TouchDesigner에서 로케이터를 옮기거나 지우는 건 Live가 멈춰 있을 때 된다. 씬을 남기려면 Live 세트를 저장한다.</div>
+</section>
+
 <section id="ko-render">
-  <div class="cap">05 — Rendering</div>
+  <div class="cap">06 — Rendering</div>
   <h2>렌더링 — 바이노럴과 스피커</h2>
   <h3>BINAURAL (헤드폰)</h3>
   <p>오브젝트 방향마다 양쪽 귀의 도달 시간 차(ITD)와 머리 그림자(head shadow)를 계산해 스테레오로 만든다. 3D 뷰의 머리 모형 귀 색이 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>이고, 오브젝트에서 귀로 가는 선의 밝기가 그 귀에 닿는 양이다. 이름표 아래 <span class="mono">ITD 0.45 ms R</span>은 어느 귀에 얼마나 먼저 닿는지를 뜻한다.</p>
@@ -619,7 +680,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-coords">
-  <div class="cap">06 — Co-ordinates</div>
+  <div class="cap">07 — Co-ordinates</div>
   <h2>좌표계</h2>
   <div class="grid2">
     <div class="card"><div class="k">Device (Live)</div><div class="v mono">x 앞 · y 왼쪽 · z 위</div><p>거리 1 = 스피커 반지름. Azimuth + = 왼쪽, Elevation + = 위.</p></div>
@@ -629,7 +690,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-osc">
-  <div class="cap">07 — OSC protocol</div>
+  <div class="cap">08 — OSC protocol</div>
   <h2>OSC 메시지</h2>
   <p>모두 로컬 UDP. Live → TouchDesigner는 <code>127.0.0.1:9001</code>, TouchDesigner → Live(Spatial Master)는 <code>9002</code>.</p>
   <h3>Live → TD (9001)</h3>
@@ -641,6 +702,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/path</td><td>저장된 경로 점들</td></tr>
     <tr><td>/spat/off</td><td>디바이스가 지워졌을 때</td></tr>
     <tr><td>/spat/master</td><td>Master 상태 (렌더 모드 등)</td></tr>
+    <tr><td>/spat/audio</td><td>DSP 상태, 샘플레이트, 벡터 크기 (2초마다)</td></tr>
+    <tr><td>/spat/scenes</td><td>Follow 설정, 활성 씬, 씬 이름들</td></tr>
+    <tr><td>/spat/cues</td><td>곡 길이, 박자, 로케이터 (이름, 박)</td></tr>
+    <tr><td>/spat/play</td><td>재생 여부와 재생 위치 (박)</td></tr>
+    <tr><td>/spat/sceneon</td><td>씬이 적용됨</td></tr>
     <tr><td>/spat/dbg</td><td>디버그 메시지 → LOG 탭</td></tr>
   </table></div>
   <h3>TD → Live (9002, Spatial Master)</h3>
@@ -649,9 +715,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>스피커 레이아웃 (단위 벡터 + LFE 플래그)</td></tr>
     <tr><td>/spat/color</td><td><code>&lt;id&gt; r g b</code> → Live 트랙 색</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 파라미터 변경 · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code></td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 파라미터 변경 · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code></td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code> 경로 저장</td></tr>
     <tr><td>/spat/req</td><td>전체 상태 다시 보내기 (LOG → RESEND)</td></tr>
+    <tr><td>/spat/scene</td><td><code>save &lt;이름&gt; &lt;데이터&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;박&gt;</code> · <code>follow 0|1</code> · <code>sync</code></td></tr>
     <tr><td>/spat/info</td><td>정보 요청</td></tr>
   </table></div>
 <pre><code># 예: 오브젝트 598428의 모션을 Circle로
@@ -662,15 +729,15 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-look">
-  <div class="cap">08 — Themes &amp; display</div>
+  <div class="cap">09 — Themes &amp; display</div>
   <h2>테마와 표시</h2>
   <div class="grid2">
     <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>같은 디자인에 종이와 잉크만 뒤집힌다. VIEW 탭 THEME 버튼.</p></div>
     <div class="card"><div class="k">Type</div><div class="v mono">PT Mono · Roboto</div><p>화면 글자, 트랙 이름, 3D 뷰 HUD 모두 같은 서체.</p></div>
-    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>오브젝트 주변이 자기 색으로 뿌옇게 번진다. Spatialisation_test → Theme → Object Haze (기본 2.5, 0이면 끔).</p></div>
+    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>오브젝트 주변이 자기 색으로 뿌옇게 번진다 (직선 음원 포함). Spatialisation_test → Theme → Object Haze (기본 2.5, 0이면 끔).</p></div>
   </div>
   <ul>
-    <li><strong>트랙 이름</strong>: 오브젝트에서 사선 리더 → 가는 가로 줄, 위에 색 사각형 + 이름, 아래에 <span class="mono">AZ EL D ITD</span>. 화면 가장자리에 닿으면 반대편으로 뒤집힌다.</li>
+    <li><strong>트랙 이름</strong>: 오브젝트에서 사선 리더 → 가는 가로 줄, 위에 색 사각형 + 이름, 아래에 <span class="mono">AZ EL D ITD</span>. 가까운 오브젝트끼리는 서로 비켜나고, 화면 가장자리에서는 반대편으로 뒤집힌다.</li>
     <li><strong>돔 가이드</strong>: 점선. 간격은 <code>geo_dome/dome_dash</code> 스크립트 맨 위 <code>DASH, GAP</code>.</li>
     <li><strong>청취자</strong>: 회색 머리 모형에 L/R 색 귀, 하얀 선으로 그린 감은 눈과 입. 입은 3.2초마다 무표정 · 미소 · "오" · 하품 중 하나로 바뀔 수 있다 (<code>geo_eyes/eyes</code>의 <code>SLOT</code>, <code>WEIGHTS</code>).</li>
     <li><strong>밝기</strong>: 오브젝트 밝기는 페이더 뒤 트랙 레벨을 따른다 — dB 맵 <code>(20·log10(a) + 48) / 48</code>.</li>
@@ -678,7 +745,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-trouble">
-  <div class="cap">09 — Troubleshooting</div>
+  <div class="cap">10 — Troubleshooting</div>
   <h2>문제 해결</h2>
   <div class="tw"><table>
     <tr><th>증상</th><th>해결</th></tr>
@@ -692,22 +759,21 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <section id="ko-roadmap">
-  <div class="cap">10 — Roadmap</div>
+  <div class="cap">11 — Roadmap</div>
   <h2>다음 작업</h2>
   <ul>
-    <li><strong>씬 / 타임라인</strong> — 모든 오브젝트 상태를 스냅샷으로 저장하고, Live 어레인지먼트 로케이터와 양방향으로 연동.</li>
-    <li><strong>오디오 상태 표시</strong> — Live의 샘플레이트·버퍼를 LIVE 탭에 읽기 전용으로.</li>
-    <li><strong>Line 오브젝트 haze</strong> — 직선 음원에도 번짐 효과.</li>
-    <li><strong>이름표 겹침 방지</strong> — 가까운 오브젝트의 콜아웃이 서로 비켜나도록.</li>
-    <li>에디터 오른쪽 설정 패널 접기.</li>
-  </ul>
+    <li><strong>씬 크로스페이드</strong> — 로케이터에서 바로 바뀌는 대신 정한 시간 동안 위치를 섞어 넘어가기.</li>
+    <li><strong>씬별 오브젝트 선택</strong> — 일부 오브젝트는 씬에서 빼기.</li>
+    <li><strong>스피커 출력 확인</strong> — Live 출력 채널이 고른 레이아웃보다 적으면 경고.</li>
+</ul>
 </section>
 
 <section id="ko-log">
-  <div class="cap">11 — Changelog</div>
+  <div class="cap">12 — Changelog</div>
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.09</td><td>v7.1: Live 세트에 저장되는 씬, Live 로케이터와 양방향 연동되는 타임라인 바, 오디오 상태 표시, 직선 오브젝트 haze, 이름표 겹침 방지, 에디터 설정 칸 접기</td></tr>
     <tr><td>2026.11.08</td><td>에디터 자유 시점(orbit 기즈모) · 트랙 이름 콜아웃 재디자인 · 오브젝트 haze · Ableton 70색 팔레트 · 점선 돔 · 회색 머리 모형과 표정 · 서체·글자 크기 통일 · 위키</td></tr>
     <tr><td>2026.11.08</td><td>v7: 모션 7종, Line 모양(길이·회전·기울기·Facing), 경로 편집(Open/Closed), UID, 트랙 뮤트·마스터 볼륨, 오브젝트 에디터를 메인 UI 탭으로</td></tr>
     <tr><td>2026.11</td><td>그래픽 스코어 테마(White/Black), 사이드바 탭(LIVE/VIEW/LOG), 사이드바 접기, 레이아웃 목록, 모니터 선택</td></tr>
