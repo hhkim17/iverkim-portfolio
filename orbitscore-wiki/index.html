@@ -135,7 +135,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v7.2 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v7.3 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -340,9 +340,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES tab</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Action</th></tr>
-    <tr><td>+ CAPTURE</td><td>Save the current state as a new scene</td></tr>
-    <tr><td>RECALL</td><td>Apply the scene to every object</td></tr>
-    <tr><td>UPDATE</td><td>Overwrite the scene with the current state</td></tr>
+    <tr><td>+ CAPTURE</td><td>Save the current state as a new scene — of the objects marked ● below</td></tr>
+    <tr><td>● / ○ chips</td><td>One per track: ● takes part in new captures, ○ is left out. An object that is not in a scene is left alone when that scene is recalled, so a scene can move the pads and leave the drums where they are. The count on each row reads <span class="mono">2/3</span>: objects in the scene / objects in the set</td></tr>
+    <tr><td>FADE</td><td>Default crossfade for new captures: CUT · 1 · 2 · 4 · 8 · 16 beats. Each row has its own fade button (<span class="mono">cut</span>, <span class="mono">4b</span> …) to change it afterwards; it is stored in the scene</td></tr>
+    <tr><td>RECALL</td><td>Apply the scene to the objects it holds. With a fade, each object's centre glides to the new position over that many beats at the current tempo (motion, shape and path switch at once)</td></tr>
+    <tr><td>UPDATE</td><td>Overwrite the scene with the current state (same object selection rule, keeps the scene's fade)</td></tr>
     <tr><td>→ TL</td><td>Put a locator with the scene's name at Live's playhead</td></tr>
     <tr><td>×</td><td>Delete the scene and its locators</td></tr>
     <tr><td>Name field</td><td>Click, type, Enter: renames the scene and its locators in Live</td></tr>
@@ -355,6 +357,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>Two-way</strong> — renaming a locator in Live to a scene's name links it; renaming a scene here renames its locators.</li>
   </ul>
   <div class="note"><b>NOTE</b>Live can only add or remove a locator at the playhead, so moving or deleting locators from TouchDesigner works while Live is stopped. Save the Live set to keep the scenes.</div>
+  <p>Crossfades work on the <em>centre</em> of each object (the Azimuth / Elevation / Distance dials). The dials themselves jump to the new value when the fade completes; during the fade the device adds an easing offset to its motion, so the sound moves smoothly whatever the motion mode. A scene recalled from another project over OSC (<a href="#link">09</a>) uses the same fade.</p>
 </section>
 
 <!-- 06 -->
@@ -409,7 +412,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/off</td><td>Sent when a device is removed</td></tr>
     <tr><td>/spat/master</td><td>Master state (render mode and so on)</td></tr>
     <tr><td>/spat/audio</td><td>DSP on/off, sample rate, vector size (every 2 s)</td></tr>
-    <tr><td>/spat/scenes</td><td>Follow flag, active scene, scene names</td></tr>
+    <tr><td>/spat/scenes</td><td>Follow flag, active scene, then one <code>name|objects|fade</code> per scene</td></tr>
     <tr><td>/spat/cues</td><td>Song length, time signature, locators (name, beat)</td></tr>
     <tr><td>/spat/play</td><td>Playing flag and playhead (beats)</td></tr>
     <tr><td>/spat/sceneon</td><td>A scene was applied</td></tr>
@@ -421,10 +424,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>Speaker layout (unit vectors + LFE flag)</td></tr>
     <tr><td>/spat/color</td><td><code>&lt;id&gt; r g b</code> → Live track colour</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> parameter change · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code></td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> parameter change · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> (the next az/el/dist glide over s seconds)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code> store a path</td></tr>
     <tr><td>/spat/req</td><td>Send the whole state again (LOG → RESEND)</td></tr>
-    <tr><td>/spat/scene</td><td><code>save &lt;name&gt; &lt;data&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;beats&gt;</code> · <code>follow 0|1</code> · <code>sync</code></td></tr>
+    <tr><td>/spat/scene</td><td><code>save &lt;name&gt; &lt;data&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;beats&gt;</code> · <code>fade &lt;name&gt; &lt;beats&gt;</code> · <code>follow 0|1</code> · <code>sync</code>. Scene data: <code>{uid: {…}, "_fade": beats}</code>; only the objects present are recalled</td></tr>
     <tr><td>/spat/info</td><td>Information request</td></tr>
   </table></div>
 <pre><code># e.g. set object 598428's motion to Circle
@@ -460,6 +463,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/n/shape</td><td>0 point · 1 line</td></tr>
     <tr><td>/orbit/count</td><td>number of objects</td></tr>
     <tr><td>/orbit/layout</td><td>layout id, speaker count</td></tr>
+    <tr><td>/orbit/scene</td><td>active scene name (<code>-</code> if none)</td></tr>
+    <tr><td>/orbit/scenes</td><td>all scene names</td></tr>
   </table></div>
   <h3>Set — <code>/orbit/set/…</code> (→ 9011)</h3>
   <p>Anything received here is forwarded to the Live device as <code>/spat/objset</code>, exactly like an edit in the object editor, so it ends up in the Live set. A position only shows while that object's motion is MANUAL — send <code>/orbit/set/n/motion 0</code> once first.</p>
@@ -469,15 +474,18 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/set/n/aed</td><td>azimuth elevation distance</td></tr>
     <tr><td>/orbit/set/n/az · el · dist</td><td>one component</td></tr>
     <tr><td>/orbit/set/n/&lt;key&gt;</td><td>motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed</td></tr>
+    <tr><td>/orbit/set/scene</td><td>scene name — recall it, with the crossfade stored in the scene</td></tr>
   </table></div>
   <h3>Orbit Link (.tox)</h3>
   <p><code>OrbitLink.tox</code> is a drop-in component for the other project. It opens one socket for the whole stream and turns it into tidy CHOP channels you can reference from any custom parameter — no OSC parsing in the receiving project.</p>
   <div class="grid2">
     <div class="card"><div class="k">Receive</div><div class="v mono">out1 · names_out</div>
       <p><strong>out1</strong> (CHOP): <code>count</code>, then per object <code>o1_x o1_y o1_z · o1_r o1_g o1_b · o1_level · o1_az o1_el o1_dist · o1_shape</code>. <strong>names_out</strong> (DAT): n, name, shape, r g b. Bind a parameter with <code>op('orbit_link/out1')['o1_x']</code> or drag the channel onto it.</p>
-      <p>Parameters: Port (9010), Active, Max Objects, Smooth (s), Signal Timeout; read-only Status (<span class="mono">3 objects · live</span>), Objects, Speaker Layout.</p></div>
+      <p><strong>Select Object</strong> (0 = all): with an object number, out1 carries just that object without the prefix — <code>x y z r g b level az el dist shape present</code> — so one tox per object can feed a parameter page directly. <strong>scenes_out</strong> (DAT): scene, active.</p>
+      <p>Parameters: Port (9010), Active, Max Objects, Smooth (s), Signal Timeout, Select Object; read-only Status (<span class="mono">3 objects · live</span>), Objects, Speaker Layout, Active Scene.</p></div>
     <div class="card"><div class="k">Send</div><div class="v mono">in1 → /orbit/set</div>
-      <p>Wire a CHOP into <strong>in1</strong> with channels named like the output — <code>o2_x o2_y o2_z</code> or <code>o2_az o2_el o2_dist</code>, plus any <code>o2_motion</code>, <code>o2_rate</code>, … — and turn on <strong>Send Enable</strong>. Only changed values are sent, at Send Rate (30 Hz), to Orbit Score Host : Set Port (9011).</p></div>
+      <p>Wire a CHOP into <strong>in1</strong> with channels named like the output — <code>o2_x o2_y o2_z</code> or <code>o2_az o2_el o2_dist</code>, plus any <code>o2_motion</code>, <code>o2_rate</code>, … — and turn on <strong>Send Enable</strong>. Only changed values are sent, at Send Rate (30 Hz), to Orbit Score Host : Set Port (9011).</p>
+      <p><strong>Scene to Recall</strong> (menu of the scenes Orbit Score announces) + <strong>Recall</strong> sends <code>/orbit/set/scene</code>; the scene's own crossfade applies. Needs host and port, not Send Enable.</p></div>
   </div>
   <p>The <code>test Audiovisual</code> project is the worked example: three bouncing spheres stand on the objects' floor positions in the track colours, hop higher with the track level and squash on landing. Its <code>Room</code>, <code>Bounce</code>, <code>Speed</code>, <code>Ballsize</code> and <code>Glow</code> parameters are plain custom parameters fed from the tox.</p>
   <div class="note"><b>NOTE</b>One UDP port can be opened by one process at a time. Two projects on the same computer cannot both listen on 9010; give the second one another port (and send to it from Orbit Score, or forward from the first).</div>
@@ -514,6 +522,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>No sound in speaker mode</td><td>Check the returns are named <code>SPK 1</code> … <code>SPK n</code>, that each return is routed to an interface channel, and that Live's output channels are enabled.</td></tr>
     <tr><td>Orbit Link says "no signal"</td><td>OSC Out Enable on in Orbit Score, host = the receiving computer, same port both sides, nothing else holding that port.</td></tr>
     <tr><td>A position sent with /orbit/set doesn't show</td><td>The object is still on Circle / Path / …; send <code>/orbit/set/n/motion 0</code> (MANUAL) first.</td></tr>
+    <tr><td>A crossfade stutters or jumps</td><td>The device scripts run in Max's low-priority thread; when Live is in the background the OS can starve it for a second. Keep Live in front during a show, and give the fade a few beats rather than one.</td></tr>
     <tr><td>⚠ on the LOG tab</td><td>An output check failed; the WARNINGS block says which. Usually the default device is selected (1 ch) or the virtual device has fewer channels than the layout needs — pick BlackHole / JackRouter and enable enough channels — or Live and the device run at different sample rates.</td></tr>
   </table></div>
 </section>
@@ -523,10 +532,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">12 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
-    <li><strong>Scene crossfades</strong>: blend positions over a set time instead of switching at the locator.</li>
-    <li><strong>Per-scene object selection</strong>: leave some objects out of a scene.</li>
         <li><strong>Speaker routing</strong>: speaker → output channel map in the LAYOUT list and automatic <code>SPK 1 … n</code> return set-up in Live. (Tracks are not mapped to channels: every object is spread over all speakers by the panner, so the per-track meters stay with the M4L device.)</li>
-    <li><strong>Orbit Link</strong>: a per-object select mode, and sending scene recalls from the other project.</li>
+    <li><strong>Fade curves</strong>: per-scene choice of ease-in-out (now), linear or exponential, and fading motion rate / size as well as the centre.</li>
+    <li><strong>Orbit Link</strong>: receive the timeline (bar · beat, locators) so visuals can follow the song position.</li>
 </ul>
 </section>
 
@@ -536,6 +544,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.10</td><td>v7.3: per-scene object selection (● / ○ chips, objects not in a scene are left alone) · scene crossfade (default FADE + per-scene fade, beats at the current tempo, eased glide of the centre in the device) · Orbit Link: Select Object mode, Active Scene + scenes_out, Recall Scene from the other project (/orbit/set/scene), /orbit/scene + /orbit/scenes in the stream · output checks on the LOG tab</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: OSC broadcast of every object (/orbit/…), OSC set-in (/orbit/set/…), Orbit Link tox (receive + send) with the test Audiovisual example · SPEAKER OUT section (BlackHole / JACK multichannel output, OS-aware, device list, per-speaker meters, output checks on the LOG tab with a ⚠ badge) · LIVE / VIEW tabs reorganised · single PATH: OPEN / CLOSED LOOP toggle · leader lines, far path points and loop recall fixed · editor fits above the timeline bar · RESET VIEW restarts auto orbit</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: scenes stored in the Live set, timeline bar linked both ways with Live locators, audio status, haze for line objects, callouts avoid each other, collapsible editor settings</td></tr>
     <tr><td>2026.11.08</td><td>Free orbit view in the editor · redesigned track-name callouts · object haze · Ableton 70-colour palette · dashed dome · grey head model with expressions · unified typeface and sizes · this wiki</td></tr>
@@ -732,9 +741,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
     <tr><th>버튼</th><th>동작</th></tr>
-    <tr><td>+ CAPTURE</td><td>지금 상태를 새 씬으로 저장</td></tr>
-    <tr><td>RECALL</td><td>씬을 모든 오브젝트에 적용</td></tr>
-    <tr><td>UPDATE</td><td>지금 상태로 씬을 덮어쓰기</td></tr>
+    <tr><td>+ CAPTURE</td><td>지금 상태를 새 씬으로 저장 — 아래에서 ●로 표시된 오브젝트만</td></tr>
+    <tr><td>● / ○ 칩</td><td>트랙마다 하나. ●는 새 캡처에 들어가고 ○는 빠진다. 씬에 없는 오브젝트는 그 씬을 리콜해도 건드리지 않으므로, 패드만 옮기고 드럼은 그대로 두는 씬을 만들 수 있다. 각 줄의 <span class="mono">2/3</span>은 씬에 든 오브젝트 수 / 세트의 오브젝트 수</td></tr>
+    <tr><td>FADE</td><td>새 캡처의 기본 크로스페이드: CUT · 1 · 2 · 4 · 8 · 16 박. 줄마다 자기 페이드 버튼(<span class="mono">cut</span>, <span class="mono">4b</span> …)이 있어 나중에 바꿀 수 있고, 씬에 저장된다</td></tr>
+    <tr><td>RECALL</td><td>씬이 담고 있는 오브젝트에 적용. 페이드가 있으면 각 오브젝트의 중심이 현재 템포 기준 그 박자 동안 새 위치로 미끄러진다 (모션·모양·경로는 즉시 바뀜)</td></tr>
+    <tr><td>UPDATE</td><td>지금 상태로 씬을 덮어쓰기 (오브젝트 선택 규칙 동일, 씬의 페이드는 유지)</td></tr>
     <tr><td>→ TL</td><td>Live 재생 위치에 씬 이름의 로케이터를 놓기</td></tr>
     <tr><td>×</td><td>씬과 그 로케이터 삭제</td></tr>
     <tr><td>이름 칸</td><td>클릭 → 입력 → Enter: 씬 이름과 Live 로케이터 이름이 함께 바뀐다</td></tr>
@@ -747,6 +758,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>양방향</strong> — Live에서 로케이터 이름을 씬 이름으로 바꾸면 연결되고, 여기서 씬 이름을 바꾸면 로케이터 이름도 바뀐다.</li>
   </ul>
   <div class="note"><b>NOTE</b>Live는 재생 위치에서만 로케이터를 추가·삭제할 수 있어서, TouchDesigner에서 로케이터를 옮기거나 지우는 건 Live가 멈춰 있을 때 된다. 씬을 남기려면 Live 세트를 저장한다.</div>
+  <p>크로스페이드는 오브젝트의 <em>중심</em>(Azimuth / Elevation / Distance 다이얼)에 걸린다. 다이얼 자체는 페이드가 끝날 때 새 값으로 넘어가고, 페이드 동안에는 디바이스가 움직임에 이징 오프셋을 더해 어떤 모션 모드에서든 소리가 부드럽게 이동한다. 다른 프로젝트에서 OSC로 리콜한 씬(<a href="#ko-link">09</a>)도 같은 페이드를 쓴다.</p>
 </section>
 
 <section id="ko-render">
@@ -798,7 +810,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/off</td><td>디바이스가 지워졌을 때</td></tr>
     <tr><td>/spat/master</td><td>Master 상태 (렌더 모드 등)</td></tr>
     <tr><td>/spat/audio</td><td>DSP 상태, 샘플레이트, 벡터 크기 (2초마다)</td></tr>
-    <tr><td>/spat/scenes</td><td>Follow 설정, 활성 씬, 씬 이름들</td></tr>
+    <tr><td>/spat/scenes</td><td>Follow 설정, 활성 씬, 그리고 씬마다 <code>이름|오브젝트수|페이드</code></td></tr>
     <tr><td>/spat/cues</td><td>곡 길이, 박자, 로케이터 (이름, 박)</td></tr>
     <tr><td>/spat/play</td><td>재생 여부와 재생 위치 (박)</td></tr>
     <tr><td>/spat/sceneon</td><td>씬이 적용됨</td></tr>
@@ -810,10 +822,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>스피커 레이아웃 (단위 벡터 + LFE 플래그)</td></tr>
     <tr><td>/spat/color</td><td><code>&lt;id&gt; r g b</code> → Live 트랙 색</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 파라미터 변경 · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code></td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 파라미터 변경 · <code>&lt;uid&gt; mute 0|1</code> · <code>0 mastervol &lt;dB&gt;</code> · <code>&lt;uid&gt; az|el|dist &lt;v&gt;</code> · <code>&lt;uid&gt; fade &lt;초&gt;</code> (다음 az/el/dist가 그 시간 동안 미끄러짐)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code> 경로 저장</td></tr>
     <tr><td>/spat/req</td><td>전체 상태 다시 보내기 (LOG → RESEND)</td></tr>
-    <tr><td>/spat/scene</td><td><code>save &lt;이름&gt; &lt;데이터&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;박&gt;</code> · <code>follow 0|1</code> · <code>sync</code></td></tr>
+    <tr><td>/spat/scene</td><td><code>save &lt;이름&gt; &lt;데이터&gt;</code> · <code>recall</code> · <code>del</code> · <code>rename</code> · <code>cue</code> · <code>cuedel</code> · <code>jump</code> · <code>jumpt &lt;박&gt;</code> · <code>fade &lt;이름&gt; &lt;박&gt;</code> · <code>follow 0|1</code> · <code>sync</code>. 씬 데이터: <code>{uid: {…}, "_fade": 박}</code>, 들어 있는 오브젝트만 리콜</td></tr>
     <tr><td>/spat/info</td><td>정보 요청</td></tr>
   </table></div>
 <pre><code># 예: 오브젝트 598428의 모션을 Circle로
@@ -848,6 +860,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/n/shape</td><td>0 point · 1 line</td></tr>
     <tr><td>/orbit/count</td><td>오브젝트 수</td></tr>
     <tr><td>/orbit/layout</td><td>레이아웃 id, 스피커 수</td></tr>
+    <tr><td>/orbit/scene</td><td>활성 씬 이름 (없으면 <code>-</code>)</td></tr>
+    <tr><td>/orbit/scenes</td><td>모든 씬 이름</td></tr>
   </table></div>
   <h3>설정 받기 — <code>/orbit/set/…</code> (→ 9011)</h3>
   <p>여기로 들어온 값은 <code>/spat/objset</code>으로 Live 디바이스에 전달된다 — 오브젝트 에디터에서 고친 것과 똑같이 Live 세트에 남는다. 위치는 그 오브젝트의 모션이 MANUAL일 때만 보이므로 먼저 <code>/orbit/set/n/motion 0</code>을 한 번 보낸다.</p>
@@ -857,15 +871,18 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/set/n/aed</td><td>azimuth elevation distance</td></tr>
     <tr><td>/orbit/set/n/az · el · dist</td><td>한 성분만</td></tr>
     <tr><td>/orbit/set/n/&lt;key&gt;</td><td>motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed</td></tr>
+    <tr><td>/orbit/set/scene</td><td>씬 이름 — 그 씬을 리콜 (씬에 저장된 크로스페이드로)</td></tr>
   </table></div>
   <h3>Orbit Link (.tox)</h3>
   <p><code>OrbitLink.tox</code>는 상대 프로젝트에 떨구는 컴포넌트다. 소켓 하나로 스트림 전체를 받아 커스텀 파라미터에서 바로 참조할 수 있는 CHOP 채널로 바꿔준다 — 받는 쪽에서 OSC를 파싱할 필요가 없다.</p>
   <div class="grid2">
     <div class="card"><div class="k">받기</div><div class="v mono">out1 · names_out</div>
       <p><strong>out1</strong>(CHOP): <code>count</code>, 그리고 오브젝트마다 <code>o1_x o1_y o1_z · o1_r o1_g o1_b · o1_level · o1_az o1_el o1_dist · o1_shape</code>. <strong>names_out</strong>(DAT): n, name, shape, r g b. 파라미터에 <code>op('orbit_link/out1')['o1_x']</code>를 넣거나 채널을 드래그한다.</p>
-      <p>파라미터: Port(9010), Active, Max Objects, Smooth(s), Signal Timeout; 읽기 전용 Status(<span class="mono">3 objects · live</span>), Objects, Speaker Layout.</p></div>
+      <p><strong>Select Object</strong>(0 = 전부): 오브젝트 번호를 주면 out1이 그 오브젝트만 접두사 없이 — <code>x y z r g b level az el dist shape present</code> — 내보내므로 오브젝트당 tox 하나로 파라미터 페이지에 바로 꽂을 수 있다. <strong>scenes_out</strong>(DAT): scene, active.</p>
+      <p>파라미터: Port(9010), Active, Max Objects, Smooth(s), Signal Timeout, Select Object; 읽기 전용 Status(<span class="mono">3 objects · live</span>), Objects, Speaker Layout, Active Scene.</p></div>
     <div class="card"><div class="k">보내기</div><div class="v mono">in1 → /orbit/set</div>
-      <p><strong>in1</strong>에 출력과 같은 이름 규칙의 CHOP을 연결한다 — <code>o2_x o2_y o2_z</code> 또는 <code>o2_az o2_el o2_dist</code>, 필요하면 <code>o2_motion</code>, <code>o2_rate</code>… — 그리고 <strong>Send Enable</strong>을 켠다. 바뀐 값만 Send Rate(30 Hz)로 Orbit Score Host : Set Port(9011)에 보낸다.</p></div>
+      <p><strong>in1</strong>에 출력과 같은 이름 규칙의 CHOP을 연결한다 — <code>o2_x o2_y o2_z</code> 또는 <code>o2_az o2_el o2_dist</code>, 필요하면 <code>o2_motion</code>, <code>o2_rate</code>… — 그리고 <strong>Send Enable</strong>을 켠다. 바뀐 값만 Send Rate(30 Hz)로 Orbit Score Host : Set Port(9011)에 보낸다.</p>
+      <p><strong>Scene to Recall</strong>(Orbit Score가 알려주는 씬 메뉴) + <strong>Recall</strong>이 <code>/orbit/set/scene</code>을 보낸다. 씬의 크로스페이드가 그대로 적용. 호스트·포트만 맞으면 되고 Send Enable은 필요 없다.</p></div>
   </div>
   <p><code>test Audiovisual</code> 프로젝트가 예제다. 구 세 개가 오브젝트의 바닥 위치에 트랙 색으로 서서, 트랙 레벨이 클수록 높이 튀고 착지할 때 찌그러진다. <code>Room</code>, <code>Bounce</code>, <code>Speed</code>, <code>Ballsize</code>, <code>Glow</code>는 tox에서 값을 받는 평범한 커스텀 파라미터다.</p>
   <div class="note"><b>NOTE</b>UDP 포트 하나는 한 프로세스만 열 수 있다. 같은 컴퓨터의 두 프로젝트가 동시에 9010을 들을 수는 없으니 두 번째는 다른 포트를 쓴다 (Orbit Score에서 그 포트로 보내거나, 첫 프로젝트에서 전달).</div>
@@ -900,6 +917,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>스피커 모드에서 소리가 안 난다</td><td>리턴 트랙 이름이 <code>SPK 1</code> … <code>SPK n</code>인지, 각 리턴 출력이 인터페이스 채널로 가는지, Live 출력 채널이 켜져 있는지 확인.</td></tr>
     <tr><td>Orbit Link가 "no signal"</td><td>Orbit Score의 OSC Out Enable이 켜져 있는지, 호스트가 받는 컴퓨터인지, 양쪽 포트가 같은지, 다른 프로세스가 그 포트를 잡고 있지 않은지.</td></tr>
     <tr><td>/orbit/set으로 보낸 위치가 안 보인다</td><td>오브젝트가 아직 Circle / Path … 모션이다. 먼저 <code>/orbit/set/n/motion 0</code>(MANUAL)을 보낸다.</td></tr>
+    <tr><td>크로스페이드가 끊기거나 튄다</td><td>디바이스 스크립트는 Max의 저우선순위 스레드에서 돌아서, Live가 뒤로 가 있으면 OS가 1초쯤 굶길 수 있다. 공연 중엔 Live를 앞에 두고, 페이드는 1박보다 몇 박으로.</td></tr>
     <tr><td>LOG 탭에 ⚠</td><td>출력 검사가 실패한 것. WARNINGS 블록에 이유가 적힌다 — 보통 기본 장치(1 ch)가 선택됐거나 가상 장치 채널이 레이아웃에 필요한 수보다 적은 경우(BlackHole / JackRouter를 고르고 채널을 충분히 켠다), 또는 Live와 장치의 샘플레이트가 다른 경우.</td></tr>
   </table></div>
 </section>
@@ -908,10 +926,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">12 — Roadmap</div>
   <h2>다음 작업</h2>
   <ul>
-    <li><strong>씬 크로스페이드</strong> — 로케이터에서 바로 바뀌는 대신 정한 시간 동안 위치를 섞어 넘어가기.</li>
-    <li><strong>씬별 오브젝트 선택</strong> — 일부 오브젝트는 씬에서 빼기.</li>
         <li><strong>스피커 라우팅</strong> — LAYOUT 목록에 스피커 → 출력 채널 맵, Live의 <code>SPK 1 … n</code> 리턴 자동 생성. (트랙을 채널에 매핑하진 않는다 — 오브젝트는 패너가 모든 스피커에 나눠 보내므로, 트랙별 미터는 M4L 디바이스가 계속 담당.)</li>
-    <li><strong>Orbit Link</strong> — 오브젝트별 선택 모드, 상대 프로젝트에서 씬 리콜 보내기.</li>
+    <li><strong>페이드 커브</strong> — 씬별로 이즈 인·아웃(지금) / 리니어 / 지수 선택, 중심뿐 아니라 모션 rate·size도 페이드.</li>
+    <li><strong>Orbit Link</strong> — 타임라인(마디·박, 로케이터)도 받아서 비주얼이 곡 위치를 따라가게.</li>
 </ul>
 </section>
 
@@ -920,6 +937,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.10</td><td>v7.3: 씬별 오브젝트 선택(● / ○ 칩, 씬에 없는 오브젝트는 건드리지 않음) · 씬 크로스페이드(기본 FADE + 씬별 페이드, 현재 템포 기준 박, 디바이스 안에서 중심이 이징으로 이동) · Orbit Link: Select Object 모드, Active Scene + scenes_out, 상대 프로젝트에서 Recall Scene(/orbit/set/scene), 스트림에 /orbit/scene · /orbit/scenes · 출력 검사를 LOG 탭으로</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: 모든 오브젝트 OSC 송출(/orbit/…), 설정 수신(/orbit/set/…), 받기+보내기 Orbit Link tox와 test Audiovisual 예제 · SPEAKER OUT 섹션(BlackHole / JACK 다채널 출력, OS 자동 감지, 장치 목록, 스피커별 미터, LOG 탭 ⚠ 출력 검사) · LIVE / VIEW 탭 재정리 · PATH: OPEN / CLOSED LOOP 단일 토글 · 이름표 선, 먼 경로 점, 루프 리콜 수정 · 타임라인 바 위로 줄어드는 에디터 · RESET VIEW가 자동 회전도 재시작</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: Live 세트에 저장되는 씬, Live 로케이터와 양방향 연동되는 타임라인 바, 오디오 상태 표시, 직선 오브젝트 haze, 이름표 겹침 방지, 에디터 설정 칸 접기</td></tr>
     <tr><td>2026.11.08</td><td>에디터 자유 시점(orbit 기즈모) · 트랙 이름 콜아웃 재디자인 · 오브젝트 haze · Ableton 70색 팔레트 · 점선 돔 · 회색 머리 모형과 표정 · 서체·글자 크기 통일 · 위키</td></tr>
