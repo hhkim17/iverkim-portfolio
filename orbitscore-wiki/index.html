@@ -239,7 +239,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>Windows</strong>: Preferences → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>, same sample rate as JACK. In <strong>Output Config</strong> enable the pairs that cover the speakers (1/2, 3/4 … up to the speaker count).</li>
     <li>Route return <code>SPK 1</code> to out 1, <code>SPK 2</code> to out 2 … (the output menu on each return).</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg" alt="Ableton Live Settings, Audio: Driver Type ASIO, Audio Device JackRouter, Output Config with stereo pairs 1/2 to 15/16 enabled" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — Live → Settings → Audio with JackRouter: Output Config shows as many pairs as JackRouter.ini allows; enable the ones the layout uses</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Ableton Live Settings, Audio: Driver Type ASIO, Audio Device JackRouter, Output Config with stereo pairs 1/2 to 15/16 enabled" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — Live → Settings → Audio with JackRouter: Output Config shows as many pairs as JackRouter.ini allows; enable the ones the layout uses</figcaption></figure>
   </section>
 
   <section id="setup-td" class="sub">
@@ -252,7 +252,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <h4>04 SPEAKER OUT</h4>
   <p>LIVE tab → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: driver <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, and in QjackCtl connect Live's outputs to TouchDesigner's inputs as well. Then METER: ON — or press the <span class="mono">found … · USE →</span> badge. One glyph per speaker shows each feed; channel-count and sample-rate problems go to the LOG tab. Same sample rate everywhere (48 kHz recommended).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN and SPEAKER OUT with METER, DEVICE and driver buttons and a found-device badge" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab, 04 SPEAKER OUT: METER, DEVICE, driver (Windows) and the found-device badge</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110b" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN and SPEAKER OUT with METER, DEVICE and driver buttons and a found-device badge" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab, 04 SPEAKER OUT: METER, DEVICE, driver (Windows) and the found-device badge</figcaption></figure>
   <div class="note"><b>NOTE</b>04 SPEAKER OUT is in place but the routing work is not finished: today it shows the device list, per-speaker meters, and logs channel-count and sample-rate problems on the LOG tab. The speaker → channel map in the LAYOUT list and an automatic <code>SPK</code> return set-up come next (see <a href="#roadmap">12</a>).</div>
   </section>
 
@@ -276,9 +276,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>Live → Preferences → Audio → <strong>JackRouter</strong> (<a href="#setup-live">01.1</a>).</li>
     <li>QjackCtl → Graph: <code>Ableton Live</code> <code>out1 … outN</code> → <code>system</code> <code>playback_1 … N</code> (usually wired automatically), or → the next application's inputs.</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg" alt="JackRouter.ini open in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. 1.3 — JackRouter.ini: <code>output=</code> is the number of outputs Live will see (here 16)</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg" alt="QjackCtl Setup: Driver portaudio, Interface list open with the ASIO entry of the interface highlighted" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. 1.4 — QjackCtl Setup: Driver portaudio, pick the <code>ASIO::</code> entry of the interface rather than its MME / DirectSound / WASAPI names</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg" alt="QjackCtl Graph: Ableton Live out1 to out8 wired to system playback_1 to 8, out9 to out16 unconnected; system capture_1 and 2 wired to Live in1 and in2" loading="lazy" width="802" height="624"><figcaption>FIG. 1.5 — QjackCtl Graph with an 8-output interface: JackRouter gives Live 16 outputs, out1–8 reach the speakers, out9–16 have nowhere to go</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg?v=1110b" alt="JackRouter.ini open in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. 1.3 — JackRouter.ini: <code>output=</code> is the number of outputs Live will see (here 16)</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, Interface list open with the ASIO entry of the interface highlighted" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. 1.4 — QjackCtl Setup: Driver portaudio, pick the <code>ASIO::</code> entry of the interface rather than its MME / DirectSound / WASAPI names</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Ableton Live out1 to out8 wired to system playback_1 to 8, out9 to out16 unconnected; system capture_1 and 2 wired to Live in1 and in2" loading="lazy" width="802" height="624"><figcaption>FIG. 1.5 — QjackCtl Graph with an 8-output interface: JackRouter gives Live 16 outputs, out1–8 reach the speakers, out9–16 have nowhere to go</figcaption></figure>
   <h5>Reading the QjackCtl graph</h5>
   <div class="tw"><table>
     <tr><th>Box · port</th><th>What it is</th></tr>
@@ -326,7 +326,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ui">
   <div class="cap">03 — TD interface</div>
   <h2>The screen</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW: haze around each object, track-name callouts, dashed dome guide</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW: haze around each object, track-name callouts, dashed dome guide</figcaption></figure>
   <h3>Top bar</h3>
   <p><span class="pill on">3D VIEW</span> <span class="pill">OBJECT EDITOR</span> switch the centre of the screen. On the right: project name · layout · OSC port.</p>
   <h3>Moving around the 3D view</h3>
@@ -347,7 +347,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
   <h3>Changing a track's colour</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg" alt="Track colour palette: the same 70 colours as Ableton, laid out 14 by 5 in a pop-up" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.2 — Clicking a colour square opens Ableton's 70-colour palette just below that row</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette: the same 70 colours as Ableton, laid out 14 by 5 in a pop-up" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.2 — Clicking a colour square opens Ableton's 70-colour palette just below that row</figcaption></figure>
   <p>Click the colour square on a track row to open the palette. Pick a colour and both TouchDesigner and the Live track change. Click the same square again, or <span class="mono">×</span>, to close it. The current colour is outlined.</p>
 </section>
 
@@ -355,7 +355,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="editor">
   <div class="cap">04 — Object editor</div>
   <h2>Object editor</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, MOTION / PATH / SHAPE settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Left: objects · centre: path canvas · right: position read-out, MOTION, PATH, SHAPE · EDIT PATH above the canvas</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, MOTION / PATH / SHAPE settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Left: objects · centre: path canvas · right: position read-out, MOTION, PATH, SHAPE · EDIT PATH above the canvas</figcaption></figure>
   <p>Open it from <span class="pill">OBJECT EDITOR</span> in the top bar. Anything you change here goes straight to the Live device's parameters, and the screen shows what the device sends back, so editing in either place gives the same result.</p>
   <h3>Viewpoint</h3>
   <ul>
@@ -386,7 +386,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="scenes">
   <div class="cap">05 — Scenes &amp; timeline</div>
   <h2>Scenes and timeline</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab (right) and the timeline bar (bottom): filled markers are locators linked to a scene</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg?v=1110b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab (right) and the timeline bar (bottom): filled markers are locators linked to a scene</figcaption></figure>
   <p>A <strong>scene</strong> is a snapshot of every Spatial Object: position (the centre dials), motion, shape and path. Scenes are stored <strong>in the Live set</strong>, inside the Spatial Master, so they save with the set and play back with TouchDesigner closed.</p>
   <h3>SCENES tab</h3>
   <div class="tw"><table>
@@ -691,7 +691,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>Windows</strong>: 환경설정 → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>, 샘플레이트는 JACK과 같게. <strong>Output Config</strong>에서 스피커 수만큼 쌍(1/2, 3/4 …)을 켠다.</li>
     <li>리턴 <code>SPK 1</code> → out 1, <code>SPK 2</code> → out 2 … (리턴 트랙의 출력 메뉴).</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg" alt="Ableton Live 설정 Audio: Driver Type ASIO, Audio Device JackRouter, Output Config에서 스테레오 쌍 1/2~15/16 켜짐" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — JackRouter를 고른 Live 설정 → Audio: Output Config에는 JackRouter.ini에서 정한 만큼 쌍이 보인다. 레이아웃이 쓰는 만큼 켠다</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Ableton Live 설정 Audio: Driver Type ASIO, Audio Device JackRouter, Output Config에서 스테레오 쌍 1/2~15/16 켜짐" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — JackRouter를 고른 Live 설정 → Audio: Output Config에는 JackRouter.ini에서 정한 만큼 쌍이 보인다. 레이아웃이 쓰는 만큼 켠다</figcaption></figure>
   </section>
 
   <section id="ko-setup-td" class="sub">
@@ -704,7 +704,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <h4>04 SPEAKER OUT</h4>
   <p>LIVE 탭 → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: 드라이버 <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, 그리고 QjackCtl에서 Live 출력을 TouchDesigner 입력에도 연결한다. 그다음 METER: ON — 또는 <span class="mono">found … · USE →</span> 배지. 스피커마다 글리프 하나로 피드를 보여주고, 채널 수·샘플레이트 문제는 LOG 탭으로 간다. 샘플레이트는 전부 같게 (48 kHz 권장).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN, SPEAKER OUT의 METER · DEVICE · 드라이버 버튼과 장치 발견 배지" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭 04 SPEAKER OUT: METER, DEVICE, 드라이버(Windows), 장치 발견 배지</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110b" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN, SPEAKER OUT의 METER · DEVICE · 드라이버 버튼과 장치 발견 배지" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭 04 SPEAKER OUT: METER, DEVICE, 드라이버(Windows), 장치 발견 배지</figcaption></figure>
   <div class="note"><b>NOTE</b>04 SPEAKER OUT은 자리를 먼저 잡아둔 상태다. 지금은 장치 목록, 스피커별 미터, 그리고 채널 수·샘플레이트 문제를 LOG 탭에 기록하는 데까지. LAYOUT 목록의 스피커 → 출력 채널 맵과 Live의 <code>SPK</code> 리턴 자동 생성은 다음 작업이다 (<a href="#ko-roadmap">12</a>).</div>
   </section>
 
@@ -728,9 +728,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>Live → 환경설정 → Audio → <strong>JackRouter</strong> (<a href="#ko-setup-live">01.1</a>).</li>
     <li>QjackCtl → Graph: <code>Ableton Live</code>의 <code>out1 … outN</code> → <code>system</code>의 <code>playback_1 … N</code> (보통 자동 연결), 또는 → 다음 앱의 입력.</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. 1.3 — JackRouter.ini: <code>output=</code>이 Live에 보일 출력 수 (여기선 16)</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg" alt="QjackCtl Setup: Driver portaudio, Interface 목록에서 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. 1.4 — QjackCtl Setup: Driver portaudio, 인터페이스의 MME / DirectSound / WASAPI 이름 말고 <code>ASIO::</code> 항목을 고른다</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg" alt="QjackCtl Graph: Ableton Live out1~out8이 system playback_1~8에 연결, out9~out16은 연결 없음, system capture_1·2는 Live in1·in2에 연결" loading="lazy" width="802" height="624"><figcaption>FIG. 1.5 — 출력 8개 인터페이스에서의 QjackCtl Graph: JackRouter가 Live에 출력 16개를 주고, out1–8은 스피커로, out9–16은 갈 곳이 없다</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg?v=1110b" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. 1.3 — JackRouter.ini: <code>output=</code>이 Live에 보일 출력 수 (여기선 16)</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, Interface 목록에서 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. 1.4 — QjackCtl Setup: Driver portaudio, 인터페이스의 MME / DirectSound / WASAPI 이름 말고 <code>ASIO::</code> 항목을 고른다</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Ableton Live out1~out8이 system playback_1~8에 연결, out9~out16은 연결 없음, system capture_1·2는 Live in1·in2에 연결" loading="lazy" width="802" height="624"><figcaption>FIG. 1.5 — 출력 8개 인터페이스에서의 QjackCtl Graph: JackRouter가 Live에 출력 16개를 주고, out1–8은 스피커로, out9–16은 갈 곳이 없다</figcaption></figure>
   <h5>QjackCtl 그래프 읽기</h5>
   <div class="tw"><table>
     <tr><th>상자 · 포트</th><th>뜻</th></tr>
@@ -776,7 +776,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-ui">
   <div class="cap">03 — TD interface</div>
   <h2>화면 구성</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 프리뷰, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW. 오브젝트 주변의 번짐(haze), 트랙 이름 콜아웃, 점선 돔 가이드</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 프리뷰, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW. 오브젝트 주변의 번짐(haze), 트랙 이름 콜아웃, 점선 돔 가이드</figcaption></figure>
   <h3>상단 바</h3>
   <p><span class="pill on">3D VIEW</span> <span class="pill">OBJECT EDITOR</span> 로 가운데 화면을 바꾼다. 오른쪽에는 프로젝트 이름 · 레이아웃 · OSC 포트.</p>
   <h3>3D 뷰 조작</h3>
@@ -797,14 +797,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
   <h3>트랙 색 바꾸기</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 펼쳐진 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.2 — 색 칸을 누르면 Ableton과 같은 70색 팔레트가 그 줄 아래에 뜬다</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg?v=1110b" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 펼쳐진 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.2 — 색 칸을 누르면 Ableton과 같은 70색 팔레트가 그 줄 아래에 뜬다</figcaption></figure>
   <p>트랙 줄의 색 칸을 누르면 팔레트가 열린다. 고르면 TouchDesigner와 Live 트랙 색이 함께 바뀐다. 같은 칸을 다시 누르거나 <span class="mono">×</span>로 닫는다. 지금 색은 테두리로 표시된다.</p>
 </section>
 
 <section id="ko-editor">
   <div class="cap">04 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE · 캔버스 위 EDIT PATH</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE · 캔버스 위 EDIT PATH</figcaption></figure>
   <p>상단 바의 <span class="pill">OBJECT EDITOR</span>로 연다. 여기서 바꾼 값은 곧바로 Live 디바이스 파라미터로 가고, 디바이스가 돌려보낸 값이 화면에 표시된다 — 양쪽 어디서 바꿔도 결과가 같다.</p>
   <h3>시점</h3>
   <ul>
@@ -834,7 +834,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-scenes">
   <div class="cap">05 — Scenes &amp; timeline</div>
   <h2>씬과 타임라인</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg" alt="사이드바의 SCENES 탭과 아래쪽 타임라인 바. Intro와 Verse 로케이터가 씬에 연결되어 있다" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭(오른쪽)과 타임라인 바(아래). 채워진 표시 = 씬에 연결된 로케이터</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg?v=1110b" alt="사이드바의 SCENES 탭과 아래쪽 타임라인 바. Intro와 Verse 로케이터가 씬에 연결되어 있다" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭(오른쪽)과 타임라인 바(아래). 채워진 표시 = 씬에 연결된 로케이터</figcaption></figure>
   <p><strong>씬</strong>은 모든 Spatial Object의 상태 스냅샷이다 — 위치(중심 다이얼), 모션, 모양, 경로. 씬은 <strong>Live 세트 안</strong>(Spatial Master)에 저장되므로 세트와 함께 저장되고, TouchDesigner를 꺼도 재생된다.</p>
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
