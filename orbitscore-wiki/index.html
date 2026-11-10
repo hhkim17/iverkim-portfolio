@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v7.4 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v7.5 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -237,7 +237,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ol>
     <li><strong>macOS</strong>: Preferences → Audio → <strong>Output Device = BlackHole 16ch</strong>, and enable as many output channels as the layout has speakers.</li>
     <li><strong>Windows</strong>: Preferences → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>, same sample rate as JACK. In <strong>Output Config</strong> enable the pairs that cover the speakers (1/2, 3/4 … up to the speaker count).</li>
-    <li>Route return <code>SPK 1</code> to out 1, <code>SPK 2</code> to out 2 … (the output menu on each return).</li>
+    <li>Returns: press <strong>SET UP SPK 1…n IN LIVE</strong> in TouchDesigner (<a href="#setup-td">01.2</a>) — it creates <code>SPK 1 … n</code> and routes SPK k to output k. By hand: one return per speaker named <code>SPK k</code>, output Ext. Out / k.</li>
   </ol>
   <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Ableton Live Settings, Audio: Driver Type ASIO, Audio Device JackRouter, Output Config with stereo pairs 1/2 to 15/16 enabled" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — Live → Settings → Audio with JackRouter: Output Config shows as many pairs as JackRouter.ini allows; enable the ones the layout uses</figcaption></figure>
   </section>
@@ -250,16 +250,21 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>On the <span class="pill">LIVE</span> tab of the sidebar, check that PORT reads <code>9001</code>. Once the tracks appear in Live's order, you are connected.</li>
     <li>When you finish, <strong>save TouchDesigner with <kbd>Ctrl</kbd>+<kbd>S</kbd> and save the Live set as well</strong>. Paths and motion settings live in the Live set; the TouchDesigner save keeps the screen and theme settings.</li>
   </ol>
-  <h4>04 SPEAKER OUT</h4>
-  <p>LIVE tab → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: driver <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, and in QjackCtl connect Live's outputs to TouchDesigner's inputs as well. Then METER: ON — or press the <span class="mono">found … · USE →</span> badge. One glyph per speaker shows each feed; channel-count and sample-rate problems go to the LOG tab. Same sample rate everywhere (48 kHz recommended).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110b" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN and SPEAKER OUT with METER, DEVICE and driver buttons and a found-device badge" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab, 04 SPEAKER OUT: METER, DEVICE, driver (Windows) and the found-device badge</figcaption></figure>
-  <div class="note"><b>NOTE</b>04 SPEAKER OUT is in place but the routing work is not finished: today it shows the device list, per-speaker meters, and logs channel-count and sample-rate problems on the LOG tab. The speaker → channel map in the LAYOUT list and an automatic <code>SPK</code> return set-up come next (see <a href="#roadmap">12</a>).</div>
+  <h4>04 SPEAKER RETURNS</h4>
+  <p>LIVE tab → <strong>04 SPEAKER RETURNS</strong>. No audio device is chosen in TouchDesigner — the sound always comes from Live, and the device (JackRouter / BlackHole) is set in Live's preferences (<a href="#setup-live">01.1</a>, <a href="#setup-out">01.3</a>).</p>
+  <ul>
+    <li><strong>SET UP SPK 1…n IN LIVE</strong> — fits the Live set's return tracks to the current layout: creates the missing <code>SPK k</code> returns, deletes spare empty SPK returns (those without devices), and routes each <code>SPK k</code> to Ext. Out, channel k. The Spatial Master does it one step at a time, so it takes a few seconds. Press it again after changing the layout.</li>
+    <li><strong>Status line</strong> — <span class="mono">✓ SPK 1…12 → Live outputs 1…12</span>, or missing returns / returns on the wrong output / Live offering fewer outputs than the layout needs (enable them in Output Config). The same shows as ⚠ on the LOG tab.</li>
+    <li><strong>METER</strong> — optional. It finds JackRouter / BlackHole by itself and shows one level per speaker. On Windows, also connect Live's outputs to TouchDesigner's inputs in the QjackCtl Graph. You can leave it off.</li>
+  </ul>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110c" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER RETURNS with the SET UP SPK button and METER, TRACKS, and the wiki link and copyright line at the bottom" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab: 04 SPEAKER RETURNS with SET UP SPK · METER, wiki link at the bottom</figcaption></figure>
+  <div class="note"><b>NOTE</b>Live's Preferences → Audio (driver, device, sample rate, Output Config) cannot be changed through the Live API, so that part is set by hand once. The return tracks and their output routing inside the set are handled by SET UP.</div>
   </section>
 
   <section id="setup-out" class="sub">
   <div class="cap">01.3 — BlackHole / JACK</div>
   <h3 class="subh">Multichannel output · BlackHole / JACK</h3>
-  <p>This is what the tool is for: Live renders every object onto the speaker layout (returns <code>SPK 1</code> … <code>SPK n</code>) and that multichannel feed has to reach the room — your interface's outputs — or another application that does the final playback. A virtual audio device is the bus for that. TouchDesigner taps the same device so the <strong>04 SPEAKER OUT</strong> section on the LIVE tab can meter every speaker feed and check the channel count against the layout. The section knows which operating system it is running on; one project file serves both.</p>
+  <p>This is what the tool is for: Live renders every object onto the speaker layout (returns <code>SPK 1</code> … <code>SPK n</code>) and that multichannel feed has to reach the room — your interface's outputs — or another application that does the final playback. A virtual audio device is the bus for that. In TouchDesigner the <strong>04 SPEAKER RETURNS</strong> section sets up the <code>SPK</code> returns in the Live set and can meter the feeds (<a href="#setup-td">01.2</a>).</p>
   <h4>macOS — BlackHole</h4>
   <ol>
     <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16ch; 64ch for dome layouts).</li>
@@ -341,7 +346,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>The right-hand panel folds away with the <span class="pill">›</span> button on its edge. It has three tabs.</p>
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>04 SPEAKER OUT</strong> Live's multichannel feed through BlackHole / JACK: METER on/off, device list, driver (Windows), channels and sample rate, one meter glyph per speaker, virtual-device badge. Checks (channel count against the layout, sample rate against Live) go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
+    <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>04 SPEAKER RETURNS</strong> SET UP SPK 1…n IN LIVE (creates and routes the <code>SPK</code> returns for the layout), status line, optional METER. Problems go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
     <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
@@ -421,7 +426,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>A Line shape is split into two binaural chains, one per end: input L → end A, input R → end B.</p>
   <h3>SPEAKERS</h3>
   <p>3D VBAP gives a gain per speaker, which the track's sends deliver to return tracks named <code>SPK 1</code> … <code>SPK n</code>. Route each return's output to a channel of your interface. In speaker mode the object tracks' outputs switch to Sends Only.</p>
-  <div class="note"><b>NOTE</b>The audio driver (ASIO / Core Audio), sample rate and buffer size are set in Live under <strong>Preferences → Audio</strong>. Live handles the audio; the AUDIO line on the LIVE tab only reports it. Getting the speaker feeds out of Live and into the room goes through BlackHole / JACK (<a href="#setup-out">01.3</a>); the SPEAKER OUT section meters them.</div>
+  <div class="note"><b>NOTE</b>The audio driver (ASIO / Core Audio), sample rate and buffer size are set in Live under <strong>Preferences → Audio</strong>. Live handles the audio; the AUDIO line on the LIVE tab only reports it. Getting the speaker feeds out of Live and into the room goes through BlackHole / JACK (<a href="#setup-out">01.3</a>); the SPEAKER RETURNS section sets up the returns and can meter them.</div>
   <h3>Speaker layouts</h3>
   <div class="tw"><table>
     <tr><th>ID</th><th>Name</th></tr>
@@ -591,7 +596,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">12 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
-        <li><strong>Speaker routing</strong>: speaker → output channel map in the LAYOUT list and automatic <code>SPK 1 … n</code> return set-up in Live. (Tracks are not mapped to channels: every object is spread over all speakers by the panner, so the per-track meters stay with the M4L device.)</li>
+        <li><strong>Speaker routing</strong>: a speaker → output channel map in the LAYOUT list (now SPK k always goes to output k).</li>
     <li><strong>Fade curves</strong>: per-scene choice of ease-in-out (now), linear or exponential, and fading motion rate / size as well as the centre.</li>
     <li><strong>Orbit Link</strong>: receive the timeline (bar · beat, locators) so visuals can follow the song position.</li>
 </ul>
@@ -603,6 +608,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.10</td><td>v7.5: SPEAKER RETURNS replaces SPEAKER OUT — SET UP SPK 1…n creates the returns in Live and routes SPK k to output k, with a status line and LOG warnings; no device choice in TouchDesigner (METER finds JackRouter / BlackHole itself) · wiki link and copyright line in the sidebar · fixed the Spatial Object script that had stopped driving the sends</td></tr>
     <tr><td>2026.11.10</td><td>v7.4: Orbit Link split into Orbit Link In (receive) and Orbit Link Out (send, Objects filter, scene list from an Orbit In) · out1 is position only by default, Out: toggles for az/el/dist, level, colour, shape · <code>nan</code> fix in Smooth · test Audiovisual takes the values through an inlet · Windows JACK set-up written out (JackRouter channel count, ASIO entry, Playback Only, reading the graph) · editor: EDIT PATH lock for points, the canvas fills the free width when panels are closed, panel toggles are two thin side-by-side strips · VIEW → HEAD hides the listener model · double-click a slider to type a number · speaker glow less saturated than the objects (Glow Saturation) · scenes: objects outside a recalled scene are muted and hidden (OTHERS: MUTE + HIDE / KEEP)</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: per-scene object selection (● / ○ chips, objects not in a scene are left alone) · scene crossfade (default FADE + per-scene fade, beats at the current tempo, eased glide of the centre in the device) · Orbit Link: Select Object mode, Active Scene + scenes_out, Recall Scene from the other project (/orbit/set/scene), /orbit/scene + /orbit/scenes in the stream · output checks on the LOG tab</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: OSC broadcast of every object (/orbit/…), OSC set-in (/orbit/set/…), Orbit Link tox (receive + send) with the test Audiovisual example · SPEAKER OUT section (BlackHole / JACK multichannel output, OS-aware, device list, per-speaker meters, output checks on the LOG tab with a ⚠ badge) · LIVE / VIEW tabs reorganised · single PATH: OPEN / CLOSED LOOP toggle · leader lines, far path points and loop recall fixed · editor fits above the timeline bar · RESET VIEW restarts auto orbit</td></tr>
@@ -690,7 +696,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ol>
     <li><strong>macOS</strong>: 환경설정 → Audio → <strong>Output Device = BlackHole 16ch</strong>, 레이아웃 스피커 수만큼 출력 채널을 켠다.</li>
     <li><strong>Windows</strong>: 환경설정 → Audio → Driver Type ASIO, <strong>Audio Device = JackRouter</strong>, 샘플레이트는 JACK과 같게. <strong>Output Config</strong>에서 스피커 수만큼 쌍(1/2, 3/4 …)을 켠다.</li>
-    <li>리턴 <code>SPK 1</code> → out 1, <code>SPK 2</code> → out 2 … (리턴 트랙의 출력 메뉴).</li>
+    <li>리턴: TouchDesigner에서 <strong>SET UP SPK 1…n IN LIVE</strong>를 누른다(<a href="#ko-setup-td">01.2</a>) — <code>SPK 1 … n</code>을 만들고 SPK k를 출력 k로 연결한다. 손으로 하려면 스피커마다 <code>SPK k</code>라는 리턴을 만들고 출력을 Ext. Out / k로.</li>
   </ol>
   <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Ableton Live 설정 Audio: Driver Type ASIO, Audio Device JackRouter, Output Config에서 스테레오 쌍 1/2~15/16 켜짐" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. 1.1 — JackRouter를 고른 Live 설정 → Audio: Output Config에는 JackRouter.ini에서 정한 만큼 쌍이 보인다. 레이아웃이 쓰는 만큼 켠다</figcaption></figure>
   </section>
@@ -703,16 +709,21 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>사이드바 <span class="pill">LIVE</span> 탭에서 PORT가 <code>9001</code>인지 확인한다. 트랙이 Live 순서대로 목록에 뜨면 연결된 것.</li>
     <li>작업이 끝나면 <strong>TouchDesigner는 <kbd>Ctrl</kbd>+<kbd>S</kbd>, Live 세트도 따로 저장</strong>. 경로·움직임 설정은 Live 세트에, 화면·테마 설정은 TouchDesigner 쪽에 저장된다.</li>
   </ol>
-  <h4>04 SPEAKER OUT</h4>
-  <p>LIVE 탭 → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: 드라이버 <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, 그리고 QjackCtl에서 Live 출력을 TouchDesigner 입력에도 연결한다. 그다음 METER: ON — 또는 <span class="mono">found … · USE →</span> 배지. 스피커마다 글리프 하나로 피드를 보여주고, 채널 수·샘플레이트 문제는 LOG 탭으로 간다. 샘플레이트는 전부 같게 (48 kHz 권장).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110b" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN, SPEAKER OUT의 METER · DEVICE · 드라이버 버튼과 장치 발견 배지" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭 04 SPEAKER OUT: METER, DEVICE, 드라이버(Windows), 장치 발견 배지</figcaption></figure>
-  <div class="note"><b>NOTE</b>04 SPEAKER OUT은 자리를 먼저 잡아둔 상태다. 지금은 장치 목록, 스피커별 미터, 그리고 채널 수·샘플레이트 문제를 LOG 탭에 기록하는 데까지. LAYOUT 목록의 스피커 → 출력 채널 맵과 Live의 <code>SPK</code> 리턴 자동 생성은 다음 작업이다 (<a href="#ko-roadmap">12</a>).</div>
+  <h4>04 SPEAKER RETURNS</h4>
+  <p>LIVE 탭 → <strong>04 SPEAKER RETURNS</strong>. TouchDesigner에서는 오디오 장치를 고르지 않는다 — 소리는 항상 Live가 내고, 장치(JackRouter / BlackHole)는 Live 환경설정에서 정한다(<a href="#ko-setup-live">01.1</a>, <a href="#ko-setup-out">01.3</a>).</p>
+  <ul>
+    <li><strong>SET UP SPK 1…n IN LIVE</strong> — 지금 레이아웃에 맞게 Live 세트의 리턴 트랙을 맞춘다: 없는 <code>SPK k</code> 리턴을 만들고, 남는 빈 SPK 리턴(디바이스가 없는 것)을 지우고, 각 <code>SPK k</code>의 출력을 Ext. Out의 채널 k로 연결한다. Spatial Master가 한 단계씩 처리하므로 몇 초 걸린다. 레이아웃을 바꾼 뒤 다시 누른다.</li>
+    <li><strong>상태 줄</strong> — <span class="mono">✓ SPK 1…12 → Live outputs 1…12</span>, 또는 빠진 리턴 / 잘못 연결된 리턴 / Live가 내주는 출력 수가 모자람(Output Config에서 켠다). 같은 내용이 LOG 탭 ⚠에도 뜬다.</li>
+    <li><strong>METER</strong> — 선택 사항. 켜면 JackRouter / BlackHole을 자동으로 찾아 스피커별 레벨을 보여준다. Windows에서는 QjackCtl Graph에서 Live 출력을 TouchDesigner 입력에도 연결해야 보인다. 끄고 써도 된다.</li>
+  </ul>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110c" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER RETURNS의 SET UP SPK 버튼과 METER, TRACKS, 맨 아래 위키 링크와 저작권 표시" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭: 04 SPEAKER RETURNS의 SET UP SPK · METER, 맨 아래 위키 링크</figcaption></figure>
+  <div class="note"><b>NOTE</b>Live의 환경설정 → Audio(드라이버, 장치, 샘플레이트, Output Config)는 Live API로 바꿀 수 없어서 처음 한 번은 손으로 설정한다. 세트 안의 리턴 트랙과 출력 연결은 SET UP이 맡는다.</div>
   </section>
 
   <section id="ko-setup-out" class="sub">
   <div class="cap">01.3 — BlackHole / JACK</div>
   <h3 class="subh">다채널 출력 · BlackHole / JACK</h3>
-  <p>이 툴의 목적이 여기 있다. Live가 모든 오브젝트를 스피커 레이아웃으로 렌더링하면(리턴 <code>SPK 1</code> … <code>SPK n</code>) 그 다채널 피드가 공간 — 인터페이스 출력 — 이나 최종 재생을 맡은 다른 앱에 닿아야 한다. 가상 오디오 장치가 그 버스다. TouchDesigner는 같은 장치를 받아 LIVE 탭 <strong>04 SPEAKER OUT</strong> 섹션에서 스피커 피드마다 미터를 보여주고 채널 수가 레이아웃에 맞는지 검사한다. 섹션은 실행 중인 OS를 스스로 알아내므로 프로젝트 파일은 하나다.</p>
+  <p>이 툴의 목적이 여기 있다. Live가 모든 오브젝트를 스피커 레이아웃으로 렌더링하면(리턴 <code>SPK 1</code> … <code>SPK n</code>) 그 다채널 피드가 공간 — 인터페이스 출력 — 이나 최종 재생을 맡은 다른 앱에 닿아야 한다. 가상 오디오 장치가 그 버스다. TouchDesigner의 <strong>04 SPEAKER RETURNS</strong> 섹션이 Live 세트의 <code>SPK</code> 리턴을 맞추고, 원하면 피드를 미터로 보여준다(<a href="#ko-setup-td">01.2</a>).</p>
   <h4>macOS — BlackHole</h4>
   <ol>
     <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> 설치 (16ch, 돔 레이아웃이면 64ch).</li>
@@ -792,7 +803,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>오른쪽 패널은 가장자리의 <span class="pill">›</span> 버튼으로 접고 펼 수 있다. 위쪽 탭은 세 개.</p>
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
-    <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>04 SPEAKER OUT</strong> BlackHole / JACK으로 나가는 Live의 다채널 피드: METER 켜고 끄기, 장치 목록, 드라이버(Windows), 채널 수와 샘플레이트, 스피커별 미터 글리프, 가상 장치 배지. 검사(레이아웃 대비 채널 수, Live 대비 샘플레이트)는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
+    <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>04 SPEAKER RETURNS</strong> SET UP SPK 1…n IN LIVE(레이아웃에 맞게 <code>SPK</code> 리턴 생성·연결), 상태 줄, 선택 사항인 METER. 문제는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
     <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
@@ -869,7 +880,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>Line 모양은 직선 양 끝을 두 개의 바이노럴 체인으로 나눠 입력 L → 끝 A, 입력 R → 끝 B로 보낸다.</p>
   <h3>SPEAKERS</h3>
   <p>3D VBAP으로 스피커별 게인을 구하고, 트랙의 Send로 <code>SPK 1</code> … <code>SPK n</code>이라는 이름의 리턴 트랙에 보낸다. 각 리턴의 출력을 인터페이스 채널에 연결하면 된다. 스피커 모드에서 오브젝트 트랙의 출력은 Sends Only가 된다.</p>
-  <div class="note"><b>NOTE</b>오디오 드라이버(ASIO / Core Audio), 샘플레이트, 버퍼는 Live <strong>환경설정 → Audio</strong>에서 정한다. 소리는 Live가 처리하고 LIVE 탭의 AUDIO 줄은 그 상태를 보여줄 뿐이다. 스피커 피드를 Live 밖으로, 공간으로 보내는 건 BlackHole / JACK(<a href="#ko-setup-out">01.3</a>)이 하고, SPEAKER OUT 섹션은 그걸 미터로 보여준다.</div>
+  <div class="note"><b>NOTE</b>오디오 드라이버(ASIO / Core Audio), 샘플레이트, 버퍼는 Live <strong>환경설정 → Audio</strong>에서 정한다. 소리는 Live가 처리하고 LIVE 탭의 AUDIO 줄은 그 상태를 보여줄 뿐이다. 스피커 피드를 Live 밖으로, 공간으로 보내는 건 BlackHole / JACK(<a href="#ko-setup-out">01.3</a>)이 하고, SPEAKER RETURNS 섹션이 리턴을 맞추고, 원하면 미터로 보여준다.</div>
   <h3>스피커 레이아웃</h3>
   <div class="tw"><table>
     <tr><th>ID</th><th>이름</th></tr>
@@ -1033,7 +1044,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">12 — Roadmap</div>
   <h2>다음 작업</h2>
   <ul>
-        <li><strong>스피커 라우팅</strong> — LAYOUT 목록에 스피커 → 출력 채널 맵, Live의 <code>SPK 1 … n</code> 리턴 자동 생성. (트랙을 채널에 매핑하진 않는다 — 오브젝트는 패너가 모든 스피커에 나눠 보내므로, 트랙별 미터는 M4L 디바이스가 계속 담당.)</li>
+        <li><strong>스피커 라우팅</strong> — LAYOUT 목록에 스피커 → 출력 채널 맵 (지금은 SPK k가 항상 출력 k).</li>
     <li><strong>페이드 커브</strong> — 씬별로 이즈 인·아웃(지금) / 리니어 / 지수 선택, 중심뿐 아니라 모션 rate·size도 페이드.</li>
     <li><strong>Orbit Link</strong> — 타임라인(마디·박, 로케이터)도 받아서 비주얼이 곡 위치를 따라가게.</li>
 </ul>
@@ -1044,6 +1055,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.10</td><td>v7.5: SPEAKER OUT을 SPEAKER RETURNS로 교체 — SET UP SPK 1…n이 Live에 리턴을 만들고 SPK k를 출력 k로 연결, 상태 줄과 LOG 경고 · TouchDesigner에서 장치 선택 없음(METER가 JackRouter / BlackHole을 스스로 찾음) · 사이드바에 위키 링크와 저작권 표시 · 센드를 움직이지 않던 Spatial Object 스크립트 수정</td></tr>
     <tr><td>2026.11.10</td><td>v7.4: Orbit Link를 Orbit Link In(받기)과 Orbit Link Out(보내기, Objects 필터, Orbit In에서 씬 목록)으로 분리 · out1 기본은 위치만, Out: 토글로 az/el/dist·레벨·색·모양 추가 · Smooth의 <code>nan</code> 수정 · test Audiovisual이 입구로 값을 받음 · Windows JACK 셋업 상세(JackRouter 채널 수, ASIO 항목, Playback Only, 그래프 읽기) · 에디터: 점 편집 잠금 EDIT PATH, 패널을 닫으면 캔버스가 가로로 채워짐, 패널 접기 버튼을 얇은 세로 띠 두 개로 나란히 · VIEW → HEAD로 청자 모형 숨기기 · 슬라이더 더블클릭으로 숫자 입력 · 스피커 글로우 채도를 오브젝트보다 낮게(Glow Saturation) · 씬: 리콜한 씬에 없는 오브젝트 뮤트+숨김(OTHERS: MUTE + HIDE / KEEP)</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: 씬별 오브젝트 선택(● / ○ 칩, 씬에 없는 오브젝트는 건드리지 않음) · 씬 크로스페이드(기본 FADE + 씬별 페이드, 현재 템포 기준 박, 디바이스 안에서 중심이 이징으로 이동) · Orbit Link: Select Object 모드, Active Scene + scenes_out, 상대 프로젝트에서 Recall Scene(/orbit/set/scene), 스트림에 /orbit/scene · /orbit/scenes · 출력 검사를 LOG 탭으로</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: 모든 오브젝트 OSC 송출(/orbit/…), 설정 수신(/orbit/set/…), 받기+보내기 Orbit Link tox와 test Audiovisual 예제 · SPEAKER OUT 섹션(BlackHole / JACK 다채널 출력, OS 자동 감지, 장치 목록, 스피커별 미터, LOG 탭 ⚠ 출력 검사) · LIVE / VIEW 탭 재정리 · PATH: OPEN / CLOSED LOOP 단일 토글 · 이름표 선, 먼 경로 점, 루프 리콜 수정 · 타임라인 바 위로 줄어드는 에디터 · RESET VIEW가 자동 회전도 재시작</td></tr>
