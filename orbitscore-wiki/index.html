@@ -409,14 +409,15 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES tab</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Action</th></tr>
-    <tr><td>+ CAPTURE</td><td>Save the current state as a new scene — of the objects marked ● below</td></tr>
+    <tr><td>Scene list</td><td>One row per scene <em>and</em> per Live locator: a scene is a locator of the same name. Locators come in song order; a locator with nothing saved yet reads <span class="mono">EMPTY</span></td></tr>
+    <tr><td>+ CAPTURE</td><td>Save the current state as a new scene — of the objects marked ● below — and put its locator at Live's playhead</td></tr>
     <tr><td>● / ○ chips</td><td>One per track: ● takes part in new captures, ○ is left out. With <strong>OTHERS: MUTE + HIDE</strong> (default) the objects a recalled scene does not hold are muted in Live and hidden in the preview, and its own objects are unmuted and shown. With <strong>OTHERS: KEEP</strong> they are left alone — still sounding, where they were — so a scene can move the pads and leave the drums untouched. The count on each row reads <span class="mono">2/3</span>: objects in the scene / objects in the set</td></tr>
     <tr><td>OTHERS</td><td>MUTE + HIDE / KEEP: what happens to objects outside the scene being recalled (see above). Applied once per scene change, so the eye and M buttons stay usable in between</td></tr>
     <tr><td>FADE</td><td>Default crossfade for new captures: CUT · 1 · 2 · 4 · 8 · 16 beats. Each row has its own fade button (<span class="mono">cut</span>, <span class="mono">4b</span> …) to change it afterwards; it is stored in the scene</td></tr>
     <tr><td>RECALL</td><td>Apply the scene to the objects it holds. With a fade, each object's centre glides to the new position over that many beats at the current tempo (motion, shape and path switch at once)</td></tr>
-    <tr><td>UPDATE</td><td>Overwrite the scene with the current state (same object selection rule, keeps the scene's fade)</td></tr>
-    <tr><td>→ TL</td><td>Put a locator with the scene's name at Live's playhead</td></tr>
-    <tr><td>×</td><td>Delete the scene and its locators</td></tr>
+    <tr><td>UPDATE / SAVE</td><td>Overwrite the scene with the current state (same object selection rule, keeps the scene's fade). On an EMPTY locator the button reads SAVE and stores the scene into it</td></tr>
+    <tr><td>001.1 / → TL</td><td>Where the scene's locator is (bar.beat; click to jump there). A scene with no locator shows → TL: click to put one at Live's playhead</td></tr>
+    <tr><td>×</td><td>Delete the scene and its locators. The × on a timeline card does the same</td></tr>
     <tr><td>Name field</td><td>Click, type, Enter: renames the scene and its locators in Live</td></tr>
   </table></div>
   <h3>Timeline bar</h3>
@@ -880,14 +881,15 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
     <tr><th>버튼</th><th>동작</th></tr>
-    <tr><td>+ CAPTURE</td><td>지금 상태를 새 씬으로 저장 — 아래에서 ●로 표시된 오브젝트만</td></tr>
+    <tr><td>씬 목록</td><td>씬과 Live 로케이터가 한 줄씩 함께 나온다 — 씬은 같은 이름의 로케이터다. 로케이터는 곡 순서대로, 아직 저장된 내용이 없는 로케이터는 <span class="mono">EMPTY</span></td></tr>
+    <tr><td>+ CAPTURE</td><td>지금 상태를 새 씬으로 저장(아래에서 ●로 표시된 오브젝트만)하고 Live 재생 위치에 로케이터도 놓는다</td></tr>
     <tr><td>● / ○ 칩</td><td>트랙마다 하나. ●는 새 캡처에 들어가고 ○는 빠진다. <strong>OTHERS: MUTE + HIDE</strong>(기본)이면 리콜한 씬에 없는 오브젝트는 Live에서 뮤트되고 프리뷰에서 숨겨지며, 씬에 든 오브젝트는 뮤트 해제·표시된다. <strong>OTHERS: KEEP</strong>이면 그대로 둔다 — 소리도 나고 제자리에 있으므로, 패드만 옮기고 드럼은 그대로 두는 씬을 만들 수 있다. 각 줄의 <span class="mono">2/3</span>은 씬에 든 오브젝트 수 / 세트의 오브젝트 수</td></tr>
     <tr><td>OTHERS</td><td>MUTE + HIDE / KEEP: 리콜하는 씬에 없는 오브젝트를 어떻게 할지(위 참고). 씬이 바뀔 때 한 번만 적용되므로 그 사이에는 눈·M 버튼을 자유롭게 쓸 수 있다</td></tr>
     <tr><td>FADE</td><td>새 캡처의 기본 크로스페이드: CUT · 1 · 2 · 4 · 8 · 16 박. 줄마다 자기 페이드 버튼(<span class="mono">cut</span>, <span class="mono">4b</span> …)이 있어 나중에 바꿀 수 있고, 씬에 저장된다</td></tr>
     <tr><td>RECALL</td><td>씬이 담고 있는 오브젝트에 적용. 페이드가 있으면 각 오브젝트의 중심이 현재 템포 기준 그 박자 동안 새 위치로 미끄러진다 (모션·모양·경로는 즉시 바뀜)</td></tr>
-    <tr><td>UPDATE</td><td>지금 상태로 씬을 덮어쓰기 (오브젝트 선택 규칙 동일, 씬의 페이드는 유지)</td></tr>
-    <tr><td>→ TL</td><td>Live 재생 위치에 씬 이름의 로케이터를 놓기</td></tr>
-    <tr><td>×</td><td>씬과 그 로케이터 삭제</td></tr>
+    <tr><td>UPDATE / SAVE</td><td>지금 상태로 씬을 덮어쓰기 (오브젝트 선택 규칙 동일, 씬의 페이드는 유지). EMPTY 로케이터에서는 SAVE로 보이고 누르면 거기에 저장된다</td></tr>
+    <tr><td>001.1 / → TL</td><td>씬의 로케이터 위치(마디.박, 누르면 그리로 이동). 로케이터가 없는 씬은 → TL로 보이고, 누르면 Live 재생 위치에 놓는다</td></tr>
+    <tr><td>×</td><td>씬과 그 로케이터 삭제. 타임라인 카드의 ×도 똑같다</td></tr>
     <tr><td>이름 칸</td><td>클릭 → 입력 → Enter: 씬 이름과 Live 로케이터 이름이 함께 바뀐다</td></tr>
   </table></div>
   <h3>타임라인 바</h3>
