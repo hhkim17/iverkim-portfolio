@@ -360,7 +360,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider (Live's main volume; in speaker mode it scales the Spatial Renderer's outputs instead, since those bypass the main track), a <strong>MUTE</strong> button next to it (silences everything, keeps the slider value), SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong> (under the layout: the renderer's OUT tracks), status line, optional METER. Problems go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
-    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · sound + glow</strong> VBAP / DBAP / AMBI / WFS, SPEAKER DISTANCE (WFS) · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
+    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · sound + glow</strong> VBAP / DBAP / AMBI / WFS, SPEAKER DISTANCE · PRE-FILTER (WFS) · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
@@ -462,7 +462,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>AMBI</td><td>3rd-order Ambisonics, encoded and decoded in one step with the AllRAD decoder TouchDesigner computes for the layout</td><td>Smooth, even sound field on dome layouts</td></tr>
     <tr><td>WFS</td><td>Wave field synthesis: every speaker plays the object with its own gain <em>and delay</em>, so the speakers together rebuild the wavefront of a source at that position. A source outside the speakers is a point source behind them (the speakers it shines through play, delayed by their distance to it). A source inside is a <strong>focused source</strong>: the speakers beyond it fire first, the wave converges on it and spreads on towards the listener. <strong>SPEAKER DISTANCE</strong> (shown under the buttons in WFS) is the real listener-to-speaker distance in metres; it sets the delays. Moving sources glide their delays over 50 ms, which gives a natural Doppler shift</td><td>Dense speaker lines or rings (WFS line 32, WFS rectangle 64). With a handful of speakers it works, but sounds more like a delayed DBAP</td></tr>
   </table></div>
-  <div class="note"><b>NOTE</b>WFS runs in its own engine inside the Spatial Renderer (a <code>gen~</code> with one delay line per object, fed through <code>buffer~ orbit_wfs</code>); the other models use the gain matrix. Line-shaped objects use their centre in WFS. Above the aliasing frequency (about c / 2 × speaker spacing) the wavefront is not exact — that is how WFS is. No pre-filter yet (real WFS adds +3 dB per octave).</div>
+  <div class="note"><b>NOTE</b>WFS runs in its own engine inside the Spatial Renderer (a <code>gen~</code> with one delay line per object, fed through <code>buffer~ orbit_wfs</code>); the other models use the gain matrix. Line-shaped objects use their centre in WFS. Above the aliasing frequency (about c / 2 × speaker spacing) the wavefront is not exact — that is how WFS is. The WFS pre-filter is in: +3 dB per octave from 80 Hz up to that aliasing frequency (worked out from the layout and SPEAKER DISTANCE), flat above, level-matched at the middle; <strong>PRE-FILTER</strong> next to SPEAKER DISTANCE turns it off. With wide spacing (a few speakers in a big room) the aliasing frequency falls below 120 Hz and the filter switches itself off — the LOG tab shows the numbers.</div>
 </section>
 
 <!-- 06 -->
@@ -631,7 +631,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
-    <tr><td>2026.11.10</td><td>v8.3: WFS in the Spatial Renderer — per-speaker gain and delay (point and focused sources) in a gen~ engine, SPEAKER DISTANCE in metres, 3D glow shows the same wavefront</td></tr>
+    <tr><td>2026.11.10</td><td>v8.3: WFS in the Spatial Renderer — per-speaker gain and delay (point and focused sources) in a gen~ engine with the +3 dB/oct pre-filter, SPEAKER DISTANCE in metres, 3D glow shows the same wavefront</td></tr>
     <tr><td>2026.11.10</td><td>v8.2: PANNING MODEL drives the Spatial Renderer — VBAP, DBAP and Ambisonics (AllRAD) in sound, the 3D glow uses the same gains; WFS stays preview only</td></tr>
     <tr><td>2026.11.10</td><td>v8.1: Rotate Mod / Tilt Mod on the line shape (Random · Spin · LFO, shared Range and Rate) · stereo and other front-only layouts pan by left/right position, so a source circling behind no longer jumps from one speaker to the other · speaker TEST (pink noise per speaker, numbers in the 3D view) · MASTER works in speaker mode</td></tr>
     <tr><td>2026.11.10</td><td>v8.0: speaker mode rebuilt around the new <strong>Spatial Renderer</strong> device — objects route into it, it mixes onto up to 64 speakers at signal rate and feeds OUT tracks to Live's outputs; no SPK return tracks, so no 12-return limit · SET UP OUTPUTS creates and routes the OUT tracks</td></tr>
@@ -844,7 +844,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
     <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더(Live 메인 볼륨. 스피커 모드에서는 출력이 메인 트랙을 거치지 않으므로 Spatial Renderer 출력 레벨을 조절한다), 옆의 <strong>MUTE</strong> 버튼(전체 소리를 끄고, 슬라이더 값은 그대로 둔다), SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong>(레이아웃 아래: 렌더러 OUT 트랙), 상태 줄, 선택 사항인 METER. 문제는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
-    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · sound + glow</strong> VBAP / DBAP / AMBI / WFS, SPEAKER DISTANCE(WFS) · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
+    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · sound + glow</strong> VBAP / DBAP / AMBI / WFS, SPEAKER DISTANCE · PRE-FILTER(WFS) · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
@@ -943,7 +943,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>AMBI</td><td>3차 Ambisonics. TouchDesigner가 레이아웃에 맞게 계산한 AllRAD 디코더로 인코딩·디코딩을 한 번에</td><td>돔 레이아웃에서 고르고 매끄러운 음장</td></tr>
     <tr><td>WFS</td><td>파면 합성: 스피커마다 자기 게인<em>과 지연</em>으로 오브젝트를 재생해서, 스피커들이 함께 그 위치 음원의 파면을 다시 만든다. 스피커 바깥의 음원은 뒤에 있는 점음원(음원이 비추는 스피커들이, 음원까지 거리만큼 늦게 재생). 안쪽 음원은 <strong>포커스 음원</strong>: 음원 너머의 스피커가 먼저 울려 파면이 그 점에 모였다가 청취자 쪽으로 퍼진다. WFS일 때 버튼 아래 나오는 <strong>SPEAKER DISTANCE</strong>는 청취자에서 스피커까지의 실제 거리(미터)이고, 지연을 정한다. 움직이는 음원은 지연이 50 ms 동안 미끄러지면서 자연스러운 도플러가 생긴다</td><td>촘촘한 스피커 줄이나 링(WFS line 32, WFS rectangle 64). 스피커가 몇 개뿐이면 동작은 하지만 지연이 들어간 DBAP에 가깝게 들린다</td></tr>
   </table></div>
-  <div class="note"><b>NOTE</b>WFS는 Spatial Renderer 안의 별도 엔진에서 돈다(오브젝트마다 딜레이 라인 하나를 가진 <code>gen~</code>, <code>buffer~ orbit_wfs</code>로 값을 받음). 나머지 방식은 게인 매트릭스를 쓴다. WFS에서 직선 오브젝트는 중심 위치를 쓴다. 앨리어싱 주파수(대략 c / (2 × 스피커 간격)) 위로는 파면이 정확하지 않다 — WFS의 원래 성질이다. 프리필터(실제 WFS의 옥타브당 +3 dB)는 아직 없다.</div>
+  <div class="note"><b>NOTE</b>WFS는 Spatial Renderer 안의 별도 엔진에서 돈다(오브젝트마다 딜레이 라인 하나를 가진 <code>gen~</code>, <code>buffer~ orbit_wfs</code>로 값을 받음). 나머지 방식은 게인 매트릭스를 쓴다. WFS에서 직선 오브젝트는 중심 위치를 쓴다. 앨리어싱 주파수(대략 c / (2 × 스피커 간격)) 위로는 파면이 정확하지 않다 — WFS의 원래 성질이다. WFS 프리필터가 들어 있다: 80 Hz부터 그 앨리어싱 주파수(레이아웃과 SPEAKER DISTANCE로 계산)까지 옥타브당 +3 dB, 그 위로는 평탄, 가운데 주파수에서 음량을 맞췄다. SPEAKER DISTANCE 옆 <strong>PRE-FILTER</strong>로 끌 수 있다. 스피커 간격이 넓으면(큰 방에 스피커 몇 개) 앨리어싱 주파수가 120 Hz 아래로 내려가서 필터가 저절로 꺼진다 — LOG 탭에 수치가 나온다.</div>
 </section>
 
 <section id="ko-coords">
@@ -1105,7 +1105,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
-    <tr><td>2026.11.10</td><td>v8.3: Spatial Renderer에 WFS — 스피커별 게인과 지연(점음원·포커스 음원)을 gen~ 엔진으로, SPEAKER DISTANCE(미터), 3D 빛도 같은 파면</td></tr>
+    <tr><td>2026.11.10</td><td>v8.3: Spatial Renderer에 WFS — 스피커별 게인과 지연(점음원·포커스 음원)을 gen~ 엔진으로, 옥타브당 +3 dB 프리필터, SPEAKER DISTANCE(미터), 3D 빛도 같은 파면</td></tr>
     <tr><td>2026.11.10</td><td>v8.2: PANNING MODEL이 Spatial Renderer를 정한다 — VBAP, DBAP, Ambisonics(AllRAD)가 소리로, 3D 빛도 같은 게인을 쓴다. WFS는 아직 미리보기만</td></tr>
     <tr><td>2026.11.10</td><td>v8.1: 직선 Shape에 Rotate Mod / Tilt Mod (Random · Spin · LFO, Range · Rate 공용) · 스테레오처럼 앞쪽에만 스피커가 있는 레이아웃은 좌우 위치로 패닝 — 뒤를 도는 음원이 한쪽 스피커에서 반대쪽으로 튀지 않는다 · 스피커 TEST(스피커별 핑크 노이즈, 3D 뷰 번호 표시) · 스피커 모드에서도 MASTER 동작</td></tr>
     <tr><td>2026.11.10</td><td>v8.0: 스피커 모드를 새 <strong>Spatial Renderer</strong> 디바이스 중심으로 재구성 — 오브젝트가 렌더러로 들어가고, 렌더러가 오디오 신호 단위로 최대 64개 스피커에 섞어 OUT 트랙을 거쳐 Live 출력으로 보낸다. SPK 리턴을 쓰지 않아 리턴 12개 제한이 없다 · SET UP OUTPUTS가 OUT 트랙을 만들고 연결</td></tr>
