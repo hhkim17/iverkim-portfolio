@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v9.2 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v9.3 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -311,7 +311,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Azimuth</td><td>−180 … 180°</td><td>0 = front, + = left (anticlockwise), ±180 = behind</td></tr>
     <tr><td>Elevation</td><td>−90 … 90°</td><td>0 = ear height, 90 = straight overhead</td></tr>
     <tr><td>Distance</td><td>0 … 2</td><td>1.0 = on the speaker radius</td></tr>
-    <tr><td>Motion</td><td>7 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path</td></tr>
+    <tr><td>Motion</td><td>8 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · <strong>Chaos</strong></td></tr>
+    <tr><td>Attractor / Chaos Shape</td><td>Lorenz · Rossler · Thomas / 0–100 %</td><td>Chaos motion: the object follows a strange attractor around you — smooth, never repeating, and every so often it swings close past your head (with Doppler on, that pass is the "whoosh"). <strong>Lorenz</strong> flips unpredictably between two wings left and right · <strong>Rossler</strong> winds in a spiral and now and then shoots upward · <strong>Thomas</strong> wanders evenly. Rate = speed (0.1 ≈ one loop in 2 s), Size = how wide, Azimuth turns the whole figure, Distance scales it, Elevation lifts it. Chaos Shape changes the attractor itself (Lorenz ρ, Rossler c, Thomas b). The editor draws the figure as dots</td></tr>
     <tr><td>Rate / Size</td><td>Hz / 0 … 1</td><td>Speed and extent of the motion (not used by Path)</td></tr>
     <tr><td>Path Length</td><td>1 … 64 bars</td><td>Length of one pass of the path, synchronised to Live's song position</td></tr>
     <tr><td>Path Mode</td><td>Loop · Ping-Pong · Once</td><td>How the path plays</td></tr>
@@ -325,6 +326,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the room (room reverb + early reflections) this object gets; the room itself is shared. 0 % for dry sounds — bass, kick, already-reverbed samples, a voice meant to be "inside your head" (ROOM in the editor)</td></tr>
     <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay: the sound arrives later the farther the object is (Distance × SPEAKER DISTANCE ÷ speed of sound), and when the distance changes the delay glides, so an object rushing in or out bends in pitch like a passing car. Circling at a fixed distance gives no Doppler — that is physics. Leave it off for pitched material that must stay in tune. Both binaural and speaker mode</td></tr>
     <tr><td>Air</td><td>on / off</td><td>Air absorption: farther objects lose high end (a low-pass from 20 kHz at distance 0.5 down to about 4 kHz at distance 2). Both binaural and speaker mode</td></tr>
+    <tr><td>Speed</td><td>0–100 % (0)</td><td>Speed effect (SPEED FX in the editor): the faster the object moves, the louder (up to +6 dB) and brighter (a high-shelf lift) it gets — the sound-design exaggeration of a fly-by, on top of the real Doppler. Full effect from about 10 m/s. Both binaural and speaker mode</td></tr>
     <tr><td>Facing</td><td>Centre · Fixed</td><td>Centre = turns with the object so it always faces the listener; Fixed = fixed in the room</td></tr>
     <tr><td>Object (UID)</td><td>automatic</td><td>The object's unique number, saved with the set. Hidden parameter</td></tr>
   </table></div>
@@ -367,7 +369,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers, and <strong>MASTER</strong> volume with <strong>MUTE</strong> right under it (in speaker mode it scales the Spatial Renderer, MUTE silences everything and keeps the slider) · <strong>02 SPEAKER LAYOUT</strong> click to open the list (Custom: EDIT TABLE) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong> and optional METER · <strong>OUTPUT MAP</strong> which Live output each speaker plays on · <strong>TEST · &lt; · &gt; · AUTO</strong> · status line (setup hints only while something is missing) · <strong>03 OSC IN · SOURCE</strong> SOURCE: LIVE / DEMO, Live's audio state (DSP, sample rate, vector size), PORT · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
     <tr><td>SPACE</td><td>How the sound fills the space. <strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS, follows the layout unless you pick one · <strong>02 ROOM</strong> ROOM REVERB (on, time, amount), REFLECTIONS (on, room, level), SPEAKER DISTANCE in metres (+ PRE-FILTER in WFS). Drag a value up / down to change it</td></tr>
-    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face), <strong>ROOM</strong> (shows the room reverb and reflections in 3D)</td></tr>
+    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face), <strong>ROOM</strong> (shows the room reverb and reflections in 3D), <strong>TRAIL</strong> (each object leaves fading dots for 2.5 s; sparse dots = fast)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
@@ -403,7 +405,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>Curves are Catmull-Rom (Hermite) splines, and playback moves at constant speed along the arc length. Position = Live song position ÷ (Path Length × 4 beats).</p>
   <h3>Sliders</h3>
-  <p>Click or drag a slider (RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED) to set it. The settings column reads 02 MOTION · 03 PATH · 04 SHAPE (point / line, facing, LENGTH, ROTATE | TILT, their modulation, RANGE | SPEED) · <strong>05 SOUND</strong> (SPREAD | ROOM, AIR | DOPPLER). Under TILT, <strong>ROT · FIXED ▼</strong> and <strong>TILT · FIXED ▼</strong> are dropdowns: pick FIXED, RANDOM, SPIN or LFO for that angle, and RANGE / SPEED set how far and how fast. While an angle is modulated its slider follows the moving value, its label shows the mode, and it cannot be dragged — the dial value in Live stays the centre the movement runs around. <strong>Double-click</strong> it to type a number instead: <kbd>Enter</kbd> or clicking elsewhere applies, <kbd>Esc</kbd> cancels. Units can be left off; the value is clamped to the slider's range.</p>
+  <p>Click or drag a slider (RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED) to set it. The settings column reads 02 MOTION · 03 PATH · 04 SHAPE (point / line, facing, LENGTH, ROTATE | TILT, their modulation, RANGE | SPEED) · <strong>05 SOUND</strong> (SPREAD | ROOM, AIR | DOPPLER, SPEED FX). With CHAOS, ATTRACTOR buttons and CHAOS SHAPE appear under SIZE; 03 PATH shows only with PATH or while EDIT PATH is on. Under TILT, <strong>ROT · FIXED ▼</strong> and <strong>TILT · FIXED ▼</strong> are dropdowns: pick FIXED, RANDOM, SPIN or LFO for that angle, and RANGE / SPEED set how far and how fast. While an angle is modulated its slider follows the moving value, its label shows the mode, and it cannot be dragged — the dial value in Live stays the centre the movement runs around. <strong>Double-click</strong> it to type a number instead: <kbd>Enter</kbd> or clicking elsewhere applies, <kbd>Esc</kbd> cancels. Units can be left off; the value is clamped to the slider's range.</p>
   <h3>Saving</h3>
   <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/&lt;time&gt;.json</code> and <code>latest.json</code>, and saves the TouchDesigner project. <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
 </section>
@@ -650,6 +652,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.11</td><td>v9.3: CHAOS motion (Lorenz / Rossler / Thomas attractors), SPEED effect per object, motion TRAIL in the 3D view. Spatial Object is 752 px wide now</td></tr>
     <tr><td>2026.11.11</td><td>v9.2: room in the 3D view — room box, reflection ghosts and paths, reverb rings and haze (VIEW → ROOM)</td></tr>
     <tr><td>2026.11.11</td><td>v9.1: UI — new SPACE tab (panning model, room), MASTER and MUTE under MONITOR, setup hints only when something is missing, editor 05 SOUND section</td></tr>
     <tr><td>2026.11.11</td><td>v9.0: near-field effect in binaural (closer than ~1 m: near ear louder and bassier, far ear quieter)</td></tr>
@@ -824,7 +827,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Azimuth</td><td>−180 … 180°</td><td>0 = 정면, + = 왼쪽(반시계), ±180 = 뒤</td></tr>
     <tr><td>Elevation</td><td>−90 … 90°</td><td>0 = 귀 높이, 90 = 바로 위</td></tr>
     <tr><td>Distance</td><td>0 … 2</td><td>1.0 = 스피커 반지름 위</td></tr>
-    <tr><td>Motion</td><td>7가지</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path</td></tr>
+    <tr><td>Motion</td><td>8가지</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · <strong>Chaos</strong></td></tr>
+    <tr><td>Attractor / Chaos Shape</td><td>Lorenz · Rossler · Thomas / 0–100 %</td><td>Chaos 모션: 오브젝트가 청자 주변의 카오스 어트랙터(끌개) 궤도를 따라간다. 매끄럽고, 절대 똑같이 반복하지 않고, 가끔 머리 옆을 빠르게 스친다(도플러를 켜면 그 순간이 "휙"). <strong>Lorenz</strong>는 좌우 두 날개 사이를 예측 못 하게 넘나들고 · <strong>Rossler</strong>는 나선으로 감기다 가끔 위로 튀고 · <strong>Thomas</strong>는 고르게 떠돈다. Rate = 속도(0.1이면 한 바퀴 약 2초), Size = 넓이, Azimuth는 전체 방향, Distance는 크기, Elevation은 높이. Chaos Shape는 어트랙터 자체를 바꾼다(Lorenz ρ, Rossler c, Thomas b). 편집기에 궤도가 점으로 그려진다</td></tr>
     <tr><td>Rate / Size</td><td>Hz / 0 … 1</td><td>움직임 속도와 크기 (Path에는 쓰이지 않음)</td></tr>
     <tr><td>Path Length</td><td>1 … 64 bars</td><td>경로 한 바퀴의 길이. Live 송 포지션에 동기화</td></tr>
     <tr><td>Path Mode</td><td>Loop · Ping-Pong · Once</td><td>경로 재생 방식</td></tr>
@@ -838,6 +842,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Room Send</td><td>0–200 %</td><td>이 오브젝트가 방(룸 리버브 + 초기 반사음)을 얼마나 받을지. 방 자체는 공용이다. 베이스·킥, 이미 리버브가 걸린 소스, "머릿속" 목소리처럼 건조해야 하는 소리는 0 % (에디터의 ROOM)</td></tr>
     <tr><td>Doppler</td><td>on / off (기본 off)</td><td>거리 지연: 오브젝트가 멀수록 소리가 늦게 도착하고(Distance × SPEAKER DISTANCE ÷ 음속), 거리가 바뀌면 그 지연이 미끄러지듯 바뀌어서, 빠르게 다가오거나 멀어지는 오브젝트는 지나가는 차처럼 음정이 휜다. 같은 거리로 원을 돌면 도플러는 없다 — 물리 그대로다. 음정이 정확해야 하는 소리는 끈다. 바이노럴과 스피커 모드 모두</td></tr>
     <tr><td>Air</td><td>on / off</td><td>공기 흡수: 멀리 있는 오브젝트일수록 고음이 줄어든다(거리 0.5에서 20 kHz, 거리 2에서 약 4 kHz까지 로우패스). 바이노럴과 스피커 모드 모두</td></tr>
+    <tr><td>Speed</td><td>0–100 % (0)</td><td>속도 효과(편집기 SPEED FX): 오브젝트가 빨리 움직일수록 커지고(최대 +6 dB) 밝아진다(고음 쉘프). 실제 도플러 위에 얹는 효과음식 과장. 약 10 m/s에서 최대. 바이노럴·스피커 모드 모두</td></tr>
     <tr><td>Facing</td><td>Centre · Fixed</td><td>Centre = 오브젝트와 함께 돌아 늘 청취자를 향함, Fixed = 방에 고정</td></tr>
     <tr><td>Object (UID)</td><td>자동</td><td>오브젝트 고유 번호. 세트와 함께 저장. 숨김 파라미터</td></tr>
   </table></div>
@@ -879,7 +884,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>탭</th><th>항목</th></tr>
     <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers, 바로 아래 <strong>MASTER</strong> 볼륨과 <strong>MUTE</strong>(스피커 모드에서는 Spatial Renderer 레벨, MUTE는 전체를 끄고 슬라이더 값은 유지) · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록(Custom: EDIT TABLE) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong>와 선택 사항 METER · <strong>OUTPUT MAP</strong> 스피커마다 나갈 Live 출력 · <strong>TEST · &lt; · &gt; · AUTO</strong> · 상태 줄(뭔가 빠졌을 때만 셋업 안내) · <strong>03 OSC IN · SOURCE</strong> SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기), PORT · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
     <tr><td>SPACE</td><td>소리가 공간을 채우는 방식. <strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS, 직접 고르지 않으면 레이아웃을 따라감 · <strong>02 ROOM</strong> ROOM REVERB(켜기, 길이, 양), REFLECTIONS(켜기, 방 크기, 레벨), SPEAKER DISTANCE 미터(WFS면 + PRE-FILTER). 값은 위아래로 끌어서 바꾼다</td></tr>
-    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기), <strong>ROOM</strong>(룸 리버브와 반사음을 3D로 보기)</td></tr>
+    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기), <strong>ROOM</strong>(룸 리버브와 반사음을 3D로 보기), <strong>TRAIL</strong>(오브젝트가 지나간 자리에 2.5초 동안 점이 남는다. 점 간격이 넓으면 빠른 것)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
@@ -914,7 +919,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>곡선은 Catmull-Rom(Hermite) 스플라인이고, 재생은 길이를 따라 등속으로 진행한다. 위치 = Live 송 포지션 ÷ (Path Length × 4박).</p>
   <h3>슬라이더</h3>
-  <p>슬라이더(RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED, 05 SOUND의 AIR · DOPPLER 켜기/끄기)는 클릭하거나 드래그해서 값을 정한다. 설정 열은 02 MOTION · 03 PATH · 04 SHAPE(점/선, 방향, LENGTH, ROTATE | TILT와 그 모듈레이션, RANGE | SPEED) · <strong>05 SOUND</strong>(SPREAD | ROOM, AIR | DOPPLER) 순서다. TILT 아래 <strong>ROT · FIXED ▼</strong>, <strong>TILT · FIXED ▼</strong>는 드롭다운이다 — 그 각도에 FIXED, RANDOM, SPIN, LFO 중 하나를 고르고, RANGE / SPEED로 폭과 빠르기를 정한다. 모듈레이션 중인 각도의 슬라이더는 움직이는 값을 따라 움직이고, 이름 옆에 모드가 표시되며, 손으로는 바꿀 수 없다 — Live의 다이얼 값은 움직임의 중심으로 남는다. <strong>더블클릭</strong>하면 숫자를 직접 입력할 수 있다 — <kbd>Enter</kbd>나 다른 곳 클릭으로 적용, <kbd>Esc</kbd>로 취소. 단위는 빼도 되고, 값은 슬라이더 범위 안으로 맞춰진다.</p>
+  <p>슬라이더(RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED, 05 SOUND의 AIR · DOPPLER 켜기/끄기)는 클릭하거나 드래그해서 값을 정한다. 설정 열은 02 MOTION · 03 PATH · 04 SHAPE(점/선, 방향, LENGTH, ROTATE | TILT와 그 모듈레이션, RANGE | SPEED) · <strong>05 SOUND</strong>(SPREAD | ROOM, AIR | DOPPLER, SPEED FX) 순서다. CHAOS를 고르면 SIZE 아래에 어트랙터 버튼과 CHAOS SHAPE가 나타나고, 03 PATH는 PATH를 고르거나 EDIT PATH가 켜져 있을 때만 보인다. TILT 아래 <strong>ROT · FIXED ▼</strong>, <strong>TILT · FIXED ▼</strong>는 드롭다운이다 — 그 각도에 FIXED, RANDOM, SPIN, LFO 중 하나를 고르고, RANGE / SPEED로 폭과 빠르기를 정한다. 모듈레이션 중인 각도의 슬라이더는 움직이는 값을 따라 움직이고, 이름 옆에 모드가 표시되며, 손으로는 바꿀 수 없다 — Live의 다이얼 값은 움직임의 중심으로 남는다. <strong>더블클릭</strong>하면 숫자를 직접 입력할 수 있다 — <kbd>Enter</kbd>나 다른 곳 클릭으로 적용, <kbd>Esc</kbd>로 취소. 단위는 빼도 되고, 값은 슬라이더 범위 안으로 맞춰진다.</p>
   <h3>저장</h3>
   <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/&lt;시간&gt;.json</code>과 <code>latest.json</code>으로 남기고 TouchDesigner 프로젝트도 저장한다. <span class="pill">LOAD LAST</span>로 마지막 스냅샷을 되돌린다. Live 세트는 따로 저장해야 한다.</p>
 </section>
@@ -1152,6 +1157,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.11</td><td>v9.3: CHAOS 모션(Lorenz / Rossler / Thomas 어트랙터), 오브젝트별 SPEED 효과, 3D 뷰 모션 TRAIL. Spatial Object 폭 752 px</td></tr>
     <tr><td>2026.11.11</td><td>v9.2: 3D 뷰에 방 표시 — 방 상자, 반사음 유령 점과 경로, 리버브 링과 안개 (VIEW → ROOM)</td></tr>
     <tr><td>2026.11.11</td><td>v9.1: UI — 새 SPACE 탭(패닝 방식, 방), MONITOR 아래 MASTER와 MUTE, 셋업 안내는 빠진 게 있을 때만, 편집기 05 SOUND 섹션</td></tr>
     <tr><td>2026.11.11</td><td>v9.0: 바이노럴 근거리 효과 (약 1 m 안: 가까운 귀는 크고 저음이 많게, 먼 귀는 작게)</td></tr>
