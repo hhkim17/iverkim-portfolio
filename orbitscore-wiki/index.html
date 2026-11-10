@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v9.1 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v9.2 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -367,7 +367,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers, and <strong>MASTER</strong> volume with <strong>MUTE</strong> right under it (in speaker mode it scales the Spatial Renderer, MUTE silences everything and keeps the slider) · <strong>02 SPEAKER LAYOUT</strong> click to open the list (Custom: EDIT TABLE) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong> and optional METER · <strong>OUTPUT MAP</strong> which Live output each speaker plays on · <strong>TEST · &lt; · &gt; · AUTO</strong> · status line (setup hints only while something is missing) · <strong>03 OSC IN · SOURCE</strong> SOURCE: LIVE / DEMO, Live's audio state (DSP, sample rate, vector size), PORT · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
     <tr><td>SPACE</td><td>How the sound fills the space. <strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS, follows the layout unless you pick one · <strong>02 ROOM</strong> ROOM REVERB (on, time, amount), REFLECTIONS (on, room, level), SPEAKER DISTANCE in metres (+ PRE-FILTER in WFS). Drag a value up / down to change it</td></tr>
-    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
+    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face), <strong>ROOM</strong> (shows the room reverb and reflections in 3D)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
@@ -469,6 +469,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Room reverb</h3>
   <p>Speaker mode. The strongest distance cue is how much room you hear against the direct sound: a near source is mostly direct, a far one mostly room. The Spatial Renderer has one shared reverb (an 8-line feedback delay network); every object feeds it with a send that grows with its Distance, while its direct sound keeps falling with distance — so moving an object out makes it sound farther, not just quieter. The reverb's 8 uncorrelated tails are spread over all speakers (LFE excluded, the OUTPUT MAP is followed), so the room surrounds the listener.</p>
   <p>SPACE tab, <strong>ROOM REVERB</strong>: ON / OFF, the reverb time (0.3 – 10 s; the room also gets bigger with it) and the amount (0 – 100 %). Press a value and drag up or down to change it. It works with every panning model. MASTER and MUTE apply to it, the speaker TEST silences it. Binaural mode has no room reverb yet — use a reverb on a Live return there.</p>
+  <p><strong>In the 3D view</strong> (VIEW tab, ROOM, speaker mode only): the room box is the room the reflections use (walls at ROOM m, floor 1.2 m below the ears). Each object draws its six reflections as ghost points behind the walls, with the bounce path object → wall → you; brighter = louder reflection (REFLECTIONS level, the track's ROOM send, its meter). While a track sends to the reverb, rings spread out from it and fade over the reverb time, and a blue haze fills the box with the summed tail. It is the renderer's maths driven by the track meters, not a measurement of the audio.</p>
   <h3>Panning model</h3>
   <figure class="ticks"><div class="t"></div><img src="media/ui-space.jpg?v=1111a" alt="Sidebar SPACE tab: 01 PANNING MODEL with VBAP DBAP AMBI WFS, 02 ROOM with ROOM REVERB, REFLECTIONS and SPEAKER DISTANCE" loading="lazy" width="478" height="389" style="max-width:478px"><figcaption>FIG. 6.1 — SPACE tab: panning model and room</figcaption></figure>
   <p>PANNING MODEL (SPACE tab) sets how the <strong>Spatial Renderer</strong> spreads each object over the speakers, and the 3D view lights the speakers with the same gains — what you see is what you hear. All models are normalised to the same energy, so switching does not jump in level.</p>
@@ -649,6 +650,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.11</td><td>v9.2: room in the 3D view — room box, reflection ghosts and paths, reverb rings and haze (VIEW → ROOM)</td></tr>
     <tr><td>2026.11.11</td><td>v9.1: UI — new SPACE tab (panning model, room), MASTER and MUTE under MONITOR, setup hints only when something is missing, editor 05 SOUND section</td></tr>
     <tr><td>2026.11.11</td><td>v9.0: near-field effect in binaural (closer than ~1 m: near ear louder and bassier, far ear quieter)</td></tr>
     <tr><td>2026.11.10</td><td>v8.9: Spread decorrelation — wide objects play uncorrelated all-passed copies on each speaker</td></tr>
@@ -877,7 +879,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>탭</th><th>항목</th></tr>
     <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers, 바로 아래 <strong>MASTER</strong> 볼륨과 <strong>MUTE</strong>(스피커 모드에서는 Spatial Renderer 레벨, MUTE는 전체를 끄고 슬라이더 값은 유지) · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록(Custom: EDIT TABLE) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong>와 선택 사항 METER · <strong>OUTPUT MAP</strong> 스피커마다 나갈 Live 출력 · <strong>TEST · &lt; · &gt; · AUTO</strong> · 상태 줄(뭔가 빠졌을 때만 셋업 안내) · <strong>03 OSC IN · SOURCE</strong> SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기), PORT · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
     <tr><td>SPACE</td><td>소리가 공간을 채우는 방식. <strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS, 직접 고르지 않으면 레이아웃을 따라감 · <strong>02 ROOM</strong> ROOM REVERB(켜기, 길이, 양), REFLECTIONS(켜기, 방 크기, 레벨), SPEAKER DISTANCE 미터(WFS면 + PRE-FILTER). 값은 위아래로 끌어서 바꾼다</td></tr>
-    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
+    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기), <strong>ROOM</strong>(룸 리버브와 반사음을 3D로 보기)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
@@ -976,6 +978,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>룸 리버브</h3>
   <p>스피커 모드. 거리감에 가장 강하게 작용하는 건 직접음 대비 방 울림의 양이다: 가까운 소리는 대부분 직접음, 먼 소리는 대부분 울림. Spatial Renderer에 공용 리버브가 하나 있고(8줄 피드백 딜레이 네트워크), 각 오브젝트는 Distance가 클수록 많이 보내며 직접음은 거리에 따라 계속 줄어든다 — 그래서 오브젝트를 멀리 보내면 작아지기만 하는 게 아니라 멀어진다. 리버브의 서로 다른 꼬리 8개가 모든 스피커로 퍼져서(LFE 제외, OUTPUT MAP을 따름) 방 울림이 청취자를 감싼다.</p>
   <p>SPACE 탭 <strong>ROOM REVERB</strong>: ON / OFF, 울림 길이(0.3 – 10초, 길수록 방도 커진다), 양(0 – 100 %). 값을 누른 채 위아래로 끌어서 바꾼다. 모든 패닝 방식에서 동작한다. MASTER와 MUTE가 적용되고, 스피커 TEST 중에는 꺼진다. 바이노럴 모드에는 아직 룸 리버브가 없다 — 그때는 Live 리턴 트랙에 리버브를 쓴다.</p>
+  <p><strong>3D 뷰에서</strong>(VIEW 탭 ROOM, 스피커 모드에서만): 상자는 반사음이 쓰는 방이다(벽 = ROOM m, 바닥은 귀 아래 1.2 m). 오브젝트마다 반사음 6개가 벽 너머의 흐린 점으로 보이고, 오브젝트 → 벽 → 청자로 튕기는 경로가 선으로 그려진다. 밝을수록 반사음이 크다(REFLECTIONS 레벨, 트랙 ROOM 센드, 트랙 레벨). 트랙이 리버브로 소리를 보내는 동안 그 자리에서 링이 퍼져 나가 리버브 시간에 맞춰 사라지고, 꼬리 전체만큼 상자 안에 푸른 안개가 찬다. 실제 오디오를 잰 값이 아니라 렌더러와 같은 계산을 트랙 레벨로 돌린 것이다.</p>
   <h3>패닝 모델</h3>
   <figure class="ticks"><div class="t"></div><img src="media/ui-space.jpg?v=1111a" alt="사이드바 SPACE 탭: 01 PANNING MODEL(VBAP DBAP AMBI WFS), 02 ROOM(ROOM REVERB, REFLECTIONS, SPEAKER DISTANCE)" loading="lazy" width="478" height="389" style="max-width:478px"><figcaption>FIG. 6.1 — SPACE 탭: 패닝 방식과 방</figcaption></figure>
   <p>PANNING MODEL(SPACE 탭)은 <strong>Spatial Renderer</strong>가 각 오브젝트를 스피커에 어떻게 나눌지 정하고, 3D 뷰의 스피커도 같은 게인으로 빛난다 — 보이는 것이 곧 들리는 것. 모든 방식은 같은 에너지로 맞춰져 있어서 바꿔도 음량이 튀지 않는다.</p>
@@ -1149,6 +1152,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.11</td><td>v9.2: 3D 뷰에 방 표시 — 방 상자, 반사음 유령 점과 경로, 리버브 링과 안개 (VIEW → ROOM)</td></tr>
     <tr><td>2026.11.11</td><td>v9.1: UI — 새 SPACE 탭(패닝 방식, 방), MONITOR 아래 MASTER와 MUTE, 셋업 안내는 빠진 게 있을 때만, 편집기 05 SOUND 섹션</td></tr>
     <tr><td>2026.11.11</td><td>v9.0: 바이노럴 근거리 효과 (약 1 m 안: 가까운 귀는 크고 저음이 많게, 먼 귀는 작게)</td></tr>
     <tr><td>2026.11.10</td><td>v8.9: Spread 탈상관 — 넓은 오브젝트는 스피커마다 서로 다른 올패스 복사본을 재생</td></tr>
