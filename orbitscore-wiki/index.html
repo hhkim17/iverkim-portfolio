@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v8.8 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v8.9 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -321,7 +321,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Rotate / Tilt</td><td>±180° / ±90°</td><td>Horizontal direction / up-down tilt of the line</td></tr>
     <tr><td>Rotate Mod / Tilt Mod</td><td>Fixed · Random · Spin · LFO</td><td>Moves the line's angle around the dial. <strong>Random</strong> wanders within ± Range, a new target Speed times a second · <strong>Spin</strong> turns continuously, Speed turns per second · <strong>LFO</strong> swings ± Range as a sine at Speed Hz (Tilt runs a quarter cycle behind Rotate, so both on LFO draw a cone)</td></tr>
     <tr><td>Mod Range / Mod Rate</td><td>0–180° / 0.01–2 Hz</td><td>Shared by Rotate Mod and Tilt Mod (RANGE and SPEED in the editor)</td></tr>
-    <tr><td>Spread</td><td>0–180°</td><td>Speaker mode: the renderer plays the object as a small cloud of directions this wide (centre + two rings), so it sounds wider than a point. VBAP, DBAP and AMBI; not WFS, not line objects</td></tr>
+    <tr><td>Spread</td><td>0–180°</td><td>Speaker mode: the renderer plays the object as a small cloud of directions this wide (centre + two rings), so it sounds wider than a point. Above about 10° part of it (up to 80 % at 120°) is <strong>decorrelated</strong>: each speaker gets a differently all-passed copy, so a wide source surrounds you instead of sounding like one phasey phantom. VBAP, DBAP and AMBI; not WFS, not line objects</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the room (room reverb + early reflections) this object gets; the room itself is shared. 0 % for dry sounds — bass, kick, already-reverbed samples, a voice meant to be "inside your head" (ROOM in the editor)</td></tr>
     <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay: the sound arrives later the farther the object is (Distance × SPEAKER DISTANCE ÷ speed of sound), and when the distance changes the delay glides, so an object rushing in or out bends in pitch like a passing car. Circling at a fixed distance gives no Doppler — that is physics. Leave it off for pitched material that must stay in tune. Both binaural and speaker mode</td></tr>
     <tr><td>Air</td><td>on / off</td><td>Air absorption: farther objects lose high end (a low-pass from 20 kHz at distance 0.5 down to about 4 kHz at distance 2). Both binaural and speaker mode</td></tr>
@@ -644,6 +644,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.10</td><td>v8.9: Spread decorrelation — wide objects play uncorrelated all-passed copies on each speaker</td></tr>
     <tr><td>2026.11.10</td><td>v8.8: Doppler / distance delay per object (Spatial Object, editor DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: Room Send per object (0–200 %, scales reverb and reflections), AIR in the editor</td></tr>
     <tr><td>2026.11.10</td><td>v8.6: early reflections — six first-order image sources per object, delayed and VBAP-panned; REFLECTIONS and SPEAKER DISTANCE on the LIVE tab; values change by dragging</td></tr>
@@ -824,7 +825,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Rotate / Tilt</td><td>±180° / ±90°</td><td>직선의 수평 방향 / 위아래 기울기</td></tr>
     <tr><td>Rotate Mod / Tilt Mod</td><td>Fixed · Random · Spin · LFO</td><td>다이얼 값을 중심으로 직선 각도를 움직인다. <strong>Random</strong> ± Range 안에서 떠돌며 초당 Speed번 새 목표를 잡는다 · <strong>Spin</strong> 계속 회전, 초당 Speed바퀴 · <strong>LFO</strong> ± Range를 Speed Hz 사인파로 왕복 (Tilt는 Rotate보다 1/4주기 늦어서 둘 다 LFO면 원뿔을 그린다)</td></tr>
     <tr><td>Mod Range / Mod Rate</td><td>0–180° / 0.01–2 Hz</td><td>Rotate Mod와 Tilt Mod가 함께 쓴다 (에디터의 RANGE, SPEED)</td></tr>
-    <tr><td>Spread</td><td>0–180°</td><td>스피커 모드: 렌더러가 오브젝트를 이 폭만큼 퍼진 방향 묶음(중심 + 고리 두 개)으로 재생해서 점보다 넓게 들린다. VBAP, DBAP, AMBI에서 동작, WFS와 직선 오브젝트는 제외</td></tr>
+    <tr><td>Spread</td><td>0–180°</td><td>스피커 모드: 렌더러가 오브젝트를 이 폭만큼 퍼진 방향 묶음(중심 + 고리 두 개)으로 재생해서 점보다 넓게 들린다. 10° 이상이면 일부(120°에서 최대 80 %)가 <strong>탈상관</strong>된다: 스피커마다 서로 다르게 올패스 처리된 복사본을 받아서, 넓은 소리가 위상이 엉킨 한 덩어리가 아니라 사방에서 감싸듯 들린다. VBAP, DBAP, AMBI에서 동작, WFS와 직선 오브젝트는 제외</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>이 오브젝트가 방(룸 리버브 + 초기 반사음)을 얼마나 받을지. 방 자체는 공용이다. 베이스·킥, 이미 리버브가 걸린 소스, "머릿속" 목소리처럼 건조해야 하는 소리는 0 % (에디터의 ROOM)</td></tr>
     <tr><td>Doppler</td><td>on / off (기본 off)</td><td>거리 지연: 오브젝트가 멀수록 소리가 늦게 도착하고(Distance × SPEAKER DISTANCE ÷ 음속), 거리가 바뀌면 그 지연이 미끄러지듯 바뀌어서, 빠르게 다가오거나 멀어지는 오브젝트는 지나가는 차처럼 음정이 휜다. 같은 거리로 원을 돌면 도플러는 없다 — 물리 그대로다. 음정이 정확해야 하는 소리는 끈다. 바이노럴과 스피커 모드 모두</td></tr>
     <tr><td>Air</td><td>on / off</td><td>공기 흡수: 멀리 있는 오브젝트일수록 고음이 줄어든다(거리 0.5에서 20 kHz, 거리 2에서 약 4 kHz까지 로우패스). 바이노럴과 스피커 모드 모두</td></tr>
@@ -1136,6 +1137,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.10</td><td>v8.9: Spread 탈상관 — 넓은 오브젝트는 스피커마다 서로 다른 올패스 복사본을 재생</td></tr>
     <tr><td>2026.11.10</td><td>v8.8: 오브젝트별 도플러 / 거리 지연 (Spatial Object, 에디터 DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: 오브젝트별 Room Send(0–200 %, 리버브와 반사음에 적용), 에디터에 AIR</td></tr>
     <tr><td>2026.11.10</td><td>v8.6: 초기 반사음 — 오브젝트마다 1차 이미지 소스 6개, 지연과 VBAP 패닝; LIVE 탭 REFLECTIONS · SPEAKER DISTANCE; 값은 드래그로</td></tr>
