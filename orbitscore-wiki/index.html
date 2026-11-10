@@ -250,21 +250,21 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>On the <span class="pill">LIVE</span> tab of the sidebar, check that PORT reads <code>9001</code>. Once the tracks appear in Live's order, you are connected.</li>
     <li>When you finish, <strong>save TouchDesigner with <kbd>Ctrl</kbd>+<kbd>S</kbd> and save the Live set as well</strong>. Paths and motion settings live in the Live set; the TouchDesigner save keeps the screen and theme settings.</li>
   </ol>
-  <h4>04 SPEAKER OUTPUTS</h4>
-  <p>LIVE tab → <strong>04 SPEAKER OUTPUTS</strong>. No audio device is chosen in TouchDesigner — the sound always comes from Live, and the device (JackRouter / BlackHole) is set in Live's preferences (<a href="#setup-live">01.1</a>, <a href="#setup-out">01.3</a>).</p>
+  <h4>Speaker outputs</h4>
+  <p>LIVE tab, right under <strong>02 SPEAKER LAYOUT</strong> (you press it after every layout change). No audio device is chosen in TouchDesigner — the sound always comes from Live, and the device (JackRouter / BlackHole) is set in Live's preferences (<a href="#setup-live">01.1</a>, <a href="#setup-out">01.3</a>).</p>
   <ul>
     <li><strong>SET UP OUTPUTS 1…n IN LIVE</strong> — the Spatial Renderer creates one audio track per speaker pair (<code>OUT 1/2</code>, <code>OUT 3/4</code> …), feeds each from its own output pair and routes it to the matching Live output; spare empty OUT tracks are removed. It takes a few seconds. Press it again after changing the layout. Each Spatial Object routes its own track into the renderer when the monitor is on SPEAKERS.</li>
     <li><strong>Status line</strong> — <span class="mono">✓ renderer → OUT tracks → Live outputs 1…8</span>, or missing OUT tracks / wrong routing / Live offering fewer outputs than the layout needs (enable them in Output Config). The same shows as ⚠ on the LOG tab.</li>
     <li><strong>METER</strong> — optional. It finds JackRouter / BlackHole by itself and shows one level per speaker. On Windows, also connect Live's outputs to TouchDesigner's inputs in the QjackCtl Graph. You can leave it off.</li>
   </ul>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110d" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER OUTPUTS with the SET UP button and METER, TRACKS, and the wiki link and copyright line at the bottom" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab: 04 SPEAKER OUTPUTS with SET UP OUTPUTS · METER, wiki link at the bottom</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110e" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER OUTPUTS with the SET UP button and METER, TRACKS, and the wiki link and copyright line at the bottom" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab: SET UP OUTPUTS · METER under the speaker layout, wiki link at the bottom</figcaption></figure>
   <div class="note"><b>NOTE</b>Live's Preferences → Audio (driver, device, sample rate, Output Config) cannot be changed through the Live API, so that part is set by hand once. The tracks and routing inside the set are handled by SET UP.</div>
   </section>
 
   <section id="setup-out" class="sub">
   <div class="cap">01.3 — BlackHole / JACK</div>
   <h3 class="subh">Multichannel output · BlackHole / JACK</h3>
-  <p>This is what the tool is for: Live renders every object onto the speaker layout (the Spatial Renderer device) and that multichannel feed has to reach the room — your interface's outputs — or another application that does the final playback. A virtual audio device is the bus for that. In TouchDesigner the <strong>04 SPEAKER OUTPUTS</strong> section sets up the output tracks in the Live set and can meter the feeds (<a href="#setup-td">01.2</a>).</p>
+  <p>This is what the tool is for: Live renders every object onto the speaker layout (the Spatial Renderer device) and that multichannel feed has to reach the room — your interface's outputs — or another application that does the final playback. A virtual audio device is the bus for that. In TouchDesigner the <strong>SET UP OUTPUTS</strong> button sets up the output tracks in the Live set and can meter the feeds (<a href="#setup-td">01.2</a>).</p>
   <h4>macOS — BlackHole</h4>
   <ol>
     <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16ch; 64ch for dome layouts).</li>
@@ -353,7 +353,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>The right-hand panel folds away with the <span class="pill">›</span> button on its edge. It has three tabs.</p>
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>04 SPEAKER OUTPUTS</strong> SET UP OUTPUTS 1…n IN LIVE (the renderer's OUT tracks for the layout), status line, optional METER. Problems go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
+    <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong> (under the layout: the renderer's OUT tracks), status line, optional METER. Problems go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
     <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
@@ -717,21 +717,21 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>사이드바 <span class="pill">LIVE</span> 탭에서 PORT가 <code>9001</code>인지 확인한다. 트랙이 Live 순서대로 목록에 뜨면 연결된 것.</li>
     <li>작업이 끝나면 <strong>TouchDesigner는 <kbd>Ctrl</kbd>+<kbd>S</kbd>, Live 세트도 따로 저장</strong>. 경로·움직임 설정은 Live 세트에, 화면·테마 설정은 TouchDesigner 쪽에 저장된다.</li>
   </ol>
-  <h4>04 SPEAKER OUTPUTS</h4>
-  <p>LIVE 탭 → <strong>04 SPEAKER OUTPUTS</strong>. TouchDesigner에서는 오디오 장치를 고르지 않는다 — 소리는 항상 Live가 내고, 장치(JackRouter / BlackHole)는 Live 환경설정에서 정한다(<a href="#ko-setup-live">01.1</a>, <a href="#ko-setup-out">01.3</a>).</p>
+  <h4>Speaker outputs</h4>
+  <p>LIVE 탭, <strong>02 SPEAKER LAYOUT</strong> 바로 아래(레이아웃을 바꿀 때마다 누르므로). TouchDesigner에서는 오디오 장치를 고르지 않는다 — 소리는 항상 Live가 내고, 장치(JackRouter / BlackHole)는 Live 환경설정에서 정한다(<a href="#ko-setup-live">01.1</a>, <a href="#ko-setup-out">01.3</a>).</p>
   <ul>
     <li><strong>SET UP OUTPUTS 1…n IN LIVE</strong> — Spatial Renderer가 스피커 두 개당 오디오 트랙 하나(<code>OUT 1/2</code>, <code>OUT 3/4</code> …)를 만들고, 자기 출력 쌍을 그 트랙에 넣어 해당 Live 출력으로 연결한다. 남는 빈 OUT 트랙은 지운다. 몇 초 걸린다. 레이아웃을 바꾼 뒤 다시 누른다. 모니터가 SPEAKERS일 때 각 Spatial Object는 자기 트랙을 렌더러로 연결한다.</li>
     <li><strong>상태 줄</strong> — <span class="mono">✓ renderer → OUT tracks → Live outputs 1…8</span>, 또는 OUT 트랙 없음 / 잘못된 연결 / Live가 내주는 출력 수가 모자람(Output Config에서 켠다). 같은 내용이 LOG 탭 ⚠에도 뜬다.</li>
     <li><strong>METER</strong> — 선택 사항. 켜면 JackRouter / BlackHole을 자동으로 찾아 스피커별 레벨을 보여준다. Windows에서는 QjackCtl Graph에서 Live 출력을 TouchDesigner 입력에도 연결해야 보인다. 끄고 써도 된다.</li>
   </ul>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110d" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER OUTPUTS의 SET UP 버튼과 METER, TRACKS, 맨 아래 위키 링크와 저작권 표시" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭: 04 SPEAKER OUTPUTS의 SET UP OUTPUTS · METER, 맨 아래 위키 링크</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1110e" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT, OSC IN, SPEAKER OUTPUTS의 SET UP 버튼과 METER, TRACKS, 맨 아래 위키 링크와 저작권 표시" loading="lazy" width="478" height="940" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭: 스피커 레이아웃 아래 SET UP OUTPUTS · METER, 맨 아래 위키 링크</figcaption></figure>
   <div class="note"><b>NOTE</b>Live의 환경설정 → Audio(드라이버, 장치, 샘플레이트, Output Config)는 Live API로 바꿀 수 없어서 처음 한 번은 손으로 설정한다. 세트 안의 트랙과 연결은 SET UP이 맡는다.</div>
   </section>
 
   <section id="ko-setup-out" class="sub">
   <div class="cap">01.3 — BlackHole / JACK</div>
   <h3 class="subh">다채널 출력 · BlackHole / JACK</h3>
-  <p>이 툴의 목적이 여기 있다. Live가 모든 오브젝트를 스피커 레이아웃으로 렌더링하면(Spatial Renderer 디바이스) 그 다채널 피드가 공간 — 인터페이스 출력 — 이나 최종 재생을 맡은 다른 앱에 닿아야 한다. 가상 오디오 장치가 그 버스다. TouchDesigner의 <strong>04 SPEAKER OUTPUTS</strong> 섹션이 Live 세트의 출력 트랙을 맞추고, 원하면 피드를 미터로 보여준다(<a href="#ko-setup-td">01.2</a>).</p>
+  <p>이 툴의 목적이 여기 있다. Live가 모든 오브젝트를 스피커 레이아웃으로 렌더링하면(Spatial Renderer 디바이스) 그 다채널 피드가 공간 — 인터페이스 출력 — 이나 최종 재생을 맡은 다른 앱에 닿아야 한다. 가상 오디오 장치가 그 버스다. TouchDesigner의 <strong>SET UP OUTPUTS</strong> 버튼이 Live 세트의 출력 트랙을 맞추고, 원하면 피드를 미터로 보여준다(<a href="#ko-setup-td">01.2</a>).</p>
   <h4>macOS — BlackHole</h4>
   <ol>
     <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> 설치 (16ch, 돔 레이아웃이면 64ch).</li>
@@ -818,7 +818,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>오른쪽 패널은 가장자리의 <span class="pill">›</span> 버튼으로 접고 펼 수 있다. 위쪽 탭은 세 개.</p>
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
-    <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>04 SPEAKER OUTPUTS</strong> SET UP OUTPUTS 1…n IN LIVE(레이아웃에 맞는 렌더러 OUT 트랙), 상태 줄, 선택 사항인 METER. 문제는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
+    <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>SET UP OUTPUTS 1…n IN LIVE</strong>(레이아웃 아래: 렌더러 OUT 트랙), 상태 줄, 선택 사항인 METER. 문제는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
     <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
