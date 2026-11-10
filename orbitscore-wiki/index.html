@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v8.9 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v9.0 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -459,6 +459,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>dome25</td><td>Dome 25 (12 / 8 / 4 / 1)</td></tr>
     <tr><td>wfs_line32 · wfs_rect64</td><td>WFS line 32 (front) · WFS rectangle 64</td></tr>
   </table></div>
+  <h3>Near field (binaural)</h3>
+  <p>Headphones. When an object comes within about 1 m of the head (Distance × SPEAKER DISTANCE), the ear facing it gets louder and fuller in the bass and the far ear quieter — more than the far-field HRTF alone gives — and the whole sound comes up by as much as 6 dB. At 20 cm on the left: left ear about +11 dB with up to +6 dB of low end, right ear about −3 dB. That is the "whispering in your ear" cue. It needs no setting: it works on every object in binaural mode as soon as it gets close, and has no effect in speaker mode.</p>
   <h3>Early reflections</h3>
   <p>Speaker mode. The first echoes off the walls, floor and ceiling tell the ear what kind of room it is in and where the source sits in it. For every object the Spatial Renderer mirrors its position in the six surfaces of a box room (first-order image sources), delays each mirror image by its extra path, lowers it by the extra distance and the surface's absorption, and pans it to its own direction with VBAP. Move an object towards a wall and its reflection off that wall gets earlier and louder.</p>
   <p>LIVE tab, <strong>REFLECTIONS</strong>: ON / OFF, <strong>ROOM</strong> (listener to the walls, 1.5 – 40 m; floor 1.2 m below the ears, ceiling at least 2.8 m) and the level. <strong>SPEAKER DISTANCE</strong> (listener to the speakers in metres) sets the scale between the layout and the room — measure it in the real space. Press a value and drag up or down. The reflections come before the room reverb's tail, so the two work together: ROOM for the shape, ROOM REVERB for the length.</p>
@@ -644,6 +646,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.11</td><td>v9.0: near-field effect in binaural (closer than ~1 m: near ear louder and bassier, far ear quieter)</td></tr>
     <tr><td>2026.11.10</td><td>v8.9: Spread decorrelation — wide objects play uncorrelated all-passed copies on each speaker</td></tr>
     <tr><td>2026.11.10</td><td>v8.8: Doppler / distance delay per object (Spatial Object, editor DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: Room Send per object (0–200 %, scales reverb and reflections), AIR in the editor</td></tr>
@@ -959,6 +962,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>dome25</td><td>Dome 25 (12 / 8 / 4 / 1)</td></tr>
     <tr><td>wfs_line32 · wfs_rect64</td><td>WFS line 32 (front) · WFS rectangle 64</td></tr>
   </table></div>
+  <h3>근거리 효과 (바이노럴)</h3>
+  <p>헤드폰. 오브젝트가 머리에서 약 1 m 안으로 들어오면(Distance × SPEAKER DISTANCE), 그쪽 귀는 더 크고 저음이 풍부해지고 반대쪽 귀는 작아진다 — 원거리 HRTF만으로 생기는 차이보다 크게 — 그리고 전체 음량이 최대 6 dB 올라간다. 왼쪽 20 cm에서는 왼쪽 귀가 약 +11 dB(저음은 최대 +6 dB 더), 오른쪽 귀는 약 −3 dB. "귓가에서 속삭이는" 느낌의 단서다. 설정할 것은 없다: 바이노럴 모드에서 모든 오브젝트가 가까워지면 저절로 적용되고, 스피커 모드에는 영향이 없다.</p>
   <h3>초기 반사음</h3>
   <p>스피커 모드. 벽·바닥·천장에서 처음 튕겨 오는 소리는 귀에 방이 어떤 곳이고 음원이 그 안 어디에 있는지 알려준다. Spatial Renderer는 오브젝트마다 그 위치를 상자 모양 방의 여섯 면에 비춘 거울 음원(1차 이미지 소스)을 만들고, 각각 늘어난 경로만큼 늦추고, 늘어난 거리와 면의 흡음만큼 줄이고, VBAP로 그 방향에 패닝한다. 오브젝트를 벽 쪽으로 옮기면 그 벽의 반사음이 더 빨라지고 커진다.</p>
   <p>LIVE 탭 <strong>REFLECTIONS</strong>: ON / OFF, <strong>ROOM</strong>(청취자에서 벽까지, 1.5 – 40 m; 바닥은 귀 높이보다 1.2 m 아래, 천장은 최소 2.8 m), 레벨. <strong>SPEAKER DISTANCE</strong>(청취자에서 스피커까지, 미터)가 레이아웃과 방 사이의 축척을 정한다 — 실제 공간에서 잰다. 값을 누른 채 위아래로 끌어서 바꾼다. 반사음은 룸 리버브의 꼬리보다 먼저 와서 둘이 함께 동작한다: ROOM은 방의 모양, ROOM REVERB는 울림의 길이.</p>
@@ -1137,6 +1142,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.11</td><td>v9.0: 바이노럴 근거리 효과 (약 1 m 안: 가까운 귀는 크고 저음이 많게, 먼 귀는 작게)</td></tr>
     <tr><td>2026.11.10</td><td>v8.9: Spread 탈상관 — 넓은 오브젝트는 스피커마다 서로 다른 올패스 복사본을 재생</td></tr>
     <tr><td>2026.11.10</td><td>v8.8: 오브젝트별 도플러 / 거리 지연 (Spatial Object, 에디터 DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: 오브젝트별 Room Send(0–200 %, 리버브와 반사음에 적용), 에디터에 AIR</td></tr>
