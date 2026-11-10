@@ -331,7 +331,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Drawing a path</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
-    <tr><td>Click on empty space</td><td>Add a point (the object switches to PATH motion)</td></tr>
+    <tr><td>EDIT PATH (above the canvas)</td><td>Unlocks the points. While it is OFF, clicks on the canvas never add, move or delete points — only the gizmo and the view buttons respond</td></tr>
+    <tr><td>Click on empty space</td><td>Add a point, with EDIT PATH on (the object switches to PATH motion)</td></tr>
     <tr><td>Drag a point</td><td>Move it; its depth along the viewing direction is kept</td></tr>
     <tr><td>Right-click</td><td>Delete a point</td></tr>
     <tr><td>CURVE / CORNER</td><td>Toggle the selected point between curve (●) and corner (■)</td></tr>
@@ -563,7 +564,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
-    <tr><td>2026.11.10</td><td>v7.4: Orbit Link split into Orbit Link In (receive) and Orbit Link Out (send, Objects filter, scene list from an Orbit In) · out1 is position only by default, Out: toggles for az/el/dist, level, colour, shape · <code>nan</code> fix in Smooth · test Audiovisual takes the values through an inlet · Windows JACK set-up written out (JackRouter channel count, ASIO entry, Playback Only, reading the graph)</td></tr>
+    <tr><td>2026.11.10</td><td>v7.4: Orbit Link split into Orbit Link In (receive) and Orbit Link Out (send, Objects filter, scene list from an Orbit In) · out1 is position only by default, Out: toggles for az/el/dist, level, colour, shape · <code>nan</code> fix in Smooth · test Audiovisual takes the values through an inlet · Windows JACK set-up written out (JackRouter channel count, ASIO entry, Playback Only, reading the graph) · editor: EDIT PATH lock for points, canvas re-centres when the settings panel is closed</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: per-scene object selection (● / ○ chips, objects not in a scene are left alone) · scene crossfade (default FADE + per-scene fade, beats at the current tempo, eased glide of the centre in the device) · Orbit Link: Select Object mode, Active Scene + scenes_out, Recall Scene from the other project (/orbit/set/scene), /orbit/scene + /orbit/scenes in the stream · output checks on the LOG tab</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: OSC broadcast of every object (/orbit/…), OSC set-in (/orbit/set/…), Orbit Link tox (receive + send) with the test Audiovisual example · SPEAKER OUT section (BlackHole / JACK multichannel output, OS-aware, device list, per-speaker meters, output checks on the LOG tab with a ⚠ badge) · LIVE / VIEW tabs reorganised · single PATH: OPEN / CLOSED LOOP toggle · leader lines, far path points and loop recall fixed · editor fits above the timeline bar · RESET VIEW restarts auto orbit</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: scenes stored in the Live set, timeline bar linked both ways with Live locators, audio status, haze for line objects, callouts avoid each other, collapsible editor settings</td></tr>
@@ -752,7 +753,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>경로 그리기</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
-    <tr><td>빈 곳 클릭</td><td>점 추가 (오브젝트가 PATH 모션으로 바뀐다)</td></tr>
+    <tr><td>EDIT PATH (캔버스 위)</td><td>점 잠금 해제. OFF일 때는 캔버스를 클릭해도 점이 추가·이동·삭제되지 않는다 — 기즈모와 뷰 버튼만 반응</td></tr>
+    <tr><td>빈 곳 클릭</td><td>EDIT PATH가 켜져 있을 때 점 추가 (오브젝트가 PATH 모션으로 바뀐다)</td></tr>
     <tr><td>점 드래그</td><td>이동. 보는 방향의 깊이는 유지된다</td></tr>
     <tr><td>오른쪽 클릭</td><td>점 삭제</td></tr>
     <tr><td>CURVE / CORNER</td><td>선택한 점을 곡선(●) ↔ 모서리(■)로</td></tr>
@@ -975,7 +977,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
-    <tr><td>2026.11.10</td><td>v7.4: Orbit Link를 Orbit Link In(받기)과 Orbit Link Out(보내기, Objects 필터, Orbit In에서 씬 목록)으로 분리 · out1 기본은 위치만, Out: 토글로 az/el/dist·레벨·색·모양 추가 · Smooth의 <code>nan</code> 수정 · test Audiovisual이 입구로 값을 받음 · Windows JACK 셋업 상세(JackRouter 채널 수, ASIO 항목, Playback Only, 그래프 읽기)</td></tr>
+    <tr><td>2026.11.10</td><td>v7.4: Orbit Link를 Orbit Link In(받기)과 Orbit Link Out(보내기, Objects 필터, Orbit In에서 씬 목록)으로 분리 · out1 기본은 위치만, Out: 토글로 az/el/dist·레벨·색·모양 추가 · Smooth의 <code>nan</code> 수정 · test Audiovisual이 입구로 값을 받음 · Windows JACK 셋업 상세(JackRouter 채널 수, ASIO 항목, Playback Only, 그래프 읽기) · 에디터: 점 편집 잠금 EDIT PATH, 설정 패널을 닫으면 캔버스가 가운데로</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: 씬별 오브젝트 선택(● / ○ 칩, 씬에 없는 오브젝트는 건드리지 않음) · 씬 크로스페이드(기본 FADE + 씬별 페이드, 현재 템포 기준 박, 디바이스 안에서 중심이 이징으로 이동) · Orbit Link: Select Object 모드, Active Scene + scenes_out, 상대 프로젝트에서 Recall Scene(/orbit/set/scene), 스트림에 /orbit/scene · /orbit/scenes · 출력 검사를 LOG 탭으로</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: 모든 오브젝트 OSC 송출(/orbit/…), 설정 수신(/orbit/set/…), 받기+보내기 Orbit Link tox와 test Audiovisual 예제 · SPEAKER OUT 섹션(BlackHole / JACK 다채널 출력, OS 자동 감지, 장치 목록, 스피커별 미터, LOG 탭 ⚠ 출력 검사) · LIVE / VIEW 탭 재정리 · PATH: OPEN / CLOSED LOOP 단일 토글 · 이름표 선, 먼 경로 점, 루프 리콜 수정 · 타임라인 바 위로 줄어드는 에디터 · RESET VIEW가 자동 회전도 재시작</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: Live 세트에 저장되는 씬, Live 로케이터와 양방향 연동되는 타임라인 바, 오디오 상태 표시, 직선 오브젝트 haze, 이름표 겹침 방지, 에디터 설정 칸 접기</td></tr>
