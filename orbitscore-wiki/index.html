@@ -144,7 +144,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v8.7 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v8.8 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -323,6 +323,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Mod Range / Mod Rate</td><td>0–180° / 0.01–2 Hz</td><td>Shared by Rotate Mod and Tilt Mod (RANGE and SPEED in the editor)</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>Speaker mode: the renderer plays the object as a small cloud of directions this wide (centre + two rings), so it sounds wider than a point. VBAP, DBAP and AMBI; not WFS, not line objects</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the room (room reverb + early reflections) this object gets; the room itself is shared. 0 % for dry sounds — bass, kick, already-reverbed samples, a voice meant to be "inside your head" (ROOM in the editor)</td></tr>
+    <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay: the sound arrives later the farther the object is (Distance × SPEAKER DISTANCE ÷ speed of sound), and when the distance changes the delay glides, so an object rushing in or out bends in pitch like a passing car. Circling at a fixed distance gives no Doppler — that is physics. Leave it off for pitched material that must stay in tune. Both binaural and speaker mode</td></tr>
     <tr><td>Air</td><td>on / off</td><td>Air absorption: farther objects lose high end (a low-pass from 20 kHz at distance 0.5 down to about 4 kHz at distance 2). Both binaural and speaker mode</td></tr>
     <tr><td>Facing</td><td>Centre · Fixed</td><td>Centre = turns with the object so it always faces the listener; Fixed = fixed in the room</td></tr>
     <tr><td>Object (UID)</td><td>automatic</td><td>The object's unique number, saved with the set. Hidden parameter</td></tr>
@@ -400,7 +401,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>Curves are Catmull-Rom (Hermite) splines, and playback moves at constant speed along the arc length. Position = Live song position ÷ (Path Length × 4 beats).</p>
   <h3>Sliders</h3>
-  <p>Click or drag a slider (RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED) to set it; AIR ON / OFF sits next to ROOM. Under TILT, <strong>ROT · FIXED ▼</strong> and <strong>TILT · FIXED ▼</strong> are dropdowns: pick FIXED, RANDOM, SPIN or LFO for that angle, and RANGE / SPEED set how far and how fast. While an angle is modulated its slider follows the moving value, its label shows the mode, and it cannot be dragged — the dial value in Live stays the centre the movement runs around. <strong>Double-click</strong> it to type a number instead: <kbd>Enter</kbd> or clicking elsewhere applies, <kbd>Esc</kbd> cancels. Units can be left off; the value is clamped to the slider's range.</p>
+  <p>Click or drag a slider (RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED) to set it; AIR and DOPPLER (on / off) sit next to ROOM. Under TILT, <strong>ROT · FIXED ▼</strong> and <strong>TILT · FIXED ▼</strong> are dropdowns: pick FIXED, RANDOM, SPIN or LFO for that angle, and RANGE / SPEED set how far and how fast. While an angle is modulated its slider follows the moving value, its label shows the mode, and it cannot be dragged — the dial value in Live stays the centre the movement runs around. <strong>Double-click</strong> it to type a number instead: <kbd>Enter</kbd> or clicking elsewhere applies, <kbd>Esc</kbd> cancels. Units can be left off; the value is clamped to the slider's range.</p>
   <h3>Saving</h3>
   <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/&lt;time&gt;.json</code> and <code>latest.json</code>, and saves the TouchDesigner project. <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
 </section>
@@ -643,6 +644,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
+    <tr><td>2026.11.10</td><td>v8.8: Doppler / distance delay per object (Spatial Object, editor DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: Room Send per object (0–200 %, scales reverb and reflections), AIR in the editor</td></tr>
     <tr><td>2026.11.10</td><td>v8.6: early reflections — six first-order image sources per object, delayed and VBAP-panned; REFLECTIONS and SPEAKER DISTANCE on the LIVE tab; values change by dragging</td></tr>
     <tr><td>2026.11.10</td><td>v8.5: room reverb in the Spatial Renderer — distance-dependent sends into an 8-line FDN spread over all speakers; ROOM REVERB on the LIVE tab</td></tr>
@@ -824,6 +826,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Mod Range / Mod Rate</td><td>0–180° / 0.01–2 Hz</td><td>Rotate Mod와 Tilt Mod가 함께 쓴다 (에디터의 RANGE, SPEED)</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>스피커 모드: 렌더러가 오브젝트를 이 폭만큼 퍼진 방향 묶음(중심 + 고리 두 개)으로 재생해서 점보다 넓게 들린다. VBAP, DBAP, AMBI에서 동작, WFS와 직선 오브젝트는 제외</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>이 오브젝트가 방(룸 리버브 + 초기 반사음)을 얼마나 받을지. 방 자체는 공용이다. 베이스·킥, 이미 리버브가 걸린 소스, "머릿속" 목소리처럼 건조해야 하는 소리는 0 % (에디터의 ROOM)</td></tr>
+    <tr><td>Doppler</td><td>on / off (기본 off)</td><td>거리 지연: 오브젝트가 멀수록 소리가 늦게 도착하고(Distance × SPEAKER DISTANCE ÷ 음속), 거리가 바뀌면 그 지연이 미끄러지듯 바뀌어서, 빠르게 다가오거나 멀어지는 오브젝트는 지나가는 차처럼 음정이 휜다. 같은 거리로 원을 돌면 도플러는 없다 — 물리 그대로다. 음정이 정확해야 하는 소리는 끈다. 바이노럴과 스피커 모드 모두</td></tr>
     <tr><td>Air</td><td>on / off</td><td>공기 흡수: 멀리 있는 오브젝트일수록 고음이 줄어든다(거리 0.5에서 20 kHz, 거리 2에서 약 4 kHz까지 로우패스). 바이노럴과 스피커 모드 모두</td></tr>
     <tr><td>Facing</td><td>Centre · Fixed</td><td>Centre = 오브젝트와 함께 돌아 늘 청취자를 향함, Fixed = 방에 고정</td></tr>
     <tr><td>Object (UID)</td><td>자동</td><td>오브젝트 고유 번호. 세트와 함께 저장. 숨김 파라미터</td></tr>
@@ -899,7 +902,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>곡선은 Catmull-Rom(Hermite) 스플라인이고, 재생은 길이를 따라 등속으로 진행한다. 위치 = Live 송 포지션 ÷ (Path Length × 4박).</p>
   <h3>슬라이더</h3>
-  <p>슬라이더(RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED, ROOM 옆에는 AIR ON / OFF)는 클릭하거나 드래그해서 값을 정한다. TILT 아래 <strong>ROT · FIXED ▼</strong>, <strong>TILT · FIXED ▼</strong>는 드롭다운이다 — 그 각도에 FIXED, RANDOM, SPIN, LFO 중 하나를 고르고, RANGE / SPEED로 폭과 빠르기를 정한다. 모듈레이션 중인 각도의 슬라이더는 움직이는 값을 따라 움직이고, 이름 옆에 모드가 표시되며, 손으로는 바꿀 수 없다 — Live의 다이얼 값은 움직임의 중심으로 남는다. <strong>더블클릭</strong>하면 숫자를 직접 입력할 수 있다 — <kbd>Enter</kbd>나 다른 곳 클릭으로 적용, <kbd>Esc</kbd>로 취소. 단위는 빼도 되고, 값은 슬라이더 범위 안으로 맞춰진다.</p>
+  <p>슬라이더(RATE, SIZE, PATH LENGTH, POINT HEIGHT, LENGTH, SPREAD, ROOM, ROTATE, TILT, RANGE, SPEED, ROOM 옆에는 AIR와 DOPPLER 켜기/끄기)는 클릭하거나 드래그해서 값을 정한다. TILT 아래 <strong>ROT · FIXED ▼</strong>, <strong>TILT · FIXED ▼</strong>는 드롭다운이다 — 그 각도에 FIXED, RANDOM, SPIN, LFO 중 하나를 고르고, RANGE / SPEED로 폭과 빠르기를 정한다. 모듈레이션 중인 각도의 슬라이더는 움직이는 값을 따라 움직이고, 이름 옆에 모드가 표시되며, 손으로는 바꿀 수 없다 — Live의 다이얼 값은 움직임의 중심으로 남는다. <strong>더블클릭</strong>하면 숫자를 직접 입력할 수 있다 — <kbd>Enter</kbd>나 다른 곳 클릭으로 적용, <kbd>Esc</kbd>로 취소. 단위는 빼도 되고, 값은 슬라이더 범위 안으로 맞춰진다.</p>
   <h3>저장</h3>
   <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/&lt;시간&gt;.json</code>과 <code>latest.json</code>으로 남기고 TouchDesigner 프로젝트도 저장한다. <span class="pill">LOAD LAST</span>로 마지막 스냅샷을 되돌린다. Live 세트는 따로 저장해야 한다.</p>
 </section>
@@ -1133,6 +1136,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
+    <tr><td>2026.11.10</td><td>v8.8: 오브젝트별 도플러 / 거리 지연 (Spatial Object, 에디터 DOPPLER)</td></tr>
     <tr><td>2026.11.10</td><td>v8.7: 오브젝트별 Room Send(0–200 %, 리버브와 반사음에 적용), 에디터에 AIR</td></tr>
     <tr><td>2026.11.10</td><td>v8.6: 초기 반사음 — 오브젝트마다 1차 이미지 소스 6개, 지연과 VBAP 패닝; LIVE 탭 REFLECTIONS · SPEAKER DISTANCE; 값은 드래그로</td></tr>
     <tr><td>2026.11.10</td><td>v8.5: Spatial Renderer에 룸 리버브 — 거리에 따른 센드, 8줄 FDN이 모든 스피커로 퍼짐; LIVE 탭 ROOM REVERB</td></tr>
