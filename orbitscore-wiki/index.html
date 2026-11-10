@@ -309,7 +309,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td>Everything that talks to Live. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> click to open the list · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> port (editable), MASTER volume slider, SOURCE: LIVE / DEMO, and Live's audio state (DSP, sample rate, vector size; warns if not 48 kHz) · <strong>04 SPEAKER OUT</strong> Live's multichannel feed through BlackHole / JACK: METER on/off, device list, driver (Windows), channels and sample rate, one meter glyph per speaker, virtual-device badge. Checks (channel count against the layout, sample rate against Live) go to the LOG tab, which shows a small ⚠ · <strong>TRACKS</strong> per track: show (eye), name label (Aa), mute (M), colour, level meter</td></tr>
-    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names</td></tr>
+    <tr><td>VIEW</td><td>Only what changes the picture. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> dome guide, auto orbit, reset view, ears, theme, names, head (hides the listener model, ears and face)</td></tr>
     <tr><td>SCENES</td><td>Scene list (see <a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>WARNINGS (output checks; a ⚠ on the tab while one is active), OSC and device messages. Drag to select and copy. COPY / CLEAR / RESEND (ask Live to send its whole state again)</td></tr>
   </table></div>
@@ -329,7 +329,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>The <span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> buttons, or the T / F / S dots at the top right of the canvas.</li>
     <li>Drag with the left button inside the round area at the top right (<span class="mono">DRAG TO ORBIT</span>) to turn the view to any angle. The F (front), L (left) and U (up) axes inside it turn too, and the caption reads <span class="mono">FREE VIEW · YAW / PITCH</span>.</li>
   </ul>
-  <p>The <span class="pill">›</span> button between the canvas and the settings folds the settings column away; the canvas grows. When the timeline bar is open the editor shrinks to sit above it, so SAVE / LOAD LAST stay visible.</p>
+  <p>The thin <span class="pill">›</span> strip between the canvas and the settings folds the settings column away and the canvas re-centres; the strip right next to it folds the sidebar. When the timeline bar is open the editor shrinks to sit above it, so SAVE / LOAD LAST stay visible.</p>
   <h3>Drawing a path</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
@@ -566,7 +566,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Date</th><th>Changes</th></tr>
-    <tr><td>2026.11.10</td><td>v7.4: Orbit Link split into Orbit Link In (receive) and Orbit Link Out (send, Objects filter, scene list from an Orbit In) · out1 is position only by default, Out: toggles for az/el/dist, level, colour, shape · <code>nan</code> fix in Smooth · test Audiovisual takes the values through an inlet · Windows JACK set-up written out (JackRouter channel count, ASIO entry, Playback Only, reading the graph) · editor: EDIT PATH lock for points, canvas re-centres when the settings panel is closed</td></tr>
+    <tr><td>2026.11.10</td><td>v7.4: Orbit Link split into Orbit Link In (receive) and Orbit Link Out (send, Objects filter, scene list from an Orbit In) · out1 is position only by default, Out: toggles for az/el/dist, level, colour, shape · <code>nan</code> fix in Smooth · test Audiovisual takes the values through an inlet · Windows JACK set-up written out (JackRouter channel count, ASIO entry, Playback Only, reading the graph) · editor: EDIT PATH lock for points, canvas re-centres when the settings panel is closed, panel toggles are two thin side-by-side strips · VIEW → HEAD hides the listener model</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: per-scene object selection (● / ○ chips, objects not in a scene are left alone) · scene crossfade (default FADE + per-scene fade, beats at the current tempo, eased glide of the centre in the device) · Orbit Link: Select Object mode, Active Scene + scenes_out, Recall Scene from the other project (/orbit/set/scene), /orbit/scene + /orbit/scenes in the stream · output checks on the LOG tab</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: OSC broadcast of every object (/orbit/…), OSC set-in (/orbit/set/…), Orbit Link tox (receive + send) with the test Audiovisual example · SPEAKER OUT section (BlackHole / JACK multichannel output, OS-aware, device list, per-speaker meters, output checks on the LOG tab with a ⚠ badge) · LIVE / VIEW tabs reorganised · single PATH: OPEN / CLOSED LOOP toggle · leader lines, far path points and loop recall fixed · editor fits above the timeline bar · RESET VIEW restarts auto orbit</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: scenes stored in the Live set, timeline bar linked both ways with Live locators, audio status, haze for line objects, callouts avoid each other, collapsible editor settings</td></tr>
@@ -734,7 +734,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>탭</th><th>항목</th></tr>
     <tr><td>LIVE</td><td>Live와 주고받는 것 전부. <strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · <strong>02 SPEAKER LAYOUT</strong> 클릭하면 목록 · <strong>03 OSC IN · LIVE MASTER · SOURCE</strong> 포트(편집 가능), MASTER 볼륨 슬라이더, SOURCE: LIVE / DEMO, Live 오디오 상태(DSP, 샘플레이트, 벡터 크기 — 48 kHz가 아니면 경고) · <strong>04 SPEAKER OUT</strong> BlackHole / JACK으로 나가는 Live의 다채널 피드: METER 켜고 끄기, 장치 목록, 드라이버(Windows), 채널 수와 샘플레이트, 스피커별 미터 글리프, 가상 장치 배지. 검사(레이아웃 대비 채널 수, Live 대비 샘플레이트)는 LOG 탭으로 가고 탭에 작은 ⚠가 붙는다 · <strong>TRACKS</strong> 트랙별 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨 미터</td></tr>
-    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names</td></tr>
+    <tr><td>VIEW</td><td>화면에 관한 것만. <strong>01 PANNING MODEL · speaker glow</strong> VBAP / DBAP / AMBI / WFS · <strong>02 VIEW</strong> Dome guide, Auto orbit, Reset view, Ears, Theme, Names, Head(청자 머리·귀·표정 숨기기)</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a> 참고)</td></tr>
     <tr><td>LOG</td><td>WARNINGS(출력 검사 — 걸려 있는 동안 탭에 ⚠), OSC·디바이스 로그. 드래그해서 선택·복사할 수 있다. COPY / CLEAR / RESEND(Live에 전체 상태를 다시 요청)</td></tr>
   </table></div>
@@ -753,7 +753,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><span class="pill">TOP</span> <span class="pill">FRONT</span> <span class="pill">SIDE</span> 버튼, 또는 캔버스 오른쪽 위의 T / F / S 점.</li>
     <li>오른쪽 위 둥근 영역(<span class="mono">DRAG TO ORBIT</span>)을 왼쪽 버튼으로 드래그하면 자유 각도로 돌아간다. 안의 F(정면)·L(왼쪽)·U(위) 축이 같이 돌고, 캡션은 <span class="mono">FREE VIEW · YAW / PITCH</span>가 된다.</li>
   </ul>
-  <p>캔버스와 설정 사이의 <span class="pill">›</span> 버튼으로 오른쪽 설정 칸을 접을 수 있다. 접으면 캔버스가 커진다. 타임라인 바를 열면 에디터가 그 위로 줄어들어 SAVE / LOAD LAST가 가려지지 않는다.</p>
+  <p>캔버스와 설정 사이의 얇은 <span class="pill">›</span> 띠로 오른쪽 설정 칸을 접는다. 접으면 캔버스가 가운데로 온다. 바로 옆의 띠는 사이드바를 접는다. 타임라인 바를 열면 에디터가 그 위로 줄어들어 SAVE / LOAD LAST가 가려지지 않는다.</p>
   <h3>경로 그리기</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
@@ -981,7 +981,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 이력</h2>
   <div class="tw"><table>
     <tr><th>날짜</th><th>내용</th></tr>
-    <tr><td>2026.11.10</td><td>v7.4: Orbit Link를 Orbit Link In(받기)과 Orbit Link Out(보내기, Objects 필터, Orbit In에서 씬 목록)으로 분리 · out1 기본은 위치만, Out: 토글로 az/el/dist·레벨·색·모양 추가 · Smooth의 <code>nan</code> 수정 · test Audiovisual이 입구로 값을 받음 · Windows JACK 셋업 상세(JackRouter 채널 수, ASIO 항목, Playback Only, 그래프 읽기) · 에디터: 점 편집 잠금 EDIT PATH, 설정 패널을 닫으면 캔버스가 가운데로</td></tr>
+    <tr><td>2026.11.10</td><td>v7.4: Orbit Link를 Orbit Link In(받기)과 Orbit Link Out(보내기, Objects 필터, Orbit In에서 씬 목록)으로 분리 · out1 기본은 위치만, Out: 토글로 az/el/dist·레벨·색·모양 추가 · Smooth의 <code>nan</code> 수정 · test Audiovisual이 입구로 값을 받음 · Windows JACK 셋업 상세(JackRouter 채널 수, ASIO 항목, Playback Only, 그래프 읽기) · 에디터: 점 편집 잠금 EDIT PATH, 설정 패널을 닫으면 캔버스가 가운데로, 패널 접기 버튼을 얇은 세로 띠 두 개로 나란히 · VIEW → HEAD로 청자 모형 숨기기</td></tr>
     <tr><td>2026.11.10</td><td>v7.3: 씬별 오브젝트 선택(● / ○ 칩, 씬에 없는 오브젝트는 건드리지 않음) · 씬 크로스페이드(기본 FADE + 씬별 페이드, 현재 템포 기준 박, 디바이스 안에서 중심이 이징으로 이동) · Orbit Link: Select Object 모드, Active Scene + scenes_out, 상대 프로젝트에서 Recall Scene(/orbit/set/scene), 스트림에 /orbit/scene · /orbit/scenes · 출력 검사를 LOG 탭으로</td></tr>
     <tr><td>2026.11.10</td><td>v7.2: 모든 오브젝트 OSC 송출(/orbit/…), 설정 수신(/orbit/set/…), 받기+보내기 Orbit Link tox와 test Audiovisual 예제 · SPEAKER OUT 섹션(BlackHole / JACK 다채널 출력, OS 자동 감지, 장치 목록, 스피커별 미터, LOG 탭 ⚠ 출력 검사) · LIVE / VIEW 탭 재정리 · PATH: OPEN / CLOSED LOOP 단일 토글 · 이름표 선, 먼 경로 점, 루프 리콜 수정 · 타임라인 바 위로 줄어드는 에디터 · RESET VIEW가 자동 회전도 재시작</td></tr>
     <tr><td>2026.11.09</td><td>v7.1: Live 세트에 저장되는 씬, Live 로케이터와 양방향 연동되는 타임라인 바, 오디오 상태 표시, 직선 오브젝트 haze, 이름표 겹침 방지, 에디터 설정 칸 접기</td></tr>
