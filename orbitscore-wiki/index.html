@@ -252,7 +252,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <h4>04 SPEAKER OUT</h4>
   <p>LIVE tab → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: driver <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, and in QjackCtl connect Live's outputs to TouchDesigner's inputs as well. Then METER: ON — or press the <span class="mono">found … · USE →</span> badge. One glyph per speaker shows each feed; channel-count and sample-rate problems go to the LOG tab. Same sample rate everywhere (48 kHz recommended).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT 5.1.4, OSC IN and SPEAKER OUT with METER, DEVICE and driver buttons and a found-device badge" loading="lazy" width="478" height="500" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab, 04 SPEAKER OUT: METER, DEVICE, driver (Windows) and the found-device badge</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="Sidebar LIVE tab: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN and SPEAKER OUT with METER, DEVICE and driver buttons and a found-device badge" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE tab, 04 SPEAKER OUT: METER, DEVICE, driver (Windows) and the found-device badge</figcaption></figure>
   <div class="note"><b>NOTE</b>04 SPEAKER OUT is in place but the routing work is not finished: today it shows the device list, per-speaker meters, and logs channel-count and sample-rate problems on the LOG tab. The speaker → channel map in the LAYOUT list and an automatic <code>SPK</code> return set-up come next (see <a href="#roadmap">12</a>).</div>
   </section>
 
@@ -354,7 +354,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="editor">
   <div class="cap">04 — Object editor</div>
   <h2>Object editor</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, MOTION / PATH / SHAPE settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Left: objects · centre: path canvas · right: position read-out, MOTION, PATH, SHAPE</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, MOTION / PATH / SHAPE settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Left: objects · centre: path canvas · right: position read-out, MOTION, PATH, SHAPE · EDIT PATH above the canvas</figcaption></figure>
   <p>Open it from <span class="pill">OBJECT EDITOR</span> in the top bar. Anything you change here goes straight to the Live device's parameters, and the screen shows what the device sends back, so editing in either place gives the same result.</p>
   <h3>Viewpoint</h3>
   <ul>
@@ -702,7 +702,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <h4>04 SPEAKER OUT</h4>
   <p>LIVE 탭 → <strong>04 SPEAKER OUT</strong>. macOS: <strong>DEVICE: BlackHole 16ch</strong>. Windows: 드라이버 <strong>ASIO</strong>, <strong>DEVICE: JackRouter</strong>, 그리고 QjackCtl에서 Live 출력을 TouchDesigner 입력에도 연결한다. 그다음 METER: ON — 또는 <span class="mono">found … · USE →</span> 배지. 스피커마다 글리프 하나로 피드를 보여주고, 채널 수·샘플레이트 문제는 LOG 탭으로 간다. 샘플레이트는 전부 같게 (48 kHz 권장).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT 5.1.4, OSC IN, SPEAKER OUT의 METER · DEVICE · 드라이버 버튼과 장치 발견 배지" loading="lazy" width="478" height="500" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭 04 SPEAKER OUT: METER, DEVICE, 드라이버(Windows), 장치 발견 배지</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg" alt="사이드바 LIVE 탭: MONITOR, SPEAKER LAYOUT 7.1.4, OSC IN, SPEAKER OUT의 METER · DEVICE · 드라이버 버튼과 장치 발견 배지" loading="lazy" width="478" height="460" style="max-width:478px"><figcaption>FIG. 1.2 — LIVE 탭 04 SPEAKER OUT: METER, DEVICE, 드라이버(Windows), 장치 발견 배지</figcaption></figure>
   <div class="note"><b>NOTE</b>04 SPEAKER OUT은 자리를 먼저 잡아둔 상태다. 지금은 장치 목록, 스피커별 미터, 그리고 채널 수·샘플레이트 문제를 LOG 탭에 기록하는 데까지. LAYOUT 목록의 스피커 → 출력 채널 맵과 Live의 <code>SPK</code> 리턴 자동 생성은 다음 작업이다 (<a href="#ko-roadmap">12</a>).</div>
   </section>
 
@@ -801,7 +801,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-editor">
   <div class="cap">04 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE</figcaption></figure>
+  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 회전 기즈모, 오른쪽 MOTION/PATH/SHAPE 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 왼쪽: 오브젝트 · 가운데: 경로 캔버스 · 오른쪽: 위치 표시, MOTION, PATH, SHAPE · 캔버스 위 EDIT PATH</figcaption></figure>
   <p>상단 바의 <span class="pill">OBJECT EDITOR</span>로 연다. 여기서 바꾼 값은 곧바로 Live 디바이스 파라미터로 가고, 디바이스가 돌려보낸 값이 화면에 표시된다 — 양쪽 어디서 바꿔도 결과가 같다.</p>
   <h3>시점</h3>
   <ul>
