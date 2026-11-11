@@ -153,11 +153,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><a href="#coords"><span>07</span>CO-ORDINATES</a></li>
     <li><a href="#osc"><span>08</span>OSC PROTOCOL</a></li>
     <li><a href="#link"><span>09</span>OSC OUT · ORBIT LINK</a></li>
-    <li><a href="#look"><span>10</span>THEMES &amp; DISPLAY</a></li>
-    <li><a href="#trouble"><span>11</span>TROUBLESHOOTING</a></li>
-    <li><a href="#roadmap"><span>12</span>ROADMAP</a></li>
-    <li><a href="#log"><span>13</span>CHANGELOG</a></li>
-    <li><a href="#archive"><span>14</span>ARCHIVE</a></li>
+    <li><a href="#trouble"><span>10</span>TROUBLESHOOTING</a></li>
+    <li><a href="#roadmap"><span>11</span>ROADMAP</a></li>
+    <li><a href="#log"><span>12</span>CHANGELOG</a></li>
+    <li><a href="#archive"><span>13</span>ARCHIVE</a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -526,26 +525,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <!-- 10 -->
-<section id="look">
-  <div class="cap">10 — Themes &amp; display</div>
-  <h2>Themes and display</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">Theme</div><div class="v">WHITE · BLACK</div><p>Paper and ink swapped. VIEW → THEME.</p></div>
-    <div class="card"><div class="k">Type</div><div class="v mono">PT Mono · Roboto</div><p>One typeface for the UI, names and HUD.</p></div>
-    <div class="card"><div class="k">Object haze</div><div class="v">0 … 4</div><p>A soft blur in each object's colour (Spatialisation_test → Theme → Object Haze, 0 = off).</p></div>
-  </div>
-  <ul>
-    <li><strong>Names</strong>: a leader to a fine rule, the name above and <span class="mono">AZ EL D ITD</span> below; nearby callouts move out of each other's way.</li>
-    <li><strong>Brightness</strong>: each object follows its track level after the fader.</li>
-    <li><strong>Speakers</strong>: light up in the colour of the loudest object reaching them.</li>
-    <li><strong>Buttons</strong>: no outlines — light grey = off, black (white on the Black theme) = on; sliders fill in a darker grey.</li>
-    <li><strong>Listener</strong>: a grey head with L/R-coloured ears and a face that changes now and then. VIEW → HEAD hides it.</li>
-  </ul>
-</section>
-
-<!-- 11 -->
 <section id="trouble">
-  <div class="cap">11 — Troubleshooting</div>
+  <div class="cap">10 — Troubleshooting</div>
   <h2>Troubleshooting</h2>
   <div class="tw"><table>
     <tr><th>Symptom</th><th>Fix</th></tr>
@@ -566,9 +547,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
 </section>
 
-<!-- 12 -->
+<!-- 11 -->
 <section id="roadmap">
-  <div class="cap">12 — Roadmap</div>
+  <div class="cap">11 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
     <li><strong>Chaos out</strong>: send the attractor's values to other Live parameters or over OSC.</li>
@@ -577,9 +558,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ul>
 </section>
 
-<!-- 13 -->
+<!-- 12 -->
 <section id="log">
-  <div class="cap">13 — Changelog</div>
+  <div class="cap">12 — Changelog</div>
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Version</th><th>Changes</th></tr>
@@ -596,9 +577,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
 </section>
 
-<!-- 14 -->
+<!-- 13 -->
 <section id="archive">
-  <div class="cap">14 — Archive</div>
+  <div class="cap">13 — Archive</div>
   <h2>Virtual audio devices (BlackHole · JACK)</h2>
   <p>Until v9.4 this wiki routed the speaker feeds through a virtual audio device. That is not needed: Live sends them to the interface directly (<a href="#setup-out">01.3</a>). A virtual device is only useful to <strong>test without an interface</strong> or to <strong>hand the feeds to another application</strong>.</p>
   <h3>macOS — BlackHole</h3>
@@ -1001,26 +982,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </section>
 
 <!-- 10 -->
-<section id="ko-look">
-  <div class="cap">10 — Themes &amp; display</div>
-  <h2>테마와 표시</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">테마</div><div class="v">WHITE · BLACK</div><p>종이와 잉크가 뒤바뀐다. VIEW → THEME.</p></div>
-    <div class="card"><div class="k">서체</div><div class="v mono">PT Mono · Roboto</div><p>UI, 이름, HUD에 한 서체.</p></div>
-    <div class="card"><div class="k">오브젝트 헤이즈</div><div class="v">0 … 4</div><p>오브젝트 색의 부드러운 번짐 (Spatialisation_test → Theme → Object Haze, 0 = 끔).</p></div>
-  </div>
-  <ul>
-    <li><strong>이름표</strong>: 지시선 끝 가는 선 위에 이름, 아래에 <span class="mono">AZ EL D ITD</span>. 가까운 이름표끼리는 서로 비켜난다.</li>
-    <li><strong>밝기</strong>: 오브젝트마다 페이더 이후 트랙 레벨을 따른다.</li>
-    <li><strong>스피커</strong>: 가장 크게 닿는 오브젝트의 색으로 빛난다.</li>
-    <li><strong>버튼</strong>: 테두리 없음 — 연한 회색 = 꺼짐, 검정(블랙 테마에서는 흰색) = 켜짐. 슬라이더는 진한 회색으로 채워진다.</li>
-    <li><strong>청취자</strong>: L/R 색 귀가 달린 회색 머리, 표정이 가끔 바뀐다. VIEW → HEAD로 숨긴다.</li>
-  </ul>
-</section>
-
-<!-- 11 -->
 <section id="ko-trouble">
-  <div class="cap">11 — Troubleshooting</div>
+  <div class="cap">10 — Troubleshooting</div>
   <h2>문제 해결</h2>
   <div class="tw"><table>
     <tr><th>증상</th><th>해결</th></tr>
@@ -1041,9 +1004,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
 </section>
 
-<!-- 12 -->
+<!-- 11 -->
 <section id="ko-roadmap">
-  <div class="cap">12 — Roadmap</div>
+  <div class="cap">11 — Roadmap</div>
   <h2>다음 할 일</h2>
   <ul>
     <li><strong>Chaos out</strong>: 끌개 값을 다른 Live 파라미터나 OSC로 내보내기.</li>
@@ -1052,9 +1015,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ul>
 </section>
 
-<!-- 13 -->
+<!-- 12 -->
 <section id="ko-log">
-  <div class="cap">13 — Changelog</div>
+  <div class="cap">12 — Changelog</div>
   <h2>변경 기록</h2>
   <div class="tw"><table>
     <tr><th>버전</th><th>변경</th></tr>
@@ -1071,9 +1034,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
 </section>
 
-<!-- 14 -->
+<!-- 13 -->
 <section id="ko-archive">
-  <div class="cap">14 — Archive</div>
+  <div class="cap">13 — Archive</div>
   <h2>가상 오디오 장치 (BlackHole · JACK)</h2>
   <p>v9.4 전까지 이 위키는 스피커 피드를 가상 오디오 장치로 보냈다. 이제 필요 없다 — Live가 인터페이스로 바로 보낸다(<a href="#ko-setup-out">01.3</a>). 가상 장치는 <strong>인터페이스 없이 테스트</strong>할 때, <strong>피드를 다른 앱으로 넘길</strong> 때만 쓸모 있다.</p>
   <h3>macOS — BlackHole</h3>
