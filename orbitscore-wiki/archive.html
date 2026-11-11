@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Orbit Score Wiki · Archive</title>
+<meta name="description" content="Orbit Score: a spatial-audio tool for Ableton Live, Max for Live and TouchDesigner. Set-up, devices, interface, object editor, OSC protocol and troubleshooting.">
+<meta property="og:title" content="Orbit Score Wiki">
+<meta property="og:description" content="Spatial audio for Ableton Live · Max for Live · TouchDesigner">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://iverkim.com/orbitscore-wiki/">
+<meta property="og:image" content="https://iverkim.com/orbitscore-wiki/media/ui-3d.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono&family=Roboto:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<style>
+/* Same sheet as the tool: White = paper + black ink, Black = night + chalk. Hairlines, "01 — SECTION" captions. */
+:root{
+  --bg:#f3f3f2; --ink:#0f0f0f; --mid:#7a7a78; --faint:#c9c9c6; --hair:#dededb; --fill:#e7e7e4;
+  --l:#7da2f2; --r:#f08a7a;
+  --f-mono:"PT Mono",ui-monospace,Menlo,Consolas,"Noto Sans KR",monospace;
+  --f-title:"Roboto",system-ui,sans-serif;
+  --f-body:"Roboto","Noto Sans KR",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#080808; --ink:#ededed; --mid:#8a8a88; --faint:#3a3a39; --hair:#262626; --fill:#151515; color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#080808; --ink:#ededed; --mid:#8a8a88; --faint:#3a3a39; --hair:#262626; --fill:#151515; color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 15.5px/1.75 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--ink)}
+code,kbd,.mono{font-family:var(--f-mono);font-size:.92em}
+code{background:var(--fill);padding:1px 5px}
+kbd{border:1px solid var(--faint);padding:0 5px;font-size:.85em}
+pre{font:13px/1.7 var(--f-mono);background:var(--fill);padding:14px 16px;overflow-x:auto;margin:14px 0;border-left:1px solid var(--ink)}
+pre code{background:none;padding:0}
+img{max-width:100%;height:auto;display:block}
+strong{font-weight:500}
+
+.page{display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1320px;margin:0 auto}
+/* sidebar = the tool's right panel */
+nav.side{position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 22px 40px;border-right:1px solid var(--hair)}
+.brand{font:400 21px/1 var(--f-title);letter-spacing:.42em;margin:0 0 10px}
+.status{font:11.5px/1.6 var(--f-mono);color:var(--mid);margin-bottom:22px}
+.toc{list-style:none;margin:0;padding:0;counter-reset:t}
+.toc li{margin:0}
+.toc a{display:flex;gap:10px;font:12.5px/1.4 var(--f-mono);text-decoration:none;padding:7px 8px;border:1px solid transparent;color:var(--ink)}
+.toc a span{color:var(--mid);min-width:20px}
+.toc a:hover{border-color:var(--faint)}
+.toc a.on{background:var(--ink);color:var(--bg)}
+.toc a.on span{color:var(--bg)}
+.side .btns{display:flex;gap:6px;margin-top:22px}
+.btn{font:12px/1 var(--f-mono);letter-spacing:.04em;background:var(--bg);color:var(--ink);border:1px solid var(--ink);padding:9px 10px;cursor:pointer;flex:1;text-align:center}
+.btn:hover{background:var(--fill)}
+.lang{display:block;margin-top:22px}
+.lang .cap{display:block;margin-bottom:8px}
+.lang select{appearance:none;-webkit-appearance:none;width:100%;font:12.5px/1 var(--f-mono);letter-spacing:.04em;color:var(--ink);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0h10L5 6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid var(--ink);border-radius:0;padding:10px 32px 10px 10px;cursor:pointer}
+.lang select:hover{background-color:var(--fill)}
+.lang select:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+main[lang="ko"]{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
+main[lang="ko"] h3{font-family:inherit}
+
+main{padding:40px 56px 120px;min-width:0}
+.hero{position:relative;padding:34px 30px 30px;margin-bottom:56px}
+.hero h1{font:300 54px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
+.hero p{max-width:640px;margin:0;color:var(--ink)}
+.hero .meta{font:12px/1.6 var(--f-mono);color:var(--mid);margin-top:16px}
+
+section{margin:0 0 72px}
+.cap{font:12px/1 var(--f-mono);color:var(--mid);letter-spacing:.04em;margin:0 0 10px;text-transform:uppercase}
+h2{font:400 26px/1.3 var(--f-title);letter-spacing:.02em;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--ink)}
+h3{font:500 15px/1.5 var(--f-body);margin:30px 0 8px}
+h4{font:500 14px/1.5 var(--f-body);margin:24px 0 8px}
+.toc li.sub a{padding-left:22px;font-size:11.5px}
+.toc li.sub a span{min-width:30px}
+.subnav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 4px}
+.subnav a{font:12px/1 var(--f-mono);text-decoration:none;color:var(--ink);border:1px solid var(--ink);padding:8px 12px}
+.subnav a:hover{background:var(--ink);color:var(--bg)}
+section.sub{margin-top:44px;padding-top:22px;border-top:1px solid var(--hair)}
+h3.subh{font-size:19px;margin-top:4px}
+h5{font:500 12.5px/1.5 var(--f-body);margin:18px 0 6px;color:var(--mid)}
+h3 .mono{font-weight:400}
+p{margin:0 0 12px;max-width:780px}
+ul,ol{max-width:780px;padding-left:20px;margin:0 0 14px}
+li{margin:3px 0}
+figure{margin:22px 0 28px;padding:14px;position:relative}
+figcaption{font:11.5px/1.5 var(--f-mono);color:var(--mid);margin-top:10px}
+figure img{border:1px solid var(--hair)}
+
+table{border-collapse:collapse;width:100%;max-width:900px;margin:12px 0 20px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:8px 12px 8px 0;border-bottom:1px solid var(--hair)}
+th{font:400 11.5px/1.4 var(--f-mono);color:var(--mid);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--ink)}
+td:first-child{font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.tw{overflow-x:auto}
+
+.note{border:1px solid var(--faint);padding:12px 16px;margin:16px 0;max-width:780px;font-size:14px}
+.note b{font:400 11.5px var(--f-mono);display:block;color:var(--mid);letter-spacing:.06em;margin-bottom:4px}
+.pill{display:inline-block;font:11px/1 var(--f-mono);border:1px solid var(--ink);padding:3px 6px;margin-right:4px;vertical-align:1px}
+.pill.on{background:var(--ink);color:var(--bg)}
+.L{color:var(--l)} .R{color:var(--r)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:900px;margin:12px 0 20px}
+.card{border:1px solid var(--hair);padding:14px 16px}
+.card .k{font:11.5px var(--f-mono);color:var(--mid);text-transform:uppercase;letter-spacing:.04em}
+.card .v{font:400 20px/1.4 var(--f-title);margin:4px 0 6px}
+.card p{font-size:13.5px;margin:0}
+svg.flow{width:100%;max-width:900px;height:auto;display:block}
+svg.flow text{font-family:var(--f-mono);fill:var(--ink)}
+svg.flow .m{fill:var(--mid)}
+svg.flow .box{fill:var(--bg);stroke:var(--ink)}
+svg.flow .fillbox{fill:var(--ink)}
+svg.flow .inv{fill:var(--bg)}
+svg.flow .wire{stroke:var(--ink);fill:none}
+svg.flow .dash{stroke:var(--mid);fill:none;stroke-dasharray:3 3}
+footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(--hair);padding-top:16px}
+.foot{display:flex;flex-wrap:wrap;gap:8px 28px}
+.foot a{color:var(--ink)}
+.copy{margin-top:10px}
+
+.menu{display:none}
+@media (max-width:860px){
+  .page{display:block}
+  nav.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--hair);padding:20px 16px}
+  .toc{display:none}.toc.open{display:block}
+  .menu{display:block;margin-top:4px}
+  main{padding:28px 16px 80px}
+  .hero{padding:24px 18px}
+  .hero h1{font-size:34px;letter-spacing:.2em}
+  td:first-child{white-space:normal}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<nav class="side" aria-label="Contents">
+  <div class="brand">ORBIT SCORE</div>
+  <div class="status">WIKI · v9.5 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
+  <ol class="toc" id="toc">
+    <li><a href="index.html"><span>←</span>WIKI</a></li>
+    <li><a href="#archive"><span>A</span>ARCHIVE</a></li>
+  </ol>
+  <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
+</nav>
+
+<main data-lang="en" lang="en-GB">
+<section id="archive">
+  <div class="cap">Archive</div>
+  <h2>Virtual audio devices (BlackHole · JACK)</h2>
+  <p>Until v9.4 this wiki routed the speaker feeds through a virtual audio device. That is not needed: Live sends them to the interface directly (<a href="index.html#setup-out">01.3</a>). A virtual device is only useful to <strong>test without an interface</strong> or to <strong>hand the feeds to another application</strong>.</p>
+  <h3>macOS — BlackHole</h3>
+  <ol>
+    <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16 ch; 64 ch for dome layouts).</li>
+    <li>Live → Settings → Audio → Output Device = BlackHole.</li>
+    <li>Receiving end: the other application, or an Aggregate Device (BlackHole + interface).</li>
+  </ol>
+  <h3>Windows — JACK · QjackCtl</h3>
+  <ol>
+    <li>Install <a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> (QjackCtl, JackRouter).</li>
+    <li>Raise JackRouter's channel count (default 4): as administrator, <code>notepad "C:\Program Files\JACK2\jack-router\win64\JackRouter.ini"</code>, <code>[IO] output=</code> the speaker count.</li>
+    <li>Live → Audio Device = No Device while JACK starts (one program per ASIO device).</li>
+    <li>QjackCtl → Setup: Driver portaudio, Interface = the interface's <code>ASIO::</code> entry (install its ASIO driver if missing; ASIO4ALL as fallback), 48000 Hz, Playback Only → Start.</li>
+    <li>Live → Audio Device = JackRouter; QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
+  </ol>
+  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="JackRouter.ini in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = outputs Live sees</figcaption></figure>
+  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, the interface's ASIO entry selected" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: pick the <code>ASIO::</code> entry</figcaption></figure>
+  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1 to out8 wired to system playback_1 to 8, out9 to 16 unconnected" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — QjackCtl Graph, 8-output interface: out9–16 have nowhere to go</figcaption></figure>
+  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live Settings, Audio: Driver ASIO, Audio Device JackRouter, Output Config pairs 1/2 to 15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — Live with JackRouter: Output Config shows as many pairs as JackRouter.ini allows</figcaption></figure>
+  <div class="tw"><table>
+    <tr><th>Symptom (JACK)</th><th>Fix</th></tr>
+    <tr><td>Live offers only outputs 1/2 and 3/4</td><td>Raise <code>output=</code> in JackRouter.ini, restart JACK and Live</td></tr>
+    <tr><td>No <code>ASIO::</code> entry in QjackCtl</td><td>Install the interface's ASIO driver (or ASIO4ALL), restart</td></tr>
+    <tr><td>JACK won't start</td><td>Another program holds the interface: Live → No Device first</td></tr>
+  </table></div>
+</section>
+<footer>
+  <div class="foot">
+    <span>ORBIT SCORE WIKI</span>
+    <a href="https://iverkim.com">IVERKIM.COM</a>
+    <a href="https://www.instagram.com/iverhkim/" rel="noopener" target="_blank">INSTAGRAM @IVERHKIM</a>
+    <a href="mailto:iverhkim@gmail.com">IVERHKIM@GMAIL.COM</a>
+  </div>
+  <div class="copy">© 2026 Iver Kim. All rights reserved.</div>
+</footer>
+</main>
+<main data-lang="ko" lang="ko" hidden>
+<section id="ko-archive">
+  <div class="cap">Archive</div>
+  <h2>가상 오디오 장치 (BlackHole · JACK)</h2>
+  <p>v9.4 전까지 이 위키는 스피커 피드를 가상 오디오 장치로 보냈다. 이제 필요 없다 — Live가 인터페이스로 바로 보낸다(<a href="index.html?lang=ko#ko-setup-out">01.3</a>). 가상 장치는 <strong>인터페이스 없이 테스트</strong>할 때, <strong>피드를 다른 앱으로 넘길</strong> 때만 쓸모 있다.</p>
+  <h3>macOS — BlackHole</h3>
+  <ol>
+    <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> 설치 (16ch, 돔 레이아웃은 64ch).</li>
+    <li>Live → 설정 → Audio → Output Device = BlackHole.</li>
+    <li>받는 쪽: 다른 앱, 또는 통합 기기(BlackHole + 인터페이스).</li>
+  </ol>
+  <h3>Windows — JACK · QjackCtl</h3>
+  <ol>
+    <li><a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> 설치 (QjackCtl, JackRouter 포함).</li>
+    <li>JackRouter 채널 수 늘리기(기본 4): 관리자 권한으로 <code>notepad "C:\Program Files\JACK2\jack-router\win64\JackRouter.ini"</code>, <code>[IO] output=</code> 스피커 수.</li>
+    <li>JACK을 켜는 동안 Live → Audio Device = No Device (ASIO 장치는 한 프로그램만).</li>
+    <li>QjackCtl → Setup: Driver portaudio, Interface = 인터페이스의 <code>ASIO::</code> 항목 (없으면 ASIO 드라이버 설치, 대안 ASIO4ALL), 48000 Hz, Playback Only → Start.</li>
+    <li>Live → Audio Device = JackRouter. QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
+  </ol>
+  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = Live가 보는 출력 수</figcaption></figure>
+  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: <code>ASIO::</code> 항목을 고른다</figcaption></figure>
+  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1~8이 system playback_1~8에 연결, out9~16은 미연결" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — 8출력 인터페이스의 QjackCtl Graph: out9–16은 갈 곳이 없다</figcaption></figure>
+  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live 설정 Audio: Driver ASIO, Audio Device JackRouter, Output Config 1/2~15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — JackRouter를 고른 Live: Output Config에 JackRouter.ini에서 정한 만큼 쌍이 보인다</figcaption></figure>
+  <div class="tw"><table>
+    <tr><th>증상 (JACK)</th><th>해결</th></tr>
+    <tr><td>Live에 출력이 1/2, 3/4뿐</td><td>JackRouter.ini의 <code>output=</code>을 늘리고 JACK과 Live 재시작</td></tr>
+    <tr><td>QjackCtl에 <code>ASIO::</code> 항목이 없다</td><td>인터페이스 ASIO 드라이버(또는 ASIO4ALL) 설치 후 재시작</td></tr>
+    <tr><td>JACK이 시작되지 않는다</td><td>다른 프로그램이 인터페이스를 잡고 있다: 먼저 Live → No Device</td></tr>
+  </table></div>
+</section>
+<footer>
+  <div class="foot">
+    <span>ORBIT SCORE WIKI</span>
+    <a href="https://iverkim.com">IVERKIM.COM</a>
+    <a href="https://www.instagram.com/iverhkim/" rel="noopener" target="_blank">INSTAGRAM @IVERHKIM</a>
+    <a href="mailto:iverhkim@gmail.com">IVERHKIM@GMAIL.COM</a>
+  </div>
+  <div class="copy">© 2026 Iver Kim. All rights reserved.</div>
+</footer>
+</main>
+</div>
+<script>
+(function(){
+  // theme follows the system (prefers-color-scheme); language: ?lang= / saved choice / browser language
+  var root=document.documentElement, mains=document.querySelectorAll('main[data-lang]');
+  var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
+  links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
+  var sel=document.getElementById('langSel');
+  function setLang(l, keep){
+    mains.forEach(function(m){m.hidden=(m.dataset.lang!==l);});
+    root.lang=(l==='ko'?'ko':'en-GB');
+    links.forEach(function(a){a.href='#'+(l==='ko'?'ko-':'')+a.dataset.id;});
+    sel.value=l;
+    if(keep){try{localStorage.setItem('orbit-score-lang',l);}catch(e){}}
+  }
+  var q=(new URLSearchParams(location.search)).get('lang'), saved=null;
+  try{saved=localStorage.getItem('orbit-score-lang');}catch(e){}
+  var lang=(q==='ko'||q==='en')?q:(saved||((navigator.language||'').toLowerCase().indexOf('ko')===0?'ko':'en'));
+  if(!q&&location.hash.indexOf('#ko-')===0) lang='ko';
+  setLang(lang,false);
+  sel.addEventListener('change',function(){
+    var l=sel.value, id=(location.hash||'').replace('#','').replace(/^ko-/,'');
+    setLang(l,true);
+    if(id){var t=document.getElementById((l==='ko'?'ko-':'')+id); if(t) t.scrollIntoView();}
+  });
+  var menu=document.getElementById('menuBtn');
+  menu.addEventListener('click',function(){var o=toc.classList.toggle('open'); menu.setAttribute('aria-expanded',o);});
+  toc.addEventListener('click',function(e){if(e.target.closest('a')){toc.classList.remove('open');menu.setAttribute('aria-expanded',false);}});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id.replace(/^ko-/,''); links.forEach(function(a){a.classList.toggle('on',a.dataset.id===id);});}});},{rootMargin:'-20% 0px -70% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>

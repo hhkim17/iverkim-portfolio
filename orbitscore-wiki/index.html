@@ -156,7 +156,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><a href="#trouble"><span>10</span>TROUBLESHOOTING</a></li>
     <li><a href="#roadmap"><span>11</span>ROADMAP</a></li>
     <li><a href="#log"><span>12</span>CHANGELOG</a></li>
-    <li><a href="#archive"><span>13</span>ARCHIVE</a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -575,37 +574,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>7 · 11.08</td><td>Seven motions, line shape, path editing, UIDs, editor in the main UI, palette, head model, this wiki</td></tr>
     <tr><td>· 2026.11</td><td>Graphic-score themes, sidebar tabs, layout list, monitor selector</td></tr>
   </table></div>
-</section>
-
-<!-- 13 -->
-<section id="archive">
-  <div class="cap">13 — Archive</div>
-  <h2>Virtual audio devices (BlackHole · JACK)</h2>
-  <p>Until v9.4 this wiki routed the speaker feeds through a virtual audio device. That is not needed: Live sends them to the interface directly (<a href="#setup-out">01.3</a>). A virtual device is only useful to <strong>test without an interface</strong> or to <strong>hand the feeds to another application</strong>.</p>
-  <h3>macOS — BlackHole</h3>
-  <ol>
-    <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16 ch; 64 ch for dome layouts).</li>
-    <li>Live → Settings → Audio → Output Device = BlackHole.</li>
-    <li>Receiving end: the other application, or an Aggregate Device (BlackHole + interface).</li>
-  </ol>
-  <h3>Windows — JACK · QjackCtl</h3>
-  <ol>
-    <li>Install <a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> (QjackCtl, JackRouter).</li>
-    <li>Raise JackRouter's channel count (default 4): as administrator, <code>notepad "C:\Program Files\JACK2\jack-router\win64\JackRouter.ini"</code>, <code>[IO] output=</code> the speaker count.</li>
-    <li>Live → Audio Device = No Device while JACK starts (one program per ASIO device).</li>
-    <li>QjackCtl → Setup: Driver portaudio, Interface = the interface's <code>ASIO::</code> entry (install its ASIO driver if missing; ASIO4ALL as fallback), 48000 Hz, Playback Only → Start.</li>
-    <li>Live → Audio Device = JackRouter; QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
-  </ol>
-  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="JackRouter.ini in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = outputs Live sees</figcaption></figure>
-  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, the interface's ASIO entry selected" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: pick the <code>ASIO::</code> entry</figcaption></figure>
-  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1 to out8 wired to system playback_1 to 8, out9 to 16 unconnected" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — QjackCtl Graph, 8-output interface: out9–16 have nowhere to go</figcaption></figure>
-  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live Settings, Audio: Driver ASIO, Audio Device JackRouter, Output Config pairs 1/2 to 15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — Live with JackRouter: Output Config shows as many pairs as JackRouter.ini allows</figcaption></figure>
-  <div class="tw"><table>
-    <tr><th>Symptom (JACK)</th><th>Fix</th></tr>
-    <tr><td>Live offers only outputs 1/2 and 3/4</td><td>Raise <code>output=</code> in JackRouter.ini, restart JACK and Live</td></tr>
-    <tr><td>No <code>ASIO::</code> entry in QjackCtl</td><td>Install the interface's ASIO driver (or ASIO4ALL), restart</td></tr>
-    <tr><td>JACK won't start</td><td>Another program holds the interface: Live → No Device first</td></tr>
-  </table></div>
+  <p class="mono" style="color:var(--mid)">Older set-up notes (BlackHole · JACK) → <a href="archive.html">Archive</a></p>
 </section>
 
 <footer>
@@ -1032,37 +1001,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>7 · 11.08</td><td>움직임 7가지, 라인 모양, 경로 편집, UID, 메인 UI 안의 에디터, 팔레트, 머리 모델, 이 위키</td></tr>
     <tr><td>· 2026.11</td><td>그래픽 스코어 테마, 사이드바 탭, 레이아웃 목록, 모니터 선택</td></tr>
   </table></div>
-</section>
-
-<!-- 13 -->
-<section id="ko-archive">
-  <div class="cap">13 — Archive</div>
-  <h2>가상 오디오 장치 (BlackHole · JACK)</h2>
-  <p>v9.4 전까지 이 위키는 스피커 피드를 가상 오디오 장치로 보냈다. 이제 필요 없다 — Live가 인터페이스로 바로 보낸다(<a href="#ko-setup-out">01.3</a>). 가상 장치는 <strong>인터페이스 없이 테스트</strong>할 때, <strong>피드를 다른 앱으로 넘길</strong> 때만 쓸모 있다.</p>
-  <h3>macOS — BlackHole</h3>
-  <ol>
-    <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> 설치 (16ch, 돔 레이아웃은 64ch).</li>
-    <li>Live → 설정 → Audio → Output Device = BlackHole.</li>
-    <li>받는 쪽: 다른 앱, 또는 통합 기기(BlackHole + 인터페이스).</li>
-  </ol>
-  <h3>Windows — JACK · QjackCtl</h3>
-  <ol>
-    <li><a href="https://jackaudio.org/downloads/" rel="noopener" target="_blank">JACK2 for Windows</a> 설치 (QjackCtl, JackRouter 포함).</li>
-    <li>JackRouter 채널 수 늘리기(기본 4): 관리자 권한으로 <code>notepad "C:\Program Files\JACK2\jack-router\win64\JackRouter.ini"</code>, <code>[IO] output=</code> 스피커 수.</li>
-    <li>JACK을 켜는 동안 Live → Audio Device = No Device (ASIO 장치는 한 프로그램만).</li>
-    <li>QjackCtl → Setup: Driver portaudio, Interface = 인터페이스의 <code>ASIO::</code> 항목 (없으면 ASIO 드라이버 설치, 대안 ASIO4ALL), 48000 Hz, Playback Only → Start.</li>
-    <li>Live → Audio Device = JackRouter. QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
-  </ol>
-  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = Live가 보는 출력 수</figcaption></figure>
-  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: <code>ASIO::</code> 항목을 고른다</figcaption></figure>
-  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1~8이 system playback_1~8에 연결, out9~16은 미연결" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — 8출력 인터페이스의 QjackCtl Graph: out9–16은 갈 곳이 없다</figcaption></figure>
-  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live 설정 Audio: Driver ASIO, Audio Device JackRouter, Output Config 1/2~15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — JackRouter를 고른 Live: Output Config에 JackRouter.ini에서 정한 만큼 쌍이 보인다</figcaption></figure>
-  <div class="tw"><table>
-    <tr><th>증상 (JACK)</th><th>해결</th></tr>
-    <tr><td>Live에 출력이 1/2, 3/4뿐</td><td>JackRouter.ini의 <code>output=</code>을 늘리고 JACK과 Live 재시작</td></tr>
-    <tr><td>QjackCtl에 <code>ASIO::</code> 항목이 없다</td><td>인터페이스 ASIO 드라이버(또는 ASIO4ALL) 설치 후 재시작</td></tr>
-    <tr><td>JACK이 시작되지 않는다</td><td>다른 프로그램이 인터페이스를 잡고 있다: 먼저 Live → No Device</td></tr>
-  </table></div>
+  <p class="mono" style="color:var(--mid)">예전 설정 노트 (BlackHole · JACK) → <a href="archive.html?lang=ko">아카이브</a></p>
 </section>
 
 <footer>
@@ -1081,7 +1020,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 (function(){
   // theme follows the system (prefers-color-scheme); language: ?lang= / saved choice / browser language
   var root=document.documentElement, mains=document.querySelectorAll('main[data-lang]');
-  var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a'));
+  var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
   links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
   var sel=document.getElementById('langSel');
   function setLang(l, keep){
