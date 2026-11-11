@@ -412,7 +412,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">06 — Rendering</div>
   <h2>Sound — binaural, speakers, room</h2>
   <h3>Binaural (headphones)</h3>
-  <p>Each Spatial Object renders its own direction to stereo: interaural time difference, head shadow, distance. In the 3D view the ears are tinted <span class="L">L blue</span> / <span class="R">R red</span>, and <span class="mono">ITD 0.45 ms R</span> under a name says which ear hears it first. A line object is two binaural chains, one per end.</p>
+  <p>Each Spatial Object renders its own direction to stereo: interaural time difference, head shadow, distance. In the 3D view the ears are tinted <span class="L">L blue</span> / <span class="R">R red</span>, The line under each name reads <span class="mono">azimuth · elevation · distance</span>, plus the interaural delay (<span class="mono">0.45 ms R</span> = the right ear hears it first) while the ears are shown. A line object is two binaural chains, one per end.</p>
   <p><strong>Pinna</strong>: after the ear filters, five short reflections of the outer ear are added per ear (Brown &amp; Duda structural model); their delays move with elevation and azimuth, so up / down and front / back separate better, and sources behind lose a little top end.</p>
   <p><strong>Near field</strong>: closer than about 1 m (Distance × SPEAKER DISTANCE), the near ear gets louder and bassier and the far ear quieter — the "whisper in your ear" cue. Automatic, headphones only.</p>
   <h3>Speakers</h3>
@@ -843,7 +843,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">06 — Rendering</div>
   <h2>렌더링 — 바이노럴, 스피커, 룸</h2>
   <h3>바이노럴 (헤드폰)</h3>
-  <p>각 Spatial Object가 자신의 방향을 스테레오로 렌더링합니다: 양이 시간차, 머리 그림자, 거리. 3D 뷰의 귀는 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>으로 표시되며, 이름 아래의 <span class="mono">ITD 0.45 ms R</span>은 소리가 먼저 도달하는 귀를 나타냅니다. 선 음원은 양 끝에 하나씩, 두 개의 바이노럴 체인을 사용합니다.</p>
+  <p>각 Spatial Object가 자신의 방향을 스테레오로 렌더링합니다: 양이 시간차, 머리 그림자, 거리. 3D 뷰의 귀는 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>으로 표시되며, 이름 아래에는 <span class="mono">방위 · 고도 · 거리</span>가 표시되고, 귀가 보일 때는 양이 시간차(<span class="mono">0.45 ms R</span> = 오른쪽 귀에 먼저 도달)가 추가됩니다. 선 음원은 양 끝에 하나씩, 두 개의 바이노럴 체인을 사용합니다.</p>
   <p><strong>귓바퀴</strong>: 귀 필터 뒤에 귓바퀴의 짧은 반사 다섯 개를 귀마다 더합니다(Brown &amp; Duda 구조 모델). 반사 지연이 고도와 방위에 따라 변해 위/아래와 앞/뒤의 구분이 개선되고, 후방 음원은 고역이 약간 감쇠됩니다.</p>
   <p><strong>근접 효과</strong>: 약 1 m(Distance × SPEAKER DISTANCE)보다 가까워지면 가까운 귀의 레벨과 저역이 커지고 먼 귀는 작아집니다. 헤드폰에서만 자동 적용됩니다.</p>
   <h3>스피커</h3>
