@@ -249,7 +249,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · Install the interface's <strong>ASIO driver</strong> (MME / WDM rarely open more than two channels).<br>2 · Live → Settings → Audio: <strong>Driver Type ASIO</strong>, Audio Device = the interface, 48000 Hz.<br>Only one program can open an ASIO device at a time.</p></div>
   </div>
   <p>Then, on both: Live → Settings → Audio → <strong>Output Config</strong>, enable the pairs that cover the speakers (1/2, 3/4 …). Dante (Dante Virtual Soundcard) and MADI systems appear as one device with 64 channels and are chosen the same way; Orbit Score drives up to 64 speakers.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111b" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, METER, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111c" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live's audio settings cannot be changed through the Live API, so the driver, device, sample rate and Output Config are set by hand once. Everything inside the set — OUT tracks, routing — is done by SET UP OUTPUTS.</div>
   </section>
 </section>
@@ -318,7 +318,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · MASTER volume, MUTE (keeps the slider value) · <strong>02 SOURCE</strong> LIVE / DEMO, Live's DSP state, OSC PORT · <strong>TRACKS</strong> show (eye), name label (Aa), mute (M), colour, level</td></tr>
-    <tr><td>SPEAKERS</td><td><strong>01 SPEAKER LAYOUT</strong> · <strong>02 OUTPUTS</strong> SET UP, METER, OUTPUT MAP, TEST, status · <strong>03 DISTANCE</strong> SPEAKER DISTANCE, DIST COMP (see below)</td></tr>
+    <tr><td>SPEAKERS</td><td><strong>01 SPEAKER LAYOUT</strong> · <strong>02 OUTPUTS</strong> SET UP, OUTPUT MAP, TEST, status · <strong>03 DISTANCE</strong> SPEAKER DISTANCE, DIST COMP (see below)</td></tr>
     <tr><td>SPACE</td><td><strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>02 ROOM</strong> presets, REVERB, REFLECTIONS, EAR HEIGHT (<a href="#render">06</a>)</td></tr>
     <tr><td>VIEW</td><td><strong>01 CAMERA</strong> auto orbit, reset view, theme · <strong>02 SHOW</strong> names, ears, head, dome guide, ROOM, TRAIL</td></tr>
     <tr><td>SCENES</td><td>The scene list (<a href="#scenes">05</a>)</td></tr>
@@ -339,7 +339,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>TEST · &lt; · &gt; · AUTO</td><td>Pink noise from one speaker at a time (objects silent meanwhile); the 3D view numbers the speakers</td></tr>
     <tr><td>SPEAKER DISTANCE</td><td>You to the speaker ring in metres — the scale for reflections, Doppler, near field and WFS. Measure it</td></tr>
     <tr><td>DIST COMP</td><td>Speakers at different distances (a measured custom layout): nearer ones are delayed and turned down so all arrive like the farthest. Off in WFS, where the button is PRE-FILTER</td></tr>
-    <tr><td>METER</td><td>Per-speaker levels, only if the feeds also reach a device TouchDesigner can read (<a href="#archive">Archive</a>). Usually off</td></tr>
   </table></div>
 
   <h3>Track colour</h3>
@@ -597,7 +596,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="archive">
   <div class="cap">14 — Archive</div>
   <h2>Virtual audio devices (BlackHole · JACK)</h2>
-  <p>Until v9.4 this wiki routed the speaker feeds through a virtual audio device. That is not needed: Live sends them to the interface directly (<a href="#setup-out">01.3</a>). A virtual device is only useful to <strong>test without an interface</strong>, to <strong>hand the feeds to another application</strong>, or for <strong>METER</strong>.</p>
+  <p>Until v9.4 this wiki routed the speaker feeds through a virtual audio device. That is not needed: Live sends them to the interface directly (<a href="#setup-out">01.3</a>). A virtual device is only useful to <strong>test without an interface</strong> or to <strong>hand the feeds to another application</strong>.</p>
   <h3>macOS — BlackHole</h3>
   <ol>
     <li>Install <a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> (16 ch; 64 ch for dome layouts).</li>
@@ -721,7 +720,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · 인터페이스의 <strong>ASIO 드라이버</strong> 설치 (MME / WDM은 대개 2채널까지만 열린다).<br>2 · Live → 설정 → Audio: <strong>Driver Type ASIO</strong>, Audio Device = 인터페이스, 48000 Hz.<br>ASIO 장치는 한 번에 한 프로그램만 열 수 있다.</p></div>
   </div>
   <p>그다음 공통: Live → 설정 → Audio → <strong>Output Config</strong>에서 스피커를 덮는 쌍(1/2, 3/4 …)을 켠다. Dante(Dante Virtual Soundcard)나 MADI는 64채널짜리 장치 하나로 보이고 똑같이 고르면 된다. Orbit Score는 스피커 64개까지 구동한다.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111b" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, METER, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111c" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live의 오디오 설정은 Live API로 바꿀 수 없어서 드라이버·장치·샘플레이트·Output Config는 처음 한 번 손으로 맞춘다. 세트 안의 OUT 트랙과 라우팅은 SET UP OUTPUTS가 해준다.</div>
   </section>
 </section>
@@ -790,7 +789,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>탭</th><th>내용</th></tr>
     <tr><td>LIVE</td><td><strong>01 MONITOR</strong> Off / Binaural (HP) / Speakers · MASTER 볼륨, MUTE (슬라이더 값 유지) · <strong>02 SOURCE</strong> LIVE / DEMO, Live DSP 상태, OSC PORT · <strong>TRACKS</strong> 보이기(눈), 이름표(Aa), 뮤트(M), 색, 레벨</td></tr>
-    <tr><td>SPEAKERS</td><td><strong>01 SPEAKER LAYOUT</strong> · <strong>02 OUTPUTS</strong> SET UP, METER, OUTPUT MAP, TEST, 상태 · <strong>03 DISTANCE</strong> SPEAKER DISTANCE, DIST COMP (아래)</td></tr>
+    <tr><td>SPEAKERS</td><td><strong>01 SPEAKER LAYOUT</strong> · <strong>02 OUTPUTS</strong> SET UP, OUTPUT MAP, TEST, 상태 · <strong>03 DISTANCE</strong> SPEAKER DISTANCE, DIST COMP (아래)</td></tr>
     <tr><td>SPACE</td><td><strong>01 PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>02 ROOM</strong> 프리셋, REVERB, REFLECTIONS, EAR HEIGHT (<a href="#ko-render">06</a>)</td></tr>
     <tr><td>VIEW</td><td><strong>01 CAMERA</strong> 자동 궤도, 뷰 리셋, 테마 · <strong>02 SHOW</strong> 이름, 귀, 머리, 돔 가이드, ROOM, TRAIL</td></tr>
     <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a>)</td></tr>
@@ -811,7 +810,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>TEST · &lt; · &gt; · AUTO</td><td>스피커 하나씩 핑크 노이즈 (그동안 오브젝트는 무음). 3D 뷰에 스피커 번호가 뜬다</td></tr>
     <tr><td>SPEAKER DISTANCE</td><td>나에서 스피커 링까지 미터 — 반사음, 도플러, 근접 효과, WFS의 기준. 재서 넣자</td></tr>
     <tr><td>DIST COMP</td><td>거리가 제각각인 스피커(실측 Custom 레이아웃): 가까운 스피커를 늦추고 줄여서 모두 가장 먼 스피커처럼 도착하게. WFS에서는 꺼지고 버튼이 PRE-FILTER로 바뀐다</td></tr>
-    <tr><td>METER</td><td>스피커별 레벨. 피드가 TouchDesigner가 읽을 수 있는 장치로도 갈 때만(<a href="#ko-archive">아카이브</a>). 보통은 끔</td></tr>
   </table></div>
 
   <h3>트랙 색</h3>
@@ -1069,7 +1067,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-archive">
   <div class="cap">14 — Archive</div>
   <h2>가상 오디오 장치 (BlackHole · JACK)</h2>
-  <p>v9.4 전까지 이 위키는 스피커 피드를 가상 오디오 장치로 보냈다. 이제 필요 없다 — Live가 인터페이스로 바로 보낸다(<a href="#ko-setup-out">01.3</a>). 가상 장치는 <strong>인터페이스 없이 테스트</strong>할 때, <strong>피드를 다른 앱으로 넘길</strong> 때, <strong>METER</strong>를 쓸 때만 쓸모 있다.</p>
+  <p>v9.4 전까지 이 위키는 스피커 피드를 가상 오디오 장치로 보냈다. 이제 필요 없다 — Live가 인터페이스로 바로 보낸다(<a href="#ko-setup-out">01.3</a>). 가상 장치는 <strong>인터페이스 없이 테스트</strong>할 때, <strong>피드를 다른 앱으로 넘길</strong> 때만 쓸모 있다.</p>
   <h3>macOS — BlackHole</h3>
   <ol>
     <li><a href="https://existential.audio/blackhole/" rel="noopener" target="_blank">BlackHole</a> 설치 (16ch, 돔 레이아웃은 64ch).</li>
