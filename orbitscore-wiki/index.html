@@ -137,7 +137,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v9.4 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v9.5 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
@@ -249,7 +249,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · Install the interface's <strong>ASIO driver</strong> (MME / WDM rarely open more than two channels).<br>2 · Live → Settings → Audio: <strong>Driver Type ASIO</strong>, Audio Device = the interface, 48000 Hz.<br>Only one program can open an ASIO device at a time.</p></div>
   </div>
   <p>Then, on both: Live → Settings → Audio → <strong>Output Config</strong>, enable the pairs that cover the speakers (1/2, 3/4 …). Dante (Dante Virtual Soundcard) and MADI systems appear as one device with 64 channels and are chosen the same way; Orbit Score drives up to 64 speakers.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111c" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live's audio settings cannot be changed through the Live API, so the driver, device, sample rate and Output Config are set by hand once. Everything inside the set — OUT tracks, routing — is done by SET UP OUTPUTS.</div>
   </section>
 </section>
@@ -284,7 +284,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Spread</td><td>0–180°</td><td>Speakers: a cloud of directions this wide instead of a point. Above ~10° part of it is decorrelated (a differently all-passed copy per speaker), so it surrounds you instead of sounding phasey. Not in WFS, not for lines</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the shared room (reverb + reflections) this object gets. 0 % for dry material — bass, kick, already-reverbed samples</td></tr>
     <tr><td>Air</td><td>on / off (on)</td><td>Farther objects lose high end: 20 kHz at distance 0.5 down to ~4 kHz at 2</td></tr>
-    <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay (Distance × SPEAKER DISTANCE ÷ 343 m/s): an object rushing in or out bends in pitch like a passing car. Circling at one distance gives none. Leave off for pitched material that must stay in tune</td></tr>
+    <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay (Distance × SPEAKER DISTANCE ÷ 343 m/s): an object rushing in or out bends in pitch like a passing car. Only a change of distance bends it: Circle, Figure 8, Ping-Pong and Spiral keep the distance and give none; a fast Path past the head or Chaos does. Real Doppler is subtle (about ±15 cent at 3 m/s, a semitone needs ~20 m/s): shorten Path Length or raise SPEAKER DISTANCE to hear it. Leave off for pitched material that must stay in tune</td></tr>
     <tr><td>Speed</td><td>0–100 % (0)</td><td>The faster the object moves, the louder (up to +6 dB) and brighter it gets — a sound-design fly-by on top of Doppler. Full from ~10 m/s</td></tr>
   </table></div>
   <p>Air, Doppler and Speed work in both binaural and speaker mode. A near-field cue is added on headphones automatically (<a href="#render">06</a>).</p>
@@ -312,7 +312,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ui">
   <div class="cap">03 — TD interface</div>
   <h2>The screen</h2>
-  <figure><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW and the sidebar</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW and the sidebar</figcaption></figure>
   <p>The top bar switches between <span class="pill on">3D VIEW</span> and <span class="pill">OBJECT EDITOR</span>. In the 3D view: left drag orbits, wheel or middle drag zooms. The sidebar folds away with the <span class="pill">›</span> strip on its edge.</p>
   <h3>Sidebar tabs</h3>
   <div class="tw"><table>
@@ -325,7 +325,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>Connection, WARNINGS (a ⚠ on the tab), device messages (repeats folded as ×n). COPY / CLEAR / RESEND</td></tr>
   </table></div>
   <p>Value buttons such as <span class="mono">1.5 s</span> or <span class="mono">3.0 m</span> change by <strong>pressing and dragging up or down</strong>.</p>
-  <figure><img src="media/ui-live.jpg?v=1111b" alt="Sidebar LIVE tab: 01 MONITOR with MASTER and MUTE, 02 SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE tab</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1111d" alt="Sidebar LIVE tab: 01 MONITOR with MASTER and MUTE, 02 SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE tab</figcaption></figure>
 
   <h3 id="ui-speakers">SPEAKERS tab</h3>
   <div class="tw"><table>
@@ -350,7 +350,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="editor">
   <div class="cap">04 — Object editor</div>
   <h2>Object editor</h2>
-  <figure><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Objects · canvas · settings</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1111d" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Objects · canvas · settings</figcaption></figure>
   <p>Everything here is a Live device parameter: an edit goes straight to the device, and the screen shows what the device sends back.</p>
   <h3>Canvas</h3>
   <ul>
@@ -368,9 +368,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>PATH: OPEN / CLOSED</td><td>Whether the last point joins the first</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>All curves · empty the path · read it back from Live</td></tr>
   </table></div>
-  <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats).</p>
+  <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats). The path is drawn only while the object follows it (PATH) or EDIT PATH is on; a straight fly-by is just two corner points. The selected object has a thick ring.</p>
   <h3>Settings column</h3>
-  <figure><img src="media/ui-editor-set.jpg?v=1111b" alt="Editor settings column with CHAOS selected: MOTION, attractor buttons and CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (CHAOS selected)</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1111d" alt="Editor settings column: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (a LINE object on RANDOM)</figcaption></figure>
   <ul>
     <li><strong>MOTION</strong> — the eight motions; RATE and SIZE (hidden for MANUAL and PATH, which don't use them); with CHAOS the attractor buttons and CHAOS SHAPE.</li>
     <li><strong>PATH</strong> — only with PATH or EDIT PATH on: PATH LENGTH, loop mode, open / closed, point tools.</li>
@@ -418,7 +418,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Speakers</h3>
   <p>Every object routes its track into the Spatial Renderer, which mixes all of them onto the speakers at signal rate and hands each pair to an OUT track. Track faders and mutes still work. Tracks without a Spatial Object are silent in speaker mode automatically (the renderer turns Main down, and back up in binaural).</p>
   <h4>Panning model</h4>
-  <figure><img src="media/ui-space.jpg?v=1111b" alt="Sidebar SPACE tab: 01 PANNING MODEL with VBAP DBAP AMBI WFS, 02 ROOM with presets, REVERB, REFLECTIONS and EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE tab</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111d" alt="Sidebar SPACE tab: 01 PANNING MODEL with VBAP DBAP AMBI WFS, 02 ROOM with presets, REVERB, REFLECTIONS and EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE tab</figcaption></figure>
   <p>SPACE tab. The 3D view lights the speakers with the same gains, and all models are level-matched. Choosing a layout picks its recommended model (the heading says <em>auto</em>); press another and that choice is remembered for the layout.</p>
   <div class="tw"><table>
     <tr><th>Model</th><th>How</th><th>Auto for</th></tr>
@@ -537,6 +537,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li><strong>Names</strong>: a leader to a fine rule, the name above and <span class="mono">AZ EL D ITD</span> below; nearby callouts move out of each other's way.</li>
     <li><strong>Brightness</strong>: each object follows its track level after the fader.</li>
+    <li><strong>Speakers</strong>: light up in the colour of the loudest object reaching them.</li>
+    <li><strong>Buttons</strong>: no outlines — light grey = off, black (white on the Black theme) = on; sliders fill in a darker grey.</li>
     <li><strong>Listener</strong>: a grey head with L/R-coloured ears and a face that changes now and then. VIEW → HEAD hides it.</li>
   </ul>
 </section>
@@ -556,6 +558,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>⚠ on the LOG tab</td><td>The WARNINGS block says which output check failed: too few outputs for the layout, or a sample-rate mismatch</td></tr>
     <tr><td>"old Spatial Object" in the editor</td><td>An older device on that track: reopen the set or insert it again</td></tr>
     <tr><td>Two objects share a number</td><td>Delete that Spatial Object and add it again</td></tr>
+    <tr><td>TouchDesigner drops below 60 fps</td><td>Show the UI in Perform mode (F1) instead of inside the network editor, especially on a 4K screen; VIEW → ROOM and the timeline bar cost a little too</td></tr>
     <tr><td>A position sent with /orbit/set doesn't show</td><td>Send <code>/orbit/set/n/motion 0</code> (MANUAL) first</td></tr>
     <tr><td>Orbit Link In says "no signal"</td><td>OSC Out Enable on, host = the receiving computer, same port, no other program on that port</td></tr>
     <tr><td>A crossfade stutters</td><td>Keep Live in front during a show (the OS slows Max's background thread) and use fades of a few beats</td></tr>
@@ -580,6 +583,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Version</th><th>Changes</th></tr>
+    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed</td></tr>
     <tr><td>9.4 · 11.11</td><td>Room on headphones (binaural reverb + reflections) · DIST COMP · EAR HEIGHT · room presets · custom MIRROR L ↔ R · SPEAKERS tab, VIEW split into CAMERA / SHOW · TRAIL only for Doppler objects · tracks without a Spatial Object silent in speaker mode</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS motion (Lorenz / Rossler / Thomas) · SPEED effect · TRAIL in 3D</td></tr>
     <tr><td>9.2 · 11.11</td><td>Room in the 3D view: box, reflection ghosts, reverb rings</td></tr>
@@ -720,7 +724,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · 인터페이스의 <strong>ASIO 드라이버</strong> 설치 (MME / WDM은 대개 2채널까지만 열린다).<br>2 · Live → 설정 → Audio: <strong>Driver Type ASIO</strong>, Audio Device = 인터페이스, 48000 Hz.<br>ASIO 장치는 한 번에 한 프로그램만 열 수 있다.</p></div>
   </div>
   <p>그다음 공통: Live → 설정 → Audio → <strong>Output Config</strong>에서 스피커를 덮는 쌍(1/2, 3/4 …)을 켠다. Dante(Dante Virtual Soundcard)나 MADI는 64채널짜리 장치 하나로 보이고 똑같이 고르면 된다. Orbit Score는 스피커 64개까지 구동한다.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111c" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live의 오디오 설정은 Live API로 바꿀 수 없어서 드라이버·장치·샘플레이트·Output Config는 처음 한 번 손으로 맞춘다. 세트 안의 OUT 트랙과 라우팅은 SET UP OUTPUTS가 해준다.</div>
   </section>
 </section>
@@ -755,7 +759,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Spread</td><td>0–180°</td><td>스피커: 점 대신 이 폭만큼의 방향 구름. 약 10° 이상이면 일부를 디코릴레이션(스피커마다 다른 올패스 복사본)해서 위상감 대신 감싸는 소리가 된다. WFS와 라인에는 적용 안 됨</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>공용 룸(리버브 + 반사음)을 얼마나 받을지. 베이스·킥·이미 리버브가 걸린 샘플처럼 마른 소리는 0 %</td></tr>
     <tr><td>Air</td><td>on / off (on)</td><td>멀어질수록 고음이 줄어든다: 거리 0.5에서 20 kHz, 2에서 약 4 kHz</td></tr>
-    <tr><td>Doppler</td><td>on / off (off)</td><td>거리 딜레이(Distance × SPEAKER DISTANCE ÷ 343 m/s). 다가오거나 멀어지는 오브젝트의 음정이 지나가는 차처럼 휜다. 같은 거리로 도는 건 변화 없음. 음정이 맞아야 하는 소리는 끈다</td></tr>
+    <tr><td>Doppler</td><td>on / off (off)</td><td>거리 딜레이(Distance × SPEAKER DISTANCE ÷ 343 m/s). 다가오거나 멀어지는 오브젝트의 음정이 지나가는 차처럼 휜다. 거리가 변할 때만 휜다: Circle·Figure 8·Ping-Pong·Spiral은 거리가 그대로라 변화 없음, 머리 옆을 빠르게 지나가는 Path나 Chaos에서 들린다. 실제 도플러는 미묘하다(초속 3 m에 약 ±15 cent, 반음은 초속 20 m 정도): Path Length를 줄이거나 SPEAKER DISTANCE를 키우면 잘 들린다. 음정이 맞아야 하는 소리는 끈다</td></tr>
     <tr><td>Speed</td><td>0–100 % (0)</td><td>빠르게 움직일수록 커지고(+6 dB까지) 밝아진다 — 도플러 위에 얹는 사운드 디자인 플라이바이. 약 10 m/s부터 최대</td></tr>
   </table></div>
   <p>Air, Doppler, Speed는 바이노럴과 스피커 모드 모두에서 동작한다. 헤드폰에서는 근접 효과가 자동으로 더해진다(<a href="#ko-render">06</a>).</p>
@@ -783,7 +787,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-ui">
   <div class="cap">03 — TD interface</div>
   <h2>화면</h2>
-  <figure><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 미리보기, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW와 사이드바</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 미리보기, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW와 사이드바</figcaption></figure>
   <p>상단 바에서 <span class="pill on">3D VIEW</span>와 <span class="pill">OBJECT EDITOR</span>를 오간다. 3D 뷰에서 왼쪽 드래그 = 궤도 회전, 휠 또는 가운데 드래그 = 줌. 사이드바는 가장자리의 <span class="pill">›</span> 띠로 접는다.</p>
   <h3>사이드바 탭</h3>
   <div class="tw"><table>
@@ -796,7 +800,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>연결, WARNINGS(탭에 ⚠), 디바이스 메시지(반복은 ×n으로 접힘). COPY / CLEAR / RESEND</td></tr>
   </table></div>
   <p><span class="mono">1.5 s</span>, <span class="mono">3.0 m</span> 같은 값 버튼은 <strong>누른 채 위아래로 드래그</strong>해서 바꾼다.</p>
-  <figure><img src="media/ui-live.jpg?v=1111b" alt="사이드바 LIVE 탭: 01 MONITOR(MASTER, MUTE), 02 SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE 탭</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1111d" alt="사이드바 LIVE 탭: 01 MONITOR(MASTER, MUTE), 02 SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE 탭</figcaption></figure>
 
   <h3 id="ko-ui-speakers">SPEAKERS 탭</h3>
   <div class="tw"><table>
@@ -821,7 +825,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-editor">
   <div class="cap">04 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 궤도 기즈모, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 오브젝트 · 캔버스 · 설정</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1111d" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 궤도 기즈모, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 오브젝트 · 캔버스 · 설정</figcaption></figure>
   <p>여기 있는 건 전부 Live 디바이스 파라미터다. 편집은 바로 디바이스로 가고, 화면은 디바이스가 돌려보낸 값을 보여준다.</p>
   <h3>캔버스</h3>
   <ul>
@@ -839,9 +843,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>PATH: OPEN / CLOSED</td><td>마지막 점을 첫 점과 이을지</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전부 곡선 · 경로 비우기 · Live에서 다시 읽기</td></tr>
   </table></div>
-  <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인. 위치 = 송 포지션 ÷ (Path Length × 4박).</p>
+  <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인. 위치 = 송 포지션 ÷ (Path Length × 4박). 경로는 오브젝트가 따라갈 때(PATH)나 EDIT PATH가 켜졌을 때만 그려진다. 직선으로 지나가는 경로는 모서리 점 두 개면 된다. 선택한 오브젝트는 굵은 원으로 표시.</p>
   <h3>설정 열</h3>
-  <figure><img src="media/ui-editor-set.jpg?v=1111b" alt="CHAOS를 고른 에디터 설정 열: MOTION, 끌개 버튼과 CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (CHAOS 선택)</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1111d" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (RANDOM으로 움직이는 LINE 오브젝트)</figcaption></figure>
   <ul>
     <li><strong>MOTION</strong> — 8가지 움직임. RATE와 SIZE(쓰지 않는 MANUAL·PATH에서는 숨김). CHAOS면 끌개 버튼과 CHAOS SHAPE.</li>
     <li><strong>PATH</strong> — PATH이거나 EDIT PATH가 켜졌을 때만: PATH LENGTH, 루프 모드, 열림/닫힘, 점 도구.</li>
@@ -889,7 +893,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>스피커</h3>
   <p>모든 오브젝트가 자기 트랙을 Spatial Renderer로 보내고, 렌더러가 시그널 레이트로 스피커에 믹스해 쌍마다 OUT 트랙에 넘긴다. 트랙 페이더와 뮤트는 그대로 듣는다. Spatial Object가 없는 트랙은 스피커 모드에서 자동으로 소리가 나지 않는다 (렌더러가 Main을 내리고, 바이노럴로 돌아가면 되돌린다).</p>
   <h4>패닝 모델</h4>
-  <figure><img src="media/ui-space.jpg?v=1111b" alt="사이드바 SPACE 탭: 01 PANNING MODEL(VBAP DBAP AMBI WFS), 02 ROOM(프리셋, REVERB, REFLECTIONS, EAR HEIGHT)" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE 탭</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111d" alt="사이드바 SPACE 탭: 01 PANNING MODEL(VBAP DBAP AMBI WFS), 02 ROOM(프리셋, REVERB, REFLECTIONS, EAR HEIGHT)" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE 탭</figcaption></figure>
   <p>SPACE 탭. 3D 뷰의 스피커 빛도 같은 게인을 쓰고, 모델끼리 레벨이 맞춰져 있다. 레이아웃을 고르면 추천 모델이 선택되고(제목에 <em>auto</em>), 다른 걸 누르면 그 레이아웃에 기억된다.</p>
   <div class="tw"><table>
     <tr><th>모델</th><th>방식</th><th>자동 선택</th></tr>
@@ -1008,6 +1012,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li><strong>이름표</strong>: 지시선 끝 가는 선 위에 이름, 아래에 <span class="mono">AZ EL D ITD</span>. 가까운 이름표끼리는 서로 비켜난다.</li>
     <li><strong>밝기</strong>: 오브젝트마다 페이더 이후 트랙 레벨을 따른다.</li>
+    <li><strong>스피커</strong>: 가장 크게 닿는 오브젝트의 색으로 빛난다.</li>
+    <li><strong>버튼</strong>: 테두리 없음 — 연한 회색 = 꺼짐, 검정(블랙 테마에서는 흰색) = 켜짐. 슬라이더는 진한 회색으로 채워진다.</li>
     <li><strong>청취자</strong>: L/R 색 귀가 달린 회색 머리, 표정이 가끔 바뀐다. VIEW → HEAD로 숨긴다.</li>
   </ul>
 </section>
@@ -1027,6 +1033,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG 탭에 ⚠</td><td>WARNINGS에 어떤 출력 검사가 실패했는지 나온다: 레이아웃보다 출력이 적거나 샘플레이트 불일치</td></tr>
     <tr><td>에디터에 "old Spatial Object"</td><td>그 트랙의 디바이스가 옛 버전: 세트를 다시 열거나 디바이스를 다시 넣는다</td></tr>
     <tr><td>두 오브젝트 번호가 같다</td><td>그 Spatial Object를 지우고 다시 넣는다</td></tr>
+    <tr><td>TouchDesigner가 60 fps 아래로 떨어진다</td><td>네트워크 편집기 안이 아니라 Perform 모드(F1)로 UI를 띄운다(특히 4K 화면). VIEW → ROOM과 타임라인 바도 약간 부담</td></tr>
     <tr><td>/orbit/set으로 보낸 위치가 안 보인다</td><td>먼저 <code>/orbit/set/n/motion 0</code>(MANUAL)</td></tr>
     <tr><td>Orbit Link In이 "no signal"</td><td>OSC Out Enable 켜짐, host = 받는 컴퓨터, 같은 포트, 그 포트를 쓰는 다른 프로그램 없음</td></tr>
     <tr><td>크로스페이드가 끊긴다</td><td>공연 중에는 Live를 앞에 둔다 (OS가 Max 백그라운드 스레드를 늦춘다). 페이드는 몇 박 정도로</td></tr>
@@ -1051,6 +1058,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 기록</h2>
   <div class="tw"><table>
     <tr><th>버전</th><th>변경</th></tr>
+    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 거친다(디바이스 사이 send~가 신호를 못 넘김), MASTER는 한 번만 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, GPU로 그리는 부드럽고 느린 파동, 방 이름표 삭제 · 스피커는 가장 큰 오브젝트 색 · 테두리 없는 버튼, 꺽쇠 삭제, 블랙 테마 그리드·광선 강화 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH일 때만 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 삭제</td></tr>
     <tr><td>9.4 · 11.11</td><td>헤드폰 룸(바이노럴 리버브 + 반사음) · DIST COMP · EAR HEIGHT · 룸 프리셋 · Custom MIRROR L ↔ R · SPEAKERS 탭, VIEW를 CAMERA / SHOW로 · TRAIL은 도플러 오브젝트만 · 스피커 모드에서 Spatial Object 없는 트랙 자동 무음</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS 움직임(Lorenz / Rossler / Thomas) · SPEED 효과 · 3D TRAIL</td></tr>
     <tr><td>9.2 · 11.11</td><td>3D 뷰에 룸: 상자, 반사음 유령, 리버브 링</td></tr>
