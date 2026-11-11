@@ -273,7 +273,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
     <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The <em>centre</em> of the motion. Azimuth 0 = front, + = left; Elevation 0 = ear height; Distance 1 = on the speaker ring</td></tr>
     <tr><td>Motion</td><td>8 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
-    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and extent of the motion (Path uses Path Length instead)</td></tr>
+    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and extent of the motion. Circle: Size is the radius (0.5 = Distance, 0 → 0.3×, 1 → 1.7×). Path uses Path Length instead</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>The drawn path (<a href="#editor">04</a>), locked to Live's song position</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td><strong>Chaos</strong> motion: a strange attractor around you — smooth, never repeating, now and then swinging close past your head. Lorenz flips between two wings left and right, Rossler winds in a spiral and shoots upward, Thomas wanders evenly. Chaos Shape changes the attractor itself; Rate = speed (0.1 ≈ one loop in 2 s), Size = width, Azimuth turns the figure, Distance scales it</td></tr>
   </table></div>
@@ -745,7 +745,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>파라미터</th><th>범위</th><th>의미</th></tr>
     <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 <em>중심</em>. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링 위</td></tr>
     <tr><td>Motion</td><td>8가지</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
-    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 크기 (Path는 Path Length를 쓴다)</td></tr>
+    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 크기. Circle은 Size가 반지름(0.5 = Distance, 0 → 0.3배, 1 → 1.7배). Path는 Path Length를 쓴다</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>그린 경로(<a href="#ko-editor">04</a>). Live 송 포지션에 맞춰 돈다</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td><strong>Chaos</strong> 움직임: 나를 둘러싼 이상한 끌개 — 매끄럽고 반복되지 않으며, 가끔 머리 가까이 휙 지나간다. Lorenz는 좌우 두 날개를 오가고, Rossler는 나선으로 감기다 위로 튀고, Thomas는 고르게 떠돈다. Chaos Shape는 끌개 자체를 바꾼다. Rate = 속도(0.1 ≈ 2초에 한 바퀴), Size = 폭, Azimuth = 도형 회전, Distance = 크기</td></tr>
   </table></div>
