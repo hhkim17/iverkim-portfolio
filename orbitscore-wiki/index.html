@@ -187,7 +187,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <path class="dash" d="M115 158 V200"/><text x="124" y="186" class="m" font-size="10">SPEAKERS</text>
     <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">Audio interface</text>
     <path class="dash" d="M210 217 H290"/>
-    <text x="304" y="254" class="m" font-size="10">BINAURAL: tracks → Main → headphones</text>
+    <text x="304" y="254" class="m" font-size="10">BINAURAL: renderer → Main → headphones</text>
     <text x="620" y="24" class="m" font-size="11">TOUCHDESIGNER</text>
     <rect class="box" x="620" y="60" width="260" height="76"/>
     <text x="634" y="84" font-size="12">Spatialisation_test</text><text x="634" y="104" class="m" font-size="10.5">3D preview · speaker layouts</text><text x="634" y="122" class="m" font-size="10.5">osc_dat · objects · render</text>
@@ -302,7 +302,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li>One per set, on its own empty audio track <code>ORBIT RENDER</code>.</li>
     <li><strong>Speakers</strong>: each object gets an input pair (3/4, 5/6 …) and routes its track there by itself. Up to 16 objects in, 64 speakers out (speaker k on device output k), picked up by the <code>OUT</code> tracks.</li>
-    <li><strong>Binaural</strong>: the objects play to Main themselves; the renderer only adds the room (reverb + reflections) on its own output 1/2 (OUT 1/2 is muted meanwhile).</li>
+    <li><strong>Binaural</strong>: each object renders its own headphone stereo and routes its track into the renderer as well; the renderer passes them to its output 1/2 (→ Main) and adds the room (reverb + reflections). OUT 1/2 is muted meanwhile. Without a renderer the objects play straight to Main.</li>
     <li>Inside: the panning matrix, the WFS engine, room reverb, early reflections, spread decorrelation and speaker distance compensation.</li>
   </ul>
   <div class="note"><b>TIP</b>Reordering tracks is safe: objects are identified by UID, and TouchDesigner follows Live's track order.</div>
@@ -439,7 +439,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>REFLECTIONS</td><td>On · WALLS (you to the walls, 1.5–40 m) · level. Six first-order image sources per object (walls, floor, ceiling), each delayed by its extra path and placed in its own direction — VBAP on speakers, level + time difference per ear on headphones</td></tr>
     <tr><td>EAR HEIGHT</td><td>Ears above the floor (1.2 m seated, ~1.6 m standing). The floor reflection and the 3D grid follow it</td></tr>
   </table></div>
-  <p>In binaural mode the objects also send their mono signal to the renderer (<code>send~ orbit_rs_&lt;slot&gt;</code>), and the room comes out of the ORBIT RENDER track to Main — keep that track in the set.</p>
+  <p>In binaural mode the object tracks also run through the renderer, so the room comes out of the ORBIT RENDER track to Main — keep that track in the set. MASTER is Live's Main fader there, applied once to direct sound and room alike.</p>
   <p><strong>In 3D</strong> (VIEW → ROOM): the room box, each object's reflections as soft halos behind the walls with faint bounce paths, and soft blurred waves and haze that spread slowly over the reverb time. VIEW → <strong>TRAIL</strong> leaves fading dots behind objects with DOPPLER on — sparse dots mean fast, and more Doppler. Both are drawn from the renderer's maths and the track meters, not measured from the audio.</p>
 </section>
 
@@ -658,7 +658,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <path class="dash" d="M115 158 V200"/><text x="124" y="186" class="m" font-size="10">SPEAKERS</text>
     <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">오디오 인터페이스</text>
     <path class="dash" d="M210 217 H290"/>
-    <text x="304" y="254" class="m" font-size="10">BINAURAL: 트랙 → Main → 헤드폰</text>
+    <text x="304" y="254" class="m" font-size="10">BINAURAL: 렌더러 → Main → 헤드폰</text>
     <text x="620" y="24" class="m" font-size="11">TOUCHDESIGNER</text>
     <rect class="box" x="620" y="60" width="260" height="76"/>
     <text x="634" y="84" font-size="12">Spatialisation_test</text><text x="634" y="104" class="m" font-size="10.5">3D preview · speaker layouts</text><text x="634" y="122" class="m" font-size="10.5">osc_dat · objects · render</text>
@@ -773,7 +773,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <ul>
     <li>세트에 하나, 전용 빈 오디오 트랙 <code>ORBIT RENDER</code>에.</li>
     <li><strong>Speakers</strong>: 오브젝트마다 입력 쌍(3/4, 5/6 …)을 받아 트랙을 알아서 그리로 라우팅한다. 오브젝트 16개 입력, 스피커 64개 출력(스피커 k = 디바이스 출력 k)이고 <code>OUT</code> 트랙이 가져간다.</li>
-    <li><strong>Binaural</strong>: 오브젝트는 스스로 Main으로 나가고, 렌더러는 자기 출력 1/2로 룸(리버브 + 반사음)만 더한다 (그동안 OUT 1/2는 뮤트).</li>
+    <li><strong>Binaural</strong>: 오브젝트가 각자 헤드폰용 스테레오를 만들어 트랙을 렌더러로 보내고, 렌더러가 그것을 출력 1/2(→ Main)로 내보내며 룸(리버브 + 반사음)을 더한다. 그동안 OUT 1/2는 뮤트. 렌더러가 없으면 오브젝트는 Main으로 바로 나간다.</li>
     <li>안에 든 것: 패닝 매트릭스, WFS 엔진, 룸 리버브, 초기 반사음, Spread 디코릴레이션, 스피커 거리 보정.</li>
   </ul>
   <div class="note"><b>TIP</b>트랙 순서를 바꿔도 괜찮다. 오브젝트는 UID로 구분되고, TouchDesigner는 Live 트랙 순서를 따라간다.</div>
@@ -910,7 +910,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>REFLECTIONS</td><td>켜기 · WALLS(벽까지 1.5–40 m) · 레벨. 오브젝트마다 1차 이미지 소스 6개(벽, 바닥, 천장)를 추가 경로만큼 늦춰 각자의 방향에 놓는다 — 스피커는 VBAP, 헤드폰은 귀마다 레벨 + 시간차</td></tr>
     <tr><td>EAR HEIGHT</td><td>바닥에서 귀까지 (앉으면 1.2 m, 서면 약 1.6 m). 바닥 반사와 3D 그리드가 따라간다</td></tr>
   </table></div>
-  <p>바이노럴에서도 오브젝트가 모노 신호를 렌더러로 보내고(<code>send~ orbit_rs_&lt;slot&gt;</code>), 룸은 ORBIT RENDER 트랙에서 Main으로 나온다 — 이 트랙은 세트에 두자.</p>
+  <p>바이노럴에서도 오브젝트 트랙이 렌더러를 거치므로 룸은 ORBIT RENDER 트랙에서 Main으로 나온다 — 이 트랙은 세트에 두자. 이때 MASTER는 Live의 Main 페이더라서 직접음과 룸에 한 번씩만 걸린다.</p>
   <p><strong>3D에서</strong>(VIEW → ROOM): 방 상자, 벽 너머 반사음의 부드러운 후광과 옅은 튕김 경로, 리버브 시간 동안 천천히 퍼지며 사라지는 흐린 파동과 헤이즈. VIEW → <strong>TRAIL</strong>은 DOPPLER가 켜진 오브젝트 뒤에 사라지는 점을 남긴다 — 점 간격이 넓을수록 빠르고 도플러도 크다. 둘 다 오디오를 측정한 게 아니라 렌더러의 계산과 트랙 미터로 그린다.</p>
 </section>
 
