@@ -412,6 +412,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Sound — binaural, speakers, room</h2>
   <h3>Binaural (headphones)</h3>
   <p>Each Spatial Object renders its own direction to stereo: interaural time difference, head shadow, distance. In the 3D view the ears are tinted <span class="L">L blue</span> / <span class="R">R red</span>, and <span class="mono">ITD 0.45 ms R</span> under a name says which ear hears it first. A line object is two binaural chains, one per end.</p>
+  <p><strong>Pinna</strong>: after the ear filters, five short reflections of the outer ear are added per ear (Brown &amp; Duda structural model); their delays move with elevation and azimuth, so up / down and front / back separate better, and sources behind lose a little top end.</p>
   <p><strong>Near field</strong>: closer than about 1 m (Distance × SPEAKER DISTANCE), the near ear gets louder and bassier and the far ear quieter — the "whisper in your ear" cue. Automatic, headphones only.</p>
   <h3>Speakers</h3>
   <p>Every object routes its track into the Spatial Renderer, which mixes all of them onto the speakers at signal rate and hands each pair to an OUT track. Track faders and mutes still work. Tracks without a Spatial Object are silent in speaker mode automatically (the renderer turns Main down, and back up in binaural).</p>
@@ -436,6 +437,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>REVERB</td><td>On · time 0.3–10 s · amount. An 8-line feedback delay network; each object's send grows with its distance while its direct sound falls — so far sounds farther, not just quieter. Speakers: 8 uncorrelated tails over all speakers. Binaural: a wide stereo tail</td></tr>
     <tr><td>REFLECTIONS</td><td>On · WALLS (you to the walls, 1.5–40 m) · level. Six first-order image sources per object (walls, floor, ceiling), each delayed by its extra path and placed in its own direction — VBAP on speakers, level + time difference per ear on headphones</td></tr>
     <tr><td>EAR HEIGHT</td><td>Ears above the floor (1.2 m seated, ~1.6 m standing). The floor reflection and the 3D grid follow it</td></tr>
+    <tr><td>DOPPLER ×1 ×2 ×4 ×8</td><td>Emphasis for every object with DOPPLER on: the pitch bends k times as far. Only the change of distance is scaled, so the extra latency stays small (about 60 ms at ×8)</td></tr>
   </table></div>
   <p>In binaural mode the object tracks also run through the renderer, so the room comes out of the ORBIT RENDER track to Main — keep that track in the set. MASTER is Live's Main fader there, applied once to direct sound and room alike.</p>
   <p><strong>In 3D</strong> (VIEW → ROOM): the room box, each object's reflections as soft halos behind the walls with faint bounce paths, and soft blurred waves and haze that spread slowly over the reverb time. VIEW → <strong>TRAIL</strong> leaves fading dots behind objects with DOPPLER on — sparse dots mean fast, and more Doppler. Both are drawn from the renderer's maths and the track meters, not measured from the audio.</p>
@@ -502,6 +504,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/n/name · color · level · shape</td><td>track name · r g b · 0–1 · 0 point / 1 line</td></tr>
     <tr><td>/orbit/count · layout</td><td>number of objects · layout id, speaker count</td></tr>
     <tr><td>/orbit/scene · scenes</td><td>active scene (<code>-</code> if none) · all scene names</td></tr>
+    <tr><td>/orbit/n/chaos</td><td>x y z — a CHAOS object's attractor, about −1 … 1 (right, up, back); only for CHAOS objects</td></tr>
   </table></div>
   <h3>Set <code>/orbit/set/…</code> → 9011</h3>
   <p>Forwarded to the Live device like an edit in the editor, so it is saved in the set. A position only shows while the object's motion is MANUAL — send <code>/orbit/set/n/motion 0</code> first.</p>
@@ -515,7 +518,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>Drop-in components for the other project — no OSC parsing needed.</p>
   <div class="grid2">
     <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
-      <p><strong>out1</strong> (CHOP): <code>count</code> and <code>o1_x o1_y o1_z</code> … per object; the <strong>Out:</strong> toggles add <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>. <strong>Object</strong> &gt; 0 gives one object without the prefix. Port 9010, Smooth, Signal Timeout; Status shows <span class="mono">3 objects · live</span>.</p></div>
+      <p><strong>out1</strong> (CHOP): <code>count</code> and <code>o1_x o1_y o1_z</code> … per object; the <strong>Out:</strong> toggles add <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em> (<code>o1_cx o1_cy o1_cz</code>). <strong>Object</strong> &gt; 0 gives one object without the prefix. Port 9010, Smooth, Signal Timeout; Status shows <span class="mono">3 objects · live</span>.</p></div>
     <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
       <p>Wire a CHOP with channels named like the output (<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …) and turn on <strong>Send Enable</strong>; only changes are sent, to Host : 9011. <strong>Objects</strong> (<code>*</code>, <code>2</code>, <code>1-3 5</code>) limits which objects it may move. <strong>Recall Scene</strong> lists the scenes of an Orbit In.</p></div>
   </div>
@@ -551,7 +554,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">11 — Roadmap</div>
   <h2>What's next</h2>
   <ul>
-    <li><strong>Chaos out</strong>: send the attractor's values to other Live parameters or over OSC.</li>
+    <li><strong>Chaos into Live</strong>: map the attractor values onto other Live parameters (they already go out over OSC).</li>
     <li><strong>Fade curves</strong>: linear / exponential per scene, and fading rate and size as well as the centre.</li>
     <li><strong>Orbit Link</strong>: bar · beat and locators for visuals that follow the song.</li>
   </ul>
@@ -563,7 +566,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Version</th><th>Changes</th></tr>
-    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed</td></tr>
+    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed · DOPPLER emphasis ×1…×8 · pinna model on headphones · CHAOS values over OSC (/orbit/n/chaos, Orbit Link Out: Chaos) · editor as light as the 3D view</td></tr>
     <tr><td>9.4 · 11.11</td><td>Room on headphones (binaural reverb + reflections) · DIST COMP · EAR HEIGHT · room presets · custom MIRROR L ↔ R · SPEAKERS tab, VIEW split into CAMERA / SHOW · TRAIL only for Doppler objects · tracks without a Spatial Object silent in speaker mode</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS motion (Lorenz / Rossler / Thomas) · SPEED effect · TRAIL in 3D</td></tr>
     <tr><td>9.2 · 11.11</td><td>Room in the 3D view: box, reflection ghosts, reverb rings</td></tr>
@@ -839,6 +842,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>소리 — 바이노럴, 스피커, 룸</h2>
   <h3>바이노럴 (헤드폰)</h3>
   <p>Spatial Object가 각자 자기 방향을 스테레오로 렌더링한다: 양이 시간차, 머리 그림자, 거리. 3D 뷰의 귀는 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>이고, 이름 아래 <span class="mono">ITD 0.45 ms R</span>는 어느 귀에 먼저 닿는지다. 라인 오브젝트는 양 끝에 하나씩, 바이노럴 체인 두 개.</p>
+  <p><strong>귓바퀴</strong>: 귀 필터 다음에 귀마다 귓바퀴의 짧은 반사 다섯 개를 더한다(Brown &amp; Duda 구조 모델). 반사 지연이 고도와 방위에 따라 움직여서 위/아래, 앞/뒤가 더 잘 구분되고, 뒤쪽 음원은 고음이 조금 줄어든다.</p>
   <p><strong>근접 효과</strong>: 약 1 m(Distance × SPEAKER DISTANCE)보다 가까우면 가까운 귀는 커지고 저음이 늘며 먼 귀는 작아진다 — "귓가에 속삭이는" 느낌. 자동, 헤드폰 전용.</p>
   <h3>스피커</h3>
   <p>모든 오브젝트가 자기 트랙을 Spatial Renderer로 보내고, 렌더러가 시그널 레이트로 스피커에 믹스해 쌍마다 OUT 트랙에 넘긴다. 트랙 페이더와 뮤트는 그대로 듣는다. Spatial Object가 없는 트랙은 스피커 모드에서 자동으로 소리가 나지 않는다 (렌더러가 Main을 내리고, 바이노럴로 돌아가면 되돌린다).</p>
@@ -863,6 +867,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>REVERB</td><td>켜기 · 시간 0.3–10 s · 양. 8라인 피드백 딜레이 네트워크. 멀어질수록 센드는 늘고 직접음은 줄어서, 먼 소리가 그냥 작아지는 게 아니라 더 멀게 들린다. 스피커: 서로 다른 테일 8개를 모든 스피커에. 바이노럴: 넓은 스테레오 테일</td></tr>
     <tr><td>REFLECTIONS</td><td>켜기 · WALLS(벽까지 1.5–40 m) · 레벨. 오브젝트마다 1차 이미지 소스 6개(벽, 바닥, 천장)를 추가 경로만큼 늦춰 각자의 방향에 놓는다 — 스피커는 VBAP, 헤드폰은 귀마다 레벨 + 시간차</td></tr>
     <tr><td>EAR HEIGHT</td><td>바닥에서 귀까지 (앉으면 1.2 m, 서면 약 1.6 m). 바닥 반사와 3D 그리드가 따라간다</td></tr>
+    <tr><td>DOPPLER ×1 ×2 ×4 ×8</td><td>DOPPLER가 켜진 모든 오브젝트의 강조: 음정이 k배 휜다. 거리 변화만 키우므로 추가 지연은 작다 (×8에서 약 60 ms)</td></tr>
   </table></div>
   <p>바이노럴에서도 오브젝트 트랙이 렌더러를 거치므로 룸은 ORBIT RENDER 트랙에서 Main으로 나온다 — 이 트랙은 세트에 두자. 이때 MASTER는 Live의 Main 페이더라서 직접음과 룸에 한 번씩만 걸린다.</p>
   <p><strong>3D에서</strong>(VIEW → ROOM): 방 상자, 벽 너머 반사음의 부드러운 후광과 옅은 튕김 경로, 리버브 시간 동안 천천히 퍼지며 사라지는 흐린 파동과 헤이즈. VIEW → <strong>TRAIL</strong>은 DOPPLER가 켜진 오브젝트 뒤에 사라지는 점을 남긴다 — 점 간격이 넓을수록 빠르고 도플러도 크다. 둘 다 오디오를 측정한 게 아니라 렌더러의 계산과 트랙 미터로 그린다.</p>
@@ -929,6 +934,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/n/name · color · level · shape</td><td>트랙 이름 · r g b · 0–1 · 0 점 / 1 선</td></tr>
     <tr><td>/orbit/count · layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
     <tr><td>/orbit/scene · scenes</td><td>현재 씬 (없으면 <code>-</code>) · 모든 씬 이름</td></tr>
+    <tr><td>/orbit/n/chaos</td><td>x y z — CHAOS 오브젝트의 끌개 값, 약 −1 … 1 (오른쪽, 위, 뒤). CHAOS 오브젝트만</td></tr>
   </table></div>
   <h3>입력 <code>/orbit/set/…</code> → 9011</h3>
   <p>에디터에서 편집한 것처럼 Live 디바이스로 전달되어 세트에 저장된다. 위치는 오브젝트가 MANUAL일 때만 보인다 — 먼저 <code>/orbit/set/n/motion 0</code>을 보내자.</p>
@@ -942,7 +948,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>다른 프로젝트에 넣기만 하면 되는 컴포넌트 — OSC 파싱이 필요 없다.</p>
   <div class="grid2">
     <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
-      <p><strong>out1</strong>(CHOP): <code>count</code>와 오브젝트마다 <code>o1_x o1_y o1_z</code> …. <strong>Out:</strong> 토글로 <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em> 추가. <strong>Object</strong> &gt; 0이면 접두사 없이 한 오브젝트만. Port 9010, Smooth, Signal Timeout. Status에 <span class="mono">3 objects · live</span>.</p></div>
+      <p><strong>out1</strong>(CHOP): <code>count</code>와 오브젝트마다 <code>o1_x o1_y o1_z</code> …. <strong>Out:</strong> 토글로 <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em>(<code>o1_cx o1_cy o1_cz</code>) 추가. <strong>Object</strong> &gt; 0이면 접두사 없이 한 오브젝트만. Port 9010, Smooth, Signal Timeout. Status에 <span class="mono">3 objects · live</span>.</p></div>
     <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
       <p>출력과 같은 이름의 채널(<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …)을 가진 CHOP을 연결하고 <strong>Send Enable</strong>을 켠다. 바뀐 값만 Host : 9011로 간다. <strong>Objects</strong>(<code>*</code>, <code>2</code>, <code>1-3 5</code>)로 움직일 오브젝트를 제한. <strong>Recall Scene</strong>은 Orbit In의 씬 목록을 보여준다.</p></div>
   </div>
@@ -978,7 +984,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">11 — Roadmap</div>
   <h2>다음 할 일</h2>
   <ul>
-    <li><strong>Chaos out</strong>: 끌개 값을 다른 Live 파라미터나 OSC로 내보내기.</li>
+    <li><strong>Chaos → Live</strong>: 끌개 값을 다른 Live 파라미터에 매핑하기 (OSC 송출은 완료).</li>
     <li><strong>페이드 곡선</strong>: 씬별 선형 / 지수, 중심뿐 아니라 rate·size도 페이드.</li>
     <li><strong>Orbit Link</strong>: 마디 · 박과 로케이터를 보내 곡을 따라가는 비주얼.</li>
   </ul>
@@ -990,7 +996,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 기록</h2>
   <div class="tw"><table>
     <tr><th>버전</th><th>변경</th></tr>
-    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 거친다(디바이스 사이 send~가 신호를 못 넘김), MASTER는 한 번만 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, GPU로 그리는 부드럽고 느린 파동, 방 이름표 삭제 · 스피커는 가장 큰 오브젝트 색 · 테두리 없는 버튼, 꺽쇠 삭제, 블랙 테마 그리드·광선 강화 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH일 때만 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 삭제</td></tr>
+    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 거친다(디바이스 사이 send~가 신호를 못 넘김), MASTER는 한 번만 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, GPU로 그리는 부드럽고 느린 파동, 방 이름표 삭제 · 스피커는 가장 큰 오브젝트 색 · 테두리 없는 버튼, 꺽쇠 삭제, 블랙 테마 그리드·광선 강화 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH일 때만 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 삭제 · DOPPLER 강조 ×1…×8 · 헤드폰 귓바퀴 모델 · CHAOS 값 OSC 송출(/orbit/n/chaos, Orbit Link Out: Chaos) · 에디터가 3D 화면만큼 가벼워짐</td></tr>
     <tr><td>9.4 · 11.11</td><td>헤드폰 룸(바이노럴 리버브 + 반사음) · DIST COMP · EAR HEIGHT · 룸 프리셋 · Custom MIRROR L ↔ R · SPEAKERS 탭, VIEW를 CAMERA / SHOW로 · TRAIL은 도플러 오브젝트만 · 스피커 모드에서 Spatial Object 없는 트랙 자동 무음</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS 움직임(Lorenz / Rossler / Thomas) · SPEED 효과 · 3D TRAIL</td></tr>
     <tr><td>9.2 · 11.11</td><td>3D 뷰에 룸: 상자, 반사음 유령, 리버브 링</td></tr>
