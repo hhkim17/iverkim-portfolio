@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Mono&family=Roboto:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap">
 <style>
-/* Same sheet as the tool: White = paper + black ink, Black = night + chalk. Hairlines, corner ticks, "01 — SECTION" captions. */
+/* Same sheet as the tool: White = paper + black ink, Black = night + chalk. Hairlines, "01 — SECTION" captions. */
 :root{
   --bg:#f3f3f2; --ink:#0f0f0f; --mid:#7a7a78; --faint:#c9c9c6; --hair:#dededb; --fill:#e7e7e4;
   --l:#7da2f2; --r:#f08a7a;
@@ -69,13 +69,6 @@ main{padding:40px 56px 120px;min-width:0}
 .hero h1{font:300 54px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
 .hero p{max-width:640px;margin:0;color:var(--ink)}
 .hero .meta{font:12px/1.6 var(--f-mono);color:var(--mid);margin-top:16px}
-/* corner ticks, like the instrument frames */
-.ticks{position:relative}
-.ticks::before,.ticks::after,.ticks>.t::before,.ticks>.t::after{content:"";position:absolute;width:16px;height:16px;border-color:var(--ink);border-style:solid;pointer-events:none}
-.ticks::before{top:0;left:0;border-width:1px 0 0 1px}
-.ticks::after{top:0;right:0;border-width:1px 1px 0 0}
-.ticks>.t::before{bottom:0;left:0;border-width:0 0 1px 1px}
-.ticks>.t::after{bottom:0;right:0;border-width:0 1px 1px 0}
 
 section{margin:0 0 72px}
 .cap{font:12px/1 var(--f-mono);color:var(--mid);letter-spacing:.04em;margin:0 0 10px;text-transform:uppercase}
@@ -170,7 +163,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </nav>
 
 <main data-lang="en" lang="en-GB">
-<header class="hero ticks"><div class="t"></div>
+<header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>ORBIT SCORE</h1>
   <p>Every Ableton Live track becomes a sound object in space. Live renders the sound — binaural on headphones, or a multichannel feed straight to your speakers. TouchDesigner shows the objects in 3D, edits how they move, and passes the same spatial data on to your own visual projects over OSC.</p>
@@ -182,7 +175,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">00 — Overview</div>
   <h2>How it fits together</h2>
   <p><strong>All audio is made inside Live</strong>, by Max for Live devices, and goes from Live straight to the audio interface. TouchDesigner never touches the audio: it shows and edits positions and talks to Live over local OSC. Close TouchDesigner and Live plays exactly the same.</p>
-  <figure class="ticks"><div class="t"></div>
+  <figure>
   <svg class="flow" viewBox="0 0 900 300" role="img" aria-label="Signal flow: Spatial Objects on the Live tracks feed the Spatial Renderer, whose OUT tracks go to the audio interface; in binaural mode the objects play to Main. The Spatial Master talks to TouchDesigner over OSC on ports 9001 and 9002.">
     <text x="20" y="24" class="m" font-size="11">ABLETON LIVE</text>
     <rect class="box" x="20" y="36" width="190" height="34"/><text x="32" y="58" font-size="12">Track 1 · Spatial Object</text>
@@ -256,7 +249,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · Install the interface's <strong>ASIO driver</strong> (MME / WDM rarely open more than two channels).<br>2 · Live → Settings → Audio: <strong>Driver Type ASIO</strong>, Audio Device = the interface, 48000 Hz.<br>Only one program can open an ASIO device at a time.</p></div>
   </div>
   <p>Then, on both: Live → Settings → Audio → <strong>Output Config</strong>, enable the pairs that cover the speakers (1/2, 3/4 …). Dante (Dante Virtual Soundcard) and MADI systems appear as one device with 64 channels and are chosen the same way; Orbit Score drives up to 64 speakers.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1111b" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, METER, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111b" alt="Sidebar SPEAKERS tab: 01 SPEAKER LAYOUT, 02 OUTPUTS with SET UP OUTPUTS, METER, OUTPUT MAP, TEST and status, 03 DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live's audio settings cannot be changed through the Live API, so the driver, device, sample rate and Output Config are set by hand once. Everything inside the set — OUT tracks, routing — is done by SET UP OUTPUTS.</div>
   </section>
 </section>
@@ -265,7 +258,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="devices">
   <div class="cap">02 — Live devices</div>
   <h2>Spatial Object · Spatial Master · Spatial Renderer</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-object.jpg?v=1110e" alt="Spatial Object device in Live: Azimuth, Elevation, Distance dials, object UID, OSC and Render switches, level meter, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
+  <figure><img src="media/dev-object.jpg?v=1110e" alt="Spatial Object device in Live: Azimuth, Elevation, Distance dials, object UID, OSC and Render switches, level meter, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
   <h3>Spatial Object</h3>
   <p>Every control is an ordinary Live parameter: automate it, map it to a macro, drive it with a modulator. The editor in TouchDesigner (<a href="#editor">04</a>) shows the same values.</p>
   <h4>Position and motion</h4>
@@ -297,7 +290,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>Air, Doppler and Speed work in both binaural and speaker mode. A near-field cue is added on headphones automatically (<a href="#render">06</a>).</p>
 
   <h3>Spatial Master</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-master.jpg?v=1110e" alt="Spatial Master device in Live: OSC port 9001, render mode Off / Binaural / Speakers, current layout" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
+  <figure><img src="media/dev-master.jpg?v=1110e" alt="Spatial Master device in Live: OSC port 9001, render mode Off / Binaural / Speakers, current layout" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
   <ul>
     <li><strong>Mode</strong> <span class="pill">OFF</span> <span class="pill on">BINAURAL</span> <span class="pill">SPEAKERS</span> — the same switch as MONITOR in TouchDesigner.</li>
     <li>Sends every object to <code>127.0.0.1:9001</code> and receives TouchDesigner's edits on <code>9002</code>: parameters, mute, master volume, track colour.</li>
@@ -305,11 +298,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ul>
 
   <h3>Spatial Renderer</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-renderer.jpg?v=1110e" alt="Spatial Renderer device in Live: 16 objects in, 64 speakers out" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — Spatial Renderer on ORBIT RENDER</figcaption></figure>
+  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Spatial Renderer device in Live: 16 objects in, 64 speakers out" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — Spatial Renderer on ORBIT RENDER</figcaption></figure>
   <ul>
     <li>One per set, on its own empty audio track <code>ORBIT RENDER</code>.</li>
-    <li><strong>Speakers</strong>: each object gets an input pair (3/4, 5/6 …) and routes its track there by itself. Up to 16 objects in, 64 speakers out (speaker k on device output k + 2), picked up by the <code>OUT</code> tracks.</li>
-    <li><strong>Binaural</strong>: the objects play to Main themselves; the renderer only adds the room (reverb + reflections) on its own output 1/2.</li>
+    <li><strong>Speakers</strong>: each object gets an input pair (3/4, 5/6 …) and routes its track there by itself. Up to 16 objects in, 64 speakers out (speaker k on device output k), picked up by the <code>OUT</code> tracks.</li>
+    <li><strong>Binaural</strong>: the objects play to Main themselves; the renderer only adds the room (reverb + reflections) on its own output 1/2 (OUT 1/2 is muted meanwhile).</li>
     <li>Inside: the panning matrix, the WFS engine, room reverb, early reflections, spread decorrelation and speaker distance compensation.</li>
   </ul>
   <div class="note"><b>TIP</b>Reordering tracks is safe: objects are identified by UID, and TouchDesigner follows Live's track order.</div>
@@ -319,7 +312,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ui">
   <div class="cap">03 — TD interface</div>
   <h2>The screen</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW and the sidebar</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW and the sidebar</figcaption></figure>
   <p>The top bar switches between <span class="pill on">3D VIEW</span> and <span class="pill">OBJECT EDITOR</span>. In the 3D view: left drag orbits, wheel or middle drag zooms. The sidebar folds away with the <span class="pill">›</span> strip on its edge.</p>
   <h3>Sidebar tabs</h3>
   <div class="tw"><table>
@@ -332,7 +325,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>Connection, WARNINGS (a ⚠ on the tab), device messages (repeats folded as ×n). COPY / CLEAR / RESEND</td></tr>
   </table></div>
   <p>Value buttons such as <span class="mono">1.5 s</span> or <span class="mono">3.0 m</span> change by <strong>pressing and dragging up or down</strong>.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-live.jpg?v=1111b" alt="Sidebar LIVE tab: 01 MONITOR with MASTER and MUTE, 02 SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE tab</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1111b" alt="Sidebar LIVE tab: 01 MONITOR with MASTER and MUTE, 02 SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE tab</figcaption></figure>
 
   <h3 id="ui-speakers">SPEAKERS tab</h3>
   <div class="tw"><table>
@@ -351,14 +344,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
   <h3>Track colour</h3>
   <p>Click a track's colour square: Ableton's 70-colour palette opens below the row, and the colour changes in TouchDesigner and Live together.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette: the same 70 colours as Ableton, laid out 14 by 5 in a pop-up" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — Colour palette</figcaption></figure>
+  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette: the same 70 colours as Ableton, laid out 14 by 5 in a pop-up" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — Colour palette</figcaption></figure>
 </section>
 
 <!-- 04 -->
 <section id="editor">
   <div class="cap">04 — Object editor</div>
   <h2>Object editor</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Objects · canvas · settings</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Objects · canvas · settings</figcaption></figure>
   <p>Everything here is a Live device parameter: an edit goes straight to the device, and the screen shows what the device sends back.</p>
   <h3>Canvas</h3>
   <ul>
@@ -378,7 +371,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats).</p>
   <h3>Settings column</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor-set.jpg?v=1111b" alt="Editor settings column with CHAOS selected: MOTION, attractor buttons and CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (CHAOS selected)</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1111b" alt="Editor settings column with CHAOS selected: MOTION, attractor buttons and CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (CHAOS selected)</figcaption></figure>
   <ul>
     <li><strong>MOTION</strong> — the eight motions, RATE, SIZE; with CHAOS the attractor buttons and CHAOS SHAPE.</li>
     <li><strong>PATH</strong> — only with PATH or EDIT PATH on: PATH LENGTH, loop mode, open / closed, point tools.</li>
@@ -386,7 +379,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
   </ul>
   <p>Drag a slider, or <strong>double-click</strong> it to type a value (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor-chaos.jpg?v=1111b" alt="Editor canvas: the dotted figure of a CHAOS (Lorenz) object" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — A Lorenz attractor on the canvas</figcaption></figure>
+  <figure><img src="media/ui-editor-chaos.jpg?v=1111b" alt="Editor canvas: the dotted figure of a CHAOS (Lorenz) object" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — A Lorenz attractor on the canvas</figcaption></figure>
   <h3>Saving</h3>
   <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/</code> and saves the TouchDesigner project; <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
 </section>
@@ -395,7 +388,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="scenes">
   <div class="cap">05 — Scenes &amp; timeline</div>
   <h2>Scenes and timeline</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg?v=1110b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab and the timeline bar</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1110b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab and the timeline bar</figcaption></figure>
   <p>A <strong>scene</strong> is a snapshot of the objects — centre position, motion, shape, path, sound settings — and <strong>a scene is a Live locator of the same name</strong>. Scenes live in the Spatial Master, so they save with the set and play with TouchDesigner closed.</p>
   <h3>SCENES tab</h3>
   <div class="tw"><table>
@@ -426,7 +419,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Speakers</h3>
   <p>Every object routes its track into the Spatial Renderer, which mixes all of them onto the speakers at signal rate and hands each pair to an OUT track. Track faders and mutes still work. Tracks without a Spatial Object are silent in speaker mode automatically (the renderer turns Main down, and back up in binaural).</p>
   <h4>Panning model</h4>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-space.jpg?v=1111b" alt="Sidebar SPACE tab: 01 PANNING MODEL with VBAP DBAP AMBI WFS, 02 ROOM with presets, REVERB, REFLECTIONS and EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE tab</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111b" alt="Sidebar SPACE tab: 01 PANNING MODEL with VBAP DBAP AMBI WFS, 02 ROOM with presets, REVERB, REFLECTIONS and EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE tab</figcaption></figure>
   <p>SPACE tab. The 3D view lights the speakers with the same gains, and all models are level-matched. Choosing a layout picks its recommended model (the heading says <em>auto</em>); press another and that choice is remembered for the layout.</p>
   <div class="tw"><table>
     <tr><th>Model</th><th>How</th><th>Auto for</th></tr>
@@ -448,7 +441,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>EAR HEIGHT</td><td>Ears above the floor (1.2 m seated, ~1.6 m standing). The floor reflection and the 3D grid follow it</td></tr>
   </table></div>
   <p>In binaural mode the objects also send their mono signal to the renderer (<code>send~ orbit_rs_&lt;slot&gt;</code>), and the room comes out of the ORBIT RENDER track to Main — keep that track in the set.</p>
-  <p><strong>In 3D</strong> (VIEW → ROOM): the room box with the preset name <span class="mono">[ hall ]</span>, each object's reflections as ghost points behind the walls with their bounce paths, and reverb rings and haze that fade over the reverb time. VIEW → <strong>TRAIL</strong> leaves fading dots behind objects with DOPPLER on — sparse dots mean fast, and more Doppler. Both are drawn from the renderer's maths and the track meters, not measured from the audio.</p>
+  <p><strong>In 3D</strong> (VIEW → ROOM): the room box, each object's reflections as soft halos behind the walls with faint bounce paths, and soft blurred waves and haze that spread slowly over the reverb time. VIEW → <strong>TRAIL</strong> leaves fading dots behind objects with DOPPLER on — sparse dots mean fast, and more Doppler. Both are drawn from the renderer's maths and the track meters, not measured from the audio.</p>
 </section>
 
 <!-- 07 -->
@@ -619,10 +612,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>QjackCtl → Setup: Driver portaudio, Interface = the interface's <code>ASIO::</code> entry (install its ASIO driver if missing; ASIO4ALL as fallback), 48000 Hz, Playback Only → Start.</li>
     <li>Live → Audio Device = JackRouter; QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg?v=1110b" alt="JackRouter.ini in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = outputs Live sees</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, the interface's ASIO entry selected" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: pick the <code>ASIO::</code> entry</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1 to out8 wired to system playback_1 to 8, out9 to 16 unconnected" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — QjackCtl Graph, 8-output interface: out9–16 have nowhere to go</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Live Settings, Audio: Driver ASIO, Audio Device JackRouter, Output Config pairs 1/2 to 15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — Live with JackRouter: Output Config shows as many pairs as JackRouter.ini allows</figcaption></figure>
+  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="JackRouter.ini in Notepad: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = outputs Live sees</figcaption></figure>
+  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, the interface's ASIO entry selected" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: pick the <code>ASIO::</code> entry</figcaption></figure>
+  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1 to out8 wired to system playback_1 to 8, out9 to 16 unconnected" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — QjackCtl Graph, 8-output interface: out9–16 have nowhere to go</figcaption></figure>
+  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live Settings, Audio: Driver ASIO, Audio Device JackRouter, Output Config pairs 1/2 to 15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — Live with JackRouter: Output Config shows as many pairs as JackRouter.ini allows</figcaption></figure>
   <div class="tw"><table>
     <tr><th>Symptom (JACK)</th><th>Fix</th></tr>
     <tr><td>Live offers only outputs 1/2 and 3/4</td><td>Raise <code>output=</code> in JackRouter.ini, restart JACK and Live</td></tr>
@@ -642,7 +635,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 </footer>
 </main>
 <main data-lang="ko" lang="ko" hidden>
-<header class="hero ticks"><div class="t"></div>
+<header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>ORBIT SCORE</h1>
   <p>Ableton Live의 트랙 하나하나를 공간 속 소리 오브젝트로 만든다. 소리는 Live가 렌더링한다 — 헤드폰용 바이노럴, 또는 오디오 인터페이스로 바로 나가는 다채널 스피커 피드. TouchDesigner는 오브젝트를 3D로 보여주고 움직임을 편집하며, 같은 공간 데이터를 OSC로 내 비주얼 프로젝트에 넘긴다.</p>
@@ -654,7 +647,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">00 — Overview</div>
   <h2>구조 한눈에 보기</h2>
   <p><strong>소리는 전부 Live 안에서</strong> Max for Live 디바이스가 만들고, Live에서 오디오 인터페이스로 바로 나간다. TouchDesigner는 소리를 건드리지 않는다. 위치를 보여주고 편집하며 Live와 로컬 OSC로만 이야기한다. TouchDesigner를 꺼도 Live 소리는 똑같다.</p>
-  <figure class="ticks"><div class="t"></div>
+  <figure>
   <svg class="flow" viewBox="0 0 900 300" role="img" aria-label="신호 흐름: Live 트랙의 Spatial Object가 Spatial Renderer로 들어가고 OUT 트랙이 오디오 인터페이스로 나간다. 바이노럴에서는 오브젝트가 Main으로 나간다. Spatial Master는 TouchDesigner와 OSC 9001, 9002로 통신한다.">
     <text x="20" y="24" class="m" font-size="11">ABLETON LIVE</text>
     <rect class="box" x="20" y="36" width="190" height="34"/><text x="32" y="58" font-size="12">Track 1 · Spatial Object</text>
@@ -728,7 +721,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · 인터페이스의 <strong>ASIO 드라이버</strong> 설치 (MME / WDM은 대개 2채널까지만 열린다).<br>2 · Live → 설정 → Audio: <strong>Driver Type ASIO</strong>, Audio Device = 인터페이스, 48000 Hz.<br>ASIO 장치는 한 번에 한 프로그램만 열 수 있다.</p></div>
   </div>
   <p>그다음 공통: Live → 설정 → Audio → <strong>Output Config</strong>에서 스피커를 덮는 쌍(1/2, 3/4 …)을 켠다. Dante(Dante Virtual Soundcard)나 MADI는 64채널짜리 장치 하나로 보이고 똑같이 고르면 된다. Orbit Score는 스피커 64개까지 구동한다.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-speakerout.jpg?v=1111b" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, METER, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1111b" alt="사이드바 SPEAKERS 탭: 01 SPEAKER LAYOUT, 02 OUTPUTS(SET UP OUTPUTS, METER, OUTPUT MAP, TEST, 상태), 03 DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
   <div class="note"><b>NOTE</b>Live의 오디오 설정은 Live API로 바꿀 수 없어서 드라이버·장치·샘플레이트·Output Config는 처음 한 번 손으로 맞춘다. 세트 안의 OUT 트랙과 라우팅은 SET UP OUTPUTS가 해준다.</div>
   </section>
 </section>
@@ -737,7 +730,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-devices">
   <div class="cap">02 — Live devices</div>
   <h2>Spatial Object · Spatial Master · Spatial Renderer</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-object.jpg?v=1110e" alt="Live의 Spatial Object 디바이스: Azimuth, Elevation, Distance 다이얼, UID, OSC·Render 스위치, 레벨 미터, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
+  <figure><img src="media/dev-object.jpg?v=1110e" alt="Live의 Spatial Object 디바이스: Azimuth, Elevation, Distance 다이얼, UID, OSC·Render 스위치, 레벨 미터, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
   <h3>Spatial Object</h3>
   <p>모든 컨트롤은 일반 Live 파라미터다. 오토메이션, 매크로 매핑, 모듈레이터 모두 된다. TouchDesigner 에디터(<a href="#ko-editor">04</a>)에도 같은 값이 보인다.</p>
   <h4>위치와 움직임</h4>
@@ -769,7 +762,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>Air, Doppler, Speed는 바이노럴과 스피커 모드 모두에서 동작한다. 헤드폰에서는 근접 효과가 자동으로 더해진다(<a href="#ko-render">06</a>).</p>
 
   <h3>Spatial Master</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-master.jpg?v=1110e" alt="Live의 Spatial Master 디바이스: OSC 포트 9001, 렌더 모드 Off / Binaural / Speakers, 현재 레이아웃" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
+  <figure><img src="media/dev-master.jpg?v=1110e" alt="Live의 Spatial Master 디바이스: OSC 포트 9001, 렌더 모드 Off / Binaural / Speakers, 현재 레이아웃" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
   <ul>
     <li><strong>Mode</strong> <span class="pill">OFF</span> <span class="pill on">BINAURAL</span> <span class="pill">SPEAKERS</span> — TouchDesigner의 MONITOR와 같은 스위치.</li>
     <li>모든 오브젝트를 <code>127.0.0.1:9001</code>로 보내고, TouchDesigner의 편집(파라미터, 뮤트, 마스터 볼륨, 트랙 색)을 <code>9002</code>로 받는다.</li>
@@ -777,11 +770,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ul>
 
   <h3>Spatial Renderer</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/dev-renderer.jpg?v=1110e" alt="Live의 Spatial Renderer 디바이스: 오브젝트 16개 입력, 스피커 64개 출력" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — ORBIT RENDER 트랙의 Spatial Renderer</figcaption></figure>
+  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Live의 Spatial Renderer 디바이스: 오브젝트 16개 입력, 스피커 64개 출력" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — ORBIT RENDER 트랙의 Spatial Renderer</figcaption></figure>
   <ul>
     <li>세트에 하나, 전용 빈 오디오 트랙 <code>ORBIT RENDER</code>에.</li>
-    <li><strong>Speakers</strong>: 오브젝트마다 입력 쌍(3/4, 5/6 …)을 받아 트랙을 알아서 그리로 라우팅한다. 오브젝트 16개 입력, 스피커 64개 출력(스피커 k = 디바이스 출력 k + 2)이고 <code>OUT</code> 트랙이 가져간다.</li>
-    <li><strong>Binaural</strong>: 오브젝트는 스스로 Main으로 나가고, 렌더러는 자기 출력 1/2로 룸(리버브 + 반사음)만 더한다.</li>
+    <li><strong>Speakers</strong>: 오브젝트마다 입력 쌍(3/4, 5/6 …)을 받아 트랙을 알아서 그리로 라우팅한다. 오브젝트 16개 입력, 스피커 64개 출력(스피커 k = 디바이스 출력 k)이고 <code>OUT</code> 트랙이 가져간다.</li>
+    <li><strong>Binaural</strong>: 오브젝트는 스스로 Main으로 나가고, 렌더러는 자기 출력 1/2로 룸(리버브 + 반사음)만 더한다 (그동안 OUT 1/2는 뮤트).</li>
     <li>안에 든 것: 패닝 매트릭스, WFS 엔진, 룸 리버브, 초기 반사음, Spread 디코릴레이션, 스피커 거리 보정.</li>
   </ul>
   <div class="note"><b>TIP</b>트랙 순서를 바꿔도 괜찮다. 오브젝트는 UID로 구분되고, TouchDesigner는 Live 트랙 순서를 따라간다.</div>
@@ -791,7 +784,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-ui">
   <div class="cap">03 — TD interface</div>
   <h2>화면</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 미리보기, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW와 사이드바</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1110b" alt="Orbit Score UI 3D VIEW: 왼쪽에 3D 공간 미리보기, 오른쪽에 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW와 사이드바</figcaption></figure>
   <p>상단 바에서 <span class="pill on">3D VIEW</span>와 <span class="pill">OBJECT EDITOR</span>를 오간다. 3D 뷰에서 왼쪽 드래그 = 궤도 회전, 휠 또는 가운데 드래그 = 줌. 사이드바는 가장자리의 <span class="pill">›</span> 띠로 접는다.</p>
   <h3>사이드바 탭</h3>
   <div class="tw"><table>
@@ -804,7 +797,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>LOG</td><td>연결, WARNINGS(탭에 ⚠), 디바이스 메시지(반복은 ×n으로 접힘). COPY / CLEAR / RESEND</td></tr>
   </table></div>
   <p><span class="mono">1.5 s</span>, <span class="mono">3.0 m</span> 같은 값 버튼은 <strong>누른 채 위아래로 드래그</strong>해서 바꾼다.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-live.jpg?v=1111b" alt="사이드바 LIVE 탭: 01 MONITOR(MASTER, MUTE), 02 SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE 탭</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1111b" alt="사이드바 LIVE 탭: 01 MONITOR(MASTER, MUTE), 02 SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE 탭</figcaption></figure>
 
   <h3 id="ko-ui-speakers">SPEAKERS 탭</h3>
   <div class="tw"><table>
@@ -823,14 +816,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
   <h3>트랙 색</h3>
   <p>트랙의 색 사각형을 누르면 Ableton 70색 팔레트가 아래에 열리고, TouchDesigner와 Live의 색이 함께 바뀐다.</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-palette.jpg?v=1110b" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 배치된 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — 색 팔레트</figcaption></figure>
+  <figure><img src="media/ui-palette.jpg?v=1110b" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 배치된 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — 색 팔레트</figcaption></figure>
 </section>
 
 <!-- 04 -->
 <section id="ko-editor">
   <div class="cap">04 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 궤도 기즈모, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 오브젝트 · 캔버스 · 설정</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1110b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 궤도 기즈모, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 오브젝트 · 캔버스 · 설정</figcaption></figure>
   <p>여기 있는 건 전부 Live 디바이스 파라미터다. 편집은 바로 디바이스로 가고, 화면은 디바이스가 돌려보낸 값을 보여준다.</p>
   <h3>캔버스</h3>
   <ul>
@@ -850,7 +843,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인. 위치 = 송 포지션 ÷ (Path Length × 4박).</p>
   <h3>설정 열</h3>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor-set.jpg?v=1111b" alt="CHAOS를 고른 에디터 설정 열: MOTION, 끌개 버튼과 CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (CHAOS 선택)</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1111b" alt="CHAOS를 고른 에디터 설정 열: MOTION, 끌개 버튼과 CHAOS SHAPE, SHAPE, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (CHAOS 선택)</figcaption></figure>
   <ul>
     <li><strong>MOTION</strong> — 8가지 움직임, RATE, SIZE. CHAOS면 끌개 버튼과 CHAOS SHAPE.</li>
     <li><strong>PATH</strong> — PATH이거나 EDIT PATH가 켜졌을 때만: PATH LENGTH, 루프 모드, 열림/닫힘, 점 도구.</li>
@@ -858,7 +851,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
   </ul>
   <p>슬라이더는 드래그하거나 <strong>더블클릭</strong>해서 숫자를 입력한다 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소).</p>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-editor-chaos.jpg?v=1111b" alt="에디터 캔버스: CHAOS(Lorenz) 오브젝트의 점 도형" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — 캔버스 위의 Lorenz 끌개</figcaption></figure>
+  <figure><img src="media/ui-editor-chaos.jpg?v=1111b" alt="에디터 캔버스: CHAOS(Lorenz) 오브젝트의 점 도형" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — 캔버스 위의 Lorenz 끌개</figcaption></figure>
   <h3>저장</h3>
   <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/</code>에 쓰고 TouchDesigner 프로젝트를 저장한다. <span class="pill">LOAD LAST</span>는 마지막 스냅숏을 되돌린다. Live 세트는 따로 저장한다.</p>
 </section>
@@ -867,7 +860,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-scenes">
   <div class="cap">05 — Scenes &amp; timeline</div>
   <h2>씬과 타임라인</h2>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-scenes.jpg?v=1110b" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭과 타임라인 바</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1110b" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭과 타임라인 바</figcaption></figure>
   <p><strong>씬</strong>은 오브젝트의 스냅숏(중심 위치, 움직임, 모양, 경로, 소리 설정)이고, <strong>씬 = 같은 이름의 Live 로케이터</strong>다. 씬은 Spatial Master에 저장되므로 세트와 함께 저장되고 TouchDesigner 없이도 재생된다.</p>
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
@@ -898,7 +891,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>스피커</h3>
   <p>모든 오브젝트가 자기 트랙을 Spatial Renderer로 보내고, 렌더러가 시그널 레이트로 스피커에 믹스해 쌍마다 OUT 트랙에 넘긴다. 트랙 페이더와 뮤트는 그대로 듣는다. Spatial Object가 없는 트랙은 스피커 모드에서 자동으로 소리가 나지 않는다 (렌더러가 Main을 내리고, 바이노럴로 돌아가면 되돌린다).</p>
   <h4>패닝 모델</h4>
-  <figure class="ticks"><div class="t"></div><img src="media/ui-space.jpg?v=1111b" alt="사이드바 SPACE 탭: 01 PANNING MODEL(VBAP DBAP AMBI WFS), 02 ROOM(프리셋, REVERB, REFLECTIONS, EAR HEIGHT)" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE 탭</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111b" alt="사이드바 SPACE 탭: 01 PANNING MODEL(VBAP DBAP AMBI WFS), 02 ROOM(프리셋, REVERB, REFLECTIONS, EAR HEIGHT)" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE 탭</figcaption></figure>
   <p>SPACE 탭. 3D 뷰의 스피커 빛도 같은 게인을 쓰고, 모델끼리 레벨이 맞춰져 있다. 레이아웃을 고르면 추천 모델이 선택되고(제목에 <em>auto</em>), 다른 걸 누르면 그 레이아웃에 기억된다.</p>
   <div class="tw"><table>
     <tr><th>모델</th><th>방식</th><th>자동 선택</th></tr>
@@ -920,7 +913,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>EAR HEIGHT</td><td>바닥에서 귀까지 (앉으면 1.2 m, 서면 약 1.6 m). 바닥 반사와 3D 그리드가 따라간다</td></tr>
   </table></div>
   <p>바이노럴에서도 오브젝트가 모노 신호를 렌더러로 보내고(<code>send~ orbit_rs_&lt;slot&gt;</code>), 룸은 ORBIT RENDER 트랙에서 Main으로 나온다 — 이 트랙은 세트에 두자.</p>
-  <p><strong>3D에서</strong>(VIEW → ROOM): 프리셋 이름 <span class="mono">[ hall ]</span>이 붙은 방 상자, 벽 너머 반사음 유령 점과 튕기는 경로, 리버브 시간 동안 사라지는 링과 헤이즈. VIEW → <strong>TRAIL</strong>은 DOPPLER가 켜진 오브젝트 뒤에 사라지는 점을 남긴다 — 점 간격이 넓을수록 빠르고 도플러도 크다. 둘 다 오디오를 측정한 게 아니라 렌더러의 계산과 트랙 미터로 그린다.</p>
+  <p><strong>3D에서</strong>(VIEW → ROOM): 방 상자, 벽 너머 반사음의 부드러운 후광과 옅은 튕김 경로, 리버브 시간 동안 천천히 퍼지며 사라지는 흐린 파동과 헤이즈. VIEW → <strong>TRAIL</strong>은 DOPPLER가 켜진 오브젝트 뒤에 사라지는 점을 남긴다 — 점 간격이 넓을수록 빠르고 도플러도 크다. 둘 다 오디오를 측정한 게 아니라 렌더러의 계산과 트랙 미터로 그린다.</p>
 </section>
 
 <!-- 07 -->
@@ -1091,10 +1084,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <li>QjackCtl → Setup: Driver portaudio, Interface = 인터페이스의 <code>ASIO::</code> 항목 (없으면 ASIO 드라이버 설치, 대안 ASIO4ALL), 48000 Hz, Playback Only → Start.</li>
     <li>Live → Audio Device = JackRouter. QjackCtl → Graph: <code>Ableton Live out1…N</code> → <code>system playback_1…N</code>.</li>
   </ol>
-  <figure class="ticks"><div class="t"></div><img src="media/jackrouter-ini.jpg?v=1110b" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = Live가 보는 출력 수</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: <code>ASIO::</code> 항목을 고른다</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1~8이 system playback_1~8에 연결, out9~16은 미연결" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — 8출력 인터페이스의 QjackCtl Graph: out9–16은 갈 곳이 없다</figcaption></figure>
-  <figure class="ticks"><div class="t"></div><img src="media/live-output-config.jpg?v=1110b" alt="Live 설정 Audio: Driver ASIO, Audio Device JackRouter, Output Config 1/2~15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — JackRouter를 고른 Live: Output Config에 JackRouter.ini에서 정한 만큼 쌍이 보인다</figcaption></figure>
+  <figure><img src="media/jackrouter-ini.jpg?v=1110b" alt="메모장으로 연 JackRouter.ini: [IO] input=4, output=16" loading="lazy" width="518" height="402" style="max-width:420px"><figcaption>FIG. A.1 — JackRouter.ini: <code>output=</code> = Live가 보는 출력 수</figcaption></figure>
+  <figure><img src="media/qjackctl-setup-asio.jpg?v=1110b" alt="QjackCtl Setup: Driver portaudio, 인터페이스의 ASIO 항목 선택" loading="lazy" width="629" height="475" style="max-width:520px"><figcaption>FIG. A.2 — QjackCtl Setup: <code>ASIO::</code> 항목을 고른다</figcaption></figure>
+  <figure><img src="media/qjackctl-graph.jpg?v=1110b" alt="QjackCtl Graph: Live out1~8이 system playback_1~8에 연결, out9~16은 미연결" loading="lazy" width="802" height="624"><figcaption>FIG. A.3 — 8출력 인터페이스의 QjackCtl Graph: out9–16은 갈 곳이 없다</figcaption></figure>
+  <figure><img src="media/live-output-config.jpg?v=1110b" alt="Live 설정 Audio: Driver ASIO, Audio Device JackRouter, Output Config 1/2~15/16" loading="lazy" width="560" height="770" style="max-width:420px"><figcaption>FIG. A.4 — JackRouter를 고른 Live: Output Config에 JackRouter.ini에서 정한 만큼 쌍이 보인다</figcaption></figure>
   <div class="tw"><table>
     <tr><th>증상 (JACK)</th><th>해결</th></tr>
     <tr><td>Live에 출력이 1/2, 3/4뿐</td><td>JackRouter.ini의 <code>output=</code>을 늘리고 JACK과 Live 재시작</td></tr>
