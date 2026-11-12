@@ -360,20 +360,20 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Drawing a path</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
-    <tr><td>EDIT PATH</td><td>Unlocks the points; while OFF, clicks never add, move or delete them</td></tr>
+    <tr><td>EDIT PATH</td><td>Shown only for a PATH object. Unlocks the points; while OFF, clicks never add, move or delete them</td></tr>
     <tr><td>Click empty space</td><td>Add a point (the object switches to PATH)</td></tr>
     <tr><td>Drag · right-click</td><td>Move (depth kept) · delete</td></tr>
     <tr><td>CURVE / CORNER · POINT HEIGHT</td><td>The selected point's type (● / ■) and height</td></tr>
     <tr><td>PATH: OPEN / CLOSED</td><td>Whether the last point joins the first</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>All curves · empty the path · read it back from Live</td></tr>
   </table></div>
-  <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats). The path is drawn only while the object follows it (PATH) or EDIT PATH is on; a straight fly-by is just two corner points. The selected object has a thick ring.</p>
+  <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats). The path, its settings and EDIT PATH show only while the object's motion is PATH — choose another motion and they disappear (the path stays stored); a straight fly-by is just two corner points. The selected object has a thick ring.</p>
   <h3>Settings column</h3>
   <figure><img src="media/ui-editor-set.jpg?v=1111d" alt="Editor settings column: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (a LINE object on RANDOM)</figcaption></figure>
   <ul>
     <li><strong>AZIMUTH · ELEVATION · DISTANCE</strong> — the big numbers on top: press and drag up / down to move the selected object (its centre; in MANUAL its position), or double-click one to type a value (Enter applies, Esc cancels). The <span class="pill">AED</span> / <span class="pill">XYZ</span> button (top right of the numbers) switches the numbers and the MANUAL sliders to <strong>X · Y · Z</strong> (X right, Y front, Z up; 1 = the ring, the ADM axes). It is only another way to read and set the same position.</li>
     <li><strong>MOTION</strong> — the eight motions. MANUAL shows AZIMUTH · ELEVATION · DISTANCE sliders; the others show RATE and SIZE (not PATH); with CHAOS the attractor buttons and CHAOS SHAPE.</li>
-    <li><strong>PATH</strong> — only with PATH or EDIT PATH on: PATH LENGTH, loop mode, open / closed, point tools.</li>
+    <li><strong>PATH</strong> — only while the motion is PATH: PATH LENGTH, loop mode, open / closed, point tools.</li>
     <li><strong>SHAPE</strong> — point / line, facing, LENGTH, ROTATE | TILT, their modulation (ROT · FIXED ▼, TILT · FIXED ▼) and RANGE | RATE. A modulated angle's slider follows the movement and cannot be dragged.</li>
     <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
   </ul>
@@ -381,6 +381,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <figure><img src="media/ui-editor-chaos.jpg?v=1111b" alt="Editor canvas: the dotted figure of a CHAOS (Lorenz) object" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — A Lorenz attractor on the canvas</figcaption></figure>
   <h3>Saving</h3>
   <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/</code> and saves the TouchDesigner project; <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (above SAVE; <strong>Ctrl+Z</strong> / <strong>Ctrl+Shift+Z</strong> or <strong>Ctrl+Y</strong> while the mouse is over the editor) step back through edits made here: settings, centre position, path. One drag is one step, up to 60 steps. Scene recalls and changes made in Live are not covered.</p>
+  <p><strong>Position from Orbit Link</strong> — while another project streams an object's position (<a href="#link">Orbit Link</a>), its own motion does not play: the MOTION buttons are greyed out and cannot be clicked, the motion settings are hidden and a note says so. They come back about 1.5 s after the stream stops.</p>
 </section>
 
 <!-- 05 -->
@@ -393,7 +395,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Control</th><th>Action</th></tr>
     <tr><td>+ CAPTURE</td><td>New scene from the current state, with a locator at Live's playhead</td></tr>
-    <tr><td>● / ○ chips</td><td>Which objects take part in new captures and updates</td></tr>
+    <tr><td>INCLUDE chips</td><td>Which objects take part in new captures and updates — one chip per object with its track colour; a faded chip is left out</td></tr>
     <tr><td>FADE</td><td>Default crossfade for new scenes: CUT · 1 · 2 · 4 · 8 · 16 beats</td></tr>
     <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — while Live plays, a recall waits for the next beat or bar</td></tr>
     <tr><td>◀ ROT · ROT ▶ · MIRROR · NEAR · FAR · UP · DOWN</td><td>Variations of the current arrangement (included objects, centres and paths): rotate ±45° · mirror left / right · distance ×0.8 / ×1.25 · elevation ±10°. Then UPDATE a scene or + CAPTURE a new one</td></tr>
@@ -594,7 +596,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Version</th><th>Changes</th></tr>
-    <tr><td>9.6 · 11.12</td><td>Scenes: transitions for every number, position crossfade between motions, curves, AROUND / THROUGH, stagger, room per scene, quantize, Scene and Morph dials, <code>@Name</code> clips, arrangement variations, thumbnails and 3D preview, export / import · editor: AED / XYZ · Orbit Link <code>scenefade</code></td></tr>
+    <tr><td>9.6 · 11.12</td><td>Scenes: transitions for every number, position crossfade between motions, curves, AROUND / THROUGH, stagger, room per scene, quantize, Scene and Morph dials, <code>@Name</code> clips, arrangement variations, thumbnails and 3D preview, export / import · editor: AED / XYZ, UNDO / REDO, path only for PATH objects, motions locked while a position is streamed in · Orbit Link <code>scenefade</code>, Orbit Out takes POP to CHOP</td></tr>
     <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed · DOPPLER emphasis ×1…×8 · measured headphone HRTF (KEMAR, per sample rate) on headphones · CHAOS values over OSC (/orbit/n/chaos, Orbit Link Out: Chaos) · editor as light as the 3D view · Orbit Link transport (tempo, bar, beat, phases, locator section, beat_pulse) and object speed · /orbit/set positions are now a live stream (no dial writes, no MANUAL needed — per-frame Live API writes stalled all of Live)</td></tr>
     <tr><td>9.4 · 11.11</td><td>Room on headphones (binaural reverb + reflections) · DIST COMP · EAR HEIGHT · room presets · custom MIRROR L ↔ R · SPEAKERS tab, VIEW split into CAMERA / SHOW · TRAIL only for Doppler objects · tracks without a Spatial Object silent in speaker mode</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS motion (Lorenz / Rossler / Thomas) · SPEED effect · TRAIL in 3D</td></tr>
@@ -819,20 +821,20 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>경로 그리기</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
-    <tr><td>EDIT PATH</td><td>점 편집을 활성화합니다. OFF일 때는 클릭으로 점이 추가·이동·삭제되지 않습니다</td></tr>
+    <tr><td>EDIT PATH</td><td>PATH 오브젝트에서만 표시됩니다. 점 편집을 활성화하며, OFF일 때는 클릭으로 점이 추가·이동·삭제되지 않습니다</td></tr>
     <tr><td>빈 곳 클릭</td><td>점 추가 (오브젝트가 PATH로 전환)</td></tr>
     <tr><td>드래그 · 우클릭</td><td>이동 (깊이 유지) · 삭제</td></tr>
     <tr><td>CURVE / CORNER · POINT HEIGHT</td><td>선택한 점의 종류(● / ■)와 높이</td></tr>
     <tr><td>PATH: OPEN / CLOSED</td><td>마지막 점과 첫 점의 연결 여부</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전체 곡선화 · 경로 삭제 · Live에서 다시 불러오기</td></tr>
   </table></div>
-  <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인입니다. 위치 = 송 포지션 ÷ (Path Length × 4박). 경로는 오브젝트가 PATH이거나 EDIT PATH가 켜져 있을 때만 표시됩니다. 직선 경로는 모서리 점 두 개로 만듭니다. 선택한 오브젝트는 굵은 원으로 표시됩니다.</p>
+  <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인입니다. 위치 = 송 포지션 ÷ (Path Length × 4박). 경로와 경로 설정, EDIT PATH는 오브젝트의 움직임이 PATH일 때만 표시됩니다. 다른 움직임을 선택하면 사라지며, 저장된 경로는 유지됩니다. 직선 경로는 모서리 점 두 개로 만듭니다. 선택한 오브젝트는 굵은 원으로 표시됩니다.</p>
   <h3>설정 열</h3>
   <figure><img src="media/ui-editor-set.jpg?v=1111d" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="710" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (RANDOM으로 움직이는 LINE 오브젝트)</figcaption></figure>
   <ul>
     <li><strong>AZIMUTH · ELEVATION · DISTANCE</strong> — 상단의 큰 숫자. 누른 채 위아래로 드래그하면 선택한 오브젝트의 중심(MANUAL에서는 위치)이 바뀌고, 더블클릭하면 값을 직접 입력합니다. 숫자 오른쪽 위의 <span class="pill">AED</span> / <span class="pill">XYZ</span> 버튼으로 숫자와 MANUAL 슬라이더를 <strong>X · Y · Z</strong>(X 오른쪽, Y 앞, Z 위, 1 = 링, ADM 축)로 전환할 수 있습니다. 같은 위치를 다른 좌표로 표시·입력하는 기능입니다.</li>
     <li><strong>MOTION</strong> — 8종의 움직임. MANUAL에서는 AZIMUTH · ELEVATION · DISTANCE 슬라이더, 그 밖의 움직임에서는 RATE와 SIZE가 표시됩니다(PATH 제외). CHAOS에서는 어트랙터 선택과 CHAOS SHAPE가 추가됩니다.</li>
-    <li><strong>PATH</strong> — PATH이거나 EDIT PATH가 켜져 있을 때: PATH LENGTH, 루프 모드, 열림/닫힘, 점 도구.</li>
+    <li><strong>PATH</strong> — 움직임이 PATH일 때만: PATH LENGTH, 루프 모드, 열림/닫힘, 점 도구.</li>
     <li><strong>SHAPE</strong> — 점 / 선, 방향, LENGTH, ROTATE | TILT, 각 모듈레이션(ROT · FIXED ▼, TILT · FIXED ▼)과 RANGE | RATE. 모듈레이션 중인 각도의 슬라이더는 현재 값을 따라가며 직접 조절할 수 없습니다.</li>
     <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
   </ul>
@@ -840,6 +842,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <figure><img src="media/ui-editor-chaos.jpg?v=1111b" alt="에디터 캔버스: CHAOS(Lorenz) 오브젝트의 점 도형" loading="lazy" width="860" height="679"><figcaption>FIG. 4.3 — 캔버스의 Lorenz 어트랙터</figcaption></figure>
   <h3>저장</h3>
   <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/</code>에 기록하고 TouchDesigner 프로젝트를 저장합니다. <span class="pill">LOAD LAST</span>는 마지막 스냅숏을 복원합니다. Live 세트는 별도로 저장합니다.</p>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(SAVE 위. 마우스가 에디터 위에 있을 때 <strong>Ctrl+Z</strong> / <strong>Ctrl+Shift+Z</strong> 또는 <strong>Ctrl+Y</strong>)는 에디터에서 한 편집(설정, 중심 위치, 경로)을 되돌립니다. 한 번의 드래그가 한 단계이며 최대 60단계입니다. 씬 불러오기와 Live에서 바꾼 값은 포함되지 않습니다.</p>
+  <p><strong>Orbit Link 위치 수신</strong> — 다른 프로젝트가 오브젝트의 위치를 보내는 동안(<a href="#ko-link">Orbit Link</a>)에는 오브젝트 자체의 움직임이 재생되지 않습니다. MOTION 버튼이 비활성화되고 움직임 설정이 숨겨지며 안내문이 표시됩니다. 전송이 멈추면 약 1.5초 뒤 원래대로 돌아옵니다.</p>
 </section>
 
 <!-- 05 -->
@@ -852,7 +856,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>동작</th></tr>
     <tr><td>+ CAPTURE</td><td>현재 상태로 새 씬을 만들고 재생 헤드 위치에 로케이터를 추가합니다</td></tr>
-    <tr><td>● / ○ 칩</td><td>캡처와 업데이트에 포함할 오브젝트</td></tr>
+    <tr><td>INCLUDE 칩</td><td>캡처와 업데이트에 포함할 오브젝트. 오브젝트마다 트랙 색이 표시되며, 흐린 칩은 제외된 오브젝트입니다</td></tr>
     <tr><td>FADE</td><td>새 씬의 기본 크로스페이드: CUT · 1 · 2 · 4 · 8 · 16박</td></tr>
     <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — Live 재생 중에는 다음 박 또는 마디에 맞춰 씬을 불러옵니다</td></tr>
     <tr><td>◀ ROT · ROT ▶ · MIRROR · NEAR · FAR · UP · DOWN</td><td>현재 배치의 변형(포함된 오브젝트의 중심과 경로): ±45° 회전 · 좌우 반전 · 거리 ×0.8 / ×1.25 · 고도 ±10°. 이후 UPDATE 또는 + CAPTURE로 저장합니다</td></tr>
@@ -1053,7 +1057,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 기록</h2>
   <div class="tw"><table>
     <tr><th>버전</th><th>변경</th></tr>
-    <tr><td>9.6 · 11.12</td><td>씬: 모든 수치의 전환, 움직임 간 위치 크로스페이드, 곡선, AROUND / THROUGH, 스태거, 씬별 룸, 퀀타이즈, Scene·Morph 다이얼, <code>@이름</code> 클립, 배치 변형, 썸네일과 3D 미리보기, 내보내기 / 불러오기 · 에디터 AED / XYZ · Orbit Link <code>scenefade</code></td></tr>
+    <tr><td>9.6 · 11.12</td><td>씬: 모든 수치의 전환, 움직임 간 위치 크로스페이드, 곡선, AROUND / THROUGH, 스태거, 씬별 룸, 퀀타이즈, Scene·Morph 다이얼, <code>@이름</code> 클립, 배치 변형, 썸네일과 3D 미리보기, 내보내기 / 불러오기 · 에디터 AED / XYZ, UNDO / REDO, 경로는 PATH 오브젝트에서만 표시, 위치 수신 중 움직임 잠금 · Orbit Link <code>scenefade</code>, Orbit Out의 POP to CHOP 입력</td></tr>
     <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 경유(디바이스 간 send~ 신호 미전달 문제), MASTER 1회 적용 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, 반사 표시를 카메라를 향하는 점 하나로 단순화, GPU 기반의 부드럽고 느린 파동, 룸 이름표 제거 · 스피커 색 = 가장 큰 오브젝트 색 · 테두리 없는 버튼, 모서리 꺾쇠 제거, 블랙 테마 그리드·광선 개선 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH에서만 표시 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 제거 · DOPPLER 강조 ×1…×8 · 헤드폰 실측 HRTF(KEMAR, 샘플레이트별 자동 선택) · CHAOS 값 OSC 송출(/orbit/n/chaos, Orbit Link In: Chaos) · 에디터 경량화 · Orbit Link 트랜스포트(tempo, bar, beat, 위상, 로케이터 구간, beat_pulse)와 오브젝트 속도 · 위치 값 드래그·직접 입력, MANUAL 위치 슬라이더 · 섹션 번호 제거 · /orbit/set 위치를 실시간 위치 스트림으로 변경(다이얼 미기록, MANUAL 불필요 — 매 프레임 Live API 쓰기로 Live 전체가 멈추던 문제 수정)</td></tr>
     <tr><td>9.4 · 11.11</td><td>헤드폰 룸(바이노럴 리버브 + 초기 반사음) · DIST COMP · EAR HEIGHT · 룸 프리셋 · Custom MIRROR L ↔ R · SPEAKERS 탭, VIEW를 CAMERA / SHOW로 분리 · TRAIL은 도플러 오브젝트만 · 스피커 모드에서 Spatial Object 없는 트랙 자동 무음</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS 움직임(Lorenz / Rossler / Thomas) · SPEED 효과 · 3D TRAIL</td></tr>
