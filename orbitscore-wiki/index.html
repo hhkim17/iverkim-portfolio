@@ -513,7 +513,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/section</td><td>current locator name · progress to the next locator 0–1 · next locator name</td></tr>
   </table></div>
   <h3>Set <code>/orbit/set/…</code> → 9011</h3>
-  <p>Forwarded to the Live device like an edit in the editor, so it is saved in the set. A position only shows while the object's motion is MANUAL — send <code>/orbit/set/n/motion 0</code> first.</p>
+  <p><strong>Positions</strong> (<code>pos</code>, <code>aed</code>, <code>az</code> · <code>el</code> · <code>dist</code>) are a live stream: while they keep arriving they steer the object whatever its motion (no MANUAL needed), and about 1.5 s after the last message it eases back to its own motion. They are never written into the Live set — send at least every 0.5 s while you steer (Orbit Out does this). <strong>Other keys</strong> go to the Live device like an edit in the editor and are saved in the set.</p>
   <div class="tw"><table>
     <tr><th>Address</th><th>Arguments</th></tr>
     <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>position (TD frame or azimuth / elevation / distance)</td></tr>
@@ -526,7 +526,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
       <p><strong>out1</strong> (CHOP): <code>count</code> and <code>o1_x o1_y o1_z</code> … per object; the <strong>Out:</strong> toggles add <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em> (<code>o1_cx o1_cy o1_cz</code>), <em>Speed</em> (<code>o1_speed</code>) and <em>Transport</em> (<code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse</code> — never smoothed; <code>beat_pulse</code> jumps to 1 on every beat and decays). The <strong>Section</strong> field shows the current → next locator. <strong>Object</strong> &gt; 0 gives one object without the prefix. Port 9010, Smooth, Signal Timeout; Status shows <span class="mono">3 objects · live</span>.</p></div>
     <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
-      <p>Wire a CHOP with channels named like the output (<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …) and turn on <strong>Send Enable</strong>; only changes are sent, to Host : 9011. <strong>Objects</strong> (<code>*</code>, <code>2</code>, <code>1-3 5</code>) limits which objects it may move. <strong>Recall Scene</strong> lists the scenes of an Orbit In.</p></div>
+      <p>Wire a CHOP with channels named like the output (<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …) and turn on <strong>Send Enable</strong>; changes are sent to Host : 9011, and positions are also re-sent every 0.5 s so the stream holds. <strong>Objects</strong> (<code>*</code>, <code>2</code>, <code>1-3 5</code>) limits which objects it may move. <strong>Recall Scene</strong> lists the scenes of an Orbit In.</p></div>
   </div>
   <div class="note"><b>NOTE</b>Don't feed an Orbit In's values back into an Orbit Out for the same objects (feedback). One UDP port can be opened by one program at a time — give a second listener another port.</div>
   <p>Example: the <code>test Audiovisual</code> project — <code>orbit_in</code> drives three spheres that stand on the objects' floor positions and hop with the track level.</p>
@@ -548,7 +548,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>"old Spatial Object" in the editor</td><td>An older device on that track: reopen the set or insert it again</td></tr>
     <tr><td>Two objects share a number</td><td>Delete that Spatial Object and add it again</td></tr>
     <tr><td>TouchDesigner drops below 60 fps</td><td>Show the UI in Perform mode (F1) instead of inside the network editor, especially on a 4K screen; VIEW → ROOM and the timeline bar cost a little too</td></tr>
-    <tr><td>A position sent with /orbit/set doesn't show</td><td>Send <code>/orbit/set/n/motion 0</code> (MANUAL) first</td></tr>
+    <tr><td>A position sent with /orbit/set doesn't hold</td><td>It is a live stream: keep sending (at least every 0.5 s). It is not saved in the set — set the centre in the editor for that</td></tr>
     <tr><td>Orbit Link In says "no signal"</td><td>OSC Out Enable on, host = the receiving computer, same port, no other program on that port</td></tr>
     <tr><td>A crossfade stutters</td><td>Keep Live in front during a show (the OS slows Max's background thread) and use fades of a few beats</td></tr>
     <tr><td>TD buttons look blank</td><td>Reopen the project</td></tr>
@@ -571,7 +571,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>Changelog</h2>
   <div class="tw"><table>
     <tr><th>Version</th><th>Changes</th></tr>
-    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed · DOPPLER emphasis ×1…×8 · measured headphone HRTF (KEMAR, per sample rate) on headphones · CHAOS values over OSC (/orbit/n/chaos, Orbit Link Out: Chaos) · editor as light as the 3D view · Orbit Link transport (tempo, bar, beat, phases, locator section, beat_pulse) and object speed</td></tr>
+    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed · DOPPLER emphasis ×1…×8 · measured headphone HRTF (KEMAR, per sample rate) on headphones · CHAOS values over OSC (/orbit/n/chaos, Orbit Link Out: Chaos) · editor as light as the 3D view · Orbit Link transport (tempo, bar, beat, phases, locator section, beat_pulse) and object speed · /orbit/set positions are now a live stream (no dial writes, no MANUAL needed — per-frame Live API writes stalled all of Live)</td></tr>
     <tr><td>9.4 · 11.11</td><td>Room on headphones (binaural reverb + reflections) · DIST COMP · EAR HEIGHT · room presets · custom MIRROR L ↔ R · SPEAKERS tab, VIEW split into CAMERA / SHOW · TRAIL only for Doppler objects · tracks without a Spatial Object silent in speaker mode</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS motion (Lorenz / Rossler / Thomas) · SPEED effect · TRAIL in 3D</td></tr>
     <tr><td>9.2 · 11.11</td><td>Room in the 3D view: box, reflection ghosts, reverb rings</td></tr>
@@ -948,7 +948,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>/orbit/section</td><td>현재 로케이터 이름 · 다음 로케이터까지 진행도 0–1 · 다음 로케이터 이름</td></tr>
   </table></div>
   <h3>입력 <code>/orbit/set/…</code> → 9011</h3>
-  <p>에디터에서 편집한 것과 동일하게 Live 디바이스로 전달되어 세트에 저장됩니다. 위치는 오브젝트가 MANUAL일 때만 반영되므로 먼저 <code>/orbit/set/n/motion 0</code>을 보냅니다.</p>
+  <p><strong>위치</strong>(<code>pos</code>, <code>aed</code>, <code>az</code> · <code>el</code> · <code>dist</code>)는 실시간 스트림입니다. 메시지가 들어오는 동안에는 움직임 종류와 관계없이 오브젝트를 움직이며(MANUAL 불필요), 마지막 메시지 후 약 1.5초가 지나면 원래 움직임으로 부드럽게 돌아갑니다. Live 세트에는 저장되지 않으므로, 제어하는 동안 최소 0.5초마다 보냅니다(Orbit Out은 자동으로 처리). <strong>그 밖의 키</strong>는 에디터에서 편집한 것과 동일하게 Live 디바이스로 전달되어 세트에 저장됩니다.</p>
   <div class="tw"><table>
     <tr><th>주소</th><th>인자</th></tr>
     <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>위치 (TD 좌표 또는 azimuth / elevation / distance)</td></tr>
@@ -961,7 +961,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
       <p><strong>out1</strong>(CHOP): <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code> …. <strong>Out</strong> 토글로 <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em>(<code>o1_cx o1_cy o1_cz</code>), <em>Speed</em>(<code>o1_speed</code>), <em>Transport</em>(<code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse</code> — 스무딩 없음, <code>beat_pulse</code>는 박마다 1이 되고 빠르게 감소)를 추가합니다. <strong>Section</strong> 필드에 현재 → 다음 로케이터가 표시됩니다. <strong>Object</strong> &gt; 0이면 접두사 없이 해당 오브젝트만 출력합니다. Port 9010, Smooth, Signal Timeout. Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p></div>
     <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
-      <p>출력과 같은 이름의 채널(<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …)을 가진 CHOP을 연결하고 <strong>Send Enable</strong>을 켭니다. 변경된 값만 Host : 9011로 전송됩니다. <strong>Objects</strong>(<code>*</code>, <code>2</code>, <code>1-3 5</code>)로 대상 오브젝트를 제한합니다. <strong>Recall Scene</strong>에는 Orbit In의 씬 목록이 표시됩니다.</p></div>
+      <p>출력과 같은 이름의 채널(<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …)을 가진 CHOP을 연결하고 <strong>Send Enable</strong>을 켭니다. 변경된 값이 Host : 9011로 전송되며, 위치는 스트림이 유지되도록 0.5초마다 다시 전송됩니다. <strong>Objects</strong>(<code>*</code>, <code>2</code>, <code>1-3 5</code>)로 대상 오브젝트를 제한합니다. <strong>Recall Scene</strong>에는 Orbit In의 씬 목록이 표시됩니다.</p></div>
   </div>
   <div class="note"><b>NOTE</b>같은 오브젝트의 Orbit In 값을 Orbit Out으로 되돌려 보내지 마십시오 (피드백 발생). UDP 포트 하나는 한 프로그램만 사용할 수 있으므로 두 번째 수신기는 다른 포트를 사용합니다.</div>
   <p>예제: <code>test Audiovisual</code> 프로젝트 — <code>orbit_in</code>이 구 세 개를 오브젝트의 바닥 위치에 배치하고 트랙 레벨에 맞춰 움직입니다.</p>
@@ -983,7 +983,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>에디터에 "old Spatial Object" 표시</td><td>해당 트랙의 디바이스가 이전 버전입니다. 세트를 다시 열거나 디바이스를 다시 추가합니다</td></tr>
     <tr><td>두 오브젝트의 번호가 같음</td><td>해당 Spatial Object를 삭제하고 다시 추가합니다</td></tr>
     <tr><td>TouchDesigner가 60 fps 미만</td><td>네트워크 편집기 대신 Perform 모드(F1)로 UI를 실행합니다(특히 4K 화면). VIEW → ROOM과 타임라인 바도 부하가 약간 있습니다</td></tr>
-    <tr><td>/orbit/set 위치가 반영되지 않음</td><td>먼저 <code>/orbit/set/n/motion 0</code>(MANUAL)을 보냅니다</td></tr>
+    <tr><td>/orbit/set 위치가 유지되지 않음</td><td>실시간 스트림이므로 계속 보냅니다(최소 0.5초마다). 세트에 저장되지 않으며, 저장하려면 에디터에서 중심 위치를 설정합니다</td></tr>
     <tr><td>Orbit Link In이 "no signal"</td><td>OSC Out Enable, host = 수신 컴퓨터, 포트 일치, 같은 포트를 쓰는 다른 프로그램 여부를 확인합니다</td></tr>
     <tr><td>크로스페이드가 끊김</td><td>공연 중에는 Live를 전면에 둡니다 (OS가 Max 백그라운드 스레드를 늦춥니다). 페이드는 몇 박 정도를 권장합니다</td></tr>
     <tr><td>TD 버튼이 비어 보임</td><td>프로젝트를 다시 엽니다</td></tr>
@@ -1006,7 +1006,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h2>변경 기록</h2>
   <div class="tw"><table>
     <tr><th>버전</th><th>변경</th></tr>
-    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 경유(디바이스 간 send~ 신호 미전달 문제), MASTER 1회 적용 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, 반사 표시를 카메라를 향하는 점 하나로 단순화, GPU 기반의 부드럽고 느린 파동, 룸 이름표 제거 · 스피커 색 = 가장 큰 오브젝트 색 · 테두리 없는 버튼, 모서리 꺾쇠 제거, 블랙 테마 그리드·광선 개선 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH에서만 표시 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 제거 · DOPPLER 강조 ×1…×8 · 헤드폰 실측 HRTF(KEMAR, 샘플레이트별 자동 선택) · CHAOS 값 OSC 송출(/orbit/n/chaos, Orbit Link In: Chaos) · 에디터 경량화 · Orbit Link 트랜스포트(tempo, bar, beat, 위상, 로케이터 구간, beat_pulse)와 오브젝트 속도 · 위치 값 드래그·직접 입력, MANUAL 위치 슬라이더 · 섹션 번호 제거</td></tr>
+    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 경유(디바이스 간 send~ 신호 미전달 문제), MASTER 1회 적용 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, 반사 표시를 카메라를 향하는 점 하나로 단순화, GPU 기반의 부드럽고 느린 파동, 룸 이름표 제거 · 스피커 색 = 가장 큰 오브젝트 색 · 테두리 없는 버튼, 모서리 꺾쇠 제거, 블랙 테마 그리드·광선 개선 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH에서만 표시 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 제거 · DOPPLER 강조 ×1…×8 · 헤드폰 실측 HRTF(KEMAR, 샘플레이트별 자동 선택) · CHAOS 값 OSC 송출(/orbit/n/chaos, Orbit Link In: Chaos) · 에디터 경량화 · Orbit Link 트랜스포트(tempo, bar, beat, 위상, 로케이터 구간, beat_pulse)와 오브젝트 속도 · 위치 값 드래그·직접 입력, MANUAL 위치 슬라이더 · 섹션 번호 제거 · /orbit/set 위치를 실시간 위치 스트림으로 변경(다이얼 미기록, MANUAL 불필요 — 매 프레임 Live API 쓰기로 Live 전체가 멈추던 문제 수정)</td></tr>
     <tr><td>9.4 · 11.11</td><td>헤드폰 룸(바이노럴 리버브 + 초기 반사음) · DIST COMP · EAR HEIGHT · 룸 프리셋 · Custom MIRROR L ↔ R · SPEAKERS 탭, VIEW를 CAMERA / SHOW로 분리 · TRAIL은 도플러 오브젝트만 · 스피커 모드에서 Spatial Object 없는 트랙 자동 무음</td></tr>
     <tr><td>9.3 · 11.11</td><td>CHAOS 움직임(Lorenz / Rossler / Thomas) · SPEED 효과 · 3D TRAIL</td></tr>
     <tr><td>9.2 · 11.11</td><td>3D 뷰 룸 표시: 상자, 반사음, 리버브 링</td></tr>
