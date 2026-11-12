@@ -478,7 +478,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Address</th><th>Carries</th></tr>
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>speaker layout (unit vectors + LFE flag)</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> any object parameter · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>0 &lt;key&gt; …</code> renderer settings (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> any object parameter · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>&lt;uid&gt; ext az el dist</code> (live position stream, not saved) · <code>0 &lt;key&gt; …</code> renderer settings (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code></td></tr>
     <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code> → Live track colour</td></tr>
     <tr><td>/spat/scene</td><td>save · recall · del · rename · cue · cuedel · jump · jumpt · fade · follow · sync</td></tr>
@@ -913,7 +913,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>주소</th><th>내용</th></tr>
     <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
     <tr><td>/spat/spk</td><td>스피커 레이아웃 (단위 벡터 + LFE 플래그)</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 오브젝트 파라미터 · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>0 &lt;key&gt; …</code> 렌더러 설정 (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 오브젝트 파라미터 · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>&lt;uid&gt; ext az el dist</code> (live position stream, not saved) · <code>0 &lt;key&gt; …</code> 렌더러 설정 (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code></td></tr>
     <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code> → Live 트랙 색</td></tr>
     <tr><td>/spat/scene</td><td>save · recall · del · rename · cue · cuedel · jump · jumpt · fade · follow · sync</td></tr>
