@@ -137,25 +137,24 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand">ORBIT SCORE</div>
-  <div class="status">WIKI · v9.5 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
+  <div class="status">WIKI · v9.7 · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
-    <li><a href="#setup"><span>01</span>SET-UP</a></li>
-    <li class="sub"><a href="#setup-live"><span>01.1</span>LIVE</a></li>
-    <li class="sub"><a href="#setup-td"><span>01.2</span>TOUCHDESIGNER</a></li>
-    <li class="sub"><a href="#setup-out"><span>01.3</span>AUDIO INTERFACE</a></li>
-    <li><a href="#devices"><span>02</span>LIVE DEVICES</a></li>
-    <li><a href="#ui"><span>03</span>TD INTERFACE</a></li>
-    <li><a href="#editor"><span>04</span>OBJECT EDITOR</a></li>
-    <li><a href="#scenes"><span>05</span>SCENES &amp; TIMELINE</a></li>
-    <li><a href="#render"><span>06</span>RENDERING</a></li>
-    <li><a href="#coords"><span>07</span>CO-ORDINATES</a></li>
-    <li><a href="#osc"><span>08</span>OSC PROTOCOL</a></li>
-    <li><a href="#link"><span>09</span>OSC OUT · ORBIT LINK</a></li>
-    <li><a href="#trouble"><span>10</span>TROUBLESHOOTING</a></li>
-    <li><a href="#roadmap"><span>11</span>ROADMAP</a></li>
-    <li><a href="#log"><span>12</span>CHANGELOG</a></li>
+    <li><a href="#setup"><span>01</span>GETTING STARTED</a></li>
+    <li class="sub"><a href="#setup-live"><span>01.1</span>FIRST SOUND</a></li>
+    <li class="sub"><a href="#setup-td"><span>01.2</span>THE SCREEN</a></li>
+    <li class="sub"><a href="#setup-out"><span>01.3</span>SAVING</a></li>
+    <li><a href="#editor"><span>02</span>MOVING SOUNDS</a></li>
+    <li><a href="#speakers"><span>03</span>SPEAKERS</a></li>
+    <li><a href="#render"><span>04</span>ROOM &amp; DISTANCE</a></li>
+    <li><a href="#scenes"><span>05</span>SCENES</a></li>
+    <li><a href="#link"><span>06</span>ORBIT LINK</a></li>
+    <li><a href="#ui"><span>07</span>SCREEN REFERENCE</a></li>
+    <li><a href="#devices"><span>08</span>DEVICE REFERENCE</a></li>
+    <li><a href="#trouble"><span>09</span>TROUBLESHOOTING</a></li>
+    <li><a href="#osc"><span>10</span>FOR DEVELOPERS</a></li>
+    <li><a href="#log"><span>11</span>VERSION HISTORY</a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -164,452 +163,427 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>ORBIT SCORE</h1>
-  <p>Every Ableton Live track becomes a sound object in space. Live renders the sound — binaural on headphones, or a multichannel feed straight to your speakers. TouchDesigner shows the objects in 3D, edits how they move, and passes the same spatial data on to your own visual projects over OSC.</p>
-  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · OSC 9001 ↔ 9002 · 9010 → your projects · formerly "Spatialise"</div>
+  <p>Spatial audio for Ableton Live. Every track becomes a sound you can place and move around the listener — on headphones (binaural) or on a speaker system of up to 64 speakers. A TouchDesigner screen shows the sounds in 3D, lets you draw their paths and store scenes, and sends the same positions to your visuals.</p>
+  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · HEADPHONES OR 2–64 SPEAKERS</div>
 </header>
 
 <!-- 00 -->
 <section id="overview">
   <div class="cap">00 — Overview</div>
-  <h2>How it fits together</h2>
-  <p><strong>All audio is made inside Live</strong>, by Max for Live devices, and goes from Live straight to the audio interface. TouchDesigner never touches the audio: it shows and edits positions and talks to Live over local OSC. Close TouchDesigner and Live plays exactly the same.</p>
+  <h2>What it is</h2>
+  <p>Orbit Score is three Max for Live devices and one TouchDesigner project. <strong>All the sound is made inside Live</strong>: the devices place each track in space and send it to your headphones or speakers. TouchDesigner is the control screen — you can close it and the set plays exactly the same.</p>
   <figure>
-  <svg class="flow" viewBox="0 0 900 300" role="img" aria-label="Signal flow: Spatial Objects on the Live tracks feed the Spatial Renderer, whose OUT tracks go to the audio interface; in binaural mode the objects play to Main. The Spatial Master talks to TouchDesigner over OSC on ports 9001 and 9002.">
+  <svg class="flow" viewBox="0 0 900 270" role="img" aria-label="Signal flow: each Live track has a Spatial Object. The objects play to headphones through Main, or through the Spatial Renderer to the speakers. The Spatial Master connects them to the Orbit Score screen in TouchDesigner, which can pass positions on to other projects.">
     <text x="20" y="24" class="m" font-size="11">ABLETON LIVE</text>
     <rect class="box" x="20" y="36" width="190" height="34"/><text x="32" y="58" font-size="12">Track 1 · Spatial Object</text>
     <rect class="box" x="20" y="80" width="190" height="34"/><text x="32" y="102" font-size="12">Track 2 · Spatial Object</text>
     <rect class="box" x="20" y="124" width="190" height="34"/><text x="32" y="146" font-size="12">Track n · Spatial Object</text>
     <rect class="fillbox" x="290" y="80" width="170" height="34"/><text x="304" y="102" font-size="12" class="inv">Spatial Master</text>
     <path class="wire" d="M210 53 H250 V97 H290 M210 97 H290 M210 141 H250 V97"/>
-    <rect class="box" x="20" y="200" width="190" height="34"/><text x="32" y="222" font-size="12">Spatial Renderer → OUT</text>
-    <path class="dash" d="M115 158 V200"/><text x="124" y="186" class="m" font-size="10">SPEAKERS</text>
-    <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">Audio interface</text>
+    <rect class="box" x="20" y="200" width="190" height="34"/><text x="32" y="222" font-size="12">Spatial Renderer</text>
+    <path class="dash" d="M115 158 V200"/>
+    <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">Headphones · speakers</text>
     <path class="dash" d="M210 217 H290"/>
-    <text x="304" y="254" class="m" font-size="10">BINAURAL: renderer → Main → headphones</text>
     <text x="620" y="24" class="m" font-size="11">TOUCHDESIGNER</text>
-    <rect class="box" x="620" y="60" width="260" height="76"/>
-    <text x="634" y="84" font-size="12">Spatialisation_test</text><text x="634" y="104" class="m" font-size="10.5">3D preview · speaker layouts</text><text x="634" y="122" class="m" font-size="10.5">osc_dat · objects · render</text>
-    <rect class="box" x="620" y="150" width="260" height="56"/>
-    <text x="634" y="174" font-size="12">Spatialize_UI</text><text x="634" y="192" class="m" font-size="10.5">sidebar · 3D VIEW · OBJECT EDITOR</text>
-    <path class="wire" d="M460 90 H620"/><text x="480" y="82" font-size="11">UDP 9001 →</text><text x="480" y="62" class="m" font-size="10">/spat/obj · name · form…</text>
-    <path class="wire" d="M620 112 H460"/><text x="480" y="130" font-size="11">← UDP 9002</text><text x="480" y="148" class="m" font-size="10">/spat/objset · pathset…</text>
+    <rect class="box" x="620" y="70" width="260" height="56"/>
+    <text x="634" y="94" font-size="12">Orbit Score screen</text><text x="634" y="112" class="m" font-size="10.5">3D view · editor · scenes</text>
+    <rect class="box" x="620" y="170" width="260" height="56"/>
+    <text x="634" y="194" font-size="12">Your visuals</text><text x="634" y="212" class="m" font-size="10.5">TouchDesigner · Max · Unity …</text>
+    <path class="wire" d="M460 97 H620"/><text x="490" y="88" class="m" font-size="10">positions ↔ edits</text>
+    <path class="wire" d="M750 126 V170"/><text x="760" y="152" class="m" font-size="10">Orbit Link (OSC)</text>
   </svg>
-  <figcaption>FIG. 0.1 — Solid = OSC, dashed = audio</figcaption></figure>
+  <figcaption>FIG. 0.1 — Solid = control data, dashed = audio</figcaption></figure>
   <div class="grid2">
-    <div class="card"><div class="k">Live · every track</div><div class="v">Spatial Object</div><p>Position, motion, shape, sound effects. Plays binaural itself; in speaker mode feeds the renderer.</p></div>
-    <div class="card"><div class="k">Live · once</div><div class="v">Spatial Master</div><p>Links the objects with TouchDesigner, switches Off / Binaural / Speakers, stores the scenes.</p></div>
-    <div class="card"><div class="k">Live · once</div><div class="v">Spatial Renderer</div><p>Mixes up to 16 objects onto up to 64 speakers, plus the shared room.</p></div>
-    <div class="card"><div class="k">TouchDesigner</div><div class="v">Orbit Score UI</div><p>3D view, object editor, speaker set-up, scenes, OSC to other projects.</p></div>
+    <div class="card"><div class="k">Live · on every track</div><div class="v">Spatial Object</div><p>Turns the track into a sound object: where it is, how it moves, its shape and distance effects.</p></div>
+    <div class="card"><div class="k">Live · one per set</div><div class="v">Spatial Master</div><p>Switches between headphones and speakers, connects the set to the screen and keeps your scenes.</p></div>
+    <div class="card"><div class="k">Live · one per set (speakers)</div><div class="v">Spatial Renderer</div><p>Mixes up to 16 objects onto up to 64 speakers and adds the shared room sound.</p></div>
+    <div class="card"><div class="k">TouchDesigner</div><div class="v">Orbit Score screen</div><p>3D view, object editor, speaker set-up, scenes, and Orbit Link for your visuals.</p></div>
   </div>
+  <h3>Words used here</h3>
+  <div class="tw"><table>
+    <tr><th>Word</th><th>Meaning</th></tr>
+    <tr><td>Object</td><td>One Live track with a Spatial Object on it: a sound with a position</td></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>Where an object is: angle around you (0° front, + to the left), height (0° = ear level), distance (1 = the speaker ring)</td></tr>
+    <tr><td>Motion</td><td>How an object moves around its centre: still, circling, random, along a drawn path …</td></tr>
+    <tr><td>Binaural</td><td>3D sound on ordinary headphones</td></tr>
+    <tr><td>Scene</td><td>A stored arrangement of all objects, recalled with a crossfade and linked to a Live locator</td></tr>
+    <tr><td>Orbit Link</td><td>The OSC connection to other projects: positions out, and positions in</td></tr>
+  </table></div>
 </section>
 
 <!-- 01 -->
 <section id="setup">
-  <div class="cap">01 — Set-up</div>
-  <h2>Installing and first run</h2>
+  <div class="cap">01 — Getting started</div>
+  <h2>Getting started</h2>
   <h3>You will need</h3>
   <ul>
-    <li>Ableton Live 12 Suite (or Standard with Max for Live)</li>
-    <li>TouchDesigner 2025 (the free Non-Commercial licence works)</li>
-    <li>Headphones for binaural; an audio interface with one output per speaker for speaker mode. No other audio software.</li>
+    <li>Ableton Live 12 Suite, or Standard with Max for Live</li>
+    <li>TouchDesigner 2025 (the free Non-Commercial licence is fine)</li>
+    <li>Headphones — and later, for speakers, an audio interface with one output per speaker</li>
   </ul>
-  <div class="subnav"><a href="#setup-live">01.1 — Ableton Live</a><a href="#setup-td">01.2 — TouchDesigner</a><a href="#setup-out">01.3 — Audio interface</a></div>
+  <div class="subnav"><a href="#setup-live">01.1 — First sound on headphones</a><a href="#setup-td">01.2 — The screen</a><a href="#setup-out">01.3 — Saving</a></div>
 
   <section id="setup-live" class="sub">
-  <div class="cap">01.1 — Ableton Live</div>
-  <h3 class="subh">Ableton Live</h3>
+  <div class="cap">01.1 — First sound on headphones</div>
+  <h3 class="subh">First sound on headphones</h3>
   <ol>
     <li>In Live's browser, <strong>Places → Add Folder…</strong> and add the <code>Spatialize M4L</code> folder.</li>
-    <li>Put one <strong>Spatial Master</strong> in the set (the main track is a good place).</li>
-    <li>Add a <strong>Spatial Object</strong> to every track that should be a sound object — after the instrument or effects, so the sound passes through it. Each gets its own ID (UID), saved with the set; a duplicated track gets a fresh one.</li>
-    <li>Set the Master to <span class="pill on">BINAURAL</span>: you hear it on headphones straight away.</li>
-    <li>For speakers: make an empty audio track named <code>ORBIT RENDER</code> and put the <strong>Spatial Renderer</strong> on it. Leave its output on Main (the binaural room plays through it). Then set up the interface (<a href="#setup-out">01.3</a>) and press SET UP OUTPUTS in TouchDesigner (<a href="#ui-speakers">03</a>).</li>
+    <li>Drop a <strong>Spatial Master</strong> on any track (the Main track is a good place).</li>
+    <li>Drop a <strong>Spatial Object</strong> at the end of each track you want to place in space — after the instrument and effects.</li>
+    <li>On the Spatial Master, set Mode to <span class="pill on">BINAURAL</span> and press play. Turn a Spatial Object's <strong>Azimuth</strong> dial: the sound goes round your head.</li>
+    <li>Set its <strong>Motion</strong> to Circle and it moves by itself; Rate sets the speed.</li>
   </ol>
-  <div class="note"><b>TIP</b>Group the ORBIT RENDER and OUT tracks (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>G</kbd>) and fold them away.</div>
+  <p>That is all you need for headphones. Every control on the device is a normal Live parameter, so you can automate it, map it to a controller or a macro.</p>
+  <div class="note"><b>TIP</b>Each Spatial Object gets its own ID, saved with the set. You can reorder, rename and duplicate tracks freely.</div>
   </section>
 
   <section id="setup-td" class="sub">
-  <div class="cap">01.2 — TouchDesigner</div>
-  <h3 class="subh">TouchDesigner</h3>
+  <div class="cap">01.2 — The screen</div>
+  <h3 class="subh">The TouchDesigner screen</h3>
   <ol>
-    <li>Open the project (<code>.toe</code>). <code>/project1/Spatialize_UI</code> is the main screen.</li>
-    <li>On the <span class="pill">LIVE</span> tab, PORT should read <code>9001</code>. When the tracks appear in Live's order, you are connected.</li>
-    <li>Save both when you finish: <strong>TouchDesigner</strong> keeps the screen, layout and room settings, <strong>the Live set</strong> keeps every object's motion, path and the scenes.</li>
+    <li>Open the Orbit Score project (<code>.toe</code>) while Live is running.</li>
+    <li>Your tracks appear in Live's order on the <span class="pill">LIVE</span> tab and as coloured dots in the 3D view. If not, see <a href="#trouble">Troubleshooting</a>.</li>
+    <li>The top bar switches between <span class="pill on">3D VIEW</span> (look and listen) and <span class="pill">OBJECT EDITOR</span> (move and draw).</li>
   </ol>
+  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
+  <p>In the 3D view, drag to orbit, scroll to zoom. Buttons that show a value, such as <span class="mono">1.5 s</span>, change when you <strong>press and drag up or down</strong>. For a smooth picture run TouchDesigner in Perform mode (<kbd>F1</kbd>).</p>
   </section>
 
   <section id="setup-out" class="sub">
-  <div class="cap">01.3 — Audio interface</div>
-  <h3 class="subh">Multichannel output</h3>
-  <p>The speaker feeds go <strong>Spatial Objects → Spatial Renderer → <code>OUT</code> tracks → Live's output device → speakers</strong>. Nothing sits in between: choose an interface with as many outputs as the layout has speakers as Live's output device.</p>
-  <div class="grid2">
-    <div class="card"><div class="k">macOS</div><div class="v">Core Audio</div><p>1 · Install the maker's driver if the interface needs one.<br>2 · <strong>Audio MIDI Setup</strong> → the interface → Output → <strong>Format</strong>: the multichannel entry, 48 kHz. Some interfaces start in a 2-channel mode (the ESI GIGAPORT eX does).<br>3 · Live → Settings → Audio: <strong>Output Device</strong> = the interface, 48000 Hz.<br>Several interfaces: an <strong>Aggregate Device</strong>.</p></div>
-    <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · Install the interface's <strong>ASIO driver</strong> (MME / WDM rarely open more than two channels).<br>2 · Live → Settings → Audio: <strong>Driver Type ASIO</strong>, Audio Device = the interface, 48000 Hz.<br>Only one program can open an ASIO device at a time.</p></div>
-  </div>
-  <p>Then, on both: Live → Settings → Audio → <strong>Output Config</strong>, enable the pairs that cover the speakers (1/2, 3/4 …). Dante (Dante Virtual Soundcard) and MADI systems appear as one device with 64 channels and are chosen the same way; Orbit Score drives up to 64 speakers.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="Sidebar SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE with SPEAKER DISTANCE and DIST COMP" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SPEAKERS tab after SET UP: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
-  <div class="note"><b>NOTE</b>Live's audio settings cannot be changed through the Live API, so the driver, device, sample rate and Output Config are set by hand once. Everything inside the set — OUT tracks, routing — is done by SET UP OUTPUTS.</div>
+  <div class="cap">01.3 — Saving</div>
+  <h3 class="subh">Saving</h3>
+  <p>Save <strong>both</strong> when you finish:</p>
+  <ul>
+    <li><strong>The Live set</strong> keeps every object's settings, paths and your scenes.</li>
+    <li><strong>The TouchDesigner project</strong> keeps the speaker layout, room settings and screen options. <span class="pill">SAVE</span> in the editor saves it and also writes a backup of all object settings.</li>
+  </ul>
   </section>
 </section>
 
 <!-- 02 -->
-<section id="devices">
-  <div class="cap">02 — Live devices</div>
-  <h2>Spatial Object · Spatial Master · Spatial Renderer</h2>
-  <figure><img src="media/dev-object.jpg?v=1110e" alt="Spatial Object device in Live: Azimuth, Elevation, Distance dials, object UID, OSC and Render switches, level meter, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
-  <h3>Spatial Object</h3>
-  <p>Every control is an ordinary Live parameter: automate it, map it to a macro, drive it with a modulator. The editor in TouchDesigner (<a href="#editor">04</a>) shows the same values.</p>
-  <h4>Position and motion</h4>
-  <div class="tw"><table>
-    <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
-    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The <em>centre</em> of the motion. Azimuth 0 = front, + = left; Elevation 0 = ear height; Distance 1 = on the speaker ring</td></tr>
-    <tr><td>Motion</td><td>8 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
-    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and extent of the motion. Circle: Size is the radius (0.5 = Distance, 0 → 0.3×, 1 → 1.7×). Path uses Path Length instead</td></tr>
-    <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>The drawn path (<a href="#editor">04</a>), locked to Live's song position</td></tr>
-    <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td><strong>Chaos</strong> motion: a strange attractor around you — smooth, never repeating, now and then swinging close past your head. Lorenz flips between two wings left and right, Rossler winds in a spiral and shoots upward, Thomas wanders evenly. Chaos Shape changes the attractor itself; Rate = speed (0.1 ≈ one loop in 2 s), Size = width, Azimuth turns the figure, Distance scales it</td></tr>
-  </table></div>
-  <h4>Shape</h4>
-  <div class="tw"><table>
-    <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
-    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>A point, or a straight line source through the centre</td></tr>
-    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>Direction of the line; Centre turns it with the object to face you, Fixed keeps it in the room</td></tr>
-    <tr><td>Rotate Mod · Tilt Mod</td><td>Fixed · Random · Spin · LFO</td><td>Moves the line's angle: Random wanders within ±Range, Spin turns at Mod Rate turns/s, LFO swings ±Range at Mod Rate Hz (both on LFO draw a cone)</td></tr>
-    <tr><td>Mod Range · Mod Rate</td><td>0–180° · 0.01–2 Hz</td><td>Shared by both mods (RANGE · RATE in the editor)</td></tr>
-  </table></div>
-  <h4>Sound</h4>
-  <div class="tw"><table>
-    <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
-    <tr><td>Spread</td><td>0–180°</td><td>Speakers: a cloud of directions this wide instead of a point. Above ~10° part of it is decorrelated (a differently all-passed copy per speaker), so it surrounds you instead of sounding phasey. Not in WFS, not for lines</td></tr>
-    <tr><td>Room Send</td><td>0–200 %</td><td>How much of the shared room (reverb + reflections) this object gets. 0 % for dry material — bass, kick, already-reverbed samples</td></tr>
-    <tr><td>Air</td><td>on / off (on)</td><td>Farther objects lose high end: 20 kHz at distance 0.5 down to ~4 kHz at 2</td></tr>
-    <tr><td>Doppler</td><td>on / off (off)</td><td>Distance delay (Distance × SPEAKER DISTANCE ÷ 343 m/s): an object rushing in or out bends in pitch like a passing car. Only a change of distance bends it: Circle, Figure 8, Ping-Pong and Spiral keep the distance and give none; a fast Path past the head or Chaos does. Real Doppler is subtle (about ±15 cent at 3 m/s, a semitone needs ~20 m/s): shorten Path Length or raise SPEAKER DISTANCE to hear it. Leave off for pitched material that must stay in tune</td></tr>
-    <tr><td>Speed</td><td>0–100 % (0)</td><td>The faster the object moves, the louder (up to +6 dB) and brighter it gets — a sound-design fly-by on top of Doppler. Full from ~10 m/s</td></tr>
-  </table></div>
-  <p>Air, Doppler and Speed work in both binaural and speaker mode. A near-field cue is added on headphones automatically (<a href="#render">06</a>).</p>
+<section id="editor">
+  <div class="cap">02 — Moving sounds</div>
+  <h2>Moving sounds</h2>
+  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — Object editor: objects · canvas · settings</figcaption></figure>
+  <p>Open <span class="pill">OBJECT EDITOR</span>. On the left is the list of objects, in the middle a map of the space seen from above (you are in the centre, front is up), on the right the settings of the selected object. Everything you change here is written into the Spatial Object in Live, and the other way round.</p>
 
-  <h3>Spatial Master</h3>
-  <figure><img src="media/dev-master.jpg?v=1110e" alt="Spatial Master device in Live: OSC port 9001, render mode Off / Binaural / Speakers, current layout" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
+  <h3>Place an object</h3>
   <ul>
-    <li><strong>Mode</strong> <span class="pill">OFF</span> <span class="pill on">BINAURAL</span> <span class="pill">SPEAKERS</span> — the same switch as MONITOR in TouchDesigner.</li>
-    <li>Sends every object to <code>127.0.0.1:9001</code> and receives TouchDesigner's edits on <code>9002</code>: parameters, mute, master volume, track colour.</li>
-    <li>Holds the scenes, so they save with the set and play with TouchDesigner closed (<a href="#scenes">05</a>).</li>
-    <li><strong>Scene</strong>, <strong>Morph A / B</strong>, <strong>Morph</strong>, <strong>Quantize</strong> — recall and blend scenes from Live (<a href="#scenes">05</a>).</li>
+    <li><strong>Click an object</strong> in the list, or its dot on the canvas, to select it.</li>
+    <li><strong>Drag its dot</strong> on the canvas to move it.</li>
+    <li>Or use the big <strong>AZIMUTH · ELEVATION · DISTANCE</strong> numbers on top of the settings: press and drag up or down, or double-click to type a value (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels).</li>
+    <li>The <span class="pill">AED</span> button beside them switches to <span class="pill">XYZ</span> — X right, Y front, Z up — if you prefer to think in metres-like axes. It is the same position, shown differently.</li>
+  </ul>
+  <p>Change the view with the <strong>T · F · S</strong> dots at the top right (top, front, side), or drag inside the ball above them to look from any angle.</p>
+
+  <h3>Choose a motion</h3>
+  <div class="tw"><table>
+    <tr><th>Motion</th><th>What it does</th></tr>
+    <tr><td>MANUAL</td><td>Stays where you put it</td></tr>
+    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>Regular movement around its position. RATE = speed, SIZE = how wide</td></tr>
+    <tr><td>RANDOM</td><td>Wanders smoothly around its position</td></tr>
+    <tr><td>PATH</td><td>Follows a path you draw, in time with the song (see below)</td></tr>
+    <tr><td>CHAOS</td><td>Follows a chaotic attractor: smooth, never repeating, now and then passing close to your head. The figure it can travel is drawn as dots</td></tr>
+  </table></div>
+  <p>The position you set becomes the <em>centre</em> of the motion. The settings column shows only what the chosen motion uses.</p>
+
+  <h3>Draw a path</h3>
+  <ol>
+    <li>Select an object and press <span class="pill">PATH</span>.</li>
+    <li><strong>Click</strong> on the canvas to add points; <strong>drag</strong> a point to move it; <strong>right-click</strong> to delete it.</li>
+    <li>With a point selected: <span class="pill">CURVE / CORNER</span> switches between a smooth point (●) and a sharp corner (■); <strong>POINT HEIGHT</strong> lifts it.</li>
+    <li><strong>PATH LENGTH</strong> sets how many bars one pass takes; LOOP · PING-PONG · ONCE what happens at the end; <span class="pill">PATH: OPEN / CLOSED</span> whether the last point joins the first.</li>
+  </ol>
+  <p>The path follows Live's song position, so it is the same at every playback. A straight fly-by is just two corner points. Paths are shown only for PATH objects; switch to another motion and the path stays stored.</p>
+  <p>If you leave a path you changed — by selecting another object or another motion — a small window asks whether to <strong>SAVE</strong> the change, <strong>DON'T SAVE</strong> (go back to the path as it was) or <strong>CANCEL</strong>.</p>
+
+  <h3>Several objects at once</h3>
+  <ul>
+    <li><kbd>Ctrl</kbd> + click (or <kbd>Shift</kbd> + click) in the list adds objects to the selection. Settings you change then apply to all of them; dragging moves them together and keeps their spacing.</li>
+    <li><strong>Groups A–D</strong>: with objects selected, click an empty letter to store them; click it later to select them again. <span class="pill">SET</span> then a letter overwrites it, <span class="pill">CLR</span> then a letter empties it.</li>
+    <li>Move the selection as a whole: <span class="pill">ROT L</span> <span class="pill">ROT R</span> turn it around you, <span class="pill">NEAR</span> <span class="pill">FAR</span> bring it closer or further, <span class="pill">TIGHT</span> <span class="pill">WIDE</span> pull the objects together or spread them out, <span class="pill">UP</span> <span class="pill">DOWN</span> raise or lower them. Paths move with their objects.</li>
   </ul>
 
-  <h3>Spatial Renderer</h3>
-  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Spatial Renderer device in Live: 16 objects in, 64 speakers out" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — Spatial Renderer on ORBIT RENDER</figcaption></figure>
+  <h3>Copy settings</h3>
+  <p><span class="pill">COPY</span> (bottom left, or <kbd>Ctrl</kbd>+<kbd>C</kbd>) takes the selected object's motion, shape, sound settings and path; <span class="pill">PASTE</span> (<kbd>Ctrl</kbd>+<kbd>V</kbd>) puts them on the selected object or objects. Positions are not copied. The line under the buttons shows what will be pasted where.</p>
+
+  <h3>Shape and sound</h3>
   <ul>
-    <li>One per set, on its own empty audio track <code>ORBIT RENDER</code>.</li>
-    <li><strong>Speakers</strong>: each object gets an input pair (3/4, 5/6 …) and routes its track there by itself. Up to 16 objects in, 64 speakers out (speaker k on device output k), picked up by the <code>OUT</code> tracks.</li>
-    <li><strong>Binaural</strong>: each object renders its own headphone stereo and routes its track into the renderer as well; the renderer passes them to its output 1/2 (→ Main) and adds the room (reverb + reflections). OUT 1/2 is muted meanwhile. Without a renderer the objects play straight to Main.</li>
-    <li>Inside: the panning matrix, the WFS engine, room reverb, early reflections, spread decorrelation and speaker distance compensation.</li>
+    <li><strong>SHAPE</strong> — POINT, or LINE: a sound stretched along a line, with LENGTH, ROTATE and TILT. FACE CENTER turns the line with the object so it always faces you; FIXED keeps it still in the room. ROT and TILT can move by themselves (RANDOM, SPIN, LFO), at RANGE and RATE.</li>
+    <li><strong>SOUND</strong> — SPREAD widens the sound on speakers, ROOM sets how much reverb it gets, AIR, DOPPLER and SPEED FX add distance and movement effects. Details in <a href="#render">04</a> and <a href="#devices">08</a>.</li>
   </ul>
-  <div class="note"><b>TIP</b>Reordering tracks is safe: objects are identified by UID, and TouchDesigner follows Live's track order.</div>
+  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="Editor settings: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — Settings of a LINE object on RANDOM</figcaption></figure>
+
+  <h3>Undo and save</h3>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> — or <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> while the mouse is over the editor — step through your edits here, up to 60 steps. Changes made in Live and scene recalls are not included. <span class="pill">SAVE</span> saves the TouchDesigner project with a backup of every object; <span class="pill">LOAD LAST</span> brings that backup back.</p>
+  <p>The thin <span class="pill">›</span> strips fold the settings column and the sidebar away for a bigger canvas.</p>
 </section>
 
 <!-- 03 -->
-<section id="ui">
-  <div class="cap">03 — TD interface</div>
-  <h2>The screen</h2>
-  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score UI, 3D VIEW: the 3D space preview on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW and the sidebar</figcaption></figure>
-  <p>The top bar switches between <span class="pill on">3D VIEW</span> and <span class="pill">OBJECT EDITOR</span>. In the 3D view: left drag orbits, wheel or middle drag zooms. The sidebar folds away with the <span class="pill">›</span> strip on its edge.</p>
-  <h3>Sidebar tabs</h3>
+<section id="speakers">
+  <div class="cap">03 — Speakers</div>
+  <h2>Playing on speakers</h2>
+  <p>On speakers the sound goes <strong>Spatial Objects → Spatial Renderer → OUT tracks → your audio interface</strong>, all inside Live. You need an interface with one output per speaker (Dante and MADI work too — they show up as one large device).</p>
+  <h3>1 · Set up the interface (once)</h3>
+  <div class="grid2">
+    <div class="card"><div class="k">macOS</div><div class="v">Core Audio</div><p>Install the maker's driver if needed. In <strong>Audio MIDI Setup</strong>, set the interface's output <strong>Format</strong> to its multichannel mode, 48 kHz (some start in 2-channel mode). In Live → Settings → Audio choose it as <strong>Output Device</strong>. Several interfaces: make an Aggregate Device.</p></div>
+    <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>Install the interface's <strong>ASIO driver</strong> (MME/WDM usually give only 2 channels). In Live → Settings → Audio: <strong>Driver Type ASIO</strong>, the interface as Audio Device, 48 kHz.</p></div>
+  </div>
+  <p>Then in Live → Settings → Audio → <strong>Output Config</strong>, enable all the output pairs your speakers use.</p>
+  <h3>2 · Add the renderer</h3>
+  <p>Create an empty audio track, name it <code>ORBIT RENDER</code>, put the <strong>Spatial Renderer</strong> on it and leave its output on Main.</p>
+  <h3>3 · Choose the layout and create the outputs</h3>
+  <ol>
+    <li>In the sidebar, <span class="pill">SPEAKERS</span> tab: choose your <strong>SPEAKER LAYOUT</strong>.</li>
+    <li>Press <span class="pill">SET UP OUTPUTS</span>. It creates the <code>OUT 1/2</code>, <code>OUT 3/4</code> … tracks in Live and routes them to the interface. The status line turns to <span class="mono">✓ renderer → OUT tracks → Live outputs</span>.</li>
+    <li>Press <span class="pill">TEST</span>: pink noise plays from one speaker at a time, and the 3D view shows its number. If a speaker is wrong, fix the order in <strong>OUTPUT MAP</strong> (e.g. <span class="mono">3 4 1 2</span> swaps two pairs).</li>
+    <li>Enter <strong>SPEAKER DISTANCE</strong> — you to the speakers in metres. Reflections, Doppler and WFS use it.</li>
+    <li>Switch MONITOR (LIVE tab) or the Master's Mode to <span class="pill on">SPEAKERS</span>.</li>
+  </ol>
+  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 3.1 — SPEAKERS tab after SET UP OUTPUTS</figcaption></figure>
+  <div class="note"><b>NOTE</b>In speaker mode, tracks without a Spatial Object are silent (Main is turned down). Add a Spatial Object to every track that should play. Group the ORBIT RENDER and OUT tracks (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>G</kbd>) to keep the set tidy.</div>
+  <h3>Layouts</h3>
+  <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · <strong>Custom</strong>.</p>
+  <p><strong>Custom</strong> is for a real room: <span class="pill">EDIT TABLE</span> lists one speaker per row — <span class="mono">name · az · el · dist · lfe</span> (dist 1 = the ring, lfe 1 for a subwoofer), up to 64. <span class="pill">MIRROR L ↔ R</span> fills in the other side, so you only measure one. If the speakers are at different distances, turn on <span class="pill">DIST COMP</span>: nearer ones are delayed and turned down so all arrive together.</p>
+  <h3>Panning model</h3>
+  <p>SPACE tab. Each layout picks a suitable model by itself (<em>auto</em>); choose another and it is remembered for that layout.</p>
   <div class="tw"><table>
-    <tr><th>Tab</th><th>Contents</th></tr>
-    <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / Binaural (HP) / Speakers · MASTER volume, MUTE (keeps the slider value) · <strong>SOURCE</strong> LIVE / DEMO, Live's DSP state, OSC PORT · <strong>TRACKS</strong> show (eye), name label (Aa), mute (M), colour, level</td></tr>
-    <tr><td>SPEAKERS</td><td><strong>SPEAKER LAYOUT</strong> · <strong>OUTPUTS</strong> SET UP, OUTPUT MAP, TEST, status · <strong>DISTANCE</strong> SPEAKER DISTANCE, DIST COMP (see below)</td></tr>
-    <tr><td>SPACE</td><td><strong>PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>ROOM</strong> presets, REVERB, REFLECTIONS, EAR HEIGHT (<a href="#render">06</a>)</td></tr>
-    <tr><td>VIEW</td><td><strong>CAMERA</strong> auto orbit, reset view, theme · <strong>SHOW</strong> names, ears, head, dome guide, ROOM, TRAIL</td></tr>
-    <tr><td>SCENES</td><td>The scene list (<a href="#scenes">05</a>)</td></tr>
-    <tr><td>LOG</td><td>Connection, WARNINGS (a ⚠ on the tab), device messages (repeats folded as ×n). COPY / CLEAR / RESEND</td></tr>
+    <tr><th>Model</th><th>Good for</th></tr>
+    <tr><td>VBAP</td><td>Precise direction from the 2–3 nearest speakers. Standard surround layouts</td></tr>
+    <tr><td>DBAP</td><td>Uses every speaker by distance — good for installations and audiences that walk around</td></tr>
+    <tr><td>AMBI</td><td>Ambisonics: the most even, enveloping sound on rings and domes</td></tr>
+    <tr><td>WFS</td><td>Wave field synthesis for long lines of speakers: sources can appear in front of the speakers, inside the room</td></tr>
   </table></div>
-  <p>Value buttons such as <span class="mono">1.5 s</span> or <span class="mono">3.0 m</span> change by <strong>pressing and dragging up or down</strong>.</p>
-  <figure><img src="media/ui-live.jpg?v=1111d" alt="Sidebar LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE tab</figcaption></figure>
-
-  <h3 id="ui-speakers">SPEAKERS tab</h3>
-  <div class="tw"><table>
-    <tr><th>Control</th><th>What it does</th></tr>
-    <tr><td>Layout</td><td>The speaker layout (<a href="#render">06</a>). The panning model follows it unless you pick one</td></tr>
-    <tr><td>Custom · EDIT TABLE</td><td>A measured room: one row per speaker, <span class="mono">name · az · el · dist · lfe</span> (dist 1 = the ring, lfe 1 for a sub), up to 64. The preview, panning and WFS follow the table</td></tr>
-    <tr><td>Custom · MIRROR L ↔ R</td><td>Adds the missing left / right twin of every speaker off the centre line, so you measure one side</td></tr>
-    <tr><td>SET UP OUTPUTS 1…n IN LIVE</td><td>Creates the <code>OUT 1/2</code>, <code>OUT 3/4</code> … tracks, feeds them from the renderer and routes them to Live's outputs. Press again after changing the layout</td></tr>
-    <tr><td>Status line</td><td><span class="mono">✓ renderer → OUT tracks → Live outputs 1…n</span>, otherwise what is missing — with set-up hints underneath</td></tr>
-    <tr><td>OUTPUT MAP</td><td>Which Live output each speaker uses, in speaker order: <span class="mono">3 4 1 2</span> swaps pairs, <span class="mono">1 2 3 4 7 8</span> skips 5–6. Empty = 1 2 3 …; kept per layout</td></tr>
-    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>Pink noise from one speaker at a time (objects silent meanwhile); the 3D view numbers the speakers</td></tr>
-    <tr><td>SPEAKER DISTANCE</td><td>You to the speaker ring in metres — the scale for reflections, Doppler, near field and WFS. Measure it</td></tr>
-    <tr><td>DIST COMP</td><td>Speakers at different distances (a measured custom layout): nearer ones are delayed and turned down so all arrive like the farthest. Off in WFS, where the button is PRE-FILTER</td></tr>
-  </table></div>
-
-  <h3>Track colour</h3>
-  <p>Click a track's colour square: Ableton's 70-colour palette opens below the row, and the colour changes in TouchDesigner and Live together.</p>
-  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette: the same 70 colours as Ableton, laid out 14 by 5 in a pop-up" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — Colour palette</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111d" alt="SPACE tab: PANNING MODEL, ROOM presets, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 3.2 — SPACE tab</figcaption></figure>
 </section>
 
 <!-- 04 -->
-<section id="editor">
-  <div class="cap">04 — Object editor</div>
-  <h2>Object editor</h2>
-  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: object list on the left, path canvas with orbit gizmo in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — Objects · canvas · settings</figcaption></figure>
-  <p>Everything here is a Live device parameter: an edit goes straight to the device, and the screen shows what the device sends back.</p>
-  <h3>Canvas</h3>
-  <ul>
-    <li><strong>View</strong> — TOP / FRONT / SIDE (the T · F · S dots), or drag inside the ball at the top right to orbit freely.</li>
-    <li><strong>CHAOS</strong> — the attractor the object can travel is drawn as dots (FIG. 4.3).</li>
-    <li>The thin <span class="pill">›</span> strips fold the settings column and the sidebar; the canvas widens.</li>
-  </ul>
-  <h3>Drawing a path</h3>
+<section id="render">
+  <div class="cap">04 — Room and distance</div>
+  <h2>Room and distance</h2>
+  <h3>Room</h3>
+  <p>One room is shared by all objects, on headphones and on speakers. SPACE tab → <strong>ROOM</strong>: pick <strong>OFF</strong> (dry), STUDIO, ROOM, HALL or CATHEDRAL, or adjust the values yourself (it becomes CUSTOM).</p>
   <div class="tw"><table>
-    <tr><th>Input</th><th>Action</th></tr>
-    <tr><td>EDIT PATH</td><td>Shown only for a PATH object. Unlocks the points; while OFF, clicks never add, move or delete them</td></tr>
-    <tr><td>Click empty space</td><td>Add a point (the object switches to PATH)</td></tr>
-    <tr><td>Drag · right-click</td><td>Move (depth kept) · delete</td></tr>
-    <tr><td>CURVE / CORNER · POINT HEIGHT</td><td>The selected point's type (● / ■) and height</td></tr>
-    <tr><td>PATH: OPEN / CLOSED</td><td>Whether the last point joins the first</td></tr>
-    <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>All curves · empty the path · read it back from Live</td></tr>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td>REVERB</td><td>On / off · length 0.3–10 s · amount. Far objects get more reverb and less direct sound, so they sound far away rather than just quiet</td></tr>
+    <tr><td>REFLECTIONS</td><td>On / off · WALLS (distance to the walls, 1.5–40 m) · level. Early echoes from the walls, floor and ceiling, each from its own direction</td></tr>
+    <tr><td>EAR HEIGHT</td><td>Your ears above the floor: 1.2 m seated, about 1.6 m standing</td></tr>
   </table></div>
-  <p>Curves are Catmull-Rom splines played at constant speed; position = song position ÷ (Path Length × 4 beats). The path, its settings and EDIT PATH show only while the object's motion is PATH — choose another motion and they disappear (the path stays stored); a straight fly-by is just two corner points. The selected object has a thick ring.</p>
-  <h3>Settings column</h3>
-  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="Editor settings column: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 4.2 — Settings column (a LINE object on RANDOM)</figcaption></figure>
-  <ul>
-    <li><strong>AZIMUTH · ELEVATION · DISTANCE</strong> — the big numbers on top: press and drag up / down to move the selected object (its centre; in MANUAL its position), or double-click one to type a value (Enter applies, Esc cancels). The <span class="pill">AED</span> / <span class="pill">XYZ</span> button (top right of the numbers) switches the numbers and the MANUAL sliders to <strong>X · Y · Z</strong> (X right, Y front, Z up; 1 = the ring, the ADM axes). It is only another way to read and set the same position.</li>
-    <li><strong>MOTION</strong> — the eight motions. MANUAL shows AZIMUTH · ELEVATION · DISTANCE sliders; the others show RATE and SIZE (not PATH); with CHAOS the attractor buttons and CHAOS SHAPE.</li>
-    <li><strong>PATH</strong> — only while the motion is PATH: PATH LENGTH, loop mode, open / closed, point tools.</li>
-    <li><strong>SHAPE</strong> — point / line, facing, LENGTH, ROTATE | TILT, their modulation (ROT · FIXED ▼, TILT · FIXED ▼) and RANGE | RATE. A modulated angle's slider follows the movement and cannot be dragged.</li>
-    <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
-  </ul>
-  <p>Drag a slider, or <strong>double-click</strong> it to type a value (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels).</p>
-  <figure><img src="media/ui-editor-chaos.jpg?v=1112b" alt="Editor canvas: the dotted figure of a CHAOS (Lorenz) object" loading="lazy" width="860" height="635"><figcaption>FIG. 4.3 — A Lorenz attractor on the canvas</figcaption></figure>
-  <h3>Saving</h3>
-  <p><span class="pill">SAVE</span> writes every object's settings to <code>spatialize_snapshots/</code> and saves the TouchDesigner project; <span class="pill">LOAD LAST</span> restores the last snapshot. Save the Live set separately.</p>
-  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (above SAVE; <strong>Ctrl+Z</strong> / <strong>Ctrl+Shift+Z</strong> or <strong>Ctrl+Y</strong> while the mouse is over the editor) step back through edits made here: settings, centre position, path. One drag is one step, up to 60 steps. Scene recalls and changes made in Live are not covered.</p>
-  <p><strong>Position from Orbit Link</strong> — while another project streams an object's position (<a href="#link">Orbit Link</a>), its own motion does not play: the MOTION buttons are greyed out and cannot be clicked, the motion settings are hidden and a note says so. They come back about 1.5 s after the stream stops. <span class="pill">ORBIT LINK: ON</span> beside MOTION switches the incoming positions off for every object (they play their own motion again) without touching the sender.</p>
+  <p>Each object's <strong>ROOM</strong> setting (0–200 %) decides how much of the room it gets — set it to 0 for bass, kick, or samples that already have reverb. On headphones the room comes out of the ORBIT RENDER track, so keep it in the set.</p>
+  <h3>Distance</h3>
+  <p>SPACE tab, for all objects together (OFF · ×1 · ×2 · ×3):</p>
+  <div class="tw"><table>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td>AIR</td><td>Distant objects lose their high end, as in real air. Each object can switch it off with its own AIR button</td></tr>
+    <tr><td>FAR THIN</td><td>Objects outside the speaker ring also lose low end and sound thinner</td></tr>
+    <tr><td>NEAR BASS</td><td>On headphones, an object closer than about 1 m gets fuller and louder in the near ear — the "whisper in your ear" effect</td></tr>
+    <tr><td>DOPPLER ×1 – ×8</td><td>For objects with DOPPLER on: the pitch bends as they rush towards or away from you. Higher values exaggerate it</td></tr>
+  </table></div>
+  <p>Doppler only changes the pitch when the <em>distance</em> changes — a circle around you keeps its pitch; a path flying past your head does not. Leave it off on tuned material. <strong>SPEED FX</strong> on an object makes it louder and brighter the faster it moves.</p>
+  <h3>On headphones</h3>
+  <p>Binaural uses a measured head-related transfer function (a KEMAR dummy head), which carries the cues for left/right, front/back and up/down. It works with any headphones and at 44.1, 48, 88.2 or 96 kHz. The ears in the 3D view are tinted <span class="L">L blue</span> / <span class="R">R red</span>.</p>
+  <h3>Seeing it</h3>
+  <p>VIEW tab → <strong>ROOM</strong> draws the room, the reflections behind its walls and the reverb spreading out; <strong>TRAIL</strong> leaves fading dots behind objects with Doppler on — the further apart, the faster.</p>
 </section>
 
 <!-- 05 -->
 <section id="scenes">
-  <div class="cap">05 — Scenes &amp; timeline</div>
-  <h2>Scenes and timeline</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab with the options of Verse open (its ghosts in the 3D view) and the timeline bar</figcaption></figure>
-  <p>A <strong>scene</strong> is a snapshot of the objects — centre position, motion, shape, path, sound settings — and <strong>a scene is a Live locator of the same name</strong>. Scenes live in the Spatial Master, so they save with the set and play with TouchDesigner closed.</p>
-  <h3>SCENES tab</h3>
+  <div class="cap">05 — Scenes</div>
+  <h2>Scenes</h2>
+  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab, scene preview in the 3D view, timeline bar</figcaption></figure>
+  <p>A <strong>scene</strong> stores where every object is and how it moves. Recalling a scene glides all objects there. Each scene is linked to a <strong>Live locator of the same name</strong>, so your arrangement can change the space as the song plays. Scenes are saved in the Live set and play even with TouchDesigner closed.</p>
+  <h3>Make and recall scenes</h3>
+  <ol>
+    <li>Arrange the objects, then press <span class="pill">+ CAPTURE</span> in the SCENES tab. A scene and a locator at the playhead are created. Click the name to rename both.</li>
+    <li>Change the arrangement and capture again for the next part of the song.</li>
+    <li>Press <span class="pill">GO</span> on a scene to glide there. <span class="pill">UPDATE</span> stores the current state into an existing scene.</li>
+    <li>Open the timeline (<span class="pill">TIMELINE ▲</span> under the 3D view) and turn <strong>FOLLOW</strong> on: each scene is applied when the playhead reaches its locator.</li>
+  </ol>
+  <p>Hover over a scene's thumbnail or GO to see where it puts the objects (ghosts in the 3D view).</p>
+  <h3>How scenes change</h3>
   <div class="tw"><table>
-    <tr><th>Control</th><th>Action</th></tr>
-    <tr><td>+ CAPTURE</td><td>New scene from the current state, with a locator at Live's playhead</td></tr>
-    <tr><td>INCLUDE chips</td><td>Which objects take part in new captures and updates — one chip per object with its track colour; a faded chip is left out</td></tr>
-    <tr><td>FADE</td><td>Default crossfade for new scenes: CUT · 1 · 2 · 4 · 8 · 16 beats</td></tr>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tr><td>FADE</td><td>How long the glide takes: CUT, or 1 – 16 beats. Each scene can have its own</td></tr>
     <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — while Live plays, a recall waits for the next beat or bar</td></tr>
-    <tr><td>◀ ROT · ROT ▶ · MIRROR · NEAR · FAR · UP · DOWN</td><td>Variations of the current arrangement (included objects, centres and paths): rotate ±45° · mirror left / right · distance ×0.8 / ×1.25 · elevation ±10°. Then UPDATE a scene or + CAPTURE a new one</td></tr>
-    <tr><td>OTHERS</td><td><strong>MUTE + HIDE</strong>: objects a recalled scene does not hold are muted and hidden · <strong>KEEP</strong>: left as they are. Hand-made mute changes in Live are put back when the song next enters a scene</td></tr>
-    <tr><td>Scene row</td><td>Name (click to rename, locator too) · top-view thumbnail · its own fade · <strong>⋯</strong> transition options · <strong>GO</strong> / RECALL · <strong>SAVE</strong> (empty locator) / UPDATE · locator position (click to jump, → TL places one) · × deletes scene and locator</td></tr>
-    <tr><td>⋯ (per scene)</td><td><strong>CURVE</strong> linear · smooth · ease in · ease out — <strong>AROUND</strong> the listener / <strong>THROUGH</strong> the room in a straight line — <strong>STAGGER</strong> off · 0.25 · 0.5 · 1 · 2 beats: the objects set off one after another — <strong>ROOM ●</strong> stores the room (preset, reverb, reflections) with the scene and glides to it</td></tr>
-    <tr><td>MORPH PAD</td><td><strong>MORPH: ON</strong> opens a pad with a scene on each corner (click a corner to pick the scene; two scenes on the bottom corners are enough). Drag the dot: the objects are blended between the corner scenes — position through space, settings as weighted means, motion and shape from the nearest scene. Nothing is written to the objects; OFF lets them ease back</td></tr>
-    <tr><td>EXPORT · IMPORT</td><td>Every scene of the set as one JSON file in <code>spatialize_scenes/</code> next to the project. Objects match by UID (the same set, or copied devices)</td></tr>
+    <tr><td>⋯ on a scene</td><td><strong>CURVE</strong> (linear, smooth, ease in, ease out) · <strong>AROUND</strong> you or <strong>THROUGH</strong> the room in a straight line · <strong>STAGGER</strong>: the objects set off one after another · <strong>ROOM</strong>: the scene also changes the room</td></tr>
+    <tr><td>INCLUDE</td><td>One chip per object. Faded chips are left out of new captures and updates</td></tr>
+    <tr><td>OTHERS</td><td>What happens to objects a scene doesn't contain: <strong>MUTE + HIDE</strong> or <strong>KEEP</strong></td></tr>
+    <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>Quick variations of the current arrangement — then UPDATE or CAPTURE them</td></tr>
+    <tr><td>EXPORT · IMPORT</td><td>All scenes of the set to one file and back, e.g. to reuse them in a copy of the set</td></tr>
   </table></div>
-  <p><strong>Preview</strong> — hold the mouse over RECALL or a thumbnail: ghosts in the 3D view show where that scene puts each object. They also show the destination while a transition runs.</p>
-  <h3>Transitions</h3>
-  <ul>
-    <li>Numbers glide: centre, rate, size, length, rotate, tilt, modulation, spread, room send, chaos shape, speed FX.</li>
-    <li>A new motion, path or attractor crossfades the <strong>position</strong>: the old motion keeps running and the object slides onto the new one.</li>
-    <li>A point grows into a line; a line shrinks into a point.</li>
-    <li>The dials in Live are written once, when the transition ends.</li>
-    <li>Positions streamed in over Orbit Link (<code>/orbit/set</code>) take priority: while another project sends an object's position, a scene changes its settings but not where it is.</li>
-  </ul>
-  <h3>From Live, without TouchDesigner</h3>
+  <p>Numbers glide smoothly; a change of motion crossfades the position from the old movement into the new one; a point grows into a line and back.</p>
+  <h3>Morph pad</h3>
+  <p><span class="pill">MORPH: ON</span> opens a square pad with a scene in each corner (click a corner to choose it; two corners are enough). Drag the dot to blend between them live. Nothing is overwritten — turn it off and the objects return.</p>
+  <h3>From Live, without the screen</h3>
   <div class="tw"><table>
-    <tr><th>Spatial Master</th><th>Action</th></tr>
-    <tr><td>Scene</td><td>Recall by number — automate it or map a MIDI controller</td></tr>
-    <tr><td>Morph A · Morph B · Morph</td><td>Blend continuously between two scenes: 0 = A, 100 = B. Nothing is written to the objects until you recall</td></tr>
-    <tr><td>Quantize</td><td>Off · Beat · Bar, the same setting as in the SCENES tab</td></tr>
-    <tr><td>Session clip <code>@Name</code></td><td>Launching a clip whose name starts with <code>@</code> recalls the scene of that name</td></tr>
+    <tr><th>On the Spatial Master</th><th>What it does</th></tr>
+    <tr><td>Scene</td><td>Recall a scene by number — automate it or map it to a controller</td></tr>
+    <tr><td>Morph A · Morph B · Morph</td><td>Blend between two scenes: 0 = A, 100 = B</td></tr>
+    <tr><td>Quantize</td><td>Off · Beat · Bar</td></tr>
+    <tr><td>Clip named <code>@Name</code></td><td>Launching a Session clip whose name starts with <code>@</code> recalls the scene called Name</td></tr>
   </table></div>
   <h3>Timeline bar</h3>
-  <p>Open it with <span class="pill">TIMELINE ▲</span> under the 3D view: a bar ruler with Live's locators (filled = linked to a scene), the playhead, play position and active scene. Click the ruler to move the playhead.</p>
-  <ul>
-    <li><strong>FOLLOW: ON</strong> — the playhead reaching a linked locator applies its scene; after a jump or loop the last scene before the playhead is applied.</li>
-    <li><strong>Locator cards</strong> — GO jumps there; CAPTURE saves the current state under that locator's name; × deletes the locator only.</li>
-    <li><strong>+ LOCATOR (ACTIVE SCENE)</strong> — puts the active scene's locator at the playhead.</li>
-  </ul>
-  <p>A crossfade glides each object's <em>centre</em> over the fade (motion, shape and path switch at once). Live adds or removes locators only at the playhead, so moving them from TouchDesigner works while Live is stopped.</p>
+  <p>Shows the bars, Live's locators (filled = linked to a scene), the playhead and the active scene. Click to move the playhead. Each locator card has GO (jump), CAPTURE (store the current state under its name) and × (delete the locator). Locators can only be moved from here while Live is stopped.</p>
 </section>
 
 <!-- 06 -->
-<section id="render">
-  <div class="cap">06 — Rendering</div>
-  <h2>Sound — binaural, speakers, room</h2>
-  <h3>Binaural (headphones)</h3>
-  <p>Each Spatial Object renders its own direction to stereo: interaural time difference, head shadow, distance. In the 3D view the ears are tinted <span class="L">L blue</span> / <span class="R">R red</span>, The line under each name reads <span class="mono">azimuth · elevation · distance</span>, plus the interaural delay (<span class="mono">0.45 ms R</span> = the right ear hears it first) while the ears are shown. A line object is two binaural chains, one per end.</p>
-  <p><strong>Measured HRTF</strong>: each ear is filtered with a head-related transfer function measured on a KEMAR dummy head (MIT Media Lab, diffuse-field equalised), on a 10° elevation × 5° azimuth grid as 1.3 ms minimum-phase filters; the interaural delay is added separately, and a short crossfade covers steps between grid points. It carries the real head shadow and the outer-ear cues that separate up / down and front / back. The device loads the set that matches Live's sample rate (44.1, 48, 88.2 or 96 kHz; <code>orbit_hrtf_&lt;rate&gt;.wav</code> next to the device).</p>
-  <p><strong>Near field</strong>: closer than about 1 m (Distance × SPEAKER DISTANCE), the near ear gets louder and bassier and the far ear quieter — the "whisper in your ear" cue. Automatic, headphones only.</p>
-  <h3>Speakers</h3>
-  <p>Every object routes its track into the Spatial Renderer, which mixes all of them onto the speakers at signal rate and hands each pair to an OUT track. Track faders and mutes still work. Tracks without a Spatial Object are silent in speaker mode automatically (the renderer turns Main down, and back up in binaural).</p>
-  <h4>Panning model</h4>
-  <figure><img src="media/ui-space.jpg?v=1111d" alt="Sidebar SPACE tab: PANNING MODEL with VBAP DBAP AMBI WFS, ROOM with presets, REVERB, REFLECTIONS and EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE tab</figcaption></figure>
-  <p>SPACE tab. The 3D view lights the speakers with the same gains, and all models are level-matched. Choosing a layout picks its recommended model (the heading says <em>auto</em>); press another and that choice is remembered for the layout.</p>
+<section id="link">
+  <div class="cap">06 — Orbit Link</div>
+  <h2>Visuals with Orbit Link</h2>
+  <p>Orbit Link sends the objects' positions, levels, colours and the active scene as OSC, so your visuals can follow the sound. It also works the other way: a visual project can move the sounds.</p>
+  <h3>Use the positions in TouchDesigner</h3>
+  <ol>
+    <li>Drag <code>OrbitLink_In.tox</code> (in the <code>Spatialize M4L</code> folder) into your project.</li>
+    <li>Its output <strong>out1</strong> is a CHOP with <code>count</code> and <code>o1_x o1_y o1_z</code>, <code>o2_x</code> … — one set per object, in Live's track order. Status reads <span class="mono">3 objects · live</span> when data arrives.</li>
+    <li>Turn on more with the <strong>Out</strong> toggles: azimuth / elevation / distance, level, colour, shape, speed, chaos values, and Live's transport (tempo, bar, beat, <code>beat_pulse</code>, progress to the next locator, <code>scene_prog</code> during a scene change).</li>
+  </ol>
+  <p>Positions are in ring radii: 1 = the speaker ring, X right, Y up, −Z front. Use them for instance as instance positions or to drive lights.</p>
+  <h3>Move the sounds from your project</h3>
+  <ol>
+    <li>Drag <code>OrbitLink_Out.tox</code> into your project and wire a CHOP into it, with channels named like Orbit Link In's (<code>o1_x o1_y o1_z</code> …) — or straight from a POP to CHOP / SOP to CHOP with one sample per object (<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code> or <code>x y z</code>; sample 0 = object 1).</li>
+    <li>If your scene isn't in ring radii, set <strong>Position Scale</strong>. <strong>Objects</strong> limits which ones it may move (<code>*</code>, <code>2</code>, <code>1-3 5</code>).</li>
+    <li>Turn on <strong>Send Enable</strong>.</li>
+  </ol>
+  <p>While positions arrive, those objects follow them instead of their own motion; the editor greys out their motions and shows a note. When the stream stops they glide back after about 1.5 s. Streamed positions are not saved in the set. <span class="pill">ORBIT LINK: ON / OFF</span> next to MOTION in the editor ignores all incoming positions without touching the sender.</p>
+  <div class="note"><b>NOTE</b>Don't send an Orbit Link In's values straight back through Orbit Link Out for the same objects — that makes a feedback loop. One UDP port can only be opened by one program; give a second receiver its own port.</div>
+  <h3>Example project</h3>
+  <p><code>test Audiovisual.toe</code> shows three ways to use it: balls bouncing on water at the objects' positions, a fluid simulation stirred by the objects (it also <em>sends</em> positions back), and drifting dust lit by the objects. All three react to scene changes.</p>
+  <h3>Other software (plain OSC)</h3>
+  <p>Orbit Link is plain OSC, usable from Max, Unity, Unreal, Resolume and others. Ports: Orbit Score sends to <strong>9010</strong> and listens on <strong>9011</strong> (change them on the <code>Spatialisation_test</code> component, Objects page). <code>n</code> = the object's number in Live's track order, starting at 1.</p>
   <div class="tw"><table>
-    <tr><th>Model</th><th>How</th><th>Auto for</th></tr>
-    <tr><td>VBAP</td><td>Direction only: the 2–3 speakers around the source. Front-only layouts pan by left / right, so a source circling behind moves smoothly</td><td>stereo, quad, 5.1, 7.1, 5.1.4</td></tr>
-    <tr><td>DBAP</td><td>Distance to every speaker (1/d). Near the middle all play, on the ring the nearest dominate — good for installations and walking audiences</td><td>never (choose it)</td></tr>
-    <tr><td>AMBI</td><td>3rd-order Ambisonics with an AllRAD decoder computed for the layout: the most even, enveloping field</td><td>hex 6, oct 8, ring 16, 7.1.4, 9.1.6, cube 8, dome 25</td></tr>
-    <tr><td>WFS</td><td>Wave field synthesis: a gain <em>and delay</em> per speaker rebuild the wavefront; sources inside the array are focused sources. Uses SPEAKER DISTANCE; PRE-FILTER adds +3 dB/oct up to the aliasing frequency</td><td>WFS line 32, WFS rectangle 64</td></tr>
+    <tr><th>Sent → 9010</th><th>Arguments</th></tr>
+    <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · azimuth elevation distance</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line · radius units per second</td></tr>
+    <tr><td>/orbit/n/chaos</td><td>x y z of a CHAOS object's attractor (about −1 … 1)</td></tr>
+    <tr><td>/orbit/count · /orbit/layout</td><td>number of objects · layout id, speaker count</td></tr>
+    <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>active scene · all scene names · from, to, progress 0–1 during a change</td></tr>
+    <tr><td>/orbit/transport · /orbit/phase · /orbit/songpos · /orbit/beat · /orbit/section</td><td>playing, tempo, bar, beat · beat and bar phase · song position in beats · once per beat · current locator, progress, next locator</td></tr>
   </table></div>
-  <h4>Speaker layouts</h4>
-  <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · Custom (measured, <a href="#ui-speakers">03</a>).</p>
-
-  <h3>Room</h3>
-  <p>One room shared by all objects, in both speaker and binaural mode; each object's <strong>Room Send</strong> sets how much it gets. SPACE tab → <strong>ROOM</strong>:</p>
   <div class="tw"><table>
-    <tr><th>Control</th><th>What it does</th></tr>
-    <tr><td>Presets</td><td><strong>OFF</strong> (direct sound only, the 3D room hides) · STUDIO · ROOM · HALL · CATHEDRAL set everything at once. Change a value and it is <strong>CUSTOM</strong>; the CUSTOM button brings your own values back after trying a preset</td></tr>
-    <tr><td>REVERB</td><td>On · time 0.3–10 s · amount. An 8-line feedback delay network; each object's send grows with its distance while its direct sound falls — so far sounds farther, not just quieter. Speakers: 8 uncorrelated tails over all speakers. Binaural: a wide stereo tail</td></tr>
-    <tr><td>REFLECTIONS</td><td>On · WALLS (you to the walls, 1.5–40 m) · level. Six first-order image sources per object (walls, floor, ceiling), each delayed by its extra path and placed in its own direction — VBAP on speakers, level + time difference per ear on headphones</td></tr>
-    <tr><td>EAR HEIGHT</td><td>Ears above the floor (1.2 m seated, ~1.6 m standing). The floor reflection and the 3D grid follow it</td></tr>
-    <tr><td>DOPPLER ×1 ×2 ×4 ×8</td><td>Emphasis for every object with DOPPLER on: the pitch bends k times as far. Only the change of distance is scaled, so the extra latency stays small (about 60 ms at ×8)</td></tr>
+    <tr><th>Received ← 9011</th><th>Arguments</th></tr>
+    <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>A position stream. Keep sending at least every 0.5 s</td></tr>
+    <tr><td>/orbit/set/n/color · /orbit/set/n/name</td><td>r g b (0–1) · text — sets the Live track's colour and name</td></tr>
+    <tr><td>/orbit/set/n/&lt;setting&gt;</td><td>Any Spatial Object setting (motion, rate, size, shape, spread, roomsend … see <a href="#devices">08</a>); saved in the set like an edit</td></tr>
+    <tr><td>/orbit/set/scene</td><td>Recall a scene by name</td></tr>
   </table></div>
-  <p>In binaural mode the object tracks also run through the renderer, so the room comes out of the ORBIT RENDER track to Main — keep that track in the set. MASTER is Live's Main fader there, applied once to direct sound and room alike.</p>
-  <p><strong>In 3D</strong> (VIEW → ROOM): the room box, each object's six first-order reflections as soft dots behind the walls (their image sources: further walls push them out, a higher level makes them brighter), and soft blurred waves and haze that spread slowly over the reverb time. VIEW → <strong>TRAIL</strong> leaves fading dots behind objects with DOPPLER on — sparse dots mean fast, and more Doppler. Both are drawn from the renderer's maths and the track meters, not measured from the audio.</p>
 </section>
 
 <!-- 07 -->
-<section id="coords">
-  <div class="cap">07 — Co-ordinates</div>
-  <h2>Co-ordinate systems</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">Device (Live)</div><div class="v mono">x front · y left · z up</div><p>Distance 1 = speaker radius. Azimuth + = left, Elevation + = up.</p></div>
-    <div class="card"><div class="k">TouchDesigner</div><div class="v mono">front = −Z · up = +Y</div><p>Right = +X. <code>aed_to_dev</code> / <code>dev_to_aed</code> in the <code>layouts</code> module convert.</p></div>
-  </div>
-  <p>Line source: centre <code>c = aed_to_dev(az, el, d)</code>, heading <code>h = (az if Facing is Centre, else 0) + 90° + Rotate</code>, direction <code>u = (cos t·cos h, cos t·sin h, sin t)</code> with <code>t = Tilt</code>, ends <code>c ± u·Length/2</code>.</p>
+<section id="ui">
+  <div class="cap">07 — Screen reference</div>
+  <h2>Screen reference</h2>
+  <div class="tw"><table>
+    <tr><th>Sidebar tab</th><th>Contents</th></tr>
+    <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / headphones / speakers · <strong>MASTER</strong> volume and MUTE · connection status · <strong>TRACKS</strong>: show / hide, name label, mute, colour, level</td></tr>
+    <tr><td>SPEAKERS</td><td>Speaker layout and custom table · SET UP OUTPUTS · OUTPUT MAP · TEST · SPEAKER DISTANCE · DIST COMP (<a href="#speakers">03</a>)</td></tr>
+    <tr><td>SPACE</td><td>Panning model · room · ear height · Doppler emphasis · AIR, FAR THIN, NEAR BASS (<a href="#render">04</a>)</td></tr>
+    <tr><td>VIEW</td><td>Camera auto-orbit, reset, light / dark theme · show names, ears, head, dome, room, trails</td></tr>
+    <tr><td>SCENES</td><td>Scenes and the morph pad (<a href="#scenes">05</a>)</td></tr>
+    <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
+  </table></div>
+  <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
+  <h3>Track colour</h3>
+  <p>Click a track's colour square: Ableton's 70-colour palette opens, and the colour changes in Live too.</p>
+  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette with Ableton's 70 colours" loading="lazy" width="1920" height="1080"><figcaption>FIG. 7.2 — Colour palette</figcaption></figure>
 </section>
 
 <!-- 08 -->
-<section id="osc">
-  <div class="cap">08 — OSC protocol</div>
-  <h2>OSC messages</h2>
-  <p>Local UDP: Live → TouchDesigner on <code>127.0.0.1:9001</code>, TouchDesigner → Spatial Master on <code>9002</code>.</p>
-  <h3>Live → TD (9001)</h3>
+<section id="devices">
+  <div class="cap">08 — Device reference</div>
+  <h2>Device reference</h2>
+  <figure><img src="media/dev-object.jpg?v=1110e" alt="Spatial Object device in Live" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 8.1 — Spatial Object</figcaption></figure>
+  <h3>Spatial Object</h3>
   <div class="tw"><table>
-    <tr><th>Address</th><th>Carries</th></tr>
-    <tr><td>/spat/obj</td><td>uid, az, el, dist, level, r g b (~30 Hz)</td></tr>
-    <tr><td>/spat/name</td><td>uid, track name, track order</td></tr>
-    <tr><td>/spat/form</td><td>uid, motion, shape, len, rot, tilt, rate, size, bars, pmode, muted, facing, closed, centre az el dist, stall, rotmod, tiltmod, modrange, modrate, spread, roomsend, air, doppler, attr, cshape, speedfx</td></tr>
-    <tr><td>/spat/rt</td><td>uid, rotate, tilt — the modulated line angles, while a mod is on</td></tr>
-    <tr><td>/spat/path</td><td>uid, n, then x y z curve per point</td></tr>
-    <tr><td>/spat/off</td><td>a device was removed</td></tr>
-    <tr><td>/spat/master · /spat/audio</td><td>render mode · DSP state, sample rate, vector size</td></tr>
-    <tr><td>/spat/scenes · /spat/cues · /spat/play · /spat/sceneon</td><td>scene list · locators · playhead · a scene was applied</td></tr>
-    <tr><td>/spat/dbg</td><td>device messages → LOG tab</td></tr>
+    <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The centre of the motion. Azimuth 0 = front, + = left; Elevation 0 = ear level; Distance 1 = the speaker ring</td></tr>
+    <tr><td>Motion</td><td>8 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
+    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
+    <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
+    <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>For Chaos motion. Lorenz swings between left and right, Rossler spirals and shoots up, Thomas wanders evenly. Chaos Shape changes the figure</td></tr>
+    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>A point, or a line source through the centre</td></tr>
+    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>Direction of the line</td></tr>
+    <tr><td>Rotate Mod · Tilt Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>Lets the line's angle move by itself</td></tr>
+    <tr><td>Spread</td><td>0–180°</td><td>Speakers: a wider, enveloping source instead of a point</td></tr>
+    <tr><td>Room Send</td><td>0–200 %</td><td>How much of the shared room the object gets</td></tr>
+    <tr><td>Air</td><td>on / off</td><td>High-frequency loss with distance</td></tr>
+    <tr><td>Doppler</td><td>on / off</td><td>Pitch bend when the distance changes</td></tr>
+    <tr><td>Speed</td><td>0–100 %</td><td>Louder and brighter when moving fast</td></tr>
   </table></div>
-  <h3>TD → Live (9002)</h3>
-  <div class="tw"><table>
-    <tr><th>Address</th><th>Carries</th></tr>
-    <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
-    <tr><td>/spat/spk</td><td>speaker layout (unit vectors + LFE flag)</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> any object parameter · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>&lt;uid&gt; ext az el dist</code> (live position stream, not saved) · <code>0 &lt;key&gt; …</code> renderer settings (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
-    <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code></td></tr>
-    <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code> → Live track colour</td></tr>
-    <tr><td>/spat/scene</td><td>save · recall · del · rename · cue · cuedel · jump · jumpt · fade · opt · quant · dump · follow · sync</td></tr>
-    <tr><td>/spat/req</td><td>send the whole state again (LOG → RESEND)</td></tr>
-  </table></div>
-<pre><code># object 598428 to Circle
-/spat/objset 598428 motion 1
-# a three-point path (x y z curve)
-/spat/pathset 598428 3  0.8 0.4 0.0 1  -0.2 0.9 0.3 1  -0.7 -0.5 0.0 0</code></pre>
-</section>
-
-<!-- 09 -->
-<section id="link">
-  <div class="cap">09 — OSC out · Orbit Link</div>
-  <h2>Driving other projects</h2>
-  <p>The spatial data that drives the sound — position, level, colour, shape, the active scene — is broadcast as plain OSC, so a TouchDesigner project (or Max, Unity, Resolume …) on this computer or the network can turn it into image. It works backwards too: another project can move the sound.</p>
-  <h3>Settings</h3>
-  <p>On <code>Spatialisation_test</code>, Objects page: <strong>OSC Out</strong> Enable · Host · Port (127.0.0.1 · 9010) · Rate (30 Hz), and <strong>OSC Set In</strong> Enable · Port (9011).</p>
-  <h3>Broadcast <code>/orbit/…</code> → 9010</h3>
-  <p><code>n</code> = the object's number in Live's track order (1-based). TD frame: right +X, up +Y, front −Z, radius 1 = the ring.</p>
-  <div class="tw"><table>
-    <tr><th>Address</th><th>Arguments</th></tr>
-    <tr><td>/orbit/n/pos · aed</td><td>x y z · azimuth elevation distance</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape</td><td>track name · r g b · 0–1 · 0 point / 1 line</td></tr>
-    <tr><td>/orbit/count · layout</td><td>number of objects · layout id, speaker count</td></tr>
-    <tr><td>/orbit/scene · scenes</td><td>active scene (<code>-</code> if none) · all scene names</td></tr>
-    <tr><td>/orbit/scenefade</td><td>from · to · progress 0–1 of a scene transition (Orbit Link In: <code>scene_prog</code>)</td></tr>
-    <tr><td>/orbit/n/chaos</td><td>x y z — a CHAOS object's attractor, about −1 … 1 (right, up, back); only for CHAOS objects</td></tr>
-    <tr><td>/orbit/n/speed</td><td>how fast it moves (radius units / s, 0 when still)</td></tr>
-    <tr><td>/orbit/transport</td><td>playing · tempo · bar · beat (Live's transport, 1-based)</td></tr>
-    <tr><td>/orbit/phase · songpos</td><td>beat phase 0–1, bar phase 0–1 · song position (beats)</td></tr>
-    <tr><td>/orbit/beat</td><td>bar beat — once per beat while playing (an event)</td></tr>
-    <tr><td>/orbit/section</td><td>current locator name · progress to the next locator 0–1 · next locator name</td></tr>
-  </table></div>
-  <h3>Set <code>/orbit/set/…</code> → 9011</h3>
-  <p><strong>Positions</strong> (<code>pos</code>, <code>aed</code>, <code>az</code> · <code>el</code> · <code>dist</code>) are a live stream: while they keep arriving they steer the object whatever its motion (no MANUAL needed), and about 1.5 s after the last message it eases back to its own motion. They are never written into the Live set — send at least every 0.5 s while you steer (Orbit Out does this). <strong>Other keys</strong> go to the Live device like an edit in the editor and are saved in the set.</p>
-  <div class="tw"><table>
-    <tr><th>Address</th><th>Arguments</th></tr>
-    <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>position (TD frame or azimuth / elevation / distance)</td></tr>
-    <tr><td>/orbit/set/n/&lt;key&gt;</td><td>any Spatial Object key: motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed · rotmod · tiltmod · modrange · modrate · spread · roomsend · air · doppler · attr · cshape · speedfx</td></tr>
-    <tr><td>/orbit/set/scene</td><td>recall a scene by name, with its crossfade</td></tr>
-  </table></div>
-  <h3>Orbit Link In · Out (.tox)</h3>
-  <p>Drop-in components for the other project — no OSC parsing needed.</p>
-  <div class="grid2">
-    <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
-      <p><strong>out1</strong> (CHOP): <code>count</code> and <code>o1_x o1_y o1_z</code> … per object; the <strong>Out:</strong> toggles add <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em> (<code>o1_cx o1_cy o1_cz</code>), <em>Speed</em> (<code>o1_speed</code>) and <em>Transport</em> (<code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse</code> — never smoothed; <code>beat_pulse</code> jumps to 1 on every beat and decays). The <strong>Section</strong> field shows the current → next locator. <strong>Object</strong> &gt; 0 gives one object without the prefix. Port 9010, Smooth, Signal Timeout; Status shows <span class="mono">3 objects · live</span>.</p></div>
-    <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
-      <p>Wire a CHOP with channels named like the output (<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …) — or a CHOP with <strong>one sample per object</strong> straight from a POP to CHOP / SOP to CHOP (<code>P_0 P_1 P_2</code>, <code>tx ty tz</code> or <code>x y z</code>; sample 0 = object 1; Position Scale if your scene is not in ring radii) — and turn on <strong>Send Enable</strong>; changes are sent to Host : 9011, and positions are also re-sent every 0.5 s so the stream holds. <strong>Objects</strong> (<code>*</code>, <code>2</code>, <code>1-3 5</code>) limits which objects it may move. <strong>Recall Scene</strong> lists the scenes of an Orbit In.</p></div>
-  </div>
-  <div class="note"><b>NOTE</b>Don't feed an Orbit In's values back into an Orbit Out for the same objects (feedback). One UDP port can be opened by one program at a time — give a second listener another port.</div>
-  <p>Example: the <code>test Audiovisual</code> project — <code>orbit_in</code> drives three spheres that stand on the objects' floor positions and hop with the track level.</p>
-</section>
-
-<!-- 10 -->
-<section id="trouble">
-  <div class="cap">10 — Troubleshooting</div>
-  <h2>Troubleshooting</h2>
-  <div class="tw"><table>
-    <tr><th>Symptom</th><th>Fix</th></tr>
-    <tr><td>A track doesn't appear in TD</td><td>It needs a <strong>Spatial Object</strong>. Otherwise: a Spatial Master in the set, PORT 9001, LOG → RESEND</td></tr>
-    <tr><td>No sound in speaker mode</td><td>Spatial Renderer in the set (LOG <span class="mono">no-renderer</span> = missing)? SET UP OUTPUTS pressed, status ✓? Live's Output Device = the interface, pairs enabled in Output Config? MASTER MUTE off?</td></tr>
-    <tr><td>Live shows only outputs 1/2</td><td>The interface is in 2-channel mode: Audio MIDI Setup → Format (macOS) or install its ASIO driver (Windows), then reselect the device in Live</td></tr>
-    <tr><td>A track without a Spatial Object is silent in speaker mode</td><td>By design: Main is turned down in speaker mode. Add a Spatial Object to the track if it should play</td></tr>
-    <tr><td>No room on headphones</td><td>The ORBIT RENDER track must be in the set and play to Main</td></tr>
-    <tr><td>Max console: <code>gen~ … failed to compile</code></td><td>Copy the lines and report them; that engine of the renderer is silent until fixed</td></tr>
-    <tr><td>⚠ on the LOG tab</td><td>The WARNINGS block says which output check failed: too few outputs for the layout, or a sample-rate mismatch</td></tr>
-    <tr><td>"old Spatial Object" in the editor</td><td>An older device on that track: reopen the set or insert it again</td></tr>
-    <tr><td>Two objects share a number</td><td>Delete that Spatial Object and add it again</td></tr>
-    <tr><td>TouchDesigner drops below 60 fps</td><td>Show the UI in Perform mode (F1) instead of inside the network editor, especially on a 4K screen; VIEW → ROOM and the timeline bar cost a little too</td></tr>
-    <tr><td>A position sent with /orbit/set doesn't hold</td><td>It is a live stream: keep sending (at least every 0.5 s). It is not saved in the set — set the centre in the editor for that</td></tr>
-    <tr><td>Orbit Link In says "no signal"</td><td>OSC Out Enable on, host = the receiving computer, same port, no other program on that port</td></tr>
-    <tr><td>A crossfade stutters</td><td>Keep Live in front during a show (the OS slows Max's background thread) and use fades of a few beats</td></tr>
-    <tr><td>TD buttons look blank</td><td>Reopen the project</td></tr>
-  </table></div>
-</section>
-
-<!-- 11 -->
-<section id="roadmap">
-  <div class="cap">11 — Roadmap</div>
-  <h2>What's next</h2>
+  <h3>Spatial Master</h3>
+  <figure><img src="media/dev-master.jpg?v=1110e" alt="Spatial Master device in Live" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 8.2 — Spatial Master</figcaption></figure>
   <ul>
-    <li><strong>Chaos into Live</strong>: map the attractor values onto other Live parameters (they already go out over OSC).</li>
-    <li><strong>Morph pad</strong>: store the blend as a new scene; automate the dot from Live.</li>
+    <li><strong>Mode</strong> Off · Binaural · Speakers — the same as MONITOR on the screen.</li>
+    <li><strong>Scene · Morph A · Morph B · Morph · Quantize</strong> — scenes from Live (<a href="#scenes">05</a>).</li>
+    <li>Keeps the scenes in the set and connects the set to the screen (OSC port 9001; the screen answers on 9002).</li>
+  </ul>
+  <h3>Spatial Renderer</h3>
+  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Spatial Renderer device in Live" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 8.3 — Spatial Renderer</figcaption></figure>
+  <ul>
+    <li>One per set, on its own empty audio track <code>ORBIT RENDER</code>, output on Main.</li>
+    <li>Speakers: up to 16 objects in, 64 speakers out, through the <code>OUT</code> tracks. It sets up the object tracks' routing by itself.</li>
+    <li>Headphones: adds the room to the objects' binaural sound.</li>
   </ul>
 </section>
 
-<!-- 12 -->
-<section id="log">
-  <div class="cap">12 — Changelog</div>
-  <h2>Changelog</h2>
+<!-- 09 -->
+<section id="trouble">
+  <div class="cap">09 — Troubleshooting</div>
+  <h2>Troubleshooting</h2>
   <div class="tw"><table>
-    <tr><th>Version</th><th>Changes</th></tr>
-    <tr><td>9.6 · 11.12</td><td>Scenes: transitions for every number, position crossfade between motions, curves, AROUND / THROUGH, stagger, room per scene, quantize, Scene and Morph dials, <code>@Name</code> clips, arrangement variations, thumbnails and 3D preview, export / import · editor: AED / XYZ, UNDO / REDO, path only for PATH objects, motions locked while a position is streamed in, ORBIT LINK on / off · morph pad in the SCENES tab · Orbit Link <code>scenefade</code>, Orbit Out takes POP to CHOP</td></tr>
-    <tr><td>9.5 · 11.11</td><td>Binaural room fixed: object tracks run through the renderer (send~ carried nothing between devices), MASTER applied once · 64 speaker outputs (speaker k = device output k) · room presets OFF … CUSTOM, softer slow waves drawn on the GPU, no room name label · speakers take the loudest object's colour · borderless buttons, no corner ticks, stronger Black-theme grid and rays · AIR fixed · Circle: Size = radius · RATE / SIZE hidden for MANUAL and PATH, path drawn only for PATH · faster TouchDesigner (editor canvas, UI refresh, GPU blur) · METER and virtual-device hints removed · DOPPLER emphasis ×1…×8 · measured headphone HRTF (KEMAR, per sample rate) on headphones · CHAOS values over OSC (/orbit/n/chaos, Orbit Link Out: Chaos) · editor as light as the 3D view · Orbit Link transport (tempo, bar, beat, phases, locator section, beat_pulse) and object speed · /orbit/set positions are now a live stream (no dial writes, no MANUAL needed — per-frame Live API writes stalled all of Live)</td></tr>
-    <tr><td>9.4 · 11.11</td><td>Room on headphones (binaural reverb + reflections) · DIST COMP · EAR HEIGHT · room presets · custom MIRROR L ↔ R · SPEAKERS tab, VIEW split into CAMERA / SHOW · TRAIL only for Doppler objects · tracks without a Spatial Object silent in speaker mode</td></tr>
-    <tr><td>9.3 · 11.11</td><td>CHAOS motion (Lorenz / Rossler / Thomas) · SPEED effect · TRAIL in 3D</td></tr>
-    <tr><td>9.2 · 11.11</td><td>Room in the 3D view: box, reflection ghosts, reverb rings</td></tr>
-    <tr><td>9.0–9.1 · 11.11</td><td>Near field on headphones · SPACE tab · editor SOUND section</td></tr>
-    <tr><td>8.5–8.9 · 11.10</td><td>Room reverb (8-line FDN) · early reflections · Room Send · Doppler · Spread decorrelation</td></tr>
-    <tr><td>8.0–8.4 · 11.10</td><td><strong>Spatial Renderer</strong>: speaker mode at signal rate, up to 64 speakers, OUT tracks via SET UP OUTPUTS · VBAP / DBAP / AMBI / WFS in sound · OUTPUT MAP · custom layouts · line-shape mods · speaker TEST</td></tr>
-    <tr><td>7.1–7.5 · 11.09–10</td><td>Scenes in the Live set, linked with locators, crossfades · OSC out + Orbit Link In / Out · output checks on the LOG tab</td></tr>
-    <tr><td>7 · 11.08</td><td>Seven motions, line shape, path editing, UIDs, editor in the main UI, palette, head model, this wiki</td></tr>
-    <tr><td>· 2026.11</td><td>Graphic-score themes, sidebar tabs, layout list, monitor selector</td></tr>
+    <tr><th>Problem</th><th>Try this</th></tr>
+    <tr><td>A track doesn't appear on the screen</td><td>It needs a Spatial Object. Check that the set has a Spatial Master, then LOG tab → RESEND</td></tr>
+    <tr><td>Nothing appears at all</td><td>LIVE tab: PORT should be 9001. Only one TouchDesigner project can listen on it at a time</td></tr>
+    <tr><td>No sound in speaker mode</td><td>Is there a Spatial Renderer on ORBIT RENDER? Is the SPEAKERS status ✓? Is the interface Live's Output Device, with the pairs enabled in Output Config? Is MASTER muted?</td></tr>
+    <tr><td>Live shows only outputs 1/2</td><td>The interface is in 2-channel mode: set its Format (macOS) or install its ASIO driver (Windows), then choose it again in Live</td></tr>
+    <tr><td>Some tracks go silent in speaker mode</td><td>Tracks without a Spatial Object are muted in speaker mode. Add one</td></tr>
+    <tr><td>No room on headphones</td><td>The ORBIT RENDER track must be in the set, playing to Main</td></tr>
+    <tr><td>⚠ on the LOG tab</td><td>The warning says which check failed — usually too few outputs for the layout, or a sample-rate mismatch</td></tr>
+    <tr><td>"old Spatial Object" in the editor</td><td>That track has an older device version: reopen the set, or insert the device again</td></tr>
+    <tr><td>Two objects have the same number</td><td>Delete one of the Spatial Objects and add it again</td></tr>
+    <tr><td>The screen is slow</td><td>Use Perform mode (<kbd>F1</kbd>), especially on a 4K display. VIEW → ROOM and the timeline cost a little</td></tr>
+    <tr><td>A position sent over Orbit Link doesn't stay</td><td>It is a stream: keep sending. To fix a position permanently, set it in the editor</td></tr>
+    <tr><td>Orbit Link In shows "no signal"</td><td>Orbit Score must be sending to this computer's address and port 9010, and nothing else may use that port</td></tr>
+    <tr><td>Scene crossfades stutter</td><td>Keep Live in the foreground during a show, and use fades of a few beats</td></tr>
   </table></div>
-  <p class="mono" style="color:var(--mid)">Older set-up notes (BlackHole · JACK) → <a href="archive.html">Archive</a></p>
+</section>
+
+<!-- 10 -->
+<section id="osc">
+  <div class="cap">10 — For developers</div>
+  <h2>For developers</h2>
+  <p>How Live and the screen talk to each other, for building your own controller. Local UDP: Spatial Master → screen on <code>127.0.0.1:9001</code>, screen → Spatial Master on <code>9002</code>.</p>
+  <div class="tw"><table>
+    <tr><th>Live → screen (9001)</th><th>Carries</th></tr>
+    <tr><td>/spat/obj</td><td>uid, az, el, dist, level, r g b (~30 Hz)</td></tr>
+    <tr><td>/spat/name</td><td>uid, track name, track order</td></tr>
+    <tr><td>/spat/form</td><td>uid and all its settings</td></tr>
+    <tr><td>/spat/path</td><td>uid, n, then x y z curve per point</td></tr>
+    <tr><td>/spat/scenes · /spat/cues · /spat/play</td><td>scene list · locators · playhead</td></tr>
+  </table></div>
+  <div class="tw"><table>
+    <tr><th>Screen → Live (9002)</th><th>Carries</th></tr>
+    <tr><td>/spat/setmode</td><td>0 off · 1 binaural · 2 speakers</td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> — any object setting (keys as in <a href="#link">/orbit/set</a>)</td></tr>
+    <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z curve …</code></td></tr>
+    <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code></td></tr>
+    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade …</td></tr>
+  </table></div>
+  <p><strong>Co-ordinates</strong> — devices: x front, y left, z up, distance 1 = the speaker ring, azimuth + = left. Orbit Link: X right, Y up, −Z front. The editor's XYZ: X right, Y front, Z up (ADM).</p>
+</section>
+
+<!-- 11 -->
+<section id="log">
+  <div class="cap">11 — Version history</div>
+  <h2>Version history</h2>
+  <div class="tw"><table>
+    <tr><th>Version</th><th>New</th></tr>
+    <tr><td>9.7</td><td>Draw paths straight on the canvas (no EDIT PATH button), with a save prompt when you leave a changed path · select several objects, groups A–D and group moves · copy / paste settings · drag objects on the canvas · AIR, FAR THIN, NEAR BASS distance controls · Orbit Link can set track colour and name</td></tr>
+    <tr><td>9.6</td><td>Scene transitions with curves, stagger and room · quantize · Scene and Morph from Live · <code>@Name</code> clips · arrangement variations · scene preview and thumbnails · export / import · morph pad · XYZ co-ordinates · undo / redo</td></tr>
+    <tr><td>9.5</td><td>Room on headphones · up to 64 speakers · room presets · measured HRTF · Doppler emphasis · Orbit Link transport and chaos values</td></tr>
+    <tr><td>9.0–9.4</td><td>Near field on headphones · distance compensation · ear height · custom layouts with mirror · Chaos motion · Speed effect · room in 3D</td></tr>
+    <tr><td>8.x</td><td>Spatial Renderer: speakers inside Live, VBAP / DBAP / Ambisonics / WFS · reverb and reflections · Doppler · Spread</td></tr>
+    <tr><td>7.x</td><td>Motions, line shape, path editing · scenes linked to locators · Orbit Link In / Out</td></tr>
+  </table></div>
 </section>
 
 <footer>
@@ -626,452 +600,427 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
   <h1>ORBIT SCORE</h1>
-  <p>Ableton Live의 각 트랙을 공간 속 사운드 오브젝트로 다룹니다. 렌더링은 Live 안에서 이루어지며, 헤드폰용 바이노럴 또는 오디오 인터페이스로 직접 나가는 다채널 스피커 피드를 지원합니다. TouchDesigner는 오브젝트를 3D로 시각화하고 움직임을 편집하며, 같은 공간 데이터를 OSC로 다른 비주얼 프로젝트에 전달합니다.</p>
-  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · OSC 9001 ↔ 9002 · 9010 → 외부 프로젝트 · 이전 이름 "Spatialise"</div>
+  <p>Ableton Live용 공간 음향 도구입니다. 트랙 하나하나가 청취자 주변에 놓고 움직일 수 있는 소리가 됩니다. 헤드폰(바이노럴)으로도, 최대 64개 스피커로도 재생합니다. TouchDesigner 화면에서 소리를 3D로 보고, 경로를 그리고, 씬을 저장하며, 같은 위치 정보를 비주얼 작업으로 보낼 수 있습니다.</p>
+  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · 헤드폰 또는 스피커 2–64개</div>
 </header>
 
 <!-- 00 -->
 <section id="ko-overview">
   <div class="cap">00 — Overview</div>
-  <h2>구조</h2>
-  <p><strong>모든 오디오는 Live 안에서</strong> Max for Live 디바이스가 처리하고, Live에서 오디오 인터페이스로 직접 출력됩니다. TouchDesigner는 오디오를 다루지 않습니다. 위치의 시각화와 편집만 담당하며 Live와는 로컬 OSC로만 통신합니다. TouchDesigner를 종료해도 Live의 소리는 그대로입니다.</p>
+  <h2>소개</h2>
+  <p>Orbit Score는 Max for Live 디바이스 세 개와 TouchDesigner 프로젝트 하나로 이루어져 있습니다. <strong>소리는 모두 Live 안에서 만들어집니다.</strong> 디바이스가 각 트랙을 공간에 배치해 헤드폰이나 스피커로 내보냅니다. TouchDesigner는 조작 화면일 뿐이라, 닫아도 Live 세트는 똑같이 재생됩니다.</p>
   <figure>
-  <svg class="flow" viewBox="0 0 900 300" role="img" aria-label="신호 흐름: Live 트랙의 Spatial Object가 Spatial Renderer로 들어가고 OUT 트랙이 오디오 인터페이스로 나간다. 바이노럴에서는 오브젝트가 Main으로 나간다. Spatial Master는 TouchDesigner와 OSC 9001, 9002로 통신한다.">
+  <svg class="flow" viewBox="0 0 900 270" role="img" aria-label="신호 흐름: Live 트랙마다 Spatial Object가 있고, 헤드폰은 Main으로, 스피커는 Spatial Renderer를 거쳐 나간다. Spatial Master가 TouchDesigner의 Orbit Score 화면과 연결하고, 화면은 위치를 다른 프로젝트로 보낼 수 있다.">
     <text x="20" y="24" class="m" font-size="11">ABLETON LIVE</text>
     <rect class="box" x="20" y="36" width="190" height="34"/><text x="32" y="58" font-size="12">Track 1 · Spatial Object</text>
     <rect class="box" x="20" y="80" width="190" height="34"/><text x="32" y="102" font-size="12">Track 2 · Spatial Object</text>
     <rect class="box" x="20" y="124" width="190" height="34"/><text x="32" y="146" font-size="12">Track n · Spatial Object</text>
     <rect class="fillbox" x="290" y="80" width="170" height="34"/><text x="304" y="102" font-size="12" class="inv">Spatial Master</text>
     <path class="wire" d="M210 53 H250 V97 H290 M210 97 H290 M210 141 H250 V97"/>
-    <rect class="box" x="20" y="200" width="190" height="34"/><text x="32" y="222" font-size="12">Spatial Renderer → OUT</text>
-    <path class="dash" d="M115 158 V200"/><text x="124" y="186" class="m" font-size="10">SPEAKERS</text>
-    <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">오디오 인터페이스</text>
+    <rect class="box" x="20" y="200" width="190" height="34"/><text x="32" y="222" font-size="12">Spatial Renderer</text>
+    <path class="dash" d="M115 158 V200"/>
+    <rect class="box" x="290" y="200" width="170" height="34"/><text x="304" y="222" font-size="12">헤드폰 · 스피커</text>
     <path class="dash" d="M210 217 H290"/>
-    <text x="304" y="254" class="m" font-size="10">BINAURAL: 렌더러 → Main → 헤드폰</text>
     <text x="620" y="24" class="m" font-size="11">TOUCHDESIGNER</text>
-    <rect class="box" x="620" y="60" width="260" height="76"/>
-    <text x="634" y="84" font-size="12">Spatialisation_test</text><text x="634" y="104" class="m" font-size="10.5">3D preview · speaker layouts</text><text x="634" y="122" class="m" font-size="10.5">osc_dat · objects · render</text>
-    <rect class="box" x="620" y="150" width="260" height="56"/>
-    <text x="634" y="174" font-size="12">Spatialize_UI</text><text x="634" y="192" class="m" font-size="10.5">sidebar · 3D VIEW · OBJECT EDITOR</text>
-    <path class="wire" d="M460 90 H620"/><text x="480" y="82" font-size="11">UDP 9001 →</text><text x="480" y="62" class="m" font-size="10">/spat/obj · name · form…</text>
-    <path class="wire" d="M620 112 H460"/><text x="480" y="130" font-size="11">← UDP 9002</text><text x="480" y="148" class="m" font-size="10">/spat/objset · pathset…</text>
+    <rect class="box" x="620" y="70" width="260" height="56"/>
+    <text x="634" y="94" font-size="12">Orbit Score 화면</text><text x="634" y="112" class="m" font-size="10.5">3D 뷰 · 에디터 · 씬</text>
+    <rect class="box" x="620" y="170" width="260" height="56"/>
+    <text x="634" y="194" font-size="12">내 비주얼 작업</text><text x="634" y="212" class="m" font-size="10.5">TouchDesigner · Max · Unity …</text>
+    <path class="wire" d="M460 97 H620"/><text x="490" y="88" class="m" font-size="10">위치 ↔ 편집</text>
+    <path class="wire" d="M750 126 V170"/><text x="760" y="152" class="m" font-size="10">Orbit Link (OSC)</text>
   </svg>
-  <figcaption>FIG. 0.1 — 실선: OSC, 점선: 오디오</figcaption></figure>
+  <figcaption>FIG. 0.1 — 실선: 제어 데이터, 점선: 오디오</figcaption></figure>
   <div class="grid2">
-    <div class="card"><div class="k">Live · 트랙마다</div><div class="v">Spatial Object</div><p>위치, 움직임, 모양, 사운드 효과. 바이노럴 모드에서는 직접 렌더링하고, 스피커 모드에서는 렌더러로 보냅니다.</p></div>
-    <div class="card"><div class="k">Live · 세트당 1개</div><div class="v">Spatial Master</div><p>오브젝트와 TouchDesigner를 연결하고, Off / Binaural / Speakers 모드를 전환하며, 씬을 저장합니다.</p></div>
-    <div class="card"><div class="k">Live · 세트당 1개</div><div class="v">Spatial Renderer</div><p>최대 16개 오브젝트를 최대 64개 스피커로 믹스하고 공용 룸을 더합니다.</p></div>
-    <div class="card"><div class="k">TouchDesigner</div><div class="v">Orbit Score UI</div><p>3D 뷰, 오브젝트 에디터, 스피커 설정, 씬, 외부 프로젝트용 OSC.</p></div>
+    <div class="card"><div class="k">Live · 트랙마다</div><div class="v">Spatial Object</div><p>트랙을 소리 오브젝트로 만듭니다. 위치, 움직임, 모양, 거리 효과.</p></div>
+    <div class="card"><div class="k">Live · 세트에 하나</div><div class="v">Spatial Master</div><p>헤드폰/스피커 전환, 화면과의 연결, 씬 보관.</p></div>
+    <div class="card"><div class="k">Live · 세트에 하나 (스피커용)</div><div class="v">Spatial Renderer</div><p>오브젝트 최대 16개를 스피커 최대 64개로 믹스하고 공용 룸 사운드를 더합니다.</p></div>
+    <div class="card"><div class="k">TouchDesigner</div><div class="v">Orbit Score 화면</div><p>3D 뷰, 오브젝트 에디터, 스피커 설정, 씬, 비주얼 연동(Orbit Link).</p></div>
   </div>
+  <h3>용어</h3>
+  <div class="tw"><table>
+    <tr><th>용어</th><th>뜻</th></tr>
+    <tr><td>오브젝트</td><td>Spatial Object가 들어간 Live 트랙 하나. 위치를 가진 소리</td></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>오브젝트의 위치. 청취자 기준 방향(0° 정면, + 왼쪽), 높이(0° = 귀 높이), 거리(1 = 스피커 링)</td></tr>
+    <tr><td>Motion</td><td>오브젝트가 중심 주변을 움직이는 방식: 정지, 원, 랜덤, 직접 그린 경로 …</td></tr>
+    <tr><td>바이노럴</td><td>일반 헤드폰으로 듣는 3D 사운드</td></tr>
+    <tr><td>씬</td><td>모든 오브젝트의 배치를 저장한 것. 크로스페이드로 불러오며 Live 로케이터와 연결됩니다</td></tr>
+    <tr><td>Orbit Link</td><td>다른 프로젝트와의 OSC 연결. 위치를 내보내고, 받아서 소리를 움직이기도 합니다</td></tr>
+  </table></div>
 </section>
 
 <!-- 01 -->
 <section id="ko-setup">
-  <div class="cap">01 — Set-up</div>
-  <h2>설치와 첫 실행</h2>
-  <h3>요구 사항</h3>
+  <div class="cap">01 — Getting started</div>
+  <h2>시작하기</h2>
+  <h3>필요한 것</h3>
   <ul>
-    <li>Ableton Live 12 Suite (또는 Max for Live가 포함된 Standard)</li>
-    <li>TouchDesigner 2025 (Non-Commercial 라이선스 사용 가능)</li>
-    <li>바이노럴: 헤드폰. 스피커: 스피커 수만큼 출력이 있는 오디오 인터페이스. 별도의 오디오 소프트웨어는 필요하지 않습니다.</li>
+    <li>Ableton Live 12 Suite 또는 Max for Live가 있는 Standard</li>
+    <li>TouchDesigner 2025 (무료 Non-Commercial 라이선스로 충분합니다)</li>
+    <li>헤드폰. 스피커로 쓰려면 스피커 수만큼 출력이 있는 오디오 인터페이스</li>
   </ul>
-  <div class="subnav"><a href="#ko-setup-live">01.1 — Ableton Live</a><a href="#ko-setup-td">01.2 — TouchDesigner</a><a href="#ko-setup-out">01.3 — 오디오 인터페이스</a></div>
+  <div class="subnav"><a href="#ko-setup-live">01.1 — 헤드폰으로 첫 소리</a><a href="#ko-setup-td">01.2 — 화면</a><a href="#ko-setup-out">01.3 — 저장</a></div>
 
   <section id="ko-setup-live" class="sub">
-  <div class="cap">01.1 — Ableton Live</div>
-  <h3 class="subh">Ableton Live</h3>
+  <div class="cap">01.1 — 헤드폰으로 첫 소리</div>
+  <h3 class="subh">헤드폰으로 첫 소리</h3>
   <ol>
     <li>Live 브라우저의 <strong>Places → Add Folder…</strong>로 <code>Spatialize M4L</code> 폴더를 추가합니다.</li>
-    <li>세트에 <strong>Spatial Master</strong>를 하나 추가합니다 (Main 트랙 권장).</li>
-    <li>사운드 오브젝트로 쓸 트랙마다 <strong>Spatial Object</strong>를 추가합니다. 악기와 이펙트 뒤에 두어 신호가 통과하도록 합니다. 각 디바이스는 고유 ID(UID)를 받아 세트에 저장되며, 트랙을 복제하면 새 UID가 부여됩니다.</li>
-    <li>Master를 <span class="pill on">BINAURAL</span>로 설정하면 바로 헤드폰으로 들을 수 있습니다.</li>
-    <li>스피커 출력: 빈 오디오 트랙을 만들어 이름을 <code>ORBIT RENDER</code>로 하고 <strong>Spatial Renderer</strong>를 추가합니다. 출력은 Main으로 둡니다 (바이노럴 룸이 이 트랙으로 나옵니다). 이어서 인터페이스를 설정하고(<a href="#ko-setup-out">01.3</a>) TouchDesigner에서 SET UP OUTPUTS를 누릅니다(<a href="#ko-ui-speakers">03</a>).</li>
+    <li>아무 트랙에나 <strong>Spatial Master</strong>를 하나 넣습니다 (Main 트랙을 권장합니다).</li>
+    <li>공간에 배치할 트랙마다 맨 끝(악기와 이펙트 뒤)에 <strong>Spatial Object</strong>를 넣습니다.</li>
+    <li>Spatial Master의 Mode를 <span class="pill on">BINAURAL</span>로 두고 재생합니다. Spatial Object의 <strong>Azimuth</strong> 다이얼을 돌리면 소리가 머리 주위를 돕니다.</li>
+    <li><strong>Motion</strong>을 Circle로 바꾸면 스스로 움직이고, Rate로 속도를 바꿉니다.</li>
   </ol>
-  <div class="note"><b>TIP</b>ORBIT RENDER와 OUT 트랙을 그룹(<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>G</kbd>)으로 묶어 접어 두면 세트가 정돈됩니다.</div>
+  <p>헤드폰으로 쓰는 데는 이것으로 충분합니다. 디바이스의 모든 컨트롤은 일반 Live 파라미터라서 오토메이션, 컨트롤러·매크로 매핑을 그대로 쓸 수 있습니다.</p>
+  <div class="note"><b>TIP</b>Spatial Object마다 고유 ID가 생겨 세트에 저장됩니다. 트랙 순서 변경, 이름 변경, 복제를 자유롭게 해도 됩니다.</div>
   </section>
 
   <section id="ko-setup-td" class="sub">
-  <div class="cap">01.2 — TouchDesigner</div>
-  <h3 class="subh">TouchDesigner</h3>
+  <div class="cap">01.2 — 화면</div>
+  <h3 class="subh">TouchDesigner 화면</h3>
   <ol>
-    <li>프로젝트(<code>.toe</code>)를 엽니다. 메인 화면은 <code>/project1/Spatialize_UI</code>입니다.</li>
-    <li><span class="pill">LIVE</span> 탭의 PORT가 <code>9001</code>인지 확인합니다. 트랙이 Live 순서대로 표시되면 연결된 상태입니다.</li>
-    <li>작업 후에는 양쪽을 모두 저장합니다. <strong>TouchDesigner</strong>에는 화면, 레이아웃, 룸 설정이, <strong>Live 세트</strong>에는 오브젝트의 움직임, 경로, 씬이 저장됩니다.</li>
+    <li>Live가 켜진 상태에서 Orbit Score 프로젝트(<code>.toe</code>)를 엽니다.</li>
+    <li><span class="pill">LIVE</span> 탭에 트랙이 Live 순서대로 나타나고, 3D 뷰에 색깔 점으로 보입니다. 보이지 않으면 <a href="#ko-trouble">문제 해결</a>을 참고하세요.</li>
+    <li>상단 바에서 <span class="pill on">3D VIEW</span>(보고 듣기)와 <span class="pill">OBJECT EDITOR</span>(움직이고 그리기)를 전환합니다.</li>
   </ol>
+  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
+  <p>3D 뷰에서 드래그하면 시점이 돌고, 스크롤하면 확대·축소됩니다. <span class="mono">1.5 s</span>처럼 값이 적힌 버튼은 <strong>누른 채 위아래로 드래그</strong>해 바꿉니다. 화면을 부드럽게 보려면 TouchDesigner를 Perform 모드(<kbd>F1</kbd>)로 실행하세요.</p>
   </section>
 
   <section id="ko-setup-out" class="sub">
-  <div class="cap">01.3 — 오디오 인터페이스</div>
-  <h3 class="subh">다채널 출력</h3>
-  <p>스피커 신호 경로: <strong>Spatial Object → Spatial Renderer → <code>OUT</code> 트랙 → Live 출력 장치 → 스피커</strong>. 중간 소프트웨어는 없습니다. 레이아웃의 스피커 수만큼 출력이 있는 인터페이스를 Live의 출력 장치로 선택하면 됩니다.</p>
-  <div class="grid2">
-    <div class="card"><div class="k">macOS</div><div class="v">Core Audio</div><p>1 · 필요한 경우 제조사 드라이버를 설치합니다.<br>2 · <strong>오디오 MIDI 설정</strong> → 인터페이스 → 출력 → <strong>포맷</strong>: 다채널 항목, 48 kHz. 일부 인터페이스는 기본값이 2채널입니다 (ESI GIGAPORT eX 등).<br>3 · Live → 설정 → Audio: <strong>Output Device</strong> = 인터페이스, 48000 Hz.<br>인터페이스가 여러 대이면 <strong>통합 기기(Aggregate Device)</strong>를 사용합니다.</p></div>
-    <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>1 · 인터페이스의 <strong>ASIO 드라이버</strong>를 설치합니다 (MME / WDM은 보통 2채널까지만 지원).<br>2 · Live → 설정 → Audio: <strong>Driver Type ASIO</strong>, Audio Device = 인터페이스, 48000 Hz.<br>ASIO 장치는 한 번에 한 프로그램만 사용할 수 있습니다.</p></div>
-  </div>
-  <p>공통: Live → 설정 → Audio → <strong>Output Config</strong>에서 사용할 출력 쌍(1/2, 3/4 …)을 활성화합니다. Dante(Dante Virtual Soundcard)와 MADI는 64채널 장치 하나로 인식되며 같은 방식으로 선택합니다. 최대 64개 스피커를 지원합니다.</p>
-  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="사이드바 SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE(SPEAKER DISTANCE, DIST COMP)" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 1.1 — SET UP 이후 SPEAKERS 탭: ✓ renderer → OUT tracks → Live outputs</figcaption></figure>
-  <div class="note"><b>NOTE</b>Live의 오디오 환경설정은 Live API로 변경할 수 없으므로 드라이버, 장치, 샘플레이트, Output Config는 처음 한 번 직접 설정합니다. 세트 안의 OUT 트랙과 라우팅은 SET UP OUTPUTS가 처리합니다.</div>
+  <div class="cap">01.3 — 저장</div>
+  <h3 class="subh">저장</h3>
+  <p>작업이 끝나면 <strong>두 곳 모두</strong> 저장합니다.</p>
+  <ul>
+    <li><strong>Live 세트</strong>: 오브젝트 설정, 경로, 씬.</li>
+    <li><strong>TouchDesigner 프로젝트</strong>: 스피커 레이아웃, 룸 설정, 화면 옵션. 에디터의 <span class="pill">SAVE</span>를 누르면 프로젝트가 저장되고, 모든 오브젝트 설정의 백업도 함께 남습니다.</li>
+  </ul>
   </section>
 </section>
 
 <!-- 02 -->
-<section id="ko-devices">
-  <div class="cap">02 — Live devices</div>
-  <h2>Spatial Object · Spatial Master · Spatial Renderer</h2>
-  <figure><img src="media/dev-object.jpg?v=1110e" alt="Live의 Spatial Object 디바이스: Azimuth, Elevation, Distance 다이얼, UID, OSC·Render 스위치, 레벨 미터, Motion, Rate, Size, Bars, Shape, Length, Rotate, Tilt" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 2.1 — Spatial Object</figcaption></figure>
-  <h3>Spatial Object</h3>
-  <p>모든 컨트롤은 일반 Live 파라미터이므로 오토메이션, 매크로 매핑, 모듈레이터를 그대로 사용할 수 있습니다. TouchDesigner 에디터(<a href="#ko-editor">04</a>)에도 같은 값이 표시됩니다.</p>
-  <h4>위치와 움직임</h4>
-  <div class="tw"><table>
-    <tr><th>파라미터</th><th>범위</th><th>설명</th></tr>
-    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 <em>중심</em>. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링</td></tr>
-    <tr><td>Motion</td><td>8종</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
-    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 크기. Circle에서는 Size가 반지름입니다 (0.5 = Distance, 0 → 0.3배, 1 → 1.7배). Path는 Path Length를 사용합니다</td></tr>
-    <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>에디터에서 그린 경로(<a href="#ko-editor">04</a>). Live 송 포지션에 동기화됩니다</td></tr>
-    <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td><strong>Chaos</strong> 움직임: 청취자 주변의 스트레인지 어트랙터. 매끄럽고 반복되지 않으며 때때로 머리 가까이 지나갑니다. Lorenz는 좌우 두 날개를 오가고, Rossler는 나선을 그리다 위로 튀며, Thomas는 고르게 떠돕니다. Chaos Shape는 어트랙터의 형태를 바꿉니다. Rate = 속도(0.1 ≈ 2초에 한 바퀴), Size = 폭, Azimuth = 회전, Distance = 크기</td></tr>
-  </table></div>
-  <h4>모양</h4>
-  <div class="tw"><table>
-    <tr><th>파라미터</th><th>범위</th><th>설명</th></tr>
-    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>점 음원 또는 중심을 지나는 선 음원</td></tr>
-    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>선의 방향. Centre는 오브젝트와 함께 회전해 청취자를 향하고, Fixed는 공간 기준으로 고정됩니다</td></tr>
-    <tr><td>Rotate Mod · Tilt Mod</td><td>Fixed · Random · Spin · LFO</td><td>선 각도의 모듈레이션. Random은 ±Range 안에서 무작위로 움직이고, Spin은 초당 Mod Rate 바퀴 회전하며, LFO는 Mod Rate Hz로 ±Range를 진동합니다 (둘 다 LFO이면 원뿔 궤적)</td></tr>
-    <tr><td>Mod Range · Mod Rate</td><td>0–180° · 0.01–2 Hz</td><td>두 모듈레이션이 공유합니다 (에디터의 RANGE · RATE)</td></tr>
-  </table></div>
-  <h4>사운드</h4>
-  <div class="tw"><table>
-    <tr><th>파라미터</th><th>범위</th><th>설명</th></tr>
-    <tr><td>Spread</td><td>0–180°</td><td>스피커 모드에서 점 대신 지정한 폭의 방향 분포로 재생합니다. 약 10° 이상에서는 일부 신호를 디코릴레이션(스피커별 올패스)해 위상 간섭 대신 감싸는 음장을 만듭니다. WFS와 선 음원에는 적용되지 않습니다</td></tr>
-    <tr><td>Room Send</td><td>0–200 %</td><td>공용 룸(리버브 + 초기 반사음)으로 보내는 양. 베이스, 킥, 리버브가 이미 걸린 샘플 등 건조하게 둘 소리는 0 %</td></tr>
-    <tr><td>Air</td><td>on / off (기본 on)</td><td>거리에 따른 고역 감쇠: 거리 0.5에서 20 kHz, 2에서 약 4 kHz</td></tr>
-    <tr><td>Doppler</td><td>on / off (기본 off)</td><td>거리 지연(Distance × SPEAKER DISTANCE ÷ 343 m/s)으로 접근·이탈 시 음정이 변합니다. 거리가 변할 때만 작동하므로 Circle, Figure 8, Ping-Pong, Spiral에서는 변화가 없고, 머리 근처를 빠르게 지나는 Path나 Chaos에서 들립니다. 실제 도플러는 미세합니다(초속 3 m에서 약 ±15 cent, 반음은 초속 약 20 m). Path Length를 줄이거나 SPEAKER DISTANCE를 늘리거나 DOPPLER 강조(<a href="#ko-render">06</a>)를 사용하면 뚜렷해집니다. 음정이 중요한 소리에는 끄는 것을 권장합니다</td></tr>
-    <tr><td>Speed</td><td>0–100 % (기본 0)</td><td>빠르게 움직일수록 레벨(최대 +6 dB)과 밝기가 올라가는 플라이바이 효과. 약 10 m/s에서 최대</td></tr>
-  </table></div>
-  <p>Air, Doppler, Speed는 바이노럴과 스피커 모드 모두에서 동작합니다. 헤드폰에서는 근접 효과가 자동으로 적용됩니다(<a href="#ko-render">06</a>).</p>
+<section id="ko-editor">
+  <div class="cap">02 — Moving sounds</div>
+  <h2>소리 움직이기</h2>
+  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — 오브젝트 에디터: 목록 · 캔버스 · 설정</figcaption></figure>
+  <p><span class="pill">OBJECT EDITOR</span>를 엽니다. 왼쪽은 오브젝트 목록, 가운데는 위에서 내려다본 공간(가운데가 청취자, 위쪽이 정면), 오른쪽은 선택한 오브젝트의 설정입니다. 여기서 바꾼 값은 Live의 Spatial Object에 그대로 기록되고, Live에서 바꾼 값도 여기 반영됩니다.</p>
 
-  <h3>Spatial Master</h3>
-  <figure><img src="media/dev-master.jpg?v=1110e" alt="Live의 Spatial Master 디바이스: OSC 포트 9001, 렌더 모드 Off / Binaural / Speakers, 현재 레이아웃" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 2.2 — Spatial Master</figcaption></figure>
+  <h3>오브젝트 배치</h3>
   <ul>
-    <li><strong>Mode</strong> <span class="pill">OFF</span> <span class="pill on">BINAURAL</span> <span class="pill">SPEAKERS</span> — TouchDesigner의 MONITOR와 연동됩니다.</li>
-    <li>모든 오브젝트 정보를 <code>127.0.0.1:9001</code>로 보내고, TouchDesigner의 편집(파라미터, 뮤트, 마스터 볼륨, 트랙 색)을 <code>9002</code>로 받습니다.</li>
-    <li>씬을 보관하므로 씬이 세트와 함께 저장되고 TouchDesigner 없이도 재생됩니다(<a href="#ko-scenes">05</a>).</li>
-    <li><strong>Scene</strong>, <strong>Morph A / B</strong>, <strong>Morph</strong>, <strong>Quantize</strong> — Live에서 씬을 불러오고 블렌드합니다(<a href="#ko-scenes">05</a>).</li>
+    <li>목록이나 캔버스의 점을 <strong>클릭</strong>해 선택합니다.</li>
+    <li>캔버스의 점을 <strong>드래그</strong>하면 이동합니다.</li>
+    <li>설정 맨 위의 큰 숫자 <strong>AZIMUTH · ELEVATION · DISTANCE</strong>를 누른 채 위아래로 드래그해도 되고, 더블클릭해 값을 입력할 수도 있습니다 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소).</li>
+    <li>옆의 <span class="pill">AED</span> 버튼을 누르면 <span class="pill">XYZ</span>(X 오른쪽, Y 앞, Z 위)로 바뀝니다. 같은 위치를 다른 방식으로 보여 줄 뿐입니다.</li>
+  </ul>
+  <p>오른쪽 위 <strong>T · F · S</strong> 점으로 위·앞·옆 시점을 고르고, 그 위의 구 안을 드래그하면 원하는 각도에서 볼 수 있습니다.</p>
+
+  <h3>움직임 고르기</h3>
+  <div class="tw"><table>
+    <tr><th>Motion</th><th>동작</th></tr>
+    <tr><td>MANUAL</td><td>놓은 자리에 그대로 있습니다</td></tr>
+    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>위치를 중심으로 규칙적으로 움직입니다. RATE = 속도, SIZE = 폭</td></tr>
+    <tr><td>RANDOM</td><td>위치 주변을 부드럽게 떠돕니다</td></tr>
+    <tr><td>PATH</td><td>직접 그린 경로를 곡에 맞춰 따라갑니다 (아래 참고)</td></tr>
+    <tr><td>CHAOS</td><td>카오스 어트랙터를 따라갑니다. 매끄럽고 반복되지 않으며 가끔 머리 가까이 지나갑니다. 지나갈 수 있는 모양이 점으로 표시됩니다</td></tr>
+  </table></div>
+  <p>정해 둔 위치가 움직임의 <em>중심</em>이 됩니다. 설정 열에는 고른 움직임에 필요한 항목만 나타납니다.</p>
+
+  <h3>경로 그리기</h3>
+  <ol>
+    <li>오브젝트를 선택하고 <span class="pill">PATH</span>를 누릅니다.</li>
+    <li>캔버스를 <strong>클릭</strong>하면 점이 추가되고, 점을 <strong>드래그</strong>하면 이동, <strong>우클릭</strong>하면 삭제됩니다.</li>
+    <li>점을 선택한 상태에서 <span class="pill">CURVE / CORNER</span>로 부드러운 점(●)과 꺾인 점(■)을 바꾸고, <strong>POINT HEIGHT</strong>로 높이를 올립니다.</li>
+    <li><strong>PATH LENGTH</strong>는 한 바퀴에 걸리는 마디 수, LOOP · PING-PONG · ONCE는 끝에 도달했을 때의 동작, <span class="pill">PATH: OPEN / CLOSED</span>는 마지막 점과 첫 점을 이을지입니다.</li>
+  </ol>
+  <p>경로는 Live의 송 포지션을 따르므로 재생할 때마다 같습니다. 직선으로 지나가게 하려면 꺾인 점 두 개면 됩니다. 경로는 PATH 오브젝트에서만 보이며, 다른 움직임으로 바꿔도 경로는 저장되어 있습니다.</p>
+  <p>경로를 고친 채로 다른 오브젝트나 다른 움직임을 누르면 작은 창이 뜹니다. <strong>SAVE</strong>(저장), <strong>DON'T SAVE</strong>(고치기 전으로 되돌림), <strong>CANCEL</strong>(그대로 머묾) 중에서 고릅니다.</p>
+
+  <h3>여러 오브젝트 한꺼번에</h3>
+  <ul>
+    <li>목록에서 <kbd>Ctrl</kbd> + 클릭(또는 <kbd>Shift</kbd> + 클릭)으로 선택에 추가합니다. 이 상태에서 바꾼 설정은 모두에게 적용되고, 드래그하면 간격을 유지한 채 함께 움직입니다.</li>
+    <li><strong>그룹 A–D</strong>: 오브젝트를 선택하고 빈 글자를 누르면 저장되고, 나중에 그 글자를 누르면 다시 선택됩니다. <span class="pill">SET</span> 후 글자를 누르면 덮어쓰기, <span class="pill">CLR</span> 후 글자를 누르면 비우기입니다.</li>
+    <li>선택 전체를 한 번에 옮기기: <span class="pill">ROT L</span> <span class="pill">ROT R</span> 청취자 주위로 회전, <span class="pill">NEAR</span> <span class="pill">FAR</span> 가깝게·멀게, <span class="pill">TIGHT</span> <span class="pill">WIDE</span> 서로 모으기·벌리기, <span class="pill">UP</span> <span class="pill">DOWN</span> 높이기·낮추기. 경로도 함께 움직입니다.</li>
   </ul>
 
-  <h3>Spatial Renderer</h3>
-  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Live의 Spatial Renderer 디바이스: 오브젝트 16개 입력, 스피커 64개 출력" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 2.3 — ORBIT RENDER 트랙의 Spatial Renderer</figcaption></figure>
+  <h3>설정 복사</h3>
+  <p><span class="pill">COPY</span>(왼쪽 아래, 또는 <kbd>Ctrl</kbd>+<kbd>C</kbd>)는 선택한 오브젝트의 움직임, 모양, 사운드 설정, 경로를 복사하고, <span class="pill">PASTE</span>(<kbd>Ctrl</kbd>+<kbd>V</kbd>)는 선택한 오브젝트(여러 개 가능)에 붙여 넣습니다. 위치는 복사되지 않습니다. 버튼 아래 줄에 무엇이 어디로 붙는지 표시됩니다.</p>
+
+  <h3>모양과 사운드</h3>
   <ul>
-    <li>세트에 하나, 전용 오디오 트랙 <code>ORBIT RENDER</code>에 둡니다.</li>
-    <li><strong>Speakers</strong>: 오브젝트마다 입력 쌍(3/4, 5/6 …)을 할당하고 트랙 라우팅을 자동으로 설정합니다. 입력 16개 오브젝트, 출력 64개 스피커(스피커 k = 디바이스 출력 k)이며, 출력은 <code>OUT</code> 트랙이 받습니다.</li>
-    <li><strong>Binaural</strong>: 각 오브젝트가 헤드폰용 스테레오를 렌더링해 렌더러로 보내고, 렌더러가 이를 출력 1/2(→ Main)로 내보내며 룸(리버브 + 초기 반사음)을 더합니다. 이때 OUT 1/2는 뮤트됩니다. 렌더러가 없으면 오브젝트는 Main으로 직접 출력됩니다.</li>
-    <li>구성: 패닝 매트릭스, WFS 엔진, 룸 리버브, 초기 반사음, Spread 디코릴레이션, 스피커 거리 보정.</li>
+    <li><strong>SHAPE</strong> — POINT(점) 또는 LINE(선을 따라 펼쳐진 소리). LINE은 LENGTH, ROTATE, TILT로 조절합니다. FACE CENTER는 오브젝트와 함께 돌아 항상 청취자를 향하고, FIXED는 공간에 고정됩니다. ROT와 TILT는 RANDOM, SPIN, LFO로 저절로 움직이게 할 수 있습니다(RANGE, RATE).</li>
+    <li><strong>SOUND</strong> — SPREAD는 스피커에서 소리를 넓게 퍼뜨리고, ROOM은 리버브 양, AIR · DOPPLER · SPEED FX는 거리와 움직임 효과입니다. 자세한 내용은 <a href="#ko-render">04</a>, <a href="#ko-devices">08</a>.</li>
   </ul>
-  <div class="note"><b>TIP</b>트랙 순서는 자유롭게 바꿀 수 있습니다. 오브젝트는 UID로 구분되며, TouchDesigner는 Live 트랙 순서를 따릅니다.</div>
+  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 LINE 오브젝트의 설정</figcaption></figure>
+
+  <h3>되돌리기와 저장</h3>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> — 마우스가 에디터 위에 있을 때 <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> — 로 에디터에서 한 편집을 최대 60단계까지 되돌립니다. Live에서 바꾼 값과 씬 불러오기는 포함되지 않습니다. <span class="pill">SAVE</span>는 TouchDesigner 프로젝트를 저장하면서 모든 오브젝트의 백업을 남기고, <span class="pill">LOAD LAST</span>는 그 백업을 되살립니다.</p>
+  <p>가장자리의 얇은 <span class="pill">›</span> 띠를 누르면 설정 열과 사이드바가 접혀 캔버스가 넓어집니다.</p>
 </section>
 
 <!-- 03 -->
-<section id="ko-ui">
-  <div class="cap">03 — TD interface</div>
-  <h2>화면</h2>
-  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score UI 3D VIEW: 왼쪽 3D 공간 미리보기, 오른쪽 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.1 — 3D VIEW와 사이드바</figcaption></figure>
-  <p>상단 바에서 <span class="pill on">3D VIEW</span>와 <span class="pill">OBJECT EDITOR</span>를 전환합니다. 3D 뷰에서 왼쪽 드래그는 궤도 회전, 휠 또는 가운데 드래그는 줌입니다. 사이드바는 가장자리의 <span class="pill">›</span> 띠로 접습니다.</p>
-  <h3>사이드바 탭</h3>
+<section id="ko-speakers">
+  <div class="cap">03 — Speakers</div>
+  <h2>스피커로 재생하기</h2>
+  <p>스피커 모드의 신호는 <strong>Spatial Object → Spatial Renderer → OUT 트랙 → 오디오 인터페이스</strong> 순서로, 모두 Live 안에서 흐릅니다. 스피커 수만큼 출력이 있는 인터페이스가 필요합니다 (Dante, MADI도 큰 장치 하나로 인식되어 그대로 쓸 수 있습니다).</p>
+  <h3>1 · 인터페이스 설정 (처음 한 번)</h3>
+  <div class="grid2">
+    <div class="card"><div class="k">macOS</div><div class="v">Core Audio</div><p>필요하면 제조사 드라이버를 설치합니다. <strong>오디오 MIDI 설정</strong>에서 인터페이스 출력의 <strong>포맷</strong>을 다채널 모드, 48 kHz로 바꿉니다(기본이 2채널인 장비도 있습니다). Live → 설정 → Audio에서 <strong>Output Device</strong>로 선택합니다. 인터페이스가 여러 대면 통합 기기(Aggregate Device)를 만듭니다.</p></div>
+    <div class="card"><div class="k">Windows</div><div class="v">ASIO</div><p>인터페이스의 <strong>ASIO 드라이버</strong>를 설치합니다(MME/WDM은 보통 2채널까지). Live → 설정 → Audio에서 <strong>Driver Type ASIO</strong>, Audio Device = 인터페이스, 48 kHz.</p></div>
+  </div>
+  <p>이어서 Live → 설정 → Audio → <strong>Output Config</strong>에서 스피커가 쓰는 출력 쌍을 모두 켭니다.</p>
+  <h3>2 · 렌더러 추가</h3>
+  <p>빈 오디오 트랙을 만들어 이름을 <code>ORBIT RENDER</code>로 하고, <strong>Spatial Renderer</strong>를 넣은 뒤 출력은 Main으로 둡니다.</p>
+  <h3>3 · 레이아웃 선택과 출력 만들기</h3>
+  <ol>
+    <li>사이드바 <span class="pill">SPEAKERS</span> 탭에서 <strong>SPEAKER LAYOUT</strong>을 고릅니다.</li>
+    <li><span class="pill">SET UP OUTPUTS</span>를 누르면 Live에 <code>OUT 1/2</code>, <code>OUT 3/4</code> … 트랙이 생기고 인터페이스로 연결됩니다. 상태 줄이 <span class="mono">✓ renderer → OUT tracks → Live outputs</span>로 바뀝니다.</li>
+    <li><span class="pill">TEST</span>를 누르면 스피커마다 차례로 핑크 노이즈가 나오고 3D 뷰에 번호가 표시됩니다. 순서가 틀리면 <strong>OUTPUT MAP</strong>에서 고칩니다 (예: <span class="mono">3 4 1 2</span>는 두 쌍을 맞바꿈).</li>
+    <li><strong>SPEAKER DISTANCE</strong>에 청취 위치에서 스피커까지의 거리(m)를 입력합니다. 반사음, 도플러, WFS가 이 값을 씁니다.</li>
+    <li>MONITOR(LIVE 탭) 또는 Master의 Mode를 <span class="pill on">SPEAKERS</span>로 바꿉니다.</li>
+  </ol>
+  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 3.1 — SET UP OUTPUTS 이후의 SPEAKERS 탭</figcaption></figure>
+  <div class="note"><b>NOTE</b>스피커 모드에서는 Spatial Object가 없는 트랙이 들리지 않습니다(Main이 내려갑니다). 소리를 낼 트랙에는 모두 Spatial Object를 넣으세요. ORBIT RENDER와 OUT 트랙은 그룹(<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>G</kbd>)으로 묶어 접어 두면 깔끔합니다.</div>
+  <h3>레이아웃</h3>
+  <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · <strong>Custom</strong>.</p>
+  <p><strong>Custom</strong>은 실제 공간용입니다. <span class="pill">EDIT TABLE</span>에 스피커를 한 줄씩 적습니다: <span class="mono">name · az · el · dist · lfe</span> (dist 1 = 링, 서브우퍼는 lfe 1), 최대 64개. <span class="pill">MIRROR L ↔ R</span>은 반대편을 자동으로 채워 한쪽만 재면 됩니다. 스피커마다 거리가 다르면 <span class="pill">DIST COMP</span>를 켜세요. 가까운 스피커를 늦추고 줄여 모든 소리가 동시에 도착하게 합니다.</p>
+  <h3>패닝 모델</h3>
+  <p>SPACE 탭에서 고릅니다. 레이아웃마다 알맞은 모델이 자동으로 선택되며(<em>auto</em>), 다른 것을 고르면 그 레이아웃에 기억됩니다.</p>
   <div class="tw"><table>
-    <tr><th>탭</th><th>내용</th></tr>
-    <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / Binaural (HP) / Speakers · MASTER 볼륨, MUTE (슬라이더 값 유지) · <strong>SOURCE</strong> LIVE / DEMO, Live DSP 상태, OSC PORT · <strong>TRACKS</strong> 표시(눈), 이름표(Aa), 뮤트(M), 색, 레벨</td></tr>
-    <tr><td>SPEAKERS</td><td><strong>SPEAKER LAYOUT</strong> · <strong>OUTPUTS</strong> SET UP, OUTPUT MAP, TEST, 상태 · <strong>DISTANCE</strong> SPEAKER DISTANCE, DIST COMP</td></tr>
-    <tr><td>SPACE</td><td><strong>PANNING MODEL</strong> VBAP / DBAP / AMBI / WFS · <strong>ROOM</strong> 프리셋, REVERB, REFLECTIONS, EAR HEIGHT (<a href="#ko-render">06</a>)</td></tr>
-    <tr><td>VIEW</td><td><strong>CAMERA</strong> 자동 궤도, 뷰 리셋, 테마 · <strong>SHOW</strong> 이름, 귀, 머리, 돔 가이드, ROOM, TRAIL</td></tr>
-    <tr><td>SCENES</td><td>씬 목록 (<a href="#ko-scenes">05</a>)</td></tr>
-    <tr><td>LOG</td><td>연결 상태, WARNINGS(탭에 ⚠ 표시), 디바이스 메시지(반복은 ×n으로 묶음). COPY / CLEAR / RESEND</td></tr>
+    <tr><th>모델</th><th>쓰임</th></tr>
+    <tr><td>VBAP</td><td>가장 가까운 스피커 2–3개로 방향을 정확하게. 일반 서라운드 레이아웃</td></tr>
+    <tr><td>DBAP</td><td>거리에 따라 모든 스피커를 사용. 설치 작업, 관객이 돌아다니는 공간</td></tr>
+    <tr><td>AMBI</td><td>앰비소닉스. 링과 돔에서 가장 고르고 감싸는 소리</td></tr>
+    <tr><td>WFS</td><td>긴 스피커 배열용 파면 합성. 스피커 앞, 공간 안쪽에 소리를 맺히게 할 수 있습니다</td></tr>
   </table></div>
-  <p><span class="mono">1.5 s</span>, <span class="mono">3.0 m</span> 같은 값 버튼은 <strong>누른 채 위아래로 드래그</strong>해 조절합니다.</p>
-  <figure><img src="media/ui-live.jpg?v=1111d" alt="사이드바 LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 3.2 — LIVE 탭</figcaption></figure>
-
-  <h3 id="ko-ui-speakers">SPEAKERS 탭</h3>
-  <div class="tw"><table>
-    <tr><th>컨트롤</th><th>기능</th></tr>
-    <tr><td>레이아웃</td><td>스피커 레이아웃(<a href="#ko-render">06</a>). 패닝 모델을 직접 고르지 않았다면 함께 바뀝니다</td></tr>
-    <tr><td>Custom · EDIT TABLE</td><td>실측 공간용. 스피커당 한 줄 <span class="mono">name · az · el · dist · lfe</span> (dist 1 = 링, 서브우퍼는 lfe 1), 최대 64개. 미리보기, 패닝, WFS가 이 표를 따릅니다</td></tr>
-    <tr><td>Custom · MIRROR L ↔ R</td><td>중앙선 밖 스피커의 좌/우 짝을 자동으로 채웁니다. 한쪽만 측정하면 됩니다</td></tr>
-    <tr><td>SET UP OUTPUTS 1…n IN LIVE</td><td><code>OUT 1/2</code>, <code>OUT 3/4</code> … 트랙을 만들어 렌더러 출력을 받고 Live 출력으로 라우팅합니다. 레이아웃을 바꾼 뒤 다시 실행합니다</td></tr>
-    <tr><td>상태 표시</td><td><span class="mono">✓ renderer → OUT tracks → Live outputs 1…n</span> 또는 누락된 항목과 설정 안내</td></tr>
-    <tr><td>OUTPUT MAP</td><td>스피커 순서대로 사용할 Live 출력. <span class="mono">3 4 1 2</span>는 쌍 교체, <span class="mono">1 2 3 4 7 8</span>은 5–6 건너뜀. 비워 두면 1 2 3 …, 레이아웃별로 저장</td></tr>
-    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>스피커별 핑크 노이즈 테스트 (테스트 중 오브젝트는 무음). 3D 뷰에 스피커 번호가 표시됩니다</td></tr>
-    <tr><td>SPEAKER DISTANCE</td><td>청취 위치에서 스피커 링까지의 거리(m). 초기 반사음, 도플러, 근접 효과, WFS의 기준값이므로 실측값을 입력합니다</td></tr>
-    <tr><td>DIST COMP</td><td>스피커 거리가 서로 다를 때(실측 Custom 레이아웃) 가까운 스피커를 지연·감쇠해 모든 신호가 가장 먼 스피커와 같은 시점·레벨로 도달하게 합니다. WFS에서는 비활성화되고 버튼이 PRE-FILTER로 바뀝니다</td></tr>
-  </table></div>
-
-  <h3>트랙 색</h3>
-  <p>트랙의 색 사각형을 누르면 Ableton 70색 팔레트가 열리며, 선택한 색이 TouchDesigner와 Live에 함께 적용됩니다.</p>
-  <figure><img src="media/ui-palette.jpg?v=1110b" alt="트랙 색 팔레트: Ableton과 같은 70색이 14×5로 배치된 팝업" loading="lazy" width="1920" height="1080"><figcaption>FIG. 3.3 — 색 팔레트</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1111d" alt="SPACE 탭: PANNING MODEL, ROOM 프리셋, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 3.2 — SPACE 탭</figcaption></figure>
 </section>
 
 <!-- 04 -->
-<section id="ko-editor">
-  <div class="cap">04 — Object editor</div>
-  <h2>오브젝트 에디터</h2>
-  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 경로 캔버스와 궤도 기즈모, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 4.1 — 오브젝트 · 캔버스 · 설정</figcaption></figure>
-  <p>에디터의 모든 항목은 Live 디바이스 파라미터입니다. 편집 내용은 즉시 디바이스로 전달되고, 화면에는 디바이스가 회신한 값이 표시됩니다.</p>
-  <h3>캔버스</h3>
-  <ul>
-    <li><strong>뷰</strong> — TOP / FRONT / SIDE (T · F · S 점) 또는 오른쪽 위 구 안을 드래그하는 자유 궤도.</li>
-    <li><strong>CHAOS</strong> — 오브젝트가 지나갈 수 있는 어트랙터가 점으로 표시됩니다 (FIG. 4.3).</li>
-    <li><span class="pill">›</span> 띠로 설정 열과 사이드바를 접으면 캔버스가 넓어집니다.</li>
-  </ul>
-  <h3>경로 그리기</h3>
+<section id="ko-render">
+  <div class="cap">04 — Room and distance</div>
+  <h2>룸과 거리감</h2>
+  <h3>룸</h3>
+  <p>모든 오브젝트가 하나의 룸을 함께 씁니다. 헤드폰과 스피커 모두에서 동작합니다. SPACE 탭 → <strong>ROOM</strong>에서 <strong>OFF</strong>(드라이), STUDIO, ROOM, HALL, CATHEDRAL을 고르거나 값을 직접 바꿉니다(CUSTOM이 됩니다).</p>
   <div class="tw"><table>
-    <tr><th>입력</th><th>동작</th></tr>
-    <tr><td>EDIT PATH</td><td>PATH 오브젝트에서만 표시됩니다. 점 편집을 활성화하며, OFF일 때는 클릭으로 점이 추가·이동·삭제되지 않습니다</td></tr>
-    <tr><td>빈 곳 클릭</td><td>점 추가 (오브젝트가 PATH로 전환)</td></tr>
-    <tr><td>드래그 · 우클릭</td><td>이동 (깊이 유지) · 삭제</td></tr>
-    <tr><td>CURVE / CORNER · POINT HEIGHT</td><td>선택한 점의 종류(● / ■)와 높이</td></tr>
-    <tr><td>PATH: OPEN / CLOSED</td><td>마지막 점과 첫 점의 연결 여부</td></tr>
-    <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전체 곡선화 · 경로 삭제 · Live에서 다시 불러오기</td></tr>
+    <tr><th>컨트롤</th><th>기능</th></tr>
+    <tr><td>REVERB</td><td>켜기/끄기 · 길이 0.3–10 s · 양. 먼 오브젝트일수록 리버브가 늘고 직접음이 줄어, 단순히 작아지는 게 아니라 멀게 들립니다</td></tr>
+    <tr><td>REFLECTIONS</td><td>켜기/끄기 · WALLS(벽까지 거리 1.5–40 m) · 레벨. 벽, 바닥, 천장에서 오는 초기 반사음이 각자의 방향에서 들립니다</td></tr>
+    <tr><td>EAR HEIGHT</td><td>바닥에서 귀까지 높이: 앉아서 1.2 m, 서서 약 1.6 m</td></tr>
   </table></div>
-  <p>곡선은 일정한 속도로 재생되는 Catmull-Rom 스플라인입니다. 위치 = 송 포지션 ÷ (Path Length × 4박). 경로와 경로 설정, EDIT PATH는 오브젝트의 움직임이 PATH일 때만 표시됩니다. 다른 움직임을 선택하면 사라지며, 저장된 경로는 유지됩니다. 직선 경로는 모서리 점 두 개로 만듭니다. 선택한 오브젝트는 굵은 원으로 표시됩니다.</p>
-  <h3>설정 열</h3>
-  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 4.2 — 설정 열 (RANDOM으로 움직이는 LINE 오브젝트)</figcaption></figure>
-  <ul>
-    <li><strong>AZIMUTH · ELEVATION · DISTANCE</strong> — 상단의 큰 숫자. 누른 채 위아래로 드래그하면 선택한 오브젝트의 중심(MANUAL에서는 위치)이 바뀌고, 더블클릭하면 값을 직접 입력합니다. 숫자 오른쪽 위의 <span class="pill">AED</span> / <span class="pill">XYZ</span> 버튼으로 숫자와 MANUAL 슬라이더를 <strong>X · Y · Z</strong>(X 오른쪽, Y 앞, Z 위, 1 = 링, ADM 축)로 전환할 수 있습니다. 같은 위치를 다른 좌표로 표시·입력하는 기능입니다.</li>
-    <li><strong>MOTION</strong> — 8종의 움직임. MANUAL에서는 AZIMUTH · ELEVATION · DISTANCE 슬라이더, 그 밖의 움직임에서는 RATE와 SIZE가 표시됩니다(PATH 제외). CHAOS에서는 어트랙터 선택과 CHAOS SHAPE가 추가됩니다.</li>
-    <li><strong>PATH</strong> — 움직임이 PATH일 때만: PATH LENGTH, 루프 모드, 열림/닫힘, 점 도구.</li>
-    <li><strong>SHAPE</strong> — 점 / 선, 방향, LENGTH, ROTATE | TILT, 각 모듈레이션(ROT · FIXED ▼, TILT · FIXED ▼)과 RANGE | RATE. 모듈레이션 중인 각도의 슬라이더는 현재 값을 따라가며 직접 조절할 수 없습니다.</li>
-    <li><strong>SOUND</strong> — SPREAD | ROOM, AIR | DOPPLER, SPEED FX.</li>
-  </ul>
-  <p>슬라이더는 드래그하거나 <strong>더블클릭</strong>해 숫자를 입력합니다 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소).</p>
-  <figure><img src="media/ui-editor-chaos.jpg?v=1112b" alt="에디터 캔버스: CHAOS(Lorenz) 오브젝트의 점 도형" loading="lazy" width="860" height="635"><figcaption>FIG. 4.3 — 캔버스의 Lorenz 어트랙터</figcaption></figure>
-  <h3>저장</h3>
-  <p><span class="pill">SAVE</span>는 모든 오브젝트 설정을 <code>spatialize_snapshots/</code>에 기록하고 TouchDesigner 프로젝트를 저장합니다. <span class="pill">LOAD LAST</span>는 마지막 스냅숏을 복원합니다. Live 세트는 별도로 저장합니다.</p>
-  <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(SAVE 위. 마우스가 에디터 위에 있을 때 <strong>Ctrl+Z</strong> / <strong>Ctrl+Shift+Z</strong> 또는 <strong>Ctrl+Y</strong>)는 에디터에서 한 편집(설정, 중심 위치, 경로)을 되돌립니다. 한 번의 드래그가 한 단계이며 최대 60단계입니다. 씬 불러오기와 Live에서 바꾼 값은 포함되지 않습니다.</p>
-  <p><strong>Orbit Link 위치 수신</strong> — 다른 프로젝트가 오브젝트의 위치를 보내는 동안(<a href="#ko-link">Orbit Link</a>)에는 오브젝트 자체의 움직임이 재생되지 않습니다. MOTION 버튼이 비활성화되고 움직임 설정이 숨겨지며 안내문이 표시됩니다. 전송이 멈추면 약 1.5초 뒤 원래대로 돌아옵니다. MOTION 옆의 <span class="pill">ORBIT LINK: ON</span> 버튼은 보내는 쪽을 건드리지 않고 모든 오브젝트의 위치 수신을 끕니다(오브젝트가 자체 움직임으로 돌아갑니다).</p>
+  <p>오브젝트마다 <strong>ROOM</strong>(0–200 %)으로 룸을 얼마나 받을지 정합니다. 베이스, 킥, 이미 리버브가 있는 샘플은 0으로 두세요. 헤드폰에서는 룸이 ORBIT RENDER 트랙으로 나오므로 이 트랙을 세트에 남겨 두어야 합니다.</p>
+  <h3>거리감</h3>
+  <p>SPACE 탭에서 모든 오브젝트에 함께 적용합니다 (OFF · ×1 · ×2 · ×3).</p>
+  <div class="tw"><table>
+    <tr><th>컨트롤</th><th>기능</th></tr>
+    <tr><td>AIR</td><td>멀리 있는 소리는 실제 공기처럼 고음이 줄어듭니다. 오브젝트별 AIR 버튼으로 끌 수 있습니다</td></tr>
+    <tr><td>FAR THIN</td><td>스피커 링 바깥의 소리는 저음도 줄어 얇게 들립니다</td></tr>
+    <tr><td>NEAR BASS</td><td>헤드폰에서 1 m 안쪽으로 다가온 소리는 가까운 귀에 더 크고 두툼하게 들립니다 (귓가에 속삭이는 느낌)</td></tr>
+    <tr><td>DOPPLER ×1 – ×8</td><td>DOPPLER가 켜진 오브젝트가 다가오거나 멀어질 때 음정이 휘어집니다. 값이 클수록 과장됩니다</td></tr>
+  </table></div>
+  <p>도플러는 <em>거리</em>가 바뀔 때만 음정을 바꿉니다. 청취자 주위를 도는 원은 음정이 그대로이고, 머리 옆을 스쳐 가는 경로는 휘어집니다. 음정이 중요한 소리에는 끄는 것이 좋습니다. 오브젝트의 <strong>SPEED FX</strong>는 빨리 움직일수록 소리를 크고 밝게 만듭니다.</p>
+  <h3>헤드폰</h3>
+  <p>바이노럴은 실측 머리전달함수(KEMAR 더미헤드)를 사용해 좌우, 앞뒤, 위아래 단서를 만듭니다. 어떤 헤드폰에서도 동작하며 44.1, 48, 88.2, 96 kHz를 지원합니다. 3D 뷰의 귀는 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>으로 표시됩니다.</p>
+  <h3>눈으로 보기</h3>
+  <p>VIEW 탭 → <strong>ROOM</strong>은 룸, 벽 너머의 반사음, 퍼져 나가는 리버브를 그립니다. <strong>TRAIL</strong>은 도플러가 켜진 오브젝트 뒤에 사라지는 점을 남기며, 간격이 넓을수록 빠릅니다.</p>
 </section>
 
 <!-- 05 -->
 <section id="ko-scenes">
-  <div class="cap">05 — Scenes &amp; timeline</div>
-  <h2>씬과 타임라인</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭(Verse의 옵션이 열린 상태, 3D 뷰에 고스트 표시)과 타임라인 바</figcaption></figure>
-  <p><strong>씬</strong>은 오브젝트 상태(중심 위치, 움직임, 모양, 경로, 사운드 설정)의 스냅숏이며, <strong>같은 이름의 Live 로케이터</strong>와 연결됩니다. 씬은 Spatial Master에 저장되므로 세트와 함께 보존되고 TouchDesigner 없이도 재생됩니다.</p>
-  <h3>SCENES 탭</h3>
+  <div class="cap">05 — Scenes</div>
+  <h2>씬</h2>
+  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭, 3D 뷰의 씬 미리보기, 타임라인 바</figcaption></figure>
+  <p><strong>씬</strong>은 모든 오브젝트의 위치와 움직임을 저장한 것입니다. 씬을 불러오면 오브젝트들이 그 배치로 부드럽게 이동합니다. 씬은 <strong>같은 이름의 Live 로케이터</strong>와 연결되어, 곡이 진행되면서 공간이 바뀌게 할 수 있습니다. 씬은 Live 세트에 저장되고 TouchDesigner를 닫아도 재생됩니다.</p>
+  <h3>씬 만들고 불러오기</h3>
+  <ol>
+    <li>오브젝트를 배치하고 SCENES 탭에서 <span class="pill">+ CAPTURE</span>를 누릅니다. 씬과 함께 재생 헤드 위치에 로케이터가 생깁니다. 이름을 클릭하면 둘 다 이름이 바뀝니다.</li>
+    <li>곡의 다음 부분에 맞게 배치를 바꾸고 다시 캡처합니다.</li>
+    <li>씬의 <span class="pill">GO</span>를 누르면 그 배치로 이동합니다. <span class="pill">UPDATE</span>는 현재 상태를 기존 씬에 덮어씁니다.</li>
+    <li>타임라인(3D 뷰 아래 <span class="pill">TIMELINE ▲</span>)을 열고 <strong>FOLLOW</strong>를 켜면, 재생 헤드가 로케이터에 닿을 때마다 해당 씬이 적용됩니다.</li>
+  </ol>
+  <p>썸네일이나 GO에 마우스를 올리면 그 씬의 오브젝트 위치가 3D 뷰에 반투명하게 미리 보입니다.</p>
+  <h3>씬이 바뀌는 방식</h3>
   <div class="tw"><table>
-    <tr><th>컨트롤</th><th>동작</th></tr>
-    <tr><td>+ CAPTURE</td><td>현재 상태로 새 씬을 만들고 재생 헤드 위치에 로케이터를 추가합니다</td></tr>
-    <tr><td>INCLUDE 칩</td><td>캡처와 업데이트에 포함할 오브젝트. 오브젝트마다 트랙 색이 표시되며, 흐린 칩은 제외된 오브젝트입니다</td></tr>
-    <tr><td>FADE</td><td>새 씬의 기본 크로스페이드: CUT · 1 · 2 · 4 · 8 · 16박</td></tr>
-    <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — Live 재생 중에는 다음 박 또는 마디에 맞춰 씬을 불러옵니다</td></tr>
-    <tr><td>◀ ROT · ROT ▶ · MIRROR · NEAR · FAR · UP · DOWN</td><td>현재 배치의 변형(포함된 오브젝트의 중심과 경로): ±45° 회전 · 좌우 반전 · 거리 ×0.8 / ×1.25 · 고도 ±10°. 이후 UPDATE 또는 + CAPTURE로 저장합니다</td></tr>
-    <tr><td>OTHERS</td><td><strong>MUTE + HIDE</strong>: 씬에 없는 오브젝트를 뮤트하고 숨김 · <strong>KEEP</strong>: 유지. Live에서 직접 바꾼 뮤트는 다음 씬 진입 시 복원됩니다</td></tr>
-    <tr><td>씬 행</td><td>이름(클릭해 변경, 로케이터도 함께) · 위에서 본 썸네일 · 개별 페이드 · <strong>⋯</strong> 전환 옵션 · <strong>GO</strong> / RECALL · <strong>SAVE</strong>(빈 로케이터) / UPDATE · 로케이터 위치(클릭 = 이동, → TL = 배치) · × = 씬과 로케이터 삭제</td></tr>
-    <tr><td>⋯ (씬별)</td><td><strong>CURVE</strong> linear · smooth · ease in · ease out — <strong>AROUND</strong> 청취자를 돌아서 / <strong>THROUGH</strong> 공간을 직선으로 가로질러 — <strong>STAGGER</strong> off · 0.25 · 0.5 · 1 · 2박: 오브젝트가 차례로 출발 — <strong>ROOM ●</strong> 룸 설정(프리셋, 리버브, 반사음)을 씬에 함께 저장하고 부드럽게 전환</td></tr>
-    <tr><td>MORPH PAD</td><td><strong>MORPH: ON</strong>을 켜면 네 모서리에 씬을 지정하는 패드가 열립니다(모서리를 클릭해 씬 선택. 아래 두 모서리만 지정해도 됩니다). 점을 드래그하면 모서리 씬 사이에서 오브젝트가 블렌드됩니다. 위치는 공간을 가로질러, 설정은 가중 평균으로, 움직임과 모양은 가장 가까운 씬을 따릅니다. 오브젝트 값은 기록되지 않으며, OFF로 하면 원래대로 돌아갑니다</td></tr>
-    <tr><td>EXPORT · IMPORT</td><td>세트의 모든 씬을 프로젝트 옆 <code>spatialize_scenes/</code>에 JSON 파일로 저장 / 불러오기. 오브젝트는 UID로 매칭됩니다(같은 세트 또는 복사한 디바이스)</td></tr>
+    <tr><th>컨트롤</th><th>기능</th></tr>
+    <tr><td>FADE</td><td>이동에 걸리는 시간: CUT 또는 1–16박. 씬마다 따로 정할 수 있습니다</td></tr>
+    <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — Live 재생 중에는 다음 박이나 마디에 맞춰 불러옵니다</td></tr>
+    <tr><td>씬의 ⋯</td><td><strong>CURVE</strong>(linear, smooth, ease in, ease out) · <strong>AROUND</strong> 청취자를 돌아서 / <strong>THROUGH</strong> 공간을 직선으로 · <strong>STAGGER</strong> 오브젝트가 차례로 출발 · <strong>ROOM</strong> 씬이 룸도 함께 바꿈</td></tr>
+    <tr><td>INCLUDE</td><td>오브젝트마다 칩이 하나씩 있습니다. 흐린 칩은 새 캡처와 업데이트에서 빠집니다</td></tr>
+    <tr><td>OTHERS</td><td>씬에 없는 오브젝트의 처리: <strong>MUTE + HIDE</strong> 또는 <strong>KEEP</strong></td></tr>
+    <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>현재 배치를 빠르게 변형합니다. 마음에 들면 UPDATE나 CAPTURE로 저장합니다</td></tr>
+    <tr><td>EXPORT · IMPORT</td><td>세트의 모든 씬을 파일 하나로 내보내고 불러옵니다. 세트 사본에서 다시 쓸 때 유용합니다</td></tr>
   </table></div>
-  <p><strong>미리보기</strong> — RECALL 또는 썸네일에 마우스를 올리면 3D 뷰에 해당 씬의 오브젝트 위치가 고스트로 표시됩니다. 전환 중에는 도착 위치가 표시됩니다.</p>
-  <h3>전환</h3>
-  <ul>
-    <li>수치는 연속적으로 변합니다: 중심, rate, size, length, rotate, tilt, 모듈레이션, spread, room send, chaos shape, speed FX.</li>
-    <li>움직임·경로·어트랙터가 바뀌면 <strong>위치</strong>를 크로스페이드합니다. 이전 움직임이 계속되는 상태에서 새 움직임으로 이동합니다.</li>
-    <li>점은 선으로 늘어나고, 선은 점으로 줄어듭니다.</li>
-    <li>Live의 다이얼은 전환이 끝날 때 한 번만 기록됩니다.</li>
-    <li>Orbit Link로 들어오는 위치 스트림(<code>/orbit/set</code>)이 우선합니다. 다른 프로젝트가 오브젝트 위치를 보내는 동안에는 씬이 설정만 바꾸고 위치는 바꾸지 않습니다.</li>
-  </ul>
-  <h3>TouchDesigner 없이 Live에서</h3>
+  <p>숫자 값은 부드럽게 변하고, 움직임이 바뀌면 이전 움직임에서 새 움직임으로 위치가 크로스페이드되며, 점은 선으로 자라고 다시 줄어듭니다.</p>
+  <h3>Morph 패드</h3>
+  <p><span class="pill">MORPH: ON</span>을 누르면 네 모서리에 씬을 하나씩 두는 사각 패드가 열립니다(모서리를 클릭해 씬을 고르고, 두 모서리만 써도 됩니다). 점을 드래그하면 씬 사이를 실시간으로 섞습니다. 아무것도 덮어쓰지 않으며, 끄면 오브젝트가 원래대로 돌아옵니다.</p>
+  <h3>화면 없이 Live에서</h3>
   <div class="tw"><table>
-    <tr><th>Spatial Master</th><th>동작</th></tr>
-    <tr><td>Scene</td><td>번호로 씬 불러오기 — 오토메이션 또는 MIDI 매핑</td></tr>
-    <tr><td>Morph A · Morph B · Morph</td><td>두 씬 사이를 연속으로 블렌드: 0 = A, 100 = B. 씬을 불러오기 전에는 오브젝트 값이 바뀌지 않습니다</td></tr>
-    <tr><td>Quantize</td><td>Off · Beat · Bar. SCENES 탭과 같은 설정</td></tr>
-    <tr><td>세션 클립 <code>@이름</code></td><td>이름이 <code>@</code>로 시작하는 클립을 실행하면 같은 이름의 씬을 불러옵니다</td></tr>
+    <tr><th>Spatial Master</th><th>기능</th></tr>
+    <tr><td>Scene</td><td>번호로 씬 불러오기. 오토메이션이나 컨트롤러 매핑에 씁니다</td></tr>
+    <tr><td>Morph A · Morph B · Morph</td><td>두 씬 사이를 섞기: 0 = A, 100 = B</td></tr>
+    <tr><td>Quantize</td><td>Off · Beat · Bar</td></tr>
+    <tr><td>클립 이름 <code>@이름</code></td><td>이름이 <code>@</code>로 시작하는 세션 클립을 실행하면 같은 이름의 씬을 불러옵니다</td></tr>
   </table></div>
   <h3>타임라인 바</h3>
-  <p>3D 뷰 하단의 <span class="pill">TIMELINE ▲</span>로 엽니다. 마디 눈금자에 Live 로케이터(채워진 표시 = 씬과 연결), 재생 헤드, 재생 위치, 현재 씬이 표시됩니다. 눈금자를 클릭하면 재생 헤드가 이동합니다.</p>
-  <ul>
-    <li><strong>FOLLOW: ON</strong> — 재생 헤드가 연결된 로케이터에 도달하면 해당 씬을 적용합니다. 점프나 루프 후에는 재생 헤드 앞의 마지막 씬을 적용합니다.</li>
-    <li><strong>로케이터 카드</strong> — GO = 이동, CAPTURE = 현재 상태를 해당 로케이터 이름으로 저장, × = 로케이터만 삭제.</li>
-    <li><strong>+ LOCATOR (ACTIVE SCENE)</strong> — 현재 씬의 로케이터를 재생 헤드 위치에 추가합니다.</li>
-  </ul>
-  <p>크로스페이드는 페이드 시간 동안 각 오브젝트의 <em>중심</em>을 이동시킵니다 (움직임, 모양, 경로는 즉시 전환). Live는 재생 헤드 위치에서만 로케이터를 추가·삭제할 수 있으므로, TouchDesigner에서의 로케이터 이동은 Live가 정지된 상태에서만 가능합니다.</p>
+  <p>마디 눈금, Live 로케이터(채워진 것 = 씬과 연결), 재생 헤드, 현재 씬을 보여 줍니다. 클릭하면 재생 헤드가 이동합니다. 로케이터 카드마다 GO(이동), CAPTURE(현재 상태를 그 이름으로 저장), ×(로케이터 삭제)가 있습니다. 여기서 로케이터를 옮기는 것은 Live가 정지했을 때만 됩니다.</p>
 </section>
 
 <!-- 06 -->
-<section id="ko-render">
-  <div class="cap">06 — Rendering</div>
-  <h2>렌더링 — 바이노럴, 스피커, 룸</h2>
-  <h3>바이노럴 (헤드폰)</h3>
-  <p>각 Spatial Object가 자신의 방향을 스테레오로 렌더링합니다: 양이 시간차, 실측 HRTF, 거리. 3D 뷰의 귀는 <span class="L">L 파랑</span> / <span class="R">R 빨강</span>으로 표시되며, 이름 아래에는 <span class="mono">방위 · 고도 · 거리</span>가 표시되고, 귀가 보일 때는 양이 시간차(<span class="mono">0.45 ms R</span> = 오른쪽 귀에 먼저 도달)가 추가됩니다. 선 음원은 양 끝에 하나씩, 두 개의 바이노럴 체인을 사용합니다.</p>
-  <p><strong>실측 HRTF</strong>: 각 귀에 KEMAR 더미헤드로 측정한 머리전달함수(MIT Media Lab, 확산음장 보정)를 적용합니다. 고도 10° × 방위 5° 격자의 1.3 ms 최소위상 필터이며, 양이 시간차는 별도로 더하고 격자 사이 이동은 짧은 크로스페이드로 처리합니다. 실제 머리 그림자와, 위/아래·앞/뒤를 구분하는 귓바퀴 단서가 포함됩니다. Live의 샘플레이트(44.1 · 48 · 88.2 · 96 kHz)에 맞는 데이터를 자동으로 불러옵니다(디바이스 옆 <code>orbit_hrtf_&lt;rate&gt;.wav</code>).</p>
-  <p><strong>근접 효과</strong>: 약 1 m(Distance × SPEAKER DISTANCE)보다 가까워지면 가까운 귀의 레벨과 저역이 커지고 먼 귀는 작아집니다. 헤드폰에서만 자동 적용됩니다.</p>
-  <h3>스피커</h3>
-  <p>모든 오브젝트가 트랙 신호를 Spatial Renderer로 보내고, 렌더러가 시그널 레이트로 스피커에 믹스해 쌍마다 OUT 트랙으로 넘깁니다. 트랙 페이더와 뮤트는 그대로 적용됩니다. Spatial Object가 없는 트랙은 스피커 모드에서 자동으로 무음 처리됩니다 (렌더러가 Main을 내리고, 바이노럴로 돌아가면 복원).</p>
-  <h4>패닝 모델</h4>
-  <figure><img src="media/ui-space.jpg?v=1111d" alt="사이드바 SPACE 탭: PANNING MODEL(VBAP DBAP AMBI WFS), ROOM(프리셋, REVERB, REFLECTIONS, EAR HEIGHT)" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 6.1 — SPACE 탭</figcaption></figure>
-  <p>SPACE 탭에서 선택합니다. 3D 뷰의 스피커 표시도 같은 게인을 사용하며, 모델 간 레벨이 맞춰져 있습니다. 레이아웃을 고르면 권장 모델이 자동 선택되고(제목에 <em>auto</em>), 다른 모델을 선택하면 해당 레이아웃에 저장됩니다.</p>
+<section id="ko-link">
+  <div class="cap">06 — Orbit Link</div>
+  <h2>Orbit Link로 비주얼 연동</h2>
+  <p>Orbit Link는 오브젝트의 위치, 레벨, 색, 현재 씬을 OSC로 보내 비주얼이 소리를 따라가게 합니다. 반대로 비주얼 프로젝트에서 소리를 움직일 수도 있습니다.</p>
+  <h3>TouchDesigner에서 위치 받기</h3>
+  <ol>
+    <li><code>Spatialize M4L</code> 폴더의 <code>OrbitLink_In.tox</code>를 프로젝트에 끌어다 놓습니다.</li>
+    <li>출력 <strong>out1</strong>은 <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code>, <code>o2_x</code> …가 들어 있는 CHOP입니다 (Live 트랙 순서). 데이터가 들어오면 Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</li>
+    <li><strong>Out</strong> 토글로 항목을 더 켭니다: 방위/고도/거리, 레벨, 색, 모양, 속도, 카오스 값, Live 트랜스포트(템포, 마디, 박, <code>beat_pulse</code>, 다음 로케이터까지 진행도, 씬 전환 중의 <code>scene_prog</code>).</li>
+  </ol>
+  <p>위치 단위는 링 반지름입니다: 1 = 스피커 링, X 오른쪽, Y 위, −Z 정면. 인스턴스 위치나 조명 제어 등에 바로 쓸 수 있습니다.</p>
+  <h3>내 프로젝트에서 소리 움직이기</h3>
+  <ol>
+    <li><code>OrbitLink_Out.tox</code>를 프로젝트에 넣고 CHOP을 연결합니다. 채널 이름은 Orbit Link In과 같게(<code>o1_x o1_y o1_z</code> …) 하거나, POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플이 하나인 CHOP(<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code>; 샘플 0 = 오브젝트 1)을 그대로 연결해도 됩니다.</li>
+    <li>장면 단위가 링 반지름이 아니면 <strong>Position Scale</strong>로 맞춥니다. <strong>Objects</strong>로 움직일 오브젝트를 제한할 수 있습니다(<code>*</code>, <code>2</code>, <code>1-3 5</code>).</li>
+    <li><strong>Send Enable</strong>을 켭니다.</li>
+  </ol>
+  <p>위치가 들어오는 동안 해당 오브젝트는 자기 움직임 대신 그 위치를 따르고, 에디터에서는 움직임 버튼이 흐려지며 안내가 표시됩니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다. 에디터 MOTION 옆의 <span class="pill">ORBIT LINK: ON / OFF</span>는 보내는 쪽을 건드리지 않고 들어오는 위치를 모두 무시합니다.</p>
+  <div class="note"><b>NOTE</b>같은 오브젝트의 Orbit Link In 값을 Orbit Link Out으로 바로 되돌려 보내면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있으니 두 번째 수신기에는 다른 포트를 주세요.</div>
+  <h3>예제 프로젝트</h3>
+  <p><code>test Audiovisual.toe</code>에 세 가지 예가 있습니다. 오브젝트 위치에서 물 위로 튀는 공, 오브젝트가 휘젓는 유체 시뮬레이션(위치를 직접 만들어 <em>보내는</em> 예이기도 합니다), 오브젝트 빛을 받아 떠다니는 먼지. 셋 다 씬 전환에 반응합니다.</p>
+  <h3>다른 프로그램 (일반 OSC)</h3>
+  <p>Orbit Link는 일반 OSC라서 Max, Unity, Unreal, Resolume 등에서도 쓸 수 있습니다. 포트: Orbit Score는 <strong>9010</strong>으로 보내고 <strong>9011</strong>에서 받습니다 (<code>Spatialisation_test</code> 컴포넌트의 Objects 페이지에서 변경). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
   <div class="tw"><table>
-    <tr><th>모델</th><th>방식</th><th>자동 선택</th></tr>
-    <tr><td>VBAP</td><td>방향 기반: 음원을 둘러싼 스피커 2–3개를 사용합니다. 전면 스피커만 있는 레이아웃은 좌/우 위치로 패닝해 후방을 지나는 음원도 자연스럽게 움직입니다</td><td>stereo, quad, 5.1, 7.1, 5.1.4</td></tr>
-    <tr><td>DBAP</td><td>모든 스피커까지의 거리(1/d) 기반. 중앙에서는 전체가 울리고 링에 가까울수록 인접 스피커가 주도합니다. 설치 작업이나 이동하는 관객에 적합합니다</td><td>없음 (수동 선택)</td></tr>
-    <tr><td>AMBI</td><td>3차 앰비소닉스와 레이아웃별로 계산한 AllRAD 디코더. 가장 균일하고 감싸는 음장</td><td>hex 6, oct 8, ring 16, 7.1.4, 9.1.6, cube 8, dome 25</td></tr>
-    <tr><td>WFS</td><td>파면 합성: 스피커별 게인<em>과 지연</em>으로 파면을 재구성합니다. 배열 안쪽 음원은 포커스드 소스로 처리됩니다. SPEAKER DISTANCE를 사용하며, PRE-FILTER는 앨리어싱 주파수까지 +3 dB/oct 보정합니다</td><td>WFS line 32, WFS rectangle 64</td></tr>
+    <tr><th>보냄 → 9010</th><th>인자</th></tr>
+    <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · 방위 고도 거리</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 · 초당 반지름 단위</td></tr>
+    <tr><td>/orbit/n/chaos</td><td>CHAOS 오브젝트의 어트랙터 x y z (약 −1 … 1)</td></tr>
+    <tr><td>/orbit/count · /orbit/layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
+    <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>현재 씬 · 모든 씬 이름 · 전환 중 from, to, 진행도 0–1</td></tr>
+    <tr><td>/orbit/transport · /orbit/phase · /orbit/songpos · /orbit/beat · /orbit/section</td><td>재생, 템포, 마디, 박 · 박·마디 위상 · 송 포지션(박) · 박마다 한 번 · 현재 로케이터, 진행도, 다음 로케이터</td></tr>
   </table></div>
-  <h4>스피커 레이아웃</h4>
-  <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · Custom (실측, <a href="#ko-ui-speakers">03</a>).</p>
-
-  <h3>룸</h3>
-  <p>모든 오브젝트가 공유하는 하나의 룸입니다. 스피커와 바이노럴 모두에서 동작하며, 오브젝트별 양은 <strong>Room Send</strong>로 조절합니다. 설정 위치: SPACE 탭 → <strong>ROOM</strong>.</p>
   <div class="tw"><table>
-    <tr><th>컨트롤</th><th>기능</th></tr>
-    <tr><td>프리셋</td><td><strong>OFF</strong>(직접음만, 3D 룸 표시 숨김) · STUDIO · ROOM · HALL · CATHEDRAL. 값을 직접 바꾸면 <strong>CUSTOM</strong>으로 전환되며, 다른 프리셋을 쓴 뒤 CUSTOM을 누르면 사용자 값이 복원됩니다</td></tr>
-    <tr><td>REVERB</td><td>On/Off · 시간 0.3–10 s · 양. 8라인 피드백 딜레이 네트워크. 거리가 멀수록 센드는 늘고 직접음은 줄어, 단순히 작아지는 대신 실제로 멀게 들립니다. 스피커: 서로 다른 테일 8개를 모든 스피커에 분배. 바이노럴: 넓은 스테레오 테일</td></tr>
-    <tr><td>REFLECTIONS</td><td>On/Off · WALLS(벽까지 1.5–40 m) · 레벨. 오브젝트마다 1차 이미지 소스 6개(벽, 바닥, 천장)를 추가 경로만큼 지연시켜 각 방향에 배치합니다. 스피커는 VBAP, 헤드폰은 귀별 레벨과 시간차</td></tr>
-    <tr><td>EAR HEIGHT</td><td>바닥에서 귀까지의 높이 (앉은 자세 1.2 m, 선 자세 약 1.6 m). 바닥 반사와 3D 그리드에 반영됩니다</td></tr>
-    <tr><td>DOPPLER ×1 ×2 ×4 ×8</td><td>Doppler가 켜진 모든 오브젝트의 음정 변화를 k배로 강조합니다. 거리 변화분만 확대하므로 추가 지연은 작습니다 (×8에서 약 60 ms)</td></tr>
+    <tr><th>받음 ← 9011</th><th>인자</th></tr>
+    <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>위치 스트림. 최소 0.5초마다 계속 보냅니다</td></tr>
+    <tr><td>/orbit/set/n/color · /orbit/set/n/name</td><td>r g b (0–1) · 텍스트 — Live 트랙 색과 이름을 바꿉니다</td></tr>
+    <tr><td>/orbit/set/n/&lt;설정&gt;</td><td>Spatial Object의 모든 설정 (motion, rate, size, shape, spread, roomsend … <a href="#ko-devices">08</a> 참고). 에디터에서 바꾼 것처럼 세트에 저장됩니다</td></tr>
+    <tr><td>/orbit/set/scene</td><td>이름으로 씬 불러오기</td></tr>
   </table></div>
-  <p>바이노럴에서도 오브젝트 트랙이 렌더러를 거치므로 룸은 ORBIT RENDER 트랙을 통해 Main으로 출력됩니다. 이 트랙은 세트에 유지하십시오. 이때 MASTER는 Live의 Main 페이더로, 직접음과 룸에 한 번만 적용됩니다.</p>
-  <p><strong>3D 표시</strong>(VIEW → ROOM): 룸 상자, 벽 너머의 흐린 점으로 표시되는 오브젝트별 1차 반사 6개(이미지 소스: 벽이 멀어지면 바깥으로, 레벨이 높으면 밝게), 리버브 시간 동안 천천히 퍼지며 사라지는 파동과 헤이즈. VIEW → <strong>TRAIL</strong>은 Doppler가 켜진 오브젝트 뒤에 사라지는 점을 남깁니다. 점 간격이 넓을수록 속도와 도플러가 큽니다. 두 표시 모두 오디오 측정이 아닌 렌더러의 계산값과 트랙 미터를 기반으로 합니다.</p>
 </section>
 
 <!-- 07 -->
-<section id="ko-coords">
-  <div class="cap">07 — Co-ordinates</div>
-  <h2>좌표계</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">디바이스 (Live)</div><div class="v mono">x 앞 · y 왼쪽 · z 위</div><p>Distance 1 = 스피커 반지름. Azimuth + = 왼쪽, Elevation + = 위.</p></div>
-    <div class="card"><div class="k">TouchDesigner</div><div class="v mono">앞 = −Z · 위 = +Y</div><p>오른쪽 = +X. <code>layouts</code> 모듈의 <code>aed_to_dev</code> / <code>dev_to_aed</code>로 변환합니다.</p></div>
-  </div>
-  <p>선 음원: 중심 <code>c = aed_to_dev(az, el, d)</code>, 방향각 <code>h = (Facing이 Centre이면 az, 아니면 0) + 90° + Rotate</code>, 방향 <code>u = (cos t·cos h, cos t·sin h, sin t)</code> (<code>t = Tilt</code>), 양 끝 <code>c ± u·Length/2</code>.</p>
+<section id="ko-ui">
+  <div class="cap">07 — Screen reference</div>
+  <h2>화면 구성</h2>
+  <div class="tw"><table>
+    <tr><th>사이드바 탭</th><th>내용</th></tr>
+    <tr><td>LIVE</td><td><strong>MONITOR</strong> 끔 / 헤드폰 / 스피커 · <strong>MASTER</strong> 볼륨과 MUTE · 연결 상태 · <strong>TRACKS</strong>: 표시, 이름표, 뮤트, 색, 레벨</td></tr>
+    <tr><td>SPEAKERS</td><td>스피커 레이아웃과 Custom 표 · SET UP OUTPUTS · OUTPUT MAP · TEST · SPEAKER DISTANCE · DIST COMP (<a href="#ko-speakers">03</a>)</td></tr>
+    <tr><td>SPACE</td><td>패닝 모델 · 룸 · 귀 높이 · 도플러 강조 · AIR, FAR THIN, NEAR BASS (<a href="#ko-render">04</a>)</td></tr>
+    <tr><td>VIEW</td><td>카메라 자동 회전, 리셋, 밝은/어두운 테마 · 이름, 귀, 머리, 돔, 룸, 궤적 표시</td></tr>
+    <tr><td>SCENES</td><td>씬과 Morph 패드 (<a href="#ko-scenes">05</a>)</td></tr>
+    <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
+  </table></div>
+  <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
+  <h3>트랙 색</h3>
+  <p>트랙의 색 사각형을 누르면 Ableton 70색 팔레트가 열리고, 고른 색이 Live에도 적용됩니다.</p>
+  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Ableton 70색 트랙 색 팔레트" loading="lazy" width="1920" height="1080"><figcaption>FIG. 7.2 — 색 팔레트</figcaption></figure>
 </section>
 
 <!-- 08 -->
-<section id="ko-osc">
-  <div class="cap">08 — OSC protocol</div>
-  <h2>OSC 메시지</h2>
-  <p>로컬 UDP: Live → TouchDesigner <code>127.0.0.1:9001</code>, TouchDesigner → Spatial Master <code>9002</code>.</p>
-  <h3>Live → TD (9001)</h3>
+<section id="ko-devices">
+  <div class="cap">08 — Device reference</div>
+  <h2>디바이스 파라미터</h2>
+  <figure><img src="media/dev-object.jpg?v=1110e" alt="Live의 Spatial Object 디바이스" loading="lazy" width="511" height="193" style="max-width:511px"><figcaption>FIG. 8.1 — Spatial Object</figcaption></figure>
+  <h3>Spatial Object</h3>
   <div class="tw"><table>
-    <tr><th>주소</th><th>내용</th></tr>
-    <tr><td>/spat/obj</td><td>uid, az, el, dist, level, r g b (~30 Hz)</td></tr>
-    <tr><td>/spat/name</td><td>uid, 트랙 이름, 트랙 순서</td></tr>
-    <tr><td>/spat/form</td><td>uid, motion, shape, len, rot, tilt, rate, size, bars, pmode, muted, facing, closed, centre az el dist, stall, rotmod, tiltmod, modrange, modrate, spread, roomsend, air, doppler, attr, cshape, speedfx</td></tr>
-    <tr><td>/spat/rt</td><td>uid, rotate, tilt — 모듈레이션 중인 선 각도</td></tr>
-    <tr><td>/spat/path</td><td>uid, n, 점마다 x y z curve</td></tr>
-    <tr><td>/spat/off</td><td>디바이스 제거됨</td></tr>
-    <tr><td>/spat/master · /spat/audio</td><td>렌더 모드 · DSP 상태, 샘플레이트, 벡터 크기</td></tr>
-    <tr><td>/spat/scenes · /spat/cues · /spat/play · /spat/sceneon</td><td>씬 목록 · 로케이터 · 재생 헤드 · 씬 적용</td></tr>
-    <tr><td>/spat/dbg</td><td>디바이스 메시지 → LOG 탭</td></tr>
+    <tr><th>파라미터</th><th>범위</th><th>뜻</th></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 중심. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링</td></tr>
+    <tr><td>Motion</td><td>8종</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
+    <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
+    <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>
+    <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>Chaos 움직임용. Lorenz는 좌우를 오가고, Rossler는 나선을 그리다 위로 튀고, Thomas는 고르게 떠돕니다. Chaos Shape는 모양을 바꿉니다</td></tr>
+    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>점 음원 또는 중심을 지나는 선 음원</td></tr>
+    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>선의 방향</td></tr>
+    <tr><td>Rotate Mod · Tilt Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>선의 각도를 저절로 움직임</td></tr>
+    <tr><td>Spread</td><td>0–180°</td><td>스피커에서 점 대신 넓게 감싸는 소리</td></tr>
+    <tr><td>Room Send</td><td>0–200 %</td><td>공용 룸을 받는 양</td></tr>
+    <tr><td>Air</td><td>on / off</td><td>거리에 따른 고음 감소</td></tr>
+    <tr><td>Doppler</td><td>on / off</td><td>거리가 바뀔 때 음정 변화</td></tr>
+    <tr><td>Speed</td><td>0–100 %</td><td>빠르게 움직일 때 더 크고 밝게</td></tr>
   </table></div>
-  <h3>TD → Live (9002)</h3>
-  <div class="tw"><table>
-    <tr><th>주소</th><th>내용</th></tr>
-    <tr><td>/spat/setmode</td><td>0 Off · 1 Binaural · 2 Speakers</td></tr>
-    <tr><td>/spat/spk</td><td>스피커 레이아웃 (단위 벡터 + LFE 플래그)</td></tr>
-    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> 오브젝트 파라미터 · <code>&lt;uid&gt; mute 0|1</code> · <code>&lt;uid&gt; fade &lt;s&gt;</code> · <code>&lt;uid&gt; ext az el dist</code> (실시간 위치 스트림, 저장 안 됨) · <code>0 &lt;key&gt; …</code> 렌더러 설정 (mastervol, panmodel, revon, eron, earheight, distcomp, outmap, …)</td></tr>
-    <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z c …</code></td></tr>
-    <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code> → Live 트랙 색</td></tr>
-    <tr><td>/spat/scene</td><td>save · recall · del · rename · cue · cuedel · jump · jumpt · fade · opt · quant · dump · follow · sync</td></tr>
-    <tr><td>/spat/req</td><td>전체 상태 재전송 (LOG → RESEND)</td></tr>
-  </table></div>
-<pre><code># 오브젝트 598428을 Circle로
-/spat/objset 598428 motion 1
-# 점 세 개로 된 경로 (x y z curve)
-/spat/pathset 598428 3  0.8 0.4 0.0 1  -0.2 0.9 0.3 1  -0.7 -0.5 0.0 0</code></pre>
+  <h3>Spatial Master</h3>
+  <figure><img src="media/dev-master.jpg?v=1110e" alt="Live의 Spatial Master 디바이스" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 8.2 — Spatial Master</figcaption></figure>
+  <ul>
+    <li><strong>Mode</strong> Off · Binaural · Speakers — 화면의 MONITOR와 같습니다.</li>
+    <li><strong>Scene · Morph A · Morph B · Morph · Quantize</strong> — Live에서 씬 다루기 (<a href="#ko-scenes">05</a>).</li>
+    <li>씬을 세트에 보관하고, 세트와 화면을 연결합니다 (OSC 포트 9001, 화면은 9002로 응답).</li>
+  </ul>
+  <h3>Spatial Renderer</h3>
+  <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Live의 Spatial Renderer 디바이스" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 8.3 — Spatial Renderer</figcaption></figure>
+  <ul>
+    <li>세트에 하나, 전용 빈 오디오 트랙 <code>ORBIT RENDER</code>에 두고 출력은 Main.</li>
+    <li>스피커: 오브젝트 최대 16개 입력, 스피커 64개 출력(<code>OUT</code> 트랙 경유). 오브젝트 트랙의 라우팅은 자동으로 설정됩니다.</li>
+    <li>헤드폰: 오브젝트의 바이노럴 소리에 룸을 더합니다.</li>
+  </ul>
 </section>
 
 <!-- 09 -->
-<section id="ko-link">
-  <div class="cap">09 — OSC out · Orbit Link</div>
-  <h2>외부 프로젝트 연동</h2>
-  <p>사운드를 움직이는 공간 데이터(위치, 레벨, 색, 모양, 현재 씬)를 표준 OSC로 송출합니다. 같은 컴퓨터나 네트워크의 TouchDesigner 프로젝트(또는 Max, Unity, Resolume 등)에서 이를 비주얼로 활용할 수 있으며, 반대로 외부 프로젝트에서 사운드를 움직일 수도 있습니다.</p>
-  <h3>설정</h3>
-  <p><code>Spatialisation_test</code>의 Objects 페이지: <strong>OSC Out</strong> Enable · Host · Port (127.0.0.1 · 9010) · Rate (30 Hz), <strong>OSC Set In</strong> Enable · Port (9011).</p>
-  <h3>송출 <code>/orbit/…</code> → 9010</h3>
-  <p><code>n</code> = Live 트랙 순서 기준 오브젝트 번호(1부터). TD 좌표: 오른쪽 +X, 위 +Y, 앞 −Z, 반지름 1 = 링.</p>
+<section id="ko-trouble">
+  <div class="cap">09 — Troubleshooting</div>
+  <h2>문제 해결</h2>
   <div class="tw"><table>
-    <tr><th>주소</th><th>인자</th></tr>
-    <tr><td>/orbit/n/pos · aed</td><td>x y z · azimuth elevation distance</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape</td><td>트랙 이름 · r g b · 0–1 · 0 점 / 1 선</td></tr>
-    <tr><td>/orbit/count · layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
-    <tr><td>/orbit/scene · scenes</td><td>현재 씬 (없으면 <code>-</code>) · 전체 씬 이름</td></tr>
-    <tr><td>/orbit/scenefade</td><td>from · to · 씬 전환 진행도 0–1 (Orbit Link In: <code>scene_prog</code>)</td></tr>
-    <tr><td>/orbit/n/chaos</td><td>x y z — CHAOS 오브젝트의 어트랙터 값, 약 −1 … 1 (오른쪽, 위, 뒤). CHAOS 오브젝트만 송출</td></tr>
-    <tr><td>/orbit/n/speed</td><td>이동 속도 (반지름 단위/초, 정지 시 0)</td></tr>
-    <tr><td>/orbit/transport</td><td>playing · tempo · bar · beat (Live 트랜스포트, 1부터)</td></tr>
-    <tr><td>/orbit/phase · songpos</td><td>박 위상 0–1, 마디 위상 0–1 · 송 포지션(박)</td></tr>
-    <tr><td>/orbit/beat</td><td>bar beat — 재생 중 박마다 한 번 (이벤트)</td></tr>
-    <tr><td>/orbit/section</td><td>현재 로케이터 이름 · 다음 로케이터까지 진행도 0–1 · 다음 로케이터 이름</td></tr>
+    <tr><th>증상</th><th>확인할 것</th></tr>
+    <tr><td>트랙이 화면에 나타나지 않음</td><td>트랙에 Spatial Object가 있어야 합니다. 세트에 Spatial Master가 있는지 확인하고 LOG 탭 → RESEND</td></tr>
+    <tr><td>아무것도 나타나지 않음</td><td>LIVE 탭의 PORT가 9001인지 확인합니다. 이 포트는 TouchDesigner 프로젝트 하나만 쓸 수 있습니다</td></tr>
+    <tr><td>스피커 모드에서 소리가 안 남</td><td>ORBIT RENDER 트랙에 Spatial Renderer가 있는지, SPEAKERS 상태가 ✓인지, 인터페이스가 Live의 Output Device이고 Output Config에서 출력 쌍이 켜져 있는지, MASTER가 뮤트되지 않았는지</td></tr>
+    <tr><td>Live 출력이 1/2뿐임</td><td>인터페이스가 2채널 모드입니다. 포맷을 바꾸거나(macOS) ASIO 드라이버를 설치한 뒤(Windows) Live에서 다시 선택합니다</td></tr>
+    <tr><td>스피커 모드에서 일부 트랙이 안 들림</td><td>Spatial Object가 없는 트랙은 스피커 모드에서 꺼집니다. 디바이스를 추가하세요</td></tr>
+    <tr><td>헤드폰에서 룸이 안 들림</td><td>ORBIT RENDER 트랙이 세트에 있고 Main으로 나가야 합니다</td></tr>
+    <tr><td>LOG 탭에 ⚠</td><td>어떤 검사가 실패했는지 적혀 있습니다. 보통 레이아웃보다 출력이 적거나 샘플레이트가 맞지 않는 경우입니다</td></tr>
+    <tr><td>에디터에 "old Spatial Object"</td><td>그 트랙의 디바이스가 예전 버전입니다. 세트를 다시 열거나 디바이스를 다시 넣으세요</td></tr>
+    <tr><td>두 오브젝트의 번호가 같음</td><td>둘 중 하나의 Spatial Object를 지우고 다시 넣습니다</td></tr>
+    <tr><td>화면이 느림</td><td>Perform 모드(<kbd>F1</kbd>)로 실행하세요. 특히 4K 화면에서 효과가 큽니다. VIEW → ROOM과 타임라인도 약간 부하가 있습니다</td></tr>
+    <tr><td>Orbit Link로 보낸 위치가 유지되지 않음</td><td>스트림이므로 계속 보내야 합니다. 위치를 고정하려면 에디터에서 설정하세요</td></tr>
+    <tr><td>Orbit Link In에 "no signal"</td><td>Orbit Score가 이 컴퓨터 주소의 9010 포트로 보내고 있는지, 같은 포트를 쓰는 다른 프로그램이 없는지 확인합니다</td></tr>
+    <tr><td>씬 크로스페이드가 끊김</td><td>공연 중에는 Live를 앞에 두고, 페이드는 몇 박 정도로 하세요</td></tr>
   </table></div>
-  <h3>입력 <code>/orbit/set/…</code> → 9011</h3>
-  <p><strong>위치</strong>(<code>pos</code>, <code>aed</code>, <code>az</code> · <code>el</code> · <code>dist</code>)는 실시간 스트림입니다. 메시지가 들어오는 동안에는 움직임 종류와 관계없이 오브젝트를 움직이며(MANUAL 불필요), 마지막 메시지 후 약 1.5초가 지나면 원래 움직임으로 부드럽게 돌아갑니다. Live 세트에는 저장되지 않으므로, 제어하는 동안 최소 0.5초마다 보냅니다(Orbit Out은 자동으로 처리). <strong>그 밖의 키</strong>는 에디터에서 편집한 것과 동일하게 Live 디바이스로 전달되어 세트에 저장됩니다.</p>
-  <div class="tw"><table>
-    <tr><th>주소</th><th>인자</th></tr>
-    <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>위치 (TD 좌표 또는 azimuth / elevation / distance)</td></tr>
-    <tr><td>/orbit/set/n/&lt;key&gt;</td><td>모든 Spatial Object 키: motion · rate · size · bars · pmode · shape · len · rot · tilt · facing · closed · rotmod · tiltmod · modrange · modrate · spread · roomsend · air · doppler · attr · cshape · speedfx</td></tr>
-    <tr><td>/orbit/set/scene</td><td>이름으로 씬 불러오기 (크로스페이드 포함)</td></tr>
-  </table></div>
-  <h3>Orbit Link In · Out (.tox)</h3>
-  <p>외부 프로젝트에 넣어 바로 쓰는 컴포넌트로, OSC 파싱이 필요하지 않습니다.</p>
-  <div class="grid2">
-    <div class="card"><div class="k">OrbitLink_In.tox</div><div class="v mono">→ out1 · names_out · scenes_out</div>
-      <p><strong>out1</strong>(CHOP): <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code> …. <strong>Out</strong> 토글로 <em>Az El Dist</em>, <em>Level</em>, <em>Colour</em>, <em>Shape</em>, <em>Chaos</em>(<code>o1_cx o1_cy o1_cz</code>), <em>Speed</em>(<code>o1_speed</code>), <em>Transport</em>(<code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse</code> — 스무딩 없음, <code>beat_pulse</code>는 박마다 1이 되고 빠르게 감소)를 추가합니다. <strong>Section</strong> 필드에 현재 → 다음 로케이터가 표시됩니다. <strong>Object</strong> &gt; 0이면 접두사 없이 해당 오브젝트만 출력합니다. Port 9010, Smooth, Signal Timeout. Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p></div>
-    <div class="card"><div class="k">OrbitLink_Out.tox</div><div class="v mono">in1 → /orbit/set</div>
-      <p>출력과 같은 이름의 채널(<code>o2_x o2_y o2_z</code>, <code>o2_motion</code> …)을 가진 CHOP을 연결하고 <strong>Send Enable</strong>을 켭니다. POP to CHOP / SOP to CHOP 출력처럼 <strong>오브젝트당 샘플 하나</strong>인 CHOP(<code>P_0 P_1 P_2</code>, <code>tx ty tz</code>, <code>x y z</code>; 샘플 0 = 오브젝트 1)도 그대로 연결할 수 있으며, 단위가 링 반지름이 아니면 Position Scale로 맞춥니다. 변경된 값이 Host : 9011로 전송되며, 위치는 스트림이 유지되도록 0.5초마다 다시 전송됩니다. <strong>Objects</strong>(<code>*</code>, <code>2</code>, <code>1-3 5</code>)로 대상 오브젝트를 제한합니다. <strong>Recall Scene</strong>에는 Orbit In의 씬 목록이 표시됩니다.</p></div>
-  </div>
-  <div class="note"><b>NOTE</b>같은 오브젝트의 Orbit In 값을 Orbit Out으로 되돌려 보내지 마십시오 (피드백 발생). UDP 포트 하나는 한 프로그램만 사용할 수 있으므로 두 번째 수신기는 다른 포트를 사용합니다.</div>
-  <p>예제: <code>test Audiovisual</code> 프로젝트 — <code>orbit_in</code>이 구 세 개를 오브젝트의 바닥 위치에 배치하고 트랙 레벨에 맞춰 움직입니다.</p>
 </section>
 
 <!-- 10 -->
-<section id="ko-trouble">
-  <div class="cap">10 — Troubleshooting</div>
-  <h2>문제 해결</h2>
+<section id="ko-osc">
+  <div class="cap">10 — For developers</div>
+  <h2>개발자용</h2>
+  <p>직접 컨트롤러를 만들 때 참고할 Live와 화면 사이의 통신입니다. 로컬 UDP: Spatial Master → 화면 <code>127.0.0.1:9001</code>, 화면 → Spatial Master <code>9002</code>.</p>
   <div class="tw"><table>
-    <tr><th>증상</th><th>해결</th></tr>
-    <tr><td>트랙이 TD에 표시되지 않음</td><td>트랙에 <strong>Spatial Object</strong>가 있는지 확인합니다. 이후 세트의 Spatial Master, PORT 9001, LOG → RESEND를 확인합니다</td></tr>
-    <tr><td>스피커 모드에서 소리가 나지 않음</td><td>Spatial Renderer가 세트에 있는지(LOG <span class="mono">no-renderer</span> = 없음), SET UP OUTPUTS 상태가 ✓인지, Live Output Device가 인터페이스이고 Output Config에서 쌍이 활성화되어 있는지, MASTER MUTE가 꺼져 있는지 확인합니다</td></tr>
-    <tr><td>Live 출력이 1/2뿐임</td><td>인터페이스가 2채널 모드입니다. 오디오 MIDI 설정 → 포맷(macOS) 또는 ASIO 드라이버 설치(Windows) 후 Live에서 장치를 다시 선택합니다</td></tr>
-    <tr><td>스피커 모드에서 Spatial Object 없는 트랙이 들리지 않음</td><td>정상 동작입니다. 스피커 모드에서는 Main이 자동으로 내려갑니다. 필요한 트랙에는 Spatial Object를 추가합니다</td></tr>
-    <tr><td>헤드폰에서 룸이 들리지 않음</td><td>ORBIT RENDER 트랙이 세트에 있고 출력이 Main인지 확인합니다</td></tr>
-    <tr><td>Max 콘솔: <code>gen~ … failed to compile</code></td><td>해당 줄을 복사해 전달해 주십시오. 수정 전까지 렌더러의 해당 엔진은 무음입니다</td></tr>
-    <tr><td>LOG 탭에 ⚠</td><td>WARNINGS에서 실패한 출력 검사를 확인합니다: 레이아웃보다 적은 출력 또는 샘플레이트 불일치</td></tr>
-    <tr><td>에디터에 "old Spatial Object" 표시</td><td>해당 트랙의 디바이스가 이전 버전입니다. 세트를 다시 열거나 디바이스를 다시 추가합니다</td></tr>
-    <tr><td>두 오브젝트의 번호가 같음</td><td>해당 Spatial Object를 삭제하고 다시 추가합니다</td></tr>
-    <tr><td>TouchDesigner가 60 fps 미만</td><td>네트워크 편집기 대신 Perform 모드(F1)로 UI를 실행합니다(특히 4K 화면). VIEW → ROOM과 타임라인 바도 부하가 약간 있습니다</td></tr>
-    <tr><td>/orbit/set 위치가 유지되지 않음</td><td>실시간 스트림이므로 계속 보냅니다(최소 0.5초마다). 세트에 저장되지 않으며, 저장하려면 에디터에서 중심 위치를 설정합니다</td></tr>
-    <tr><td>Orbit Link In이 "no signal"</td><td>OSC Out Enable, host = 수신 컴퓨터, 포트 일치, 같은 포트를 쓰는 다른 프로그램 여부를 확인합니다</td></tr>
-    <tr><td>크로스페이드가 끊김</td><td>공연 중에는 Live를 전면에 둡니다 (OS가 Max 백그라운드 스레드를 늦춥니다). 페이드는 몇 박 정도를 권장합니다</td></tr>
-    <tr><td>TD 버튼이 비어 보임</td><td>프로젝트를 다시 엽니다</td></tr>
+    <tr><th>Live → 화면 (9001)</th><th>내용</th></tr>
+    <tr><td>/spat/obj</td><td>uid, az, el, dist, level, r g b (약 30 Hz)</td></tr>
+    <tr><td>/spat/name</td><td>uid, 트랙 이름, 트랙 순서</td></tr>
+    <tr><td>/spat/form</td><td>uid와 모든 설정</td></tr>
+    <tr><td>/spat/path</td><td>uid, n, 점마다 x y z curve</td></tr>
+    <tr><td>/spat/scenes · /spat/cues · /spat/play</td><td>씬 목록 · 로케이터 · 재생 헤드</td></tr>
   </table></div>
+  <div class="tw"><table>
+    <tr><th>화면 → Live (9002)</th><th>내용</th></tr>
+    <tr><td>/spat/setmode</td><td>0 끔 · 1 바이노럴 · 2 스피커</td></tr>
+    <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> — 오브젝트 설정 (키는 <a href="#ko-link">/orbit/set</a>과 같음)</td></tr>
+    <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z curve …</code></td></tr>
+    <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code></td></tr>
+    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade …</td></tr>
+  </table></div>
+  <p><strong>좌표</strong> — 디바이스: x 정면, y 왼쪽, z 위, 거리 1 = 스피커 링, azimuth + = 왼쪽. Orbit Link: X 오른쪽, Y 위, −Z 정면. 에디터의 XYZ: X 오른쪽, Y 정면, Z 위(ADM).</p>
 </section>
 
 <!-- 11 -->
-<section id="ko-roadmap">
-  <div class="cap">11 — Roadmap</div>
-  <h2>로드맵</h2>
-  <ul>
-    <li><strong>Chaos → Live</strong>: 어트랙터 값을 다른 Live 파라미터에 매핑 (OSC 송출은 완료).</li>
-    <li><strong>Morph 패드</strong>: 블렌드 결과를 새 씬으로 저장, Live에서 점 오토메이션.</li>
-      </ul>
-</section>
-
-<!-- 12 -->
 <section id="ko-log">
-  <div class="cap">12 — Changelog</div>
-  <h2>변경 기록</h2>
+  <div class="cap">11 — Version history</div>
+  <h2>버전 기록</h2>
   <div class="tw"><table>
-    <tr><th>버전</th><th>변경</th></tr>
-    <tr><td>9.6 · 11.12</td><td>씬: 모든 수치의 전환, 움직임 간 위치 크로스페이드, 곡선, AROUND / THROUGH, 스태거, 씬별 룸, 퀀타이즈, Scene·Morph 다이얼, <code>@이름</code> 클립, 배치 변형, 썸네일과 3D 미리보기, 내보내기 / 불러오기 · 에디터 AED / XYZ, UNDO / REDO, 경로는 PATH 오브젝트에서만 표시, 위치 수신 중 움직임 잠금, ORBIT LINK 켬 / 끔 · SCENES 탭의 Morph 패드 · Orbit Link <code>scenefade</code>, Orbit Out의 POP to CHOP 입력</td></tr>
-    <tr><td>9.5 · 11.11</td><td>바이노럴 룸 수정: 오브젝트 트랙이 렌더러를 경유(디바이스 간 send~ 신호 미전달 문제), MASTER 1회 적용 · 스피커 출력 64개(스피커 k = 디바이스 출력 k) · 룸 프리셋 OFF … CUSTOM, 반사 표시를 카메라를 향하는 점 하나로 단순화, GPU 기반의 부드럽고 느린 파동, 룸 이름표 제거 · 스피커 색 = 가장 큰 오브젝트 색 · 테두리 없는 버튼, 모서리 꺾쇠 제거, 블랙 테마 그리드·광선 개선 · AIR 수정 · Circle: Size = 반지름 · MANUAL·PATH에서 RATE / SIZE 숨김, 경로는 PATH에서만 표시 · TouchDesigner 최적화(에디터 캔버스, UI 갱신, GPU 블러) · METER와 가상 장치 안내 제거 · DOPPLER 강조 ×1…×8 · 헤드폰 실측 HRTF(KEMAR, 샘플레이트별 자동 선택) · CHAOS 값 OSC 송출(/orbit/n/chaos, Orbit Link In: Chaos) · 에디터 경량화 · Orbit Link 트랜스포트(tempo, bar, beat, 위상, 로케이터 구간, beat_pulse)와 오브젝트 속도 · 위치 값 드래그·직접 입력, MANUAL 위치 슬라이더 · 섹션 번호 제거 · /orbit/set 위치를 실시간 위치 스트림으로 변경(다이얼 미기록, MANUAL 불필요 — 매 프레임 Live API 쓰기로 Live 전체가 멈추던 문제 수정)</td></tr>
-    <tr><td>9.4 · 11.11</td><td>헤드폰 룸(바이노럴 리버브 + 초기 반사음) · DIST COMP · EAR HEIGHT · 룸 프리셋 · Custom MIRROR L ↔ R · SPEAKERS 탭, VIEW를 CAMERA / SHOW로 분리 · TRAIL은 도플러 오브젝트만 · 스피커 모드에서 Spatial Object 없는 트랙 자동 무음</td></tr>
-    <tr><td>9.3 · 11.11</td><td>CHAOS 움직임(Lorenz / Rossler / Thomas) · SPEED 효과 · 3D TRAIL</td></tr>
-    <tr><td>9.2 · 11.11</td><td>3D 뷰 룸 표시: 상자, 반사음, 리버브 링</td></tr>
-    <tr><td>9.0–9.1 · 11.11</td><td>헤드폰 근접 효과 · SPACE 탭 · 에디터 SOUND 섹션</td></tr>
-    <tr><td>8.5–8.9 · 11.10</td><td>룸 리버브(8라인 FDN) · 초기 반사음 · Room Send · 도플러 · Spread 디코릴레이션</td></tr>
-    <tr><td>8.0–8.4 · 11.10</td><td><strong>Spatial Renderer</strong>: 시그널 레이트 스피커 모드, 최대 64스피커, SET UP OUTPUTS로 OUT 트랙 생성 · VBAP / DBAP / AMBI / WFS 오디오 구현 · OUTPUT MAP · Custom 레이아웃 · 선 모양 모듈레이션 · 스피커 TEST</td></tr>
-    <tr><td>7.1–7.5 · 11.09–10</td><td>씬을 Live 세트에 저장, 로케이터 연동, 크로스페이드 · OSC 송출 + Orbit Link In / Out · LOG 탭 출력 검사</td></tr>
-    <tr><td>7 · 11.08</td><td>움직임 7종, 선 모양, 경로 편집, UID, 메인 UI 통합 에디터, 팔레트, 머리 모델, 위키</td></tr>
-    <tr><td>· 2026.11</td><td>그래픽 스코어 테마, 사이드바 탭, 레이아웃 목록, 모니터 선택</td></tr>
+    <tr><th>버전</th><th>추가된 것</th></tr>
+    <tr><td>9.7</td><td>캔버스에서 바로 경로 그리기(EDIT PATH 버튼 없음), 고친 경로를 떠날 때 저장 확인 · 여러 오브젝트 선택, 그룹 A–D와 그룹 이동 · 설정 복사·붙여넣기 · 캔버스에서 오브젝트 드래그 · AIR, FAR THIN, NEAR BASS 거리감 조절 · Orbit Link로 트랙 색·이름 변경</td></tr>
+    <tr><td>9.6</td><td>곡선·스태거·룸을 포함한 씬 전환 · 퀀타이즈 · Live에서 Scene, Morph · <code>@이름</code> 클립 · 배치 변형 · 씬 미리보기와 썸네일 · 내보내기/불러오기 · Morph 패드 · XYZ 좌표 · 되돌리기</td></tr>
+    <tr><td>9.5</td><td>헤드폰 룸 · 최대 64스피커 · 룸 프리셋 · 실측 HRTF · 도플러 강조 · Orbit Link 트랜스포트와 카오스 값</td></tr>
+    <tr><td>9.0–9.4</td><td>헤드폰 근접 효과 · 거리 보정 · 귀 높이 · 미러가 있는 Custom 레이아웃 · Chaos 움직임 · Speed 효과 · 3D 룸 표시</td></tr>
+    <tr><td>8.x</td><td>Spatial Renderer: Live 안에서 스피커 재생, VBAP / DBAP / 앰비소닉스 / WFS · 리버브와 반사음 · 도플러 · Spread</td></tr>
+    <tr><td>7.x</td><td>움직임, 선 모양, 경로 편집 · 로케이터와 연결된 씬 · Orbit Link In / Out</td></tr>
   </table></div>
-  <p class="mono" style="color:var(--mid)">이전 설정 노트 (BlackHole · JACK) → <a href="archive.html?lang=ko">아카이브</a></p>
 </section>
 
 <footer>
@@ -1084,6 +1033,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="copy">© 2026 Iver Kim. All rights reserved.</div>
 </footer>
 </main>
+
 
 </div>
 <script>
