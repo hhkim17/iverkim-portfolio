@@ -284,7 +284,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>CHAOS</td><td>Follows a chaotic attractor: smooth, non-repeating, occasionally passing close to the listener. The reachable figure is drawn as dots</td></tr>
   </table></div>
   <p>The position is the centre of the motion. The settings column shows only the controls the selected motion uses.</p>
-  <p><strong>Position from Orbit Link</strong> — while another project sends an object's position (<a href="#link">06</a>), the object follows it: its MOTION buttons are greyed out and cannot be clicked, the motion settings are hidden, its position cannot be changed in the editor, and a note under MOTION says where the position comes from. About 1.5 s after the stream stops, everything returns. <span class="pill">ORBIT LINK: ON / OFF</span> next to MOTION ignores incoming positions for all objects.</p>
+  <p><strong>Orbit Link</strong> — while another project sends an object's position (<a href="#link">06</a>), its MOTION buttons and position are locked. <span class="pill">ORBIT LINK: ON / OFF</span> turns reception off.</p>
 
   <h3>Path</h3>
   <p>Shown and editable while the motion is PATH.</p>
@@ -459,7 +459,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Position Scale</td><td>Scale when the source is not in ring radii</td></tr>
     <tr><td>Objects</td><td>Objects it may move: <code>*</code>, <code>2</code>, <code>1-3 5</code></td></tr>
   </table></div>
-  <p>While positions arrive, those objects follow them instead of their own motion; in the editor their MOTION buttons are greyed out and cannot be clicked, and their position cannot be edited (<a href="#editor">02</a>). About 1.5 s after the stream stops they return to their own motion. Received positions are not saved in the set. <span class="pill">ORBIT LINK: ON / OFF</span> next to MOTION in the editor ignores all incoming positions.</p>
+  <p>While positions arrive, the objects follow them and their motion and position are locked in the editor. About 1.5 s after the stream stops, they return to their own motion. Received positions are not saved in the set.</p>
   <div class="note"><b>NOTE</b>Feeding OrbitLink_In's values back into OrbitLink_Out for the same objects creates a feedback loop. A UDP port can be opened by one program at a time.</div>
   <h3>OSC</h3>
   <p>Orbit Link is plain OSC and can be used from Max, Unity, Unreal, Resolume and others. Orbit Score sends to port <strong>9010</strong> and receives on <strong>9011</strong> (set on the <code>Spatialisation_test</code> component, Objects page). <code>n</code> = the object's number in Live's track order, from 1.</p>
@@ -732,7 +732,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>CHAOS</td><td>카오스 어트랙터를 따라감. 매끄럽고 반복되지 않으며 가끔 청취자 가까이 지나감. 지나갈 수 있는 범위가 점으로 표시됨</td></tr>
   </table></div>
   <p>위치는 움직임의 중심입니다. 설정 열에는 선택한 움직임에 쓰이는 항목만 표시됩니다.</p>
-  <p><strong>Orbit Link로 받는 위치</strong> — 다른 프로젝트가 오브젝트의 위치를 보내는 동안(<a href="#ko-link">06</a>) 오브젝트는 그 위치를 따릅니다. MOTION 버튼이 흐려지고 누를 수 없으며, 움직임 설정이 숨겨지고, 에디터에서 위치를 바꿀 수 없습니다. MOTION 아래에 위치를 받는 중이라는 안내가 표시됩니다. 전송이 멈추면 약 1.5초 뒤 원래대로 돌아옵니다. MOTION 옆의 <span class="pill">ORBIT LINK: ON / OFF</span>는 모든 오브젝트의 위치 수신을 무시합니다.</p>
+  <p><strong>Orbit Link</strong> — 다른 프로젝트에서 위치를 받는 동안(<a href="#ko-link">06</a>) 해당 오브젝트의 MOTION 버튼과 위치는 잠깁니다. <span class="pill">ORBIT LINK: ON / OFF</span>로 수신을 끕니다.</p>
 
   <h3>경로</h3>
   <p>움직임이 PATH일 때 표시되고 편집할 수 있습니다.</p>
@@ -907,7 +907,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Position Scale</td><td>입력 단위가 링 반지름이 아닐 때의 배율</td></tr>
     <tr><td>Objects</td><td>움직일 오브젝트: <code>*</code>, <code>2</code>, <code>1-3 5</code></td></tr>
   </table></div>
-  <p>위치가 들어오는 동안 해당 오브젝트는 자체 움직임 대신 그 위치를 따르며, 에디터에서 MOTION 버튼이 흐려져 누를 수 없고 위치도 편집할 수 없습니다(<a href="#ko-editor">02</a>). 전송이 멈추면 약 1.5초 뒤 자체 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다. 에디터 MOTION 옆의 <span class="pill">ORBIT LINK: ON / OFF</span>는 들어오는 위치를 모두 무시합니다.</p>
+  <p>위치를 받는 동안 오브젝트는 그 위치를 따르며, 에디터에서 움직임과 위치가 잠깁니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다.</p>
   <div class="note"><b>NOTE</b>같은 오브젝트의 OrbitLink_In 값을 OrbitLink_Out으로 되돌리면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
   <h3>OSC</h3>
   <p>Orbit Link는 일반 OSC로 Max, Unity, Unreal, Resolume 등에서도 사용할 수 있습니다. Orbit Score는 <strong>9010</strong> 포트로 보내고 <strong>9011</strong>에서 받습니다(<code>Spatialisation_test</code> 컴포넌트의 Objects 페이지에서 설정). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
