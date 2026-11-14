@@ -446,8 +446,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <p>While positions arrive, those objects follow them instead of their own motion; the editor greys out their motions and shows a note. When the stream stops they glide back after about 1.5 s. Streamed positions are not saved in the set. <span class="pill">ORBIT LINK: ON / OFF</span> next to MOTION in the editor ignores all incoming positions without touching the sender.</p>
   <div class="note"><b>NOTE</b>Don't send an Orbit Link In's values straight back through Orbit Link Out for the same objects — that makes a feedback loop. One UDP port can only be opened by one program; give a second receiver its own port.</div>
-  <h3>Example project</h3>
-  <p><code>test Audiovisual.toe</code> shows three ways to use it: balls bouncing on water at the objects' positions, a fluid simulation stirred by the objects (it also <em>sends</em> positions back), and drifting dust lit by the objects. All three react to scene changes.</p>
+  
   <h3>Other software (plain OSC)</h3>
   <p>Orbit Link is plain OSC, usable from Max, Unity, Unreal, Resolume and others. Ports: Orbit Score sends to <strong>9010</strong> and listens on <strong>9011</strong> (change them on the <code>Spatialisation_test</code> component, Objects page). <code>n</code> = the object's number in Live's track order, starting at 1.</p>
   <div class="tw"><table>
@@ -883,8 +882,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </ol>
   <p>위치가 들어오는 동안 해당 오브젝트는 자기 움직임 대신 그 위치를 따르고, 에디터에서는 움직임 버튼이 흐려지며 안내가 표시됩니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다. 에디터 MOTION 옆의 <span class="pill">ORBIT LINK: ON / OFF</span>는 보내는 쪽을 건드리지 않고 들어오는 위치를 모두 무시합니다.</p>
   <div class="note"><b>NOTE</b>같은 오브젝트의 Orbit Link In 값을 Orbit Link Out으로 바로 되돌려 보내면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있으니 두 번째 수신기에는 다른 포트를 주세요.</div>
-  <h3>예제 프로젝트</h3>
-  <p><code>test Audiovisual.toe</code>에 세 가지 예가 있습니다. 오브젝트 위치에서 물 위로 튀는 공, 오브젝트가 휘젓는 유체 시뮬레이션(위치를 직접 만들어 <em>보내는</em> 예이기도 합니다), 오브젝트 빛을 받아 떠다니는 먼지. 셋 다 씬 전환에 반응합니다.</p>
+  
   <h3>다른 프로그램 (일반 OSC)</h3>
   <p>Orbit Link는 일반 OSC라서 Max, Unity, Unreal, Resolume 등에서도 쓸 수 있습니다. 포트: Orbit Score는 <strong>9010</strong>으로 보내고 <strong>9011</strong>에서 받습니다 (<code>Spatialisation_test</code> 컴포넌트의 Objects 페이지에서 변경). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
   <div class="tw"><table>
