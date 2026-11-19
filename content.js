@@ -64,7 +64,6 @@ const content = {
             year: '2024 – 2025',
             role: 'Sound track for Sungyeon Kim’s wearable object performances',
             venue: 'Studio Theatre, London, UK · The Performance Kitchen, Copenhagen, DK',
-            link: { label: 'sungyeonkim.com', href: 'https://www.sungyeonkim.com' },
             text: '<Not One, Not Two> is a somatic performance and sculptural environment that reimagines the body not as an isolated entity, but as a cellular node within a larger ecology of movement, matter, and memory. Working with inflatable latex forms, metal installations, and choreographies of shared weight, the piece enacts a slow unfolding of relation between performers, objects, and the porous space they co-inhabit.',
             videos: [AST + 'QKL8QyRIvebAHZtJgtrtfjI5A.mp4', AST + 'Fht44fgmsHnezuWVGStBEUmzRQ.mp4'],
             images: [IMG + 'dEwo59NusNgG6KvxREenJdJtw.jpg', IMG + 'LBd3v91zOAXflvha7F53gSmP6yM.jpg', IMG + 'IO01o6cEHAuaWxKCt0JYsooc.jpg']
@@ -74,7 +73,6 @@ const content = {
             year: '2024',
             role: 'Sound track for Sungyeon Kim’s performance work',
             venue: 'Platform Theatre, London, UK',
-            link: { label: 'sungyeonkim.com', href: 'https://www.sungyeonkim.com' },
             text: 'A score written for the stage — a listening environment scaled down to the size of a cell, then amplified until the room becomes the body.',
             videos: [AST + 'CA8qJ49E3zLJ3TjZaRkmZHkPm5I.mp4'],
             images: [IMG + 'KeLqnTFbs4ssts5clZyvItRnA.jpg'],
@@ -143,7 +141,7 @@ const content = {
               ],
               links: [
                 { label: 'listen on bandcamp', href: 'https://deepdronedreamer.bandcamp.com/album/theres-no-wifi-in-the-barn' },
-                { label: 'press \u2014 Korean Indie interview', href: 'https://www.koreanindie.com/2025/02/04/interview-with-deep-drone-dreamer-d%C2%B3/' }, { label: 'press \u2014 AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' }, { label: 'press \u2014 mixmag korea', href: 'http://mixmag.kr/6857' },
+                { label: 'press \u2014 Korean Indie interview', href: 'https://www.koreanindie.com/2025/02/04/interview-with-deep-drone-dreamer-d%C2%B3/' }, { label: 'press \u2014 AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' }, { label: 'press \u2014 mixmag korea', href: 'https://web.archive.org/web/20260216171726/http://mixmag.kr/6857' },
                 { label: 'roof of air', href: 'https://roofofair.bandcamp.com' }
               ],
               about: {
@@ -183,7 +181,7 @@ const content = {
               links: [
                 { label: 'listen on bandcamp', href: 'https://deepdronedreamer.bandcamp.com/track/distant-dawn-dim' },
                 { label: 'press \u2014 AVYSS magazine', href: 'https://avyss-magazine.com/2024/03/11/50191/' },
-                { label: 'press \u2014 mixmag korea', href: 'http://mixmag.kr/6857' }
+                { label: 'press \u2014 mixmag korea', href: 'https://web.archive.org/web/20260216171726/http://mixmag.kr/6857' }
               ]
             }
           },
