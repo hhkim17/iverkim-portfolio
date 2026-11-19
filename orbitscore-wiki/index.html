@@ -415,13 +415,23 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>GO</td><td>Recalls the scene</td></tr>
     <tr><td>UPDATE</td><td>Overwrites the scene with the current state</td></tr>
     <tr><td>Thumbnail</td><td>Top view of the scene; hovering shows its positions as ghosts in the 3D view</td></tr>
-    <tr><td>FADE</td><td>Crossfade length: CUT or 1–16 beats, per scene</td></tr>
+
     <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — while Live plays, a recall waits for the next beat or bar</td></tr>
-    <tr><td>⋯</td><td><strong>CURVE</strong> linear · smooth · ease in · ease out · <strong>AROUND</strong> the listener / <strong>THROUGH</strong> the room · <strong>STAGGER</strong> objects start one after another · <strong>ROOM</strong> the scene includes the room</td></tr>
+    <tr><td>⋯</td><td>Opens the scene's transition window (below)</td></tr>
     <tr><td>INCLUDE</td><td>One chip per object; faded chips are left out of captures and updates</td></tr>
     <tr><td>OTHERS</td><td>Objects not in the recalled scene: <strong>MUTE + HIDE</strong> or <strong>KEEP</strong></td></tr>
     <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>Variations of the current arrangement</td></tr>
     <tr><td>EXPORT · IMPORT</td><td>All scenes of the set to a file, and back</td></tr>
+  </table></div>
+  <h3>Transition window</h3>
+  <p>How the objects move into a scene, set per scene with its <span class="pill">⋯</span>.</p>
+  <div class="tw"><table>
+    <tr><th>Control</th><th>Function</th></tr>
+    <tr><td>FADE</td><td>Length: CUT or 1–16 beats</td></tr>
+    <tr><td>CURVE</td><td>LINEAR · SMOOTH · EASE IN · EASE OUT · DRAWN. The graph shows the move from BEFORE to THIS SCENE over time; drawing on it makes the curve DRAWN, which may overshoot. STRAIGHT resets a drawn curve</td></tr>
+    <tr><td>PATH</td><td>AROUND YOU (around the listener) or STRAIGHT THROUGH (a straight line across the room)</td></tr>
+    <tr><td>STAGGER</td><td>Objects start one after another, ¼–2 beats apart</td></tr>
+    <tr><td>ROOM</td><td>LEAVE AS IS, or CHANGE WITH SCENE (the room as it is now is stored with the scene)</td></tr>
   </table></div>
   <p>During a transition, values change gradually; a change of motion crossfades the position between the old and new movement; a point grows into a line and back.</p>
   <h3>Morph pad</h3>
@@ -863,13 +873,23 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>GO</td><td>씬 불러오기</td></tr>
     <tr><td>UPDATE</td><td>현재 상태로 씬 덮어쓰기</td></tr>
     <tr><td>썸네일</td><td>위에서 본 씬. 마우스를 올리면 3D 뷰에 위치가 반투명하게 표시</td></tr>
-    <tr><td>FADE</td><td>크로스페이드 길이: CUT 또는 1–16박, 씬별</td></tr>
+
     <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — Live 재생 중에는 다음 박이나 마디에 맞춰 불러옴</td></tr>
-    <tr><td>⋯</td><td><strong>CURVE</strong> linear · smooth · ease in · ease out · <strong>AROUND</strong> 청취자를 돌아서 / <strong>THROUGH</strong> 공간을 가로질러 · <strong>STAGGER</strong> 오브젝트가 차례로 출발 · <strong>ROOM</strong> 룸 설정 포함</td></tr>
+    <tr><td>⋯</td><td>씬의 전환 창 열기 (아래)</td></tr>
     <tr><td>INCLUDE</td><td>오브젝트별 칩. 흐린 칩은 캡처와 업데이트에서 제외</td></tr>
     <tr><td>OTHERS</td><td>불러온 씬에 없는 오브젝트: <strong>MUTE + HIDE</strong> 또는 <strong>KEEP</strong></td></tr>
     <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>현재 배치의 변형</td></tr>
     <tr><td>EXPORT · IMPORT</td><td>세트의 모든 씬을 파일로 내보내기 · 불러오기</td></tr>
+  </table></div>
+  <h3>전환 창</h3>
+  <p>오브젝트가 씬으로 옮겨가는 방식입니다. 씬마다 <span class="pill">⋯</span>로 엽니다.</p>
+  <div class="tw"><table>
+    <tr><th>컨트롤</th><th>기능</th></tr>
+    <tr><td>FADE</td><td>길이: CUT 또는 1–16박</td></tr>
+    <tr><td>CURVE</td><td>LINEAR · SMOOTH · EASE IN · EASE OUT · DRAWN. 그래프는 시간에 따라 BEFORE에서 THIS SCENE으로 가는 모양입니다. 그래프에 그리면 DRAWN이 되며 목표를 넘었다 돌아오는 모양도 가능합니다. STRAIGHT는 그린 곡선을 직선으로 되돌립니다</td></tr>
+    <tr><td>PATH</td><td>AROUND YOU(청취자를 돌아서) 또는 STRAIGHT THROUGH(공간을 직선으로 가로질러)</td></tr>
+    <tr><td>STAGGER</td><td>오브젝트가 ¼–2박 간격으로 차례로 출발</td></tr>
+    <tr><td>ROOM</td><td>LEAVE AS IS 또는 CHANGE WITH SCENE(지금의 룸 설정을 씬에 함께 저장)</td></tr>
   </table></div>
   <p>전환 중에는 값이 서서히 바뀌고, 움직임이 바뀌면 이전 움직임과 새 움직임 사이에서 위치가 크로스페이드되며, 점은 선으로 늘어나고 줄어듭니다.</p>
   <h3>Morph 패드</h3>
