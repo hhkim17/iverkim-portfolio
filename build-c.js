@@ -340,13 +340,24 @@ audio{width:100%;max-width:460px;margin-top:12px;height:34px}
   .wrow .wv,.wrow .wm{grid-column:2;text-align:left}
   .rel{grid-template-columns:56px minmax(0,1fr);gap:12px}
   .rel .ra,.rel .rd{grid-column:2;text-align:left}
-  .detail{grid-template-columns:1fr;gap:20px}
+  .detail{grid-template-columns:minmax(0,1fr);gap:20px}
   .d3{grid-template-columns:1fr;gap:18px}
   .statement{grid-template-columns:1fr;gap:6px}
   .relhead{grid-template-columns:1fr;gap:18px}
   .relhead .art{max-width:260px}
   .toc{grid-template-columns:1fr}
   .plates{grid-template-columns:repeat(2,1fr)}
+  /* phones: grids fill the width two-up instead of one narrow column */
+  .tiles,.tiles.covers{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px;row-gap:20px}
+  .tiles figure,.tiles.covers figure{max-width:none}
+  .rescover{width:100%}
+  /* the picker becomes one swipeable row so the image is not pushed a screen down */
+  .picker{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:50px;overflow-x:auto;scrollbar-width:none}
+  .picker::-webkit-scrollbar{display:none}
+  .cve{display:grid;grid-template-columns:4.8em minmax(0,1fr);column-gap:8px}
+  .cve .y{margin-right:0}
+  .viewer{height:calc(100svh - 150px);min-height:0}
+  .viewer .plate{align-items:flex-start}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 `;
