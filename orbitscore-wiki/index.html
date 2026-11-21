@@ -243,7 +243,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">01.2 — TouchDesigner</div>
   <h3 class="subh">TouchDesigner</h3>
   <p>The Orbit Score project (<code>.toe</code>) connects to Live automatically when both are open. The tracks with a Spatial Object are listed on the <span class="pill">LIVE</span> tab in Live's track order and shown as coloured points in the 3D view.</p>
-  <p>The top bar switches between <span class="pill on">3D VIEW</span> and <span class="pill">OBJECT EDITOR</span>. In the 3D view, drag to orbit and scroll to zoom. Value buttons such as <span class="mono">1.5 s</span> are changed by pressing and dragging up or down. Perform mode (<kbd>F1</kbd>) gives the smoothest display.</p>
+  <p>In the 3D view, drag to orbit and scroll to zoom. Value buttons such as <span class="mono">1.5 s</span> are changed by pressing and dragging up or down. Perform mode (<kbd>F1</kbd>) gives the smoothest display.</p>
   <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
   </section>
 
@@ -264,12 +264,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">02 — Object editor</div>
   <h2>Object editor</h2>
   <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — Object list · canvas · settings</figcaption></figure>
-  <p>The editor has three columns: the object list, the canvas (the space seen from above, listener in the centre, front at the top) and the settings of the selected object. Edits are written to the Spatial Object in Live; changes made in Live appear here.</p>
+  <p>The canvas shows the space from above: listener in the centre, front at the top. Edits are written to the Spatial Object in Live; changes made in Live appear here.</p>
 
   <h3>Position</h3>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
-    <tr><td>Click (list or canvas)</td><td>Selects an object</td></tr>
     <tr><td>Drag a point on the canvas</td><td>Moves the object</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>Drag up / down to change; double-click to type (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels)</td></tr>
     <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>Shows the position as azimuth / elevation / distance or as X right · Y front · Z up</td></tr>
@@ -295,7 +294,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Click on empty canvas</td><td>Adds a point</td></tr>
     <tr><td>Drag · right-click a point</td><td>Moves it · deletes it</td></tr>
     <tr><td>CURVE / CORNER</td><td>Smooth point (●) or sharp corner (■)</td></tr>
-    <tr><td>POINT HEIGHT</td><td>Height of the selected point</td></tr>
     <tr><td>PATH LENGTH</td><td>Bars per pass, 1–64</td></tr>
     <tr><td>LOOP · PING-PONG · ONCE</td><td>Behaviour at the end of the path</td></tr>
     <tr><td>PATH: OPEN / CLOSED</td><td>Whether the last point joins the first</td></tr>
@@ -309,12 +307,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + click</td><td>Adds an object to the selection. Settings apply to all selected objects; dragging moves them together</td></tr>
     <tr><td>A · B · C · D</td><td>Groups. An empty letter stores the selection; a stored letter selects its group</td></tr>
     <tr><td>SET · CLR</td><td>Followed by a letter: overwrite · empty that group</td></tr>
-    <tr><td>ROT L · ROT R</td><td>Rotates the selection around the listener</td></tr>
-    <tr><td>NEAR · FAR</td><td>Moves the selection closer · further</td></tr>
-    <tr><td>TIGHT · WIDE</td><td>Draws the objects together · spreads them apart</td></tr>
-    <tr><td>UP · DOWN</td><td>Raises · lowers the selection</td></tr>
+    <tr><td>ROT L / R · NEAR / FAR · TIGHT / WIDE · UP / DOWN</td><td>Move the whole selection: rotate around the listener, closer or further, together or apart, higher or lower</td></tr>
   </table></div>
-  <p>Paths move with their objects.</p>
 
   <h3>Copy and paste</h3>
   <p><span class="pill">COPY</span> (<kbd>Ctrl</kbd>+<kbd>C</kbd>) copies the selected object's motion, shape, sound settings and path. <span class="pill">PASTE</span> (<kbd>Ctrl</kbd>+<kbd>V</kbd>) applies them to the selected objects. Position is not copied.</p>
@@ -329,7 +323,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
   <h3>Undo and backup</h3>
   <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (<kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> with the mouse over the editor) cover edits made in the editor, up to 60 steps. Changes made in Live and scene recalls are not included. <span class="pill">SAVE</span> stores a backup of every object; <span class="pill">LOAD LAST</span> restores it.</p>
-  <p>The <span class="pill">›</span> strips fold the settings column and the sidebar.</p>
 </section>
 
 <!-- 03 -->
@@ -346,7 +339,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SPEAKERS tab</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
-    <tr><td>SPEAKER LAYOUT</td><td>The speaker layout</td></tr>
     <tr><td>SET UP OUTPUTS</td><td>Creates the <code>OUT 1/2</code>, <code>OUT 3/4</code> … tracks in Live and routes them to the interface. Repeat after changing the layout</td></tr>
     <tr><td>Status line</td><td><span class="mono">✓ renderer → OUT tracks → Live outputs</span> when complete, otherwise what is missing</td></tr>
     <tr><td>TEST · &lt; · &gt; · AUTO</td><td>Pink noise from one speaker at a time; the 3D view shows the speaker number</td></tr>
@@ -412,7 +404,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Control</th><th>Function</th></tr>
     <tr><td>+ CAPTURE</td><td>New scene from the current state, with a locator at the playhead</td></tr>
     <tr><td>Scene name</td><td>Click to rename the scene and its locator</td></tr>
-    <tr><td>GO</td><td>Recalls the scene</td></tr>
     <tr><td>UPDATE</td><td>Overwrites the scene with the current state</td></tr>
     <tr><td>Thumbnail</td><td>Top view of the scene; hovering shows its positions as ghosts in the 3D view</td></tr>
 
@@ -441,7 +432,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Control</th><th>Function</th></tr>
     <tr><td>Scene</td><td>Recalls a scene by number; can be automated or mapped</td></tr>
     <tr><td>Morph A · Morph B · Morph</td><td>Blend between two scenes: 0 = A, 100 = B</td></tr>
-    <tr><td>Quantize</td><td>Off · Beat · Bar</td></tr>
     <tr><td>Clip named <code>@Name</code></td><td>Launching a Session clip whose name starts with <code>@</code> recalls the scene of that name</td></tr>
   </table></div>
   <h3>Timeline bar</h3>
@@ -467,7 +457,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>A TouchDesigner component that moves objects from another project. Its input takes a CHOP with channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or a CHOP with one sample per object from POP to CHOP / SOP to CHOP (<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code> or <code>x y z</code>; sample 0 = object 1).</p>
   <div class="tw"><table>
     <tr><th>Parameter</th><th>Function</th></tr>
-    <tr><td>Send Enable</td><td>Starts sending</td></tr>
     <tr><td>Position Scale</td><td>Scale when the source is not in ring radii</td></tr>
     <tr><td>Objects</td><td>Objects it may move: <code>*</code>, <code>2</code>, <code>1-3 5</code></td></tr>
   </table></div>
@@ -500,10 +489,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Sidebar tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / headphones / speakers · <strong>MASTER</strong> volume and MUTE · connection status · <strong>TRACKS</strong>: show / hide, name label, mute, colour, level</td></tr>
-    <tr><td>SPEAKERS</td><td>Speaker layout and custom table · SET UP OUTPUTS · OUTPUT MAP · TEST · SPEAKER DISTANCE · DIST COMP (<a href="#speakers">03</a>)</td></tr>
-    <tr><td>SPACE</td><td>Panning model · room · ear height · Doppler emphasis · AIR, FAR THIN, NEAR BASS (<a href="#render">04</a>)</td></tr>
     <tr><td>VIEW</td><td>Camera auto-orbit, reset, light / dark theme · show names, ears, head, dome, room, trails</td></tr>
-    <tr><td>SCENES</td><td>Scenes and the morph pad (<a href="#scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
@@ -537,16 +523,12 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Spatial Master</h3>
   <figure><img src="media/dev-master.jpg?v=1110e" alt="Spatial Master device in Live" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 8.2 — Spatial Master</figcaption></figure>
   <ul>
-    <li><strong>Mode</strong> Off · Binaural · Speakers — the same as MONITOR on the screen.</li>
-    <li><strong>Scene · Morph A · Morph B · Morph · Quantize</strong> — scenes from Live (<a href="#scenes">05</a>).</li>
     <li>Keeps the scenes in the set and connects the set to the screen (OSC port 9001; the screen answers on 9002).</li>
   </ul>
   <h3>Spatial Renderer</h3>
   <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Spatial Renderer device in Live" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 8.3 — Spatial Renderer</figcaption></figure>
   <ul>
-    <li>One per set, on its own empty audio track <code>ORBIT RENDER</code>, output on Main.</li>
     <li>Speakers: up to 16 objects in, 64 speakers out, through the <code>OUT</code> tracks. It sets up the object tracks' routing by itself.</li>
-    <li>Headphones: adds the room to the objects' binaural sound.</li>
   </ul>
 </section>
 
@@ -701,7 +683,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">01.2 — TouchDesigner</div>
   <h3 class="subh">TouchDesigner</h3>
   <p>Orbit Score 프로젝트(<code>.toe</code>)는 Live와 함께 열려 있으면 자동으로 연결됩니다. Spatial Object가 있는 트랙이 Live 순서대로 <span class="pill">LIVE</span> 탭에 나열되고, 3D 뷰에 색 점으로 표시됩니다.</p>
-  <p>상단 바에서 <span class="pill on">3D VIEW</span>와 <span class="pill">OBJECT EDITOR</span>를 전환합니다. 3D 뷰에서 드래그는 시점 회전, 스크롤은 확대·축소입니다. <span class="mono">1.5 s</span> 같은 값 버튼은 누른 채 위아래로 드래그해 바꿉니다. Perform 모드(<kbd>F1</kbd>)에서 화면이 가장 부드럽습니다.</p>
+  <p>3D 뷰에서 드래그는 시점 회전, 스크롤은 확대·축소입니다. <span class="mono">1.5 s</span> 같은 값 버튼은 누른 채 위아래로 드래그해 바꿉니다. Perform 모드(<kbd>F1</kbd>)에서 화면이 가장 부드럽습니다.</p>
   <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
   </section>
 
@@ -722,12 +704,11 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="cap">02 — Object editor</div>
   <h2>오브젝트 에디터</h2>
   <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — 오브젝트 목록 · 캔버스 · 설정</figcaption></figure>
-  <p>에디터는 세 열로 되어 있습니다: 오브젝트 목록, 캔버스(위에서 본 공간, 가운데가 청취자, 위쪽이 정면), 선택한 오브젝트의 설정. 편집한 값은 Live의 Spatial Object에 기록되고, Live에서 바꾼 값은 여기 반영됩니다.</p>
+  <p>캔버스는 위에서 본 공간입니다(가운데가 청취자, 위쪽이 정면). 편집한 값은 Live의 Spatial Object에 기록되고, Live에서 바꾼 값은 여기 반영됩니다.</p>
 
   <h3>위치</h3>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
-    <tr><td>클릭 (목록 또는 캔버스)</td><td>오브젝트 선택</td></tr>
     <tr><td>캔버스의 점 드래그</td><td>오브젝트 이동</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>위아래 드래그로 변경, 더블클릭으로 입력 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소)</td></tr>
     <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>위치를 방위/고도/거리 또는 X 오른쪽 · Y 정면 · Z 위로 표시</td></tr>
@@ -753,7 +734,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>캔버스 빈 곳 클릭</td><td>점 추가</td></tr>
     <tr><td>점 드래그 · 우클릭</td><td>이동 · 삭제</td></tr>
     <tr><td>CURVE / CORNER</td><td>부드러운 점(●) 또는 꺾인 점(■)</td></tr>
-    <tr><td>POINT HEIGHT</td><td>선택한 점의 높이</td></tr>
     <tr><td>PATH LENGTH</td><td>한 바퀴의 마디 수, 1–64</td></tr>
     <tr><td>LOOP · PING-PONG · ONCE</td><td>경로 끝에서의 동작</td></tr>
     <tr><td>PATH: OPEN / CLOSED</td><td>마지막 점과 첫 점의 연결 여부</td></tr>
@@ -767,12 +747,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + 클릭</td><td>선택에 추가. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 이동</td></tr>
     <tr><td>A · B · C · D</td><td>그룹. 빈 글자는 현재 선택을 저장, 저장된 글자는 그 그룹을 선택</td></tr>
     <tr><td>SET · CLR</td><td>이어서 글자를 누르면 덮어쓰기 · 비우기</td></tr>
-    <tr><td>ROT L · ROT R</td><td>선택을 청취자 주위로 회전</td></tr>
-    <tr><td>NEAR · FAR</td><td>선택을 가깝게 · 멀게</td></tr>
-    <tr><td>TIGHT · WIDE</td><td>오브젝트 간격 좁히기 · 넓히기</td></tr>
-    <tr><td>UP · DOWN</td><td>선택을 높이기 · 낮추기</td></tr>
+    <tr><td>ROT L / R · NEAR / FAR · TIGHT / WIDE · UP / DOWN</td><td>선택 전체 이동: 청취자 주위로 회전, 가깝게·멀게, 모으기·벌리기, 높이기·낮추기</td></tr>
   </table></div>
-  <p>경로는 오브젝트와 함께 이동합니다.</p>
 
   <h3>복사와 붙여넣기</h3>
   <p><span class="pill">COPY</span>(<kbd>Ctrl</kbd>+<kbd>C</kbd>)는 선택한 오브젝트의 움직임, 모양, 사운드 설정, 경로를 복사하고, <span class="pill">PASTE</span>(<kbd>Ctrl</kbd>+<kbd>V</kbd>)는 선택한 오브젝트에 적용합니다. 위치는 복사되지 않습니다.</p>
@@ -787,7 +763,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 
   <h3>되돌리기와 백업</h3>
   <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(마우스가 에디터 위에 있을 때 <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>)는 에디터에서의 편집을 최대 60단계까지 되돌립니다. Live에서 바꾼 값과 씬 불러오기는 포함되지 않습니다. <span class="pill">SAVE</span>는 모든 오브젝트의 백업을 저장하고, <span class="pill">LOAD LAST</span>는 이를 복원합니다.</p>
-  <p><span class="pill">›</span> 띠로 설정 열과 사이드바를 접습니다.</p>
 </section>
 
 <!-- 03 -->
@@ -804,7 +779,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SPEAKERS 탭</h3>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
-    <tr><td>SPEAKER LAYOUT</td><td>스피커 레이아웃</td></tr>
     <tr><td>SET UP OUTPUTS</td><td>Live에 <code>OUT 1/2</code>, <code>OUT 3/4</code> … 트랙을 만들고 인터페이스로 라우팅. 레이아웃 변경 후 다시 실행</td></tr>
     <tr><td>상태 표시</td><td>완료 시 <span class="mono">✓ renderer → OUT tracks → Live outputs</span>, 아니면 빠진 항목</td></tr>
     <tr><td>TEST · &lt; · &gt; · AUTO</td><td>스피커별 핑크 노이즈. 3D 뷰에 스피커 번호 표시</td></tr>
@@ -870,7 +844,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>컨트롤</th><th>기능</th></tr>
     <tr><td>+ CAPTURE</td><td>현재 상태로 새 씬 생성, 재생 헤드 위치에 로케이터 추가</td></tr>
     <tr><td>씬 이름</td><td>클릭해 씬과 로케이터 이름 변경</td></tr>
-    <tr><td>GO</td><td>씬 불러오기</td></tr>
     <tr><td>UPDATE</td><td>현재 상태로 씬 덮어쓰기</td></tr>
     <tr><td>썸네일</td><td>위에서 본 씬. 마우스를 올리면 3D 뷰에 위치가 반투명하게 표시</td></tr>
 
@@ -899,7 +872,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>컨트롤</th><th>기능</th></tr>
     <tr><td>Scene</td><td>번호로 씬 불러오기. 오토메이션·매핑 가능</td></tr>
     <tr><td>Morph A · Morph B · Morph</td><td>두 씬 사이 블렌드: 0 = A, 100 = B</td></tr>
-    <tr><td>Quantize</td><td>Off · Beat · Bar</td></tr>
     <tr><td>클립 이름 <code>@이름</code></td><td>이름이 <code>@</code>로 시작하는 세션 클립을 실행하면 같은 이름의 씬을 불러옴</td></tr>
   </table></div>
   <h3>타임라인 바</h3>
@@ -925,7 +897,6 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력에는 OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …)을 가진 CHOP, 또는 POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플 하나인 CHOP(<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code>; 샘플 0 = 오브젝트 1)을 연결합니다.</p>
   <div class="tw"><table>
     <tr><th>파라미터</th><th>기능</th></tr>
-    <tr><td>Send Enable</td><td>전송 시작</td></tr>
     <tr><td>Position Scale</td><td>입력 단위가 링 반지름이 아닐 때의 배율</td></tr>
     <tr><td>Objects</td><td>움직일 오브젝트: <code>*</code>, <code>2</code>, <code>1-3 5</code></td></tr>
   </table></div>
@@ -958,10 +929,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>사이드바 탭</th><th>내용</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> 끔 / 헤드폰 / 스피커 · <strong>MASTER</strong> 볼륨과 MUTE · 연결 상태 · <strong>TRACKS</strong>: 표시, 이름표, 뮤트, 색, 레벨</td></tr>
-    <tr><td>SPEAKERS</td><td>스피커 레이아웃과 Custom 표 · SET UP OUTPUTS · OUTPUT MAP · TEST · SPEAKER DISTANCE · DIST COMP (<a href="#ko-speakers">03</a>)</td></tr>
-    <tr><td>SPACE</td><td>패닝 모델 · 룸 · 귀 높이 · 도플러 강조 · AIR, FAR THIN, NEAR BASS (<a href="#ko-render">04</a>)</td></tr>
     <tr><td>VIEW</td><td>카메라 자동 회전, 리셋, 밝은/어두운 테마 · 이름, 귀, 머리, 돔, 룸, 궤적 표시</td></tr>
-    <tr><td>SCENES</td><td>씬과 Morph 패드 (<a href="#ko-scenes">05</a>)</td></tr>
     <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
@@ -995,16 +963,12 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Spatial Master</h3>
   <figure><img src="media/dev-master.jpg?v=1110e" alt="Live의 Spatial Master 디바이스" loading="lazy" width="258" height="212" style="max-width:258px"><figcaption>FIG. 8.2 — Spatial Master</figcaption></figure>
   <ul>
-    <li><strong>Mode</strong> Off · Binaural · Speakers — 화면의 MONITOR와 같습니다.</li>
-    <li><strong>Scene · Morph A · Morph B · Morph · Quantize</strong> — Live에서 씬 다루기 (<a href="#ko-scenes">05</a>).</li>
     <li>씬을 세트에 보관하고, 세트와 화면을 연결합니다 (OSC 포트 9001, 화면은 9002로 응답).</li>
   </ul>
   <h3>Spatial Renderer</h3>
   <figure><img src="media/dev-renderer.jpg?v=1110e" alt="Live의 Spatial Renderer 디바이스" loading="lazy" width="271" height="193" style="max-width:271px"><figcaption>FIG. 8.3 — Spatial Renderer</figcaption></figure>
   <ul>
-    <li>세트에 하나, 전용 빈 오디오 트랙 <code>ORBIT RENDER</code>에 두고 출력은 Main.</li>
     <li>스피커: 오브젝트 최대 16개 입력, 스피커 64개 출력(<code>OUT</code> 트랙 경유). 오브젝트 트랙의 라우팅은 자동으로 설정됩니다.</li>
-    <li>헤드폰: 오브젝트의 바이노럴 소리에 룸을 더합니다.</li>
   </ul>
 </section>
 
