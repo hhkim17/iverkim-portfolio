@@ -316,7 +316,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Shape and sound</h3>
   <div class="tw"><table>
     <tr><th>Section</th><th>Controls</th></tr>
-    <tr><td>SHAPE</td><td>POINT or LINE (a source along a line) · LENGTH · ROTATE · TILT · FACE CENTER (turns with the object to face the listener) / FIXED · ROT and TILT modulation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box). LINE and BOX show: LENGTH, or WIDTH · DEPTH · HEIGHT for a box · FACE CENTER (turns with the object to face the listener) / FIXED · RX · RY · RZ, the rotation about the right, front and up axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#render">04</a>, <a href="#devices">08</a>)</td></tr>
   </table></div>
   <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="Editor settings: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — Settings of a LINE object on RANDOM</figcaption></figure>
@@ -467,7 +467,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Sent → 9010</th><th>Arguments</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · azimuth elevation distance</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line · radius units per second</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line / 2 box · radius units per second</td></tr>
     <tr><td>/orbit/n/chaos</td><td>x y z of a CHAOS object's attractor (about −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>number of objects · layout id, speaker count</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>active scene · all scene names · from, to, progress 0–1 during a transition</td></tr>
@@ -511,9 +511,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>For Chaos motion. Lorenz swings between left and right, Rossler spirals and shoots up, Thomas wanders evenly. Chaos Shape changes the figure</td></tr>
-    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>A point, or a line source through the centre</td></tr>
-    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>Direction of the line</td></tr>
-    <tr><td>Rotate Mod · Tilt Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>Lets the line's angle move by itself</td></tr>
+    <tr><td>Shape · Length · Depth · Height</td><td>Point / Line / Box · 0–2 each</td><td>A point, a line source through the centre, or a box (Length is its width)</td></tr>
+    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>±180° each · Centre / Fixed</td><td>Rotation about the X, Y and Z axis (RX · RY · RZ in the editor). Rot X turns a line about itself, so only a box shows it</td></tr>
+    <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>Lets each angle move by itself</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>Speakers: a wider, enveloping source instead of a point</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the shared room the object gets</td></tr>
     <tr><td>Air</td><td>on / off</td><td>High-frequency loss with distance</td></tr>
@@ -756,7 +756,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>모양과 사운드</h3>
   <div class="tw"><table>
     <tr><th>섹션</th><th>컨트롤</th></tr>
-    <tr><td>SHAPE</td><td>POINT 또는 LINE(선을 따라 펼쳐진 음원) · LENGTH · ROTATE · TILT · FACE CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED · ROT·TILT 모듈레이션(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원). LINE과 BOX에서 표시: LENGTH, 상자는 WIDTH · DEPTH · HEIGHT · FACE CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED · RX · RY · RZ(오른쪽·앞·위 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#ko-render">04</a>, <a href="#ko-devices">08</a>)</td></tr>
   </table></div>
   <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 LINE 오브젝트의 설정</figcaption></figure>
@@ -907,7 +907,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>송신 → 9010</th><th>인자</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · 방위 고도 거리</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 · 초당 반지름 단위</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 / 2 상자 · 초당 반지름 단위</td></tr>
     <tr><td>/orbit/n/chaos</td><td>CHAOS 오브젝트의 어트랙터 x y z (약 −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>현재 씬 · 모든 씬 이름 · 전환 중 from, to, 진행도 0–1</td></tr>
@@ -951,9 +951,9 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>Chaos 움직임용. Lorenz는 좌우를 오가고, Rossler는 나선을 그리다 위로 튀고, Thomas는 고르게 떠돕니다. Chaos Shape는 모양을 바꿉니다</td></tr>
-    <tr><td>Shape · Length</td><td>Point / Line · 0–2</td><td>점 음원 또는 중심을 지나는 선 음원</td></tr>
-    <tr><td>Rotate · Tilt · Facing</td><td>±180° · ±90° · Centre / Fixed</td><td>선의 방향</td></tr>
-    <tr><td>Rotate Mod · Tilt Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>선의 각도를 저절로 움직임</td></tr>
+    <tr><td>Shape · Length · Depth · Height</td><td>Point / Line / Box · 각 0–2</td><td>점 음원, 중심을 지나는 선 음원, 또는 상자(Length가 상자의 폭)</td></tr>
+    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>각 ±180° · Centre / Fixed</td><td>X·Y·Z 축 둘레의 회전(에디터의 RX · RY · RZ). Rot X는 선을 자기 축으로 돌리므로 상자에서만 보임</td></tr>
+    <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>각 축의 각도를 저절로 움직임</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>스피커에서 점 대신 넓게 감싸는 소리</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>공용 룸을 받는 양</td></tr>
     <tr><td>Air</td><td>on / off</td><td>거리에 따른 고음 감소</td></tr>
