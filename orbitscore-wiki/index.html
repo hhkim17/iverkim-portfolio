@@ -490,7 +490,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>Positions are in ring radii: 1 = the speaker ring, X right, Y up, −Z front.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>A TouchDesigner component that moves objects from another project. Its input takes a CHOP with channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or a CHOP with one sample per object from POP to CHOP / SOP to CHOP (<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code> or <code>az el dist</code>; sample 0 = object 1).</p>
+  <p>A TouchDesigner component that moves objects from another project. Its input takes a CHOP with channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or a CHOP with one sample per object from POP to CHOP / SOP to CHOP (<code>P_0 P_1 P_2</code>, <code>tx ty tz</code>, <code>x y z</code> or <code>az el dist</code>; sample 0 = object 1).</p>
   <div class="tw"><table>
     <tr><th>Parameter</th><th>Function</th></tr>
     <tr><td>Position Scale</td><td>Scale when the source is not in ring radii</td></tr>
@@ -498,6 +498,13 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>While positions arrive, the objects follow them and their motion and position are locked in the editor. About 1.5 s after the stream stops, they return to their own motion. Received positions are not saved in the set.</p>
   <div class="note"><b>NOTE</b>Feeding OrbitLink_In's values back into OrbitLink_Out for the same objects creates a feedback loop. A UDP port can be opened by one program at a time.</div>
+  <h3>Examples</h3>
+  <p><strong>Receive: positions to visuals.</strong> Select <code>o*_x o*_y o*_z</code> from out1, then Shuffle with <em>Sequence by N</em> = 3 and <em>First Sample Only</em>, then rename the channels to <code>tx ty tz</code>. This gives one sample per object, ready for instancing on a Geometry COMP. Do the same with <code>o*_r o*_g o*_b</code> for the track colours.</p>
+  <figure><img src="media/link-receive.jpg?v=1124" alt="OrbitLink_In out1 into select, shuffle and rename for positions and colours, merged into an instancing Geometry COMP and rendered: three coloured spheres inside the speaker ring" loading="lazy" width="1668" height="547"><figcaption>FIG. 6.1 — Receive: one instance per object</figcaption></figure>
+  <p><strong>Send from a CHOP.</strong> Name the channels <code>o1_x o1_y o1_z</code> (<code>o2_…</code> for object 2), wire them into OrbitLink_Out and turn on Send Enable.</p>
+  <figure><img src="media/link-send-chop.jpg?v=1124" alt="Two LFO CHOPs and a Constant named o1_x o1_y o1_z, merged into a Null and wired into OrbitLink_Out" loading="lazy" width="1180" height="616"><figcaption>FIG. 6.2 — Send from a CHOP: object 1 on a circle</figcaption></figure>
+  <p><strong>Send from a POP.</strong> POP to CHOP gives one sample per point, with channels <code>P_0 P_1 P_2</code>. Point 0 moves object 1, point 1 moves object 2, and so on.</p>
+  <figure><img src="media/link-send-pop.jpg?v=1124" alt="Circle POP with four points, Transform and Noise POPs, POP to CHOP with channels P_0 P_1 P_2, wired into OrbitLink_Out" loading="lazy" width="1396" height="328"><figcaption>FIG. 6.3 — Send from a POP: four points move objects 1–4</figcaption></figure>
   <h3>OSC</h3>
   <p>Orbit Link is plain OSC and can be used from Max, Unity, Unreal, Resolume and others. Orbit Score sends to port <strong>9010</strong> and receives on <strong>9011</strong> (set on the <code>Spatialisation_test</code> component, Objects page). <code>n</code> = the object's number in Live's track order, from 1.</p>
   <div class="tw"><table>
@@ -950,7 +957,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>위치 단위는 링 반지름입니다: 1 = 스피커 링, X 오른쪽, Y 위, −Z 정면.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력에는 OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …)을 가진 CHOP, 또는 POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플 하나인 CHOP(<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code>, <code>az el dist</code>; 샘플 0 = 오브젝트 1)을 연결합니다.</p>
+  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력에는 OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …)을 가진 CHOP, 또는 POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플 하나인 CHOP(<code>P_0 P_1 P_2</code>, <code>tx ty tz</code>, <code>x y z</code>, <code>az el dist</code>; 샘플 0 = 오브젝트 1)을 연결합니다.</p>
   <div class="tw"><table>
     <tr><th>파라미터</th><th>기능</th></tr>
     <tr><td>Position Scale</td><td>입력 단위가 링 반지름이 아닐 때의 배율</td></tr>
@@ -958,6 +965,13 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>위치를 받는 동안 오브젝트는 그 위치를 따르며, 에디터에서 움직임과 위치가 잠깁니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다.</p>
   <div class="note"><b>NOTE</b>같은 오브젝트의 OrbitLink_In 값을 OrbitLink_Out으로 되돌리면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
+  <h3>사용 예</h3>
+  <p><strong>받기: 위치로 비주얼 만들기.</strong> out1에서 <code>o*_x o*_y o*_z</code>를 Select로 고르고, Shuffle(<em>Sequence by N</em> = 3, <em>First Sample Only</em>)을 거쳐 채널 이름을 <code>tx ty tz</code>로 바꿉니다. 오브젝트당 샘플 하나가 되어 Geometry COMP 인스턴싱에 바로 쓸 수 있습니다. 트랙 색은 <code>o*_r o*_g o*_b</code>로 같은 과정을 거칩니다.</p>
+  <figure><img src="media/link-receive.jpg?v=1124" alt="OrbitLink_In out1에서 위치와 색을 select, shuffle, rename으로 정리해 인스턴싱 Geometry COMP로 렌더: 스피커 링 안의 색 구 세 개" loading="lazy" width="1668" height="547"><figcaption>FIG. 6.1 — 받기: 오브젝트마다 인스턴스 하나</figcaption></figure>
+  <p><strong>CHOP으로 보내기.</strong> 채널 이름을 <code>o1_x o1_y o1_z</code>로 정하고(오브젝트 2는 <code>o2_…</code>) OrbitLink_Out에 연결한 뒤 Send Enable을 켭니다.</p>
+  <figure><img src="media/link-send-chop.jpg?v=1124" alt="LFO CHOP 두 개와 Constant(o1_x o1_y o1_z)를 Merge, Null을 거쳐 OrbitLink_Out에 연결" loading="lazy" width="1180" height="616"><figcaption>FIG. 6.2 — CHOP으로 보내기: 원을 그리는 오브젝트 1</figcaption></figure>
+  <p><strong>POP으로 보내기.</strong> POP to CHOP은 점마다 샘플 하나를 만들고 채널 이름은 <code>P_0 P_1 P_2</code>입니다. 점 0이 오브젝트 1, 점 1이 오브젝트 2를 움직입니다.</p>
+  <figure><img src="media/link-send-pop.jpg?v=1124" alt="점 네 개의 Circle POP, Transform POP, Noise POP, POP to CHOP(P_0 P_1 P_2)을 OrbitLink_Out에 연결" loading="lazy" width="1396" height="328"><figcaption>FIG. 6.3 — POP으로 보내기: 점 네 개가 오브젝트 1–4를 움직임</figcaption></figure>
   <h3>OSC</h3>
   <p>Orbit Link는 일반 OSC로 Max, Unity, Unreal, Resolume 등에서도 사용할 수 있습니다. Orbit Score는 <strong>9010</strong> 포트로 보내고 <strong>9011</strong>에서 받습니다(<code>Spatialisation_test</code> 컴포넌트의 Objects 페이지에서 설정). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
   <div class="tw"><table>
