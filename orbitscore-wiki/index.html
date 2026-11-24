@@ -271,7 +271,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>Input</th><th>Action</th></tr>
     <tr><td>Drag a point on the canvas</td><td>Moves the object</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>Drag up / down to change; double-click to type (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels)</td></tr>
-    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>Shows the position as azimuth / elevation / distance or as X right · Y front · Z up</td></tr>
+    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>Shows the position as azimuth / elevation / distance or as X right · Y front · Z up; the readouts under the names in the 3D view follow</td></tr>
     <tr><td>T · F · S, the ball above them</td><td>Top, front and side view; drag inside the ball for any angle</td></tr>
   </table></div>
 
@@ -303,12 +303,25 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>The path follows Live's song position. A path is kept when the motion changes. Leaving a changed path opens a prompt: <strong>SAVE</strong>, <strong>DON'T SAVE</strong> (return to the previous path) or <strong>CANCEL</strong>.</p>
 
   <h3>Multiple objects</h3>
+  <p><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + click adds an object to the selection. Settings apply to all selected objects; dragging moves them together.</p>
+
+  <h3>Groups</h3>
+  <p>The object list works like a layer list: groups sit at the top with their members indented under them, the other objects follow.</p>
   <div class="tw"><table>
     <tr><th>Control</th><th>Action</th></tr>
-    <tr><td><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + click</td><td>Adds an object to the selection. Settings apply to all selected objects; dragging moves them together</td></tr>
-    <tr><td>A · B · C · D</td><td>Groups. An empty letter stores the selection; a stored letter selects its group</td></tr>
-    <tr><td>SET · CLR</td><td>Followed by a letter: overwrite · empty that group</td></tr>
+    <tr><td>+ GROUP</td><td>New group (Group 1, Group 2 …) holding the selected objects</td></tr>
+    <tr><td>GROUP → Member of</td><td>In an object's settings: puts the selected objects in a group, takes them out (None) or makes a new one</td></tr>
+    <tr><td>Group row</td><td>Selects all its members and opens the group panel; a second click folds / unfolds it. The row shows how many objects it holds</td></tr>
   </table></div>
+  <p>The group panel:</p>
+  <div class="tw"><table>
+    <tr><th>Section</th><th>Controls</th></tr>
+    <tr><td>Name</td><td>Click to rename the group</td></tr>
+    <tr><td>POSITION · ROTATE · SCALE</td><td>Move, turn and resize the whole formation. This places the members once; it is not a movement</td></tr>
+    <tr><td>MOTION</td><td>As for an object: <strong>STATIC</strong> or a pattern from the list — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — with RATE and SIZE. The whole formation moves around the group's centre while each member keeps its own motion. PATH and CHAOS are not available for groups</td></tr>
+    <tr><td>RESET · DELETE GROUP</td><td>Position, rotation and scale back to none · remove the group (the objects stay)</td></tr>
+  </table></div>
+  <p>A group's motion runs in Live and is saved in the Live set with its members, so it works without TouchDesigner. POSITION still applies while the group moves: the motion follows the moved formation.</p>
 
   <h3>Copy and paste</h3>
   <p><span class="pill">COPY</span> (<kbd>Ctrl</kbd>+<kbd>C</kbd>) copies the selected object's motion, shape, sound settings and path. <span class="pill">PASTE</span> (<kbd>Ctrl</kbd>+<kbd>V</kbd>) applies them to the selected objects. Position is not copied.</p>
@@ -316,7 +329,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Shape and sound</h3>
   <div class="tw"><table>
     <tr><th>Section</th><th>Controls</th></tr>
-    <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box). LINE and BOX show: LENGTH, or WIDTH · DEPTH · HEIGHT for a box · FACE CENTER (turns with the object to face the listener) / FIXED · RX · RY · RZ, the rotation about the right, front and up axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box) · FACING: CENTER (turns with the object to face the listener) / FIXED. A line has LENGTH; a box has its size along X · Y · Z (right, front, up) and is drawn as a translucent, glowing box in the 3D view · RX · RY · RZ, the rotation about the right, front and up axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#render">04</a>, <a href="#devices">08</a>)</td></tr>
   </table></div>
   <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="Editor settings: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — Settings of a LINE object on RANDOM</figcaption></figure>
@@ -402,31 +415,28 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES tab</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
-    <tr><td>+ CAPTURE</td><td>New scene from the current state, with a locator at the playhead</td></tr>
-    <tr><td>Scene name</td><td>Click to rename the scene and its locator</td></tr>
-    <tr><td>UPDATE</td><td>Overwrites the scene with the current state</td></tr>
-    <tr><td>Thumbnail</td><td>Top view of the scene; hovering shows its positions as ghosts in the 3D view</td></tr>
-
-    <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — while Live plays, a recall waits for the next beat or bar</td></tr>
-    <tr><td>⋯</td><td>Opens the scene's transition window (below)</td></tr>
-    <tr><td>INCLUDE</td><td>One chip per object; faded chips are left out of captures and updates</td></tr>
-    <tr><td>OTHERS</td><td>Objects not in the recalled scene: <strong>MUTE + HIDE</strong> or <strong>KEEP</strong></td></tr>
-    <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>Variations of the current arrangement</td></tr>
+    <tr><td>Fade</td><td>Transition length given to new scenes: Cut or 1–16 beats</td></tr>
+    <tr><td>Quantize</td><td>Off · Beat · Bar — while Live plays, a recall waits for the next beat or bar. Recalls from locators and <code>@Name</code> clips are already on time. While a recall waits, the timeline shows <span class="mono">next Verse at 5.1</span></td></tr>
+    <tr><td>Others</td><td>Objects not in the recalled scene: <strong>Mute + hide</strong> or <strong>Keep</strong></td></tr>
+    <tr><td>Adjust</td><td>Transform: rotate left / right, mirror, nearer, farther, up, down — variations of the current arrangement</td></tr>
+    <tr><td>Scene row</td><td>Name (click to rename the scene and its locator) · one dot per object (filled = in this scene; click to leave it out or take it back, <span class="pill">…</span> shows them by name; applied with the next SAVE / UPDATE) · curve icon (opens the transition window, below) · SAVE / UPDATE (stores the current state) · × (delete, after a short question)</td></tr>
+    <tr><td>+ NEW SCENE</td><td>New scene from the current state, with a locator at the playhead</td></tr>
     <tr><td>EXPORT · IMPORT</td><td>All scenes of the set to a file, and back</td></tr>
   </table></div>
   <h3>Transition window</h3>
-  <p>How the objects move into a scene, set per scene with its <span class="pill">⋯</span>.</p>
+  <p>How the objects move into a scene. Opened with the curve icon on the scene's row; the icon shows the scene's curve.</p>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
-    <tr><td>FADE</td><td>Length: CUT or 1–16 beats (also shown on the scene row, e.g. FADE 4b)</td></tr>
-    <tr><td>CURVE</td><td>LINEAR · SMOOTH · EASE IN · EASE OUT · DRAWN. The graph shows the move from BEFORE to THIS SCENE over time; drawing on it makes the curve DRAWN, which may overshoot. STRAIGHT resets a drawn curve</td></tr>
-    <tr><td>PATH</td><td>AROUND (around the listener) or THROUGH (a straight line across the room)</td></tr>
+    <tr><td>FADE</td><td>Length: Cut or 1–16 beats</td></tr>
+    <tr><td>CURVE</td><td>Linear · Smooth · Ease in · Ease out · Overshoot · Custom. The graph shows the move from the positions before to the scene's positions over the fade time. Drawing on the graph makes the curve Custom; RESET CURVE straightens it again</td></tr>
+    <tr><td>AMOUNT · PEAK</td><td>Knobs under the graph for the curves that have them: how strong the curve is, and where its highest point lies (Overshoot: how far past the target, and when)</td></tr>
+    <tr><td>PATH</td><td>Around (around the listener) or Through (a straight line across the room)</td></tr>
     <tr><td>STAGGER</td><td>Objects start one after another, ¼–2 beats apart</td></tr>
-    <tr><td>ROOM</td><td>OFF, or ON (the room as it is now is stored with the scene and recalled with it)</td></tr>
+    <tr><td>SAVE · ×</td><td>Changes stay a draft until SAVE. Closing with unsaved changes asks: SAVE, DON'T SAVE or CANCEL</td></tr>
   </table></div>
   <p>During a transition, values change gradually; a change of motion crossfades the position between the old and new movement; a point grows into a line and back.</p>
   <h3>Morph pad</h3>
-  <p><span class="pill">MORPH: ON</span> shows a pad with a scene on each corner (click a corner to assign one; two corners are enough). The dot's position blends the corner scenes. Nothing is overwritten; OFF returns the objects to their own settings.</p>
+  <p><span class="pill">MORPH PAD: ON</span> shows a pad with a scene on each corner (click a corner to choose one; two corners are enough). Drag the dot to blend the corner scenes; each corner shows how much of it is used. Nothing is overwritten; OFF returns the objects to their own settings.</p>
   <h3>Spatial Master</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
@@ -435,7 +445,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>Clip named <code>@Name</code></td><td>Launching a Session clip whose name starts with <code>@</code> recalls the scene of that name</td></tr>
   </table></div>
   <h3>Timeline bar</h3>
-  <p><span class="pill">TIMELINE ▲</span> under the 3D view. Shows bars, Live's locators (filled = linked to a scene), the playhead and the active scene; clicking moves the playhead. <strong>FOLLOW: ON</strong> applies each scene when the playhead reaches its locator. Locator cards: GO (jump), CAPTURE (store the current state under that name), × (delete the locator). Locators can be moved from here only while Live is stopped.</p>
+  <p>Under the 3D view (the small tab folds it away). One lane per group and per object shows the clips on its track in Live's arrangement, one square per bar: dark = the active scene's span, light = the rest, grey = no clip. With many tracks the lanes merge into one. Clicking moves the playhead.</p>
+  <div class="tw"><table>
+    <tr><th>Control</th><th>Function</th></tr>
+    <tr><td>▶ Name</td><td>Each scene's locator: ▶ recalls the scene and jumps there; × deletes it after a short question</td></tr>
+    <tr><td>1.1</td><td>Playhead position, bar.beat</td></tr>
+    <tr><td>AUTO SCENE</td><td>On: each scene is applied when the playhead reaches its locator</td></tr>
+    <tr><td>⚑+ · |◀ · ▶</td><td>Locator at the playhead · back to the start · play / stop Live</td></tr>
+  </table></div>
 </section>
 
 <!-- 06 -->
@@ -454,7 +471,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>Positions are in ring radii: 1 = the speaker ring, X right, Y up, −Z front.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>A TouchDesigner component that moves objects from another project. Its input takes a CHOP with channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or a CHOP with one sample per object from POP to CHOP / SOP to CHOP (<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code> or <code>x y z</code>; sample 0 = object 1).</p>
+  <p>A TouchDesigner component that moves objects from another project. Its input takes a CHOP with channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or a CHOP with one sample per object from POP to CHOP / SOP to CHOP (<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code> or <code>az el dist</code>; sample 0 = object 1).</p>
   <div class="tw"><table>
     <tr><th>Parameter</th><th>Function</th></tr>
     <tr><td>Position Scale</td><td>Scale when the source is not in ring radii</td></tr>
@@ -489,7 +506,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Sidebar tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / headphones / speakers · <strong>MASTER</strong> volume and MUTE · connection status · <strong>TRACKS</strong>: show / hide, name label, mute, colour, level</td></tr>
-    <tr><td>VIEW</td><td>Camera auto-orbit, reset, light / dark theme · show names, ears, head, dome, room, trails</td></tr>
+    <tr><td>SPACE</td><td>Panning model · room (preset, reverb, reflections, ear height) · distance (Doppler, Air, Far thin, Near bass), each chosen from a list</td></tr>
+    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW (back to the starting view, auto orbit off) · THEME: WHITE / BLACK · show names, ears, head, dome guide (the speaker positions as a dashed outline), room, trails.</td></tr>
     <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
@@ -585,6 +603,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Version</th><th>Contents</th></tr>
     <tr><td>1.0</td><td>First public release (planned)</td></tr>
+    <tr><td>0.9 · beta (Nov 24)</td><td>Groups with their own motion, saved in the Live set · box size along X · Y · Z, drawn as a glowing box · new transition window (Overshoot and Custom curves, AMOUNT and PEAK) · scene rows with object dots and curve icons · timeline with Live's arrangement clips, AUTO SCENE and play button · dropdowns on the SPACE and SCENES tabs · black theme reworked · delete asks first</td></tr>
     <tr><td>0.9 · beta</td><td>Scenes: transitions with curves, stagger and room, quantize, Scene and Morph from Live, <code>@Name</code> clips, preview, export / import, morph pad · editor: paths drawn on the canvas, several objects and groups, copy / paste, XYZ, undo · room and distance on headphones and speakers: reverb, reflections, measured HRTF, AIR, FAR THIN, NEAR BASS, Doppler · Orbit Link transport, chaos values, track colour and name</td></tr>
     <tr><td>0.8</td><td>Spatial Renderer: speakers inside Live, up to 64, VBAP / DBAP / Ambisonics / WFS, custom layouts, distance compensation · Chaos motion · Spread · Speed effect</td></tr>
     <tr><td>0.7</td><td>Spatial Object with eight motions, line shape and paths · scenes linked to locators · Orbit Link In / Out</td></tr>
@@ -711,7 +730,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><th>입력</th><th>동작</th></tr>
     <tr><td>캔버스의 점 드래그</td><td>오브젝트 이동</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>위아래 드래그로 변경, 더블클릭으로 입력 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소)</td></tr>
-    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>위치를 방위/고도/거리 또는 X 오른쪽 · Y 정면 · Z 위로 표시</td></tr>
+    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>위치를 방위/고도/거리 또는 X 오른쪽 · Y 정면 · Z 위로 표시. 3D 뷰의 이름 아래 값도 같이 바뀜</td></tr>
     <tr><td>T · F · S, 그 위의 구</td><td>위·앞·옆 시점. 구 안을 드래그하면 임의의 각도</td></tr>
   </table></div>
 
@@ -743,12 +762,25 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <p>경로는 Live 송 포지션을 따릅니다. 움직임을 바꿔도 경로는 유지됩니다. 고친 경로를 떠나면 <strong>SAVE</strong>, <strong>DON'T SAVE</strong>(이전 경로로 복원), <strong>CANCEL</strong>을 묻는 창이 열립니다.</p>
 
   <h3>여러 오브젝트</h3>
+  <p><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + 클릭으로 선택에 추가합니다. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 움직입니다.</p>
+
+  <h3>그룹</h3>
+  <p>오브젝트 목록은 레이어 목록처럼 동작합니다. 위쪽에 그룹이 있고 그 아래에 멤버가 들여쓰기로 표시되며, 나머지 오브젝트가 이어집니다.</p>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>동작</th></tr>
-    <tr><td><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + 클릭</td><td>선택에 추가. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 이동</td></tr>
-    <tr><td>A · B · C · D</td><td>그룹. 빈 글자는 현재 선택을 저장, 저장된 글자는 그 그룹을 선택</td></tr>
-    <tr><td>SET · CLR</td><td>이어서 글자를 누르면 덮어쓰기 · 비우기</td></tr>
+    <tr><td>+ GROUP</td><td>선택한 오브젝트로 새 그룹(Group 1, Group 2 …)을 만듦</td></tr>
+    <tr><td>GROUP → Member of</td><td>오브젝트 설정에서 선택한 오브젝트를 그룹에 넣기, 빼기(None), 새 그룹 만들기</td></tr>
+    <tr><td>그룹 줄</td><td>멤버 전체를 선택하고 그룹 패널을 엶. 한 번 더 누르면 접기 / 펼치기. 줄에 멤버 수가 표시됨</td></tr>
   </table></div>
+  <p>그룹 패널:</p>
+  <div class="tw"><table>
+    <tr><th>섹션</th><th>컨트롤</th></tr>
+    <tr><td>이름</td><td>눌러서 그룹 이름 변경</td></tr>
+    <tr><td>POSITION · ROTATE · SCALE</td><td>대형 전체를 옮기고, 돌리고, 크기를 바꿈. 멤버를 한 번 배치하는 것이며 움직임은 아님</td></tr>
+    <tr><td>MOTION</td><td>오브젝트와 같음: <strong>STATIC</strong> 또는 목록의 패턴 — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — 과 RATE, SIZE. 대형 전체가 그룹 중심을 기준으로 움직이고, 멤버는 각자의 움직임을 그대로 유지. 그룹에는 PATH와 CHAOS가 없음</td></tr>
+    <tr><td>RESET · DELETE GROUP</td><td>위치·회전·크기를 원래대로 · 그룹 삭제(오브젝트는 남음)</td></tr>
+  </table></div>
+  <p>그룹 움직임은 Live 안에서 계산되고 멤버와 함께 Live 세트에 저장되므로 TouchDesigner 없이도 동작합니다. 그룹이 움직이는 중에도 POSITION은 적용되어, 옮긴 대형을 기준으로 움직입니다.</p>
 
   <h3>복사와 붙여넣기</h3>
   <p><span class="pill">COPY</span>(<kbd>Ctrl</kbd>+<kbd>C</kbd>)는 선택한 오브젝트의 움직임, 모양, 사운드 설정, 경로를 복사하고, <span class="pill">PASTE</span>(<kbd>Ctrl</kbd>+<kbd>V</kbd>)는 선택한 오브젝트에 적용합니다. 위치는 복사되지 않습니다.</p>
@@ -756,7 +788,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>모양과 사운드</h3>
   <div class="tw"><table>
     <tr><th>섹션</th><th>컨트롤</th></tr>
-    <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원). LINE과 BOX에서 표시: LENGTH, 상자는 WIDTH · DEPTH · HEIGHT · FACE CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED · RX · RY · RZ(오른쪽·앞·위 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원) · FACING: CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED. 선은 LENGTH, 상자는 X · Y · Z(오른쪽·앞·위) 방향 크기를 가지며 3D 뷰에서 반투명하게 빛나는 상자로 그려짐 · RX · RY · RZ(오른쪽·앞·위 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#ko-render">04</a>, <a href="#ko-devices">08</a>)</td></tr>
   </table></div>
   <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 LINE 오브젝트의 설정</figcaption></figure>
@@ -842,31 +874,28 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
-    <tr><td>+ CAPTURE</td><td>현재 상태로 새 씬 생성, 재생 헤드 위치에 로케이터 추가</td></tr>
-    <tr><td>씬 이름</td><td>클릭해 씬과 로케이터 이름 변경</td></tr>
-    <tr><td>UPDATE</td><td>현재 상태로 씬 덮어쓰기</td></tr>
-    <tr><td>썸네일</td><td>위에서 본 씬. 마우스를 올리면 3D 뷰에 위치가 반투명하게 표시</td></tr>
-
-    <tr><td>QUANTIZE</td><td>OFF · BEAT · BAR — Live 재생 중에는 다음 박이나 마디에 맞춰 불러옴</td></tr>
-    <tr><td>⋯</td><td>씬의 전환 창 열기 (아래)</td></tr>
-    <tr><td>INCLUDE</td><td>오브젝트별 칩. 흐린 칩은 캡처와 업데이트에서 제외</td></tr>
-    <tr><td>OTHERS</td><td>불러온 씬에 없는 오브젝트: <strong>MUTE + HIDE</strong> 또는 <strong>KEEP</strong></td></tr>
-    <tr><td>ROT · MIRROR · NEAR · FAR · UP · DOWN</td><td>현재 배치의 변형</td></tr>
+    <tr><td>Fade</td><td>새로 만드는 씬의 전환 길이: Cut 또는 1–16박</td></tr>
+    <tr><td>Quantize</td><td>Off · Beat · Bar — Live 재생 중에는 다음 박이나 마디까지 기다렸다가 불러옴. 로케이터와 <code>@이름</code> 클립은 원래 박자에 맞음. 기다리는 동안 타임라인에 <span class="mono">next Verse at 5.1</span>처럼 표시</td></tr>
+    <tr><td>Others</td><td>불러온 씬에 없는 오브젝트: <strong>Mute + hide</strong> 또는 <strong>Keep</strong></td></tr>
+    <tr><td>Adjust</td><td>Transform: 왼쪽 / 오른쪽 회전, 좌우 반전, 가깝게, 멀게, 위로, 아래로 — 현재 배치의 변형</td></tr>
+    <tr><td>씬 줄</td><td>이름(눌러서 씬과 로케이터 이름 변경) · 오브젝트별 점(채워진 점 = 이 씬에 포함. 눌러서 빼거나 다시 넣고, <span class="pill">…</span>로 이름과 함께 보기. 다음 SAVE / UPDATE 때 적용) · 커브 아이콘(전환 창 열기, 아래) · SAVE / UPDATE(현재 상태 저장) · ×(한 번 확인한 뒤 삭제)</td></tr>
+    <tr><td>+ NEW SCENE</td><td>현재 상태로 새 씬 생성, 재생 헤드 위치에 로케이터 추가</td></tr>
     <tr><td>EXPORT · IMPORT</td><td>세트의 모든 씬을 파일로 내보내기 · 불러오기</td></tr>
   </table></div>
   <h3>전환 창</h3>
-  <p>오브젝트가 씬으로 옮겨가는 방식입니다. 씬마다 <span class="pill">⋯</span>로 엽니다.</p>
+  <p>오브젝트가 씬으로 옮겨가는 방식입니다. 씬 줄의 커브 아이콘으로 열며, 아이콘에 그 씬의 커브 모양이 보입니다.</p>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
-    <tr><td>FADE</td><td>길이: CUT 또는 1–16박 (씬 줄에도 FADE 4b처럼 표시)</td></tr>
-    <tr><td>CURVE</td><td>LINEAR · SMOOTH · EASE IN · EASE OUT · DRAWN. 그래프는 시간에 따라 BEFORE에서 THIS SCENE으로 가는 모양입니다. 그래프에 그리면 DRAWN이 되며 목표를 넘었다 돌아오는 모양도 가능합니다. STRAIGHT는 그린 곡선을 직선으로 되돌립니다</td></tr>
-    <tr><td>PATH</td><td>AROUND(청취자를 돌아서) 또는 THROUGH(공간을 직선으로 가로질러)</td></tr>
+    <tr><td>FADE</td><td>길이: Cut 또는 1–16박</td></tr>
+    <tr><td>CURVE</td><td>Linear · Smooth · Ease in · Ease out · Overshoot · Custom. 그래프는 페이드 시간 동안 이전 위치에서 씬의 위치로 가는 모양입니다. 그래프에 그리면 Custom이 되고, RESET CURVE로 다시 직선이 됩니다</td></tr>
+    <tr><td>AMOUNT · PEAK</td><td>그래프 아래 노브(해당 커브만): 커브의 세기와 가장 높은 점의 위치(Overshoot는 목표를 얼마나, 언제 넘을지)</td></tr>
+    <tr><td>PATH</td><td>Around(청취자를 돌아서) 또는 Through(공간을 직선으로 가로질러)</td></tr>
     <tr><td>STAGGER</td><td>오브젝트가 ¼–2박 간격으로 차례로 출발</td></tr>
-    <tr><td>ROOM</td><td>OFF 또는 ON(지금의 룸 설정을 씬에 저장해 함께 불러옴)</td></tr>
+    <tr><td>SAVE · ×</td><td>SAVE 전까지는 임시 상태입니다. 저장하지 않고 닫으면 SAVE, DON'T SAVE, CANCEL을 묻습니다</td></tr>
   </table></div>
   <p>전환 중에는 값이 서서히 바뀌고, 움직임이 바뀌면 이전 움직임과 새 움직임 사이에서 위치가 크로스페이드되며, 점은 선으로 늘어나고 줄어듭니다.</p>
   <h3>Morph 패드</h3>
-  <p><span class="pill">MORPH: ON</span>을 켜면 네 모서리에 씬을 지정하는 패드가 표시됩니다(모서리를 클릭해 지정, 두 모서리만으로도 동작). 점의 위치에 따라 모서리 씬이 섞입니다. 값을 덮어쓰지 않으며, OFF로 하면 오브젝트가 원래 설정으로 돌아갑니다.</p>
+  <p><span class="pill">MORPH PAD: ON</span>을 켜면 네 모서리에 씬을 지정하는 패드가 표시됩니다(모서리를 눌러 고르며, 두 모서리만으로도 동작). 점을 끌면 모서리 씬이 섞이고, 모서리마다 섞인 비율이 표시됩니다. 값을 덮어쓰지 않으며, OFF로 하면 오브젝트가 원래 설정으로 돌아갑니다.</p>
   <h3>Spatial Master</h3>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
@@ -875,7 +904,14 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>클립 이름 <code>@이름</code></td><td>이름이 <code>@</code>로 시작하는 세션 클립을 실행하면 같은 이름의 씬을 불러옴</td></tr>
   </table></div>
   <h3>타임라인 바</h3>
-  <p>3D 뷰 아래 <span class="pill">TIMELINE ▲</span>. 마디, Live 로케이터(채워진 것 = 씬과 연결), 재생 헤드, 현재 씬을 표시하며 클릭하면 재생 헤드가 이동합니다. <strong>FOLLOW: ON</strong>이면 재생 헤드가 로케이터에 닿을 때 해당 씬을 적용합니다. 로케이터 카드: GO(이동), CAPTURE(현재 상태를 그 이름으로 저장), ×(로케이터 삭제). 로케이터 이동은 Live가 정지했을 때만 가능합니다.</p>
+  <p>3D 뷰 아래에 있습니다(작은 탭으로 접기). 그룹과 오브젝트마다 한 줄씩, Live 어레인지먼트의 클립을 마디당 한 칸으로 보여 줍니다: 진한 칸 = 현재 씬의 구간, 연한 칸 = 나머지, 회색 = 클립 없음. 트랙이 많으면 한 줄로 합쳐집니다. 누르면 재생 헤드가 이동합니다.</p>
+  <div class="tw"><table>
+    <tr><th>컨트롤</th><th>기능</th></tr>
+    <tr><td>▶ 이름</td><td>씬마다의 로케이터: ▶는 씬을 불러오고 그 위치로 이동, ×는 한 번 확인한 뒤 삭제</td></tr>
+    <tr><td>1.1</td><td>재생 헤드 위치(마디.박)</td></tr>
+    <tr><td>AUTO SCENE</td><td>켜면 재생 헤드가 로케이터에 닿을 때 해당 씬을 적용</td></tr>
+    <tr><td>⚑+ · |◀ · ▶</td><td>재생 헤드 위치에 로케이터 추가 · 처음으로 · Live 재생 / 정지</td></tr>
+  </table></div>
 </section>
 
 <!-- 06 -->
@@ -894,7 +930,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <p>위치 단위는 링 반지름입니다: 1 = 스피커 링, X 오른쪽, Y 위, −Z 정면.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력에는 OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …)을 가진 CHOP, 또는 POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플 하나인 CHOP(<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code>; 샘플 0 = 오브젝트 1)을 연결합니다.</p>
+  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력에는 OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …)을 가진 CHOP, 또는 POP to CHOP / SOP to CHOP처럼 오브젝트당 샘플 하나인 CHOP(<code>P(0) P(1) P(2)</code>, <code>tx ty tz</code>, <code>x y z</code>, <code>az el dist</code>; 샘플 0 = 오브젝트 1)을 연결합니다.</p>
   <div class="tw"><table>
     <tr><th>파라미터</th><th>기능</th></tr>
     <tr><td>Position Scale</td><td>입력 단위가 링 반지름이 아닐 때의 배율</td></tr>
@@ -929,7 +965,8 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>사이드바 탭</th><th>내용</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> 끔 / 헤드폰 / 스피커 · <strong>MASTER</strong> 볼륨과 MUTE · 연결 상태 · <strong>TRACKS</strong>: 표시, 이름표, 뮤트, 색, 레벨</td></tr>
-    <tr><td>VIEW</td><td>카메라 자동 회전, 리셋, 밝은/어두운 테마 · 이름, 귀, 머리, 돔, 룸, 궤적 표시</td></tr>
+    <tr><td>SPACE</td><td>패닝 모델 · 룸(프리셋, 리버브, 반사음, 귀 높이) · 거리감(Doppler, Air, Far thin, Near bass). 값은 목록에서 고름</td></tr>
+    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW(처음 시점으로, 자동 회전 끔) · THEME: WHITE / BLACK · 이름, 귀, 머리, 돔 가이드(스피커 위치를 점선으로), 룸, 궤적 표시</td></tr>
     <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
@@ -1025,6 +1062,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>버전</th><th>내용</th></tr>
     <tr><td>1.0</td><td>첫 공식 릴리즈 (예정)</td></tr>
+    <tr><td>0.9 · beta (11월 24일)</td><td>그룹과 그룹 움직임(Live 세트에 저장) · 상자 크기 X · Y · Z, 빛나는 상자로 표시 · 새 전환 창(Overshoot, Custom 커브, AMOUNT·PEAK) · 오브젝트 점과 커브 아이콘이 있는 씬 줄 · Live 어레인지먼트 클립을 보여 주는 타임라인, AUTO SCENE, 재생 버튼 · SPACE·SCENES 탭 목록 선택 · 블랙 테마 정리 · 삭제 전 확인</td></tr>
     <tr><td>0.9 · 베타</td><td>씬: 곡선·스태거·룸을 포함한 전환, 퀀타이즈, Live에서 Scene·Morph, <code>@이름</code> 클립, 미리보기, 내보내기/불러오기, Morph 패드 · 에디터: 캔버스에서 경로 그리기, 여러 오브젝트와 그룹, 복사·붙여넣기, XYZ, 되돌리기 · 헤드폰·스피커의 룸과 거리감: 리버브, 반사음, 실측 HRTF, AIR, FAR THIN, NEAR BASS, 도플러 · Orbit Link 트랜스포트, 카오스 값, 트랙 색·이름</td></tr>
     <tr><td>0.8</td><td>Spatial Renderer: Live 안에서 스피커 재생, 최대 64개, VBAP / DBAP / 앰비소닉스 / WFS, Custom 레이아웃, 거리 보정 · Chaos 움직임 · Spread · Speed 효과</td></tr>
     <tr><td>0.7</td><td>8가지 움직임, 선 모양, 경로가 있는 Spatial Object · 로케이터와 연결된 씬 · Orbit Link In / Out</td></tr>
