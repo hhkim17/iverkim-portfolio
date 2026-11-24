@@ -278,7 +278,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>Motion</h3>
   <div class="tw"><table>
     <tr><th>Motion</th><th>Behaviour</th></tr>
-    <tr><td>MANUAL</td><td>Stays at its position</td></tr>
+    <tr><td>STATIC</td><td>Stays at its position</td></tr>
     <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>Regular movement around the position. RATE = speed, SIZE = width</td></tr>
     <tr><td>RANDOM</td><td>Smooth wandering around the position</td></tr>
     <tr><td>PATH</td><td>Follows a drawn path in time with the song</td></tr>
@@ -506,7 +506,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
     <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The centre of the motion. Azimuth 0 = front, + = left; Elevation 0 = ear level; Distance 1 = the speaker ring</td></tr>
-    <tr><td>Motion</td><td>8 modes</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
+    <tr><td>Motion</td><td>8 modes</td><td>Static · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>For Chaos motion. Lorenz swings between left and right, Rossler spirals and shoots up, Thomas wanders evenly. Chaos Shape changes the figure</td></tr>
@@ -717,7 +717,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3>움직임</h3>
   <div class="tw"><table>
     <tr><th>Motion</th><th>동작</th></tr>
-    <tr><td>MANUAL</td><td>정지</td></tr>
+    <tr><td>STATIC</td><td>정지</td></tr>
     <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>위치를 중심으로 한 규칙적인 움직임. RATE = 속도, SIZE = 폭</td></tr>
     <tr><td>RANDOM</td><td>위치 주변을 부드럽게 떠돎</td></tr>
     <tr><td>PATH</td><td>그린 경로를 곡에 맞춰 따라감</td></tr>
@@ -945,7 +945,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <div class="tw"><table>
     <tr><th>파라미터</th><th>범위</th><th>뜻</th></tr>
     <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 중심. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링</td></tr>
-    <tr><td>Motion</td><td>8종</td><td>Manual · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
+    <tr><td>Motion</td><td>8종</td><td>Static · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>Chaos 움직임용. Lorenz는 좌우를 오가고, Rossler는 나선을 그리다 위로 튀고, Thomas는 고르게 떠돕니다. Chaos Shape는 모양을 바꿉니다</td></tr>
