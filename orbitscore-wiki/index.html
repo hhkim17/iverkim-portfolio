@@ -67,6 +67,13 @@ main[lang="ko"] h3{font-family:inherit}
 main{padding:40px 56px 120px;min-width:0}
 .hero{position:relative;padding:34px 30px 30px;margin-bottom:56px}
 .hero h1{font:300 54px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
+.hero h1.logo{letter-spacing:0;line-height:0}
+.hero h1.logo img{width:244px;height:auto;display:block}
+.logo-img{filter:invert(1)}                 /* the logo is drawn in white: black on the light page */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo-img{filter:none}}
+:root[data-theme="dark"] .logo-img{filter:none}
+.brand.logo{letter-spacing:0;line-height:0}
+.brand.logo img{width:120px;height:auto;display:block}
 .hero p{max-width:640px;margin:0;color:var(--ink)}
 .hero .meta{font:12px/1.6 var(--f-mono);color:var(--mid);margin-top:16px}
 
@@ -129,6 +136,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   main{padding:28px 16px 80px}
   .hero{padding:24px 18px}
   .hero h1{font-size:34px;letter-spacing:.2em}
+  .hero h1.logo img{width:170px}
   td:first-child{white-space:normal}
   /* inline max-width caps (480px etc.) must not beat the phone's width */
   figure img{max-width:100%!important}
@@ -138,7 +146,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <body>
 <div class="page">
 <nav class="side" aria-label="Contents">
-  <div class="brand">ORBIT SCORE</div>
+  <div class="brand logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="120" height="51"></div>
   <div class="status">WIKI · v0.9 BETA · 2026.11<br>LIVE · M4L · TOUCHDESIGNER</div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
@@ -164,7 +172,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <main data-lang="en" lang="en-GB">
 <header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
-  <h1>ORBIT SCORE</h1>
+  <h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1>
   <p>Spatial audio for Ableton Live. Every track becomes a sound you can place and move around the listener — on headphones (binaural) or on a speaker system of up to 64 speakers. A TouchDesigner screen shows the sounds in 3D, lets you draw their paths and store scenes, and sends the same positions to your visuals.</p>
   <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · HEADPHONES OR 2–64 SPEAKERS</div>
 </header>
@@ -244,7 +252,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3 class="subh">TouchDesigner</h3>
   <p>The Orbit Score project (<code>.toe</code>) connects to Live automatically when both are open. The tracks with a Spatial Object are listed on the <span class="pill">LIVE</span> tab in Live's track order and shown as coloured points in the 3D view.</p>
   <p>In the 3D view, drag to orbit and scroll to zoom. Value buttons such as <span class="mono">1.5 s</span> are changed by pressing and dragging up or down. Perform mode (<kbd>F1</kbd>) gives the smoothest display.</p>
-  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1124" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1436" height="806"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
   </section>
 
   <section id="setup-out" class="sub">
@@ -263,7 +271,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="editor">
   <div class="cap">02 — Object editor</div>
   <h2>Object editor</h2>
-  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — Object list · canvas · settings</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1124" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.1 — Object list · canvas · settings</figcaption></figure>
   <p>The canvas shows the space from above: listener in the centre, front at the top. Edits are written to the Spatial Object in Live; changes made in Live appear here.</p>
 
   <h3>Position</h3>
@@ -322,6 +330,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>RESET · DELETE GROUP</td><td>Position, rotation and scale back to none · remove the group (the objects stay)</td></tr>
   </table></div>
   <p>A group's motion runs in Live and is saved in the Live set with its members, so it works without TouchDesigner. POSITION still applies while the group moves: the motion follows the moved formation.</p>
+  <figure><img src="media/ui-group.jpg?v=1124" alt="OBJECT EDITOR with Group 1 open: its two members selected in the list and on the canvas, the group panel with POSITION, ROTATE, SCALE and MOTION on RANDOM" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.3 — A group: both members selected, the group panel on the right</figcaption></figure>
 
   <h3>Copy and paste</h3>
   <p><span class="pill">COPY</span> (<kbd>Ctrl</kbd>+<kbd>C</kbd>) copies the selected object's motion, shape, sound settings and path. <span class="pill">PASTE</span> (<kbd>Ctrl</kbd>+<kbd>V</kbd>) applies them to the selected objects. Position is not copied.</p>
@@ -332,7 +341,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box) · FACING: CENTER (turns with the object to face the listener) / FIXED. A line has LENGTH; a box has its size along X · Y · Z (right, front, up) and is drawn as a translucent, glowing box in the 3D view · RX · RY · RZ, the rotation about the right, front and up axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#render">04</a>, <a href="#devices">08</a>)</td></tr>
   </table></div>
-  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="Editor settings: MOTION with RATE and SIZE, SHAPE with TYPE and FACING, line length and angles, SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — Settings of a LINE object on RANDOM</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1124b" alt="Editor settings: MOTION (RANDOM, RATE, SIZE), SHAPE (BOX with X Y Z, rotation), SOUND, GROUP" loading="lazy" width="312" height="652" style="max-width:320px"><figcaption>FIG. 2.2 — Settings of a BOX object on RANDOM</figcaption></figure>
 
   <h3>Undo and backup</h3>
   <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (<kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> with the mouse over the editor) cover edits made in the editor, up to 60 steps. Changes made in Live and scene recalls are not included. <span class="pill">SAVE</span> stores a backup of every object; <span class="pill">LOAD LAST</span> restores it.</p>
@@ -359,7 +368,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>SPEAKER DISTANCE</td><td>Listener to speakers in metres. Used by reflections, Doppler and WFS</td></tr>
     <tr><td>DIST COMP</td><td>For speakers at different distances: nearer speakers are delayed and attenuated so all arrive together</td></tr>
   </table></div>
-  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 3.1 — SPEAKERS tab after SET UP OUTPUTS</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1124" alt="SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE" loading="lazy" width="376" height="331" style="max-width:376px"><figcaption>FIG. 3.1 — SPEAKERS tab after SET UP OUTPUTS</figcaption></figure>
   <p>Speaker playback is selected with MONITOR on the LIVE tab or the Master's Mode, <span class="pill on">SPEAKERS</span>.</p>
   <div class="note"><b>NOTE</b>In speaker mode, tracks without a Spatial Object are silent (Main is turned down).</div>
   <h3>Layouts</h3>
@@ -374,7 +383,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>AMBI</td><td>3rd-order Ambisonics. Even, enveloping field on rings and domes</td></tr>
     <tr><td>WFS</td><td>Wave field synthesis for speaker arrays. Sources can be placed inside the array</td></tr>
   </table></div>
-  <figure><img src="media/ui-space.jpg?v=1111d" alt="SPACE tab: PANNING MODEL, ROOM presets, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 3.2 — SPACE tab</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1124" alt="SPACE tab: PANNING MODEL, ROOM presets, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="376" height="419" style="max-width:376px"><figcaption>FIG. 3.2 — SPACE tab</figcaption></figure>
 </section>
 
 <!-- 04 -->
@@ -410,7 +419,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="scenes">
   <div class="cap">05 — Scenes</div>
   <h2>Scenes</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES tab, scene preview in the 3D view, timeline bar</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1124" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1436" height="806"><figcaption>FIG. 5.1 — SCENES tab and the timeline with the arrangement clips</figcaption></figure>
   <p>A scene stores the position and motion of every object. Recalling it moves all objects there with a crossfade. Each scene is linked to a Live locator of the same name. Scenes are saved in the Live set and work without TouchDesigner.</p>
   <h3>SCENES tab</h3>
   <div class="tw"><table>
@@ -425,6 +434,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <h3>Transition window</h3>
   <p>How the objects move into a scene. Opened with the curve icon on the scene's row; the icon shows the scene's curve.</p>
+  <figure><img src="media/ui-transition.jpg?v=1124" alt="Transition window for Intro: FADE 2 beats, CURVE Smooth, the graph, AMOUNT and PEAK knobs, PATH Around, STAGGER Off, SAVE" loading="lazy" width="430" height="306" style="max-width:430px"><figcaption>FIG. 5.2 — Transition window</figcaption></figure>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
     <tr><td>FADE</td><td>Length: Cut or 1–16 beats</td></tr>
@@ -510,10 +520,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW (back to the starting view, auto orbit off) · THEME: WHITE / BLACK · show names, ears, head, dome guide (the speaker positions as a dashed outline), room, trails.</td></tr>
     <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
   </table></div>
-  <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1124" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="376" height="353" style="max-width:376px"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
   <h3>Track colour</h3>
   <p>Click a track's colour square: Ableton's 70-colour palette opens, and the colour changes in Live too.</p>
-  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Track colour palette with Ableton's 70 colours" loading="lazy" width="1920" height="1080"><figcaption>FIG. 7.2 — Colour palette</figcaption></figure>
+  <figure><img src="media/ui-palette.jpg?v=1124" alt="Track colour palette with Ableton's 70 colours" loading="lazy" width="1436" height="806"><figcaption>FIG. 7.2 — Colour palette</figcaption></figure>
 </section>
 
 <!-- 08 -->
@@ -623,7 +633,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <main data-lang="ko" lang="ko" hidden>
 <header class="hero">
   <div class="cap">FIG. 0 / WIKI</div>
-  <h1>ORBIT SCORE</h1>
+  <h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1>
   <p>Ableton Live용 공간 음향 도구입니다. 트랙 하나하나가 청취자 주변에 놓고 움직일 수 있는 소리가 됩니다. 헤드폰(바이노럴)으로도, 최대 64개 스피커로도 재생합니다. TouchDesigner 화면에서 소리를 3D로 보고, 경로를 그리고, 씬을 저장하며, 같은 위치 정보를 비주얼 작업으로 보낼 수 있습니다.</p>
   <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · 헤드폰 또는 스피커 2–64개</div>
 </header>
@@ -703,7 +713,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   <h3 class="subh">TouchDesigner</h3>
   <p>Orbit Score 프로젝트(<code>.toe</code>)는 Live와 함께 열려 있으면 자동으로 연결됩니다. Spatial Object가 있는 트랙이 Live 순서대로 <span class="pill">LIVE</span> 탭에 나열되고, 3D 뷰에 색 점으로 표시됩니다.</p>
   <p>3D 뷰에서 드래그는 시점 회전, 스크롤은 확대·축소입니다. <span class="mono">1.5 s</span> 같은 값 버튼은 누른 채 위아래로 드래그해 바꿉니다. Perform 모드(<kbd>F1</kbd>)에서 화면이 가장 부드럽습니다.</p>
-  <figure><img src="media/ui-3d.jpg?v=1111d" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1920" height="1080"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1124" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1436" height="806"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
   </section>
 
   <section id="ko-setup-out" class="sub">
@@ -722,7 +732,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-editor">
   <div class="cap">02 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure><img src="media/ui-editor.jpg?v=1112b" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1920" height="1080"><figcaption>FIG. 2.1 — 오브젝트 목록 · 캔버스 · 설정</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1124" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.1 — 오브젝트 목록 · 캔버스 · 설정</figcaption></figure>
   <p>캔버스는 위에서 본 공간입니다(가운데가 청취자, 위쪽이 정면). 편집한 값은 Live의 Spatial Object에 기록되고, Live에서 바꾼 값은 여기 반영됩니다.</p>
 
   <h3>위치</h3>
@@ -781,6 +791,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>RESET · DELETE GROUP</td><td>위치·회전·크기를 원래대로 · 그룹 삭제(오브젝트는 남음)</td></tr>
   </table></div>
   <p>그룹 움직임은 Live 안에서 계산되고 멤버와 함께 Live 세트에 저장되므로 TouchDesigner 없이도 동작합니다. 그룹이 움직이는 중에도 POSITION은 적용되어, 옮긴 대형을 기준으로 움직입니다.</p>
+  <figure><img src="media/ui-group.jpg?v=1124" alt="Group 1을 연 OBJECT EDITOR: 목록과 캔버스에서 두 멤버가 선택되고, 오른쪽 그룹 패널에 POSITION, ROTATE, SCALE, MOTION(RANDOM)" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.3 — 그룹: 두 멤버가 함께 선택되고 오른쪽에 그룹 패널</figcaption></figure>
 
   <h3>복사와 붙여넣기</h3>
   <p><span class="pill">COPY</span>(<kbd>Ctrl</kbd>+<kbd>C</kbd>)는 선택한 오브젝트의 움직임, 모양, 사운드 설정, 경로를 복사하고, <span class="pill">PASTE</span>(<kbd>Ctrl</kbd>+<kbd>V</kbd>)는 선택한 오브젝트에 적용합니다. 위치는 복사되지 않습니다.</p>
@@ -791,7 +802,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원) · FACING: CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED. 선은 LENGTH, 상자는 X · Y · Z(오른쪽·앞·위) 방향 크기를 가지며 3D 뷰에서 반투명하게 빛나는 상자로 그려짐 · RX · RY · RZ(오른쪽·앞·위 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#ko-render">04</a>, <a href="#ko-devices">08</a>)</td></tr>
   </table></div>
-  <figure><img src="media/ui-editor-set.jpg?v=1112b" alt="에디터 설정 열: MOTION(RATE, SIZE), SHAPE(TYPE, FACING, 선 길이와 각도), SOUND" loading="lazy" width="320" height="792" style="max-width:320px"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 LINE 오브젝트의 설정</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1124b" alt="에디터 설정 열: MOTION(RANDOM, RATE, SIZE), SHAPE(BOX, X Y Z, 회전), SOUND, GROUP" loading="lazy" width="312" height="652" style="max-width:320px"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 BOX 오브젝트의 설정</figcaption></figure>
 
   <h3>되돌리기와 백업</h3>
   <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(마우스가 에디터 위에 있을 때 <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>)는 에디터에서의 편집을 최대 60단계까지 되돌립니다. Live에서 바꾼 값과 씬 불러오기는 포함되지 않습니다. <span class="pill">SAVE</span>는 모든 오브젝트의 백업을 저장하고, <span class="pill">LOAD LAST</span>는 이를 복원합니다.</p>
@@ -818,7 +829,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>SPEAKER DISTANCE</td><td>청취 위치에서 스피커까지의 거리(m). 반사음, 도플러, WFS에 사용</td></tr>
     <tr><td>DIST COMP</td><td>스피커 거리가 다를 때 가까운 스피커를 지연·감쇠해 동시에 도달하게 함</td></tr>
   </table></div>
-  <figure><img src="media/ui-speakerout.jpg?v=1111d" alt="SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE" loading="lazy" width="480" height="465" style="max-width:480px"><figcaption>FIG. 3.1 — SET UP OUTPUTS 이후의 SPEAKERS 탭</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1124" alt="SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE" loading="lazy" width="376" height="331" style="max-width:376px"><figcaption>FIG. 3.1 — SET UP OUTPUTS 이후의 SPEAKERS 탭</figcaption></figure>
   <p>스피커 재생은 LIVE 탭의 MONITOR 또는 Master의 Mode에서 <span class="pill on">SPEAKERS</span>로 선택합니다.</p>
   <div class="note"><b>NOTE</b>스피커 모드에서는 Spatial Object가 없는 트랙이 재생되지 않습니다(Main이 내려감).</div>
   <h3>레이아웃</h3>
@@ -833,7 +844,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>AMBI</td><td>3차 앰비소닉스. 링과 돔에서 고르고 감싸는 음장</td></tr>
     <tr><td>WFS</td><td>스피커 배열용 파면 합성. 배열 안쪽에 음원 배치 가능</td></tr>
   </table></div>
-  <figure><img src="media/ui-space.jpg?v=1111d" alt="SPACE 탭: PANNING MODEL, ROOM 프리셋, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="480" height="425" style="max-width:480px"><figcaption>FIG. 3.2 — SPACE 탭</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1124" alt="SPACE 탭: PANNING MODEL, ROOM 프리셋, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="376" height="419" style="max-width:376px"><figcaption>FIG. 3.2 — SPACE 탭</figcaption></figure>
 </section>
 
 <!-- 04 -->
@@ -869,7 +880,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
 <section id="ko-scenes">
   <div class="cap">05 — Scenes</div>
   <h2>씬</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1112b" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1920" height="1080"><figcaption>FIG. 5.1 — SCENES 탭, 3D 뷰의 씬 미리보기, 타임라인 바</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1124" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1436" height="806"><figcaption>FIG. 5.1 — SCENES 탭과 어레인지먼트 클립이 보이는 타임라인</figcaption></figure>
   <p>씬은 모든 오브젝트의 위치와 움직임을 저장합니다. 불러오면 오브젝트가 크로스페이드로 이동합니다. 씬은 같은 이름의 Live 로케이터와 연결되며, Live 세트에 저장되어 TouchDesigner 없이도 동작합니다.</p>
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
@@ -884,6 +895,7 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
   </table></div>
   <h3>전환 창</h3>
   <p>오브젝트가 씬으로 옮겨가는 방식입니다. 씬 줄의 커브 아이콘으로 열며, 아이콘에 그 씬의 커브 모양이 보입니다.</p>
+  <figure><img src="media/ui-transition.jpg?v=1124" alt="Intro의 전환 창: FADE 2 beats, CURVE Smooth, 그래프, AMOUNT·PEAK 노브, PATH Around, STAGGER Off, SAVE" loading="lazy" width="430" height="306" style="max-width:430px"><figcaption>FIG. 5.2 — 전환 창</figcaption></figure>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
     <tr><td>FADE</td><td>길이: Cut 또는 1–16박</td></tr>
@@ -969,10 +981,10 @@ footer{font:11.5px/1.6 var(--f-mono);color:var(--mid);border-top:1px solid var(-
     <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW(처음 시점으로, 자동 회전 끔) · THEME: WHITE / BLACK · 이름, 귀, 머리, 돔 가이드(스피커 위치를 점선으로), 룸, 궤적 표시</td></tr>
     <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
   </table></div>
-  <figure><img src="media/ui-live.jpg?v=1111d" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="480" height="460" style="max-width:480px"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1124" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="376" height="353" style="max-width:376px"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
   <h3>트랙 색</h3>
   <p>트랙의 색 사각형을 누르면 Ableton 70색 팔레트가 열리고, 고른 색이 Live에도 적용됩니다.</p>
-  <figure><img src="media/ui-palette.jpg?v=1110b" alt="Ableton 70색 트랙 색 팔레트" loading="lazy" width="1920" height="1080"><figcaption>FIG. 7.2 — 색 팔레트</figcaption></figure>
+  <figure><img src="media/ui-palette.jpg?v=1124" alt="Ableton 70색 트랙 색 팔레트" loading="lazy" width="1436" height="806"><figcaption>FIG. 7.2 — 색 팔레트</figcaption></figure>
 </section>
 
 <!-- 08 -->
