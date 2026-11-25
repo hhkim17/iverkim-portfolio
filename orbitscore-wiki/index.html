@@ -480,8 +480,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h2>Orbit Link</h2>
   <p>Orbit Link sends the objects' positions, levels, colours and the scene state as OSC to other projects, and receives positions and settings from them.</p>
   <h3>OrbitLink_In.tox</h3>
-  <p>A TouchDesigner component that receives Orbit Score's data. Output <strong>out1</strong> is a CHOP with <code>count</code> and <code>o1_x o1_y o1_z</code>, <code>o2_x</code> … per object, in Live's track order. Status shows <span class="mono">3 objects · live</span> while data arrives.</p>
-  <p>The POP output gives one point per object (point 0 = object 1) with <code>P</code> (position), <code>Color</code> (track colour), <code>level</code>, <code>speed</code> and <code>id</code> (object number). It is always on and can go straight into instancing or any POP.</p>
+  <p>A TouchDesigner component that receives Orbit Score's data. Output <strong>objects_chop</strong> is a CHOP with <code>count</code> and <code>o1_x o1_y o1_z</code>, <code>o2_x</code> … per object, in Live's track order. Status shows <span class="mono">3 objects · live</span> while data arrives.</p>
+  <p>Hover over an output to see its name: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. The POP output (<code>points_pop</code>) gives one point per object (point 0 = object 1) with <code>P</code> (position), <code>Color</code> (track colour), <code>level</code>, <code>speed</code> and <code>id</code> (object number). It is always on and can go straight into instancing or any POP.</p>
   <p>The node's viewer shows the port, the status and, for each object, its track name and <code>x y z</code>.</p>
   <div class="tw"><table>
     <tr><th>Out toggle</th><th>Channels</th></tr>
@@ -492,7 +492,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>Positions are in ring radii: 1 = the speaker ring, X right, Y up, −Z front.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>A TouchDesigner component that moves objects from another project. It has two inputs.</p>
+  <p>A TouchDesigner component that moves objects from another project. It has two inputs, <code>chop_in</code> and <code>pop_in</code> (shown when you hover over them).</p>
   <ul>
     <li><strong>CHOP (left)</strong>: channels named as in OrbitLink_In (<code>o1_x o1_y o1_z</code> …), or one sample per object (<code>tx ty tz</code>, <code>x y z</code>, <code>P_0 P_1 P_2</code> or <code>az el dist</code>; sample 0 = object 1).</li>
     <li><strong>POP (right)</strong>: any POP. Point 0 moves object 1, point 1 moves object 2, and so on. If both inputs give the same object, the POP wins.</li>
@@ -957,8 +957,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h2>Orbit Link</h2>
   <p>Orbit Link는 오브젝트의 위치, 레벨, 색, 씬 상태를 OSC로 다른 프로젝트에 보내고, 다른 프로젝트에서 위치와 설정을 받습니다.</p>
   <h3>OrbitLink_In.tox</h3>
-  <p>Orbit Score의 데이터를 받는 TouchDesigner 컴포넌트입니다. 출력 <strong>out1</strong>은 <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code>, <code>o2_x</code> …가 담긴 CHOP입니다(Live 트랙 순서). 데이터가 들어오는 동안 Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p>
-  <p>POP 출력은 오브젝트마다 점 하나(점 0 = 오브젝트 1)를 내보내며 <code>P</code>(위치), <code>Color</code>(트랙 색), <code>level</code>, <code>speed</code>, <code>id</code>(오브젝트 번호)를 담습니다. 항상 켜져 있고 인스턴싱이나 다른 POP에 바로 연결할 수 있습니다.</p>
+  <p>Orbit Score의 데이터를 받는 TouchDesigner 컴포넌트입니다. 출력 <strong>objects_chop</strong>은 <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code>, <code>o2_x</code> …가 담긴 CHOP입니다(Live 트랙 순서). 데이터가 들어오는 동안 Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p>
+  <p>출력에 마우스를 올리면 이름이 보입니다: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. POP 출력(<code>points_pop</code>)은 오브젝트마다 점 하나(점 0 = 오브젝트 1)를 내보내며 <code>P</code>(위치), <code>Color</code>(트랙 색), <code>level</code>, <code>speed</code>, <code>id</code>(오브젝트 번호)를 담습니다. 항상 켜져 있고 인스턴싱이나 다른 POP에 바로 연결할 수 있습니다.</p>
   <p>노드 뷰어에는 포트, 상태, 그리고 오브젝트마다 트랙 이름과 <code>x y z</code>가 표시됩니다.</p>
   <div class="tw"><table>
     <tr><th>Out 토글</th><th>채널</th></tr>
@@ -969,7 +969,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>위치 단위는 링 반지름입니다: 1 = 스피커 링, X 오른쪽, Y 위, −Z 정면.</p>
   <h3>OrbitLink_Out.tox</h3>
-  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력은 두 개입니다.</p>
+  <p>다른 프로젝트에서 오브젝트를 움직이는 TouchDesigner 컴포넌트입니다. 입력은 <code>chop_in</code>과 <code>pop_in</code> 두 개입니다(마우스를 올리면 이름이 보입니다).</p>
   <ul>
     <li><strong>CHOP(왼쪽)</strong>: OrbitLink_In과 같은 이름의 채널(<code>o1_x o1_y o1_z</code> …), 또는 오브젝트당 샘플 하나(<code>tx ty tz</code>, <code>x y z</code>, <code>P_0 P_1 P_2</code>, <code>az el dist</code>; 샘플 0 = 오브젝트 1).</li>
     <li><strong>POP(오른쪽)</strong>: 어떤 POP이든 연결합니다. 점 0이 오브젝트 1, 점 1이 오브젝트 2를 움직입니다. 두 입력이 같은 오브젝트를 보내면 POP이 우선합니다.</li>
