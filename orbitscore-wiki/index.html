@@ -261,7 +261,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3 class="subh">TouchDesigner</h3>
   <p>The Orbit Score project (<code>.toe</code>) connects to Live automatically when both are open. The tracks with a Spatial Object are listed on the <span class="pill">LIVE</span> tab in Live's track order and shown as coloured points in the 3D view.</p>
   <p>In the 3D view, drag to orbit and scroll to zoom. Value buttons such as <span class="mono">1.5 s</span> are changed by pressing and dragging up or down. Perform mode (<kbd>F1</kbd>) gives the smoothest display.</p>
-  <figure><img src="media/ui-3d.jpg?v=1124" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1436" height="806"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1127" alt="Orbit Score, 3D VIEW: the 3D space with the objects on the left, the sidebar on the right" loading="lazy" width="1280" height="718"><figcaption>FIG. 1.1 — 3D VIEW and the sidebar</figcaption></figure>
   </section>
 
   <section id="setup-out" class="sub">
@@ -269,10 +269,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3 class="subh">Saving</h3>
   <div class="tw"><table>
     <tr><th>Saved in</th><th>Contents</th></tr>
-    <tr><td>Live set</td><td>Object settings, paths, scenes</td></tr>
-    <tr><td>TouchDesigner project</td><td>Speaker layout, room settings, display options</td></tr>
+    <tr><td>Live set</td><td>Object settings, paths, groups, scenes · speaker layout and custom speaker positions, panning model, output map · room and distance settings · master and test level · scene options</td></tr>
+    <tr><td>TouchDesigner project</td><td>Display options (theme, camera, what is shown) · the speaker preset library · a copy of every set's settings</td></tr>
   </table></div>
-  <p><span class="pill">SAVE</span> in the editor saves the TouchDesigner project and writes a backup of all object settings.</p>
+  <p>The screen is a blank viewer: opening a Live set brings that set's settings in, so different sets can use different speaker layouts and rooms. A change made on the screen is written to the open set about two seconds later; <strong>save the Live set</strong> to keep it. A set that holds no settings yet receives the ones on the screen.</p>
+  <p>If a set was closed without saving, the copy kept in the TouchDesigner project (one per set file name) is written back the next time that set opens. The LOG tab notes every time settings are taken over or written back.</p>
+  <p>Saving the TouchDesigner project also writes a backup of every object's settings and paths to <code>spatialize_snapshots/</code>, one per Live set.</p>
   </section>
 </section>
 
@@ -280,7 +282,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="editor">
   <div class="cap">02 — Object editor</div>
   <h2>Object editor</h2>
-  <figure><img src="media/ui-editor.jpg?v=1124" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.1 — Object list · canvas · settings</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1127" alt="OBJECT EDITOR: object list on the left, canvas in the centre, settings on the right" loading="lazy" width="1280" height="718"><figcaption>FIG. 2.1 — Object list · canvas · settings</figcaption></figure>
   <p>The canvas shows the space from above: listener in the centre, front at the top. Edits are written to the Spatial Object in Live; changes made in Live appear here.</p>
 
   <h3>Position</h3>
@@ -288,7 +290,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>Input</th><th>Action</th></tr>
     <tr><td>Drag a point on the canvas</td><td>Moves the object</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>Drag up / down to change; double-click to type (<kbd>Enter</kbd> applies, <kbd>Esc</kbd> cancels)</td></tr>
-    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>Shows the position as azimuth / elevation / distance or as X right · Y front · Z up; the readouts under the names in the 3D view follow</td></tr>
+    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>Shows the position as azimuth / elevation / distance or as X right · Y up · Z back (TouchDesigner's axes; front is −Z); the readouts under the names in the 3D view follow</td></tr>
+    <tr><td>X · Y · Z row</td><td>With a pattern motion: the centre of the motion on one line, drag or type</td></tr>
+    <tr><td>Axes and grid</td><td>X red · Y green · Z blue, with small arrows; the grid is the floor (X–Z)</td></tr>
     <tr><td>T · F · S, the ball above them</td><td>Top, front and side view; drag inside the ball for any angle</td></tr>
   </table></div>
 
@@ -297,30 +301,32 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Motion</th><th>Behaviour</th></tr>
     <tr><td>STATIC</td><td>Stays at its position</td></tr>
-    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>Regular movement around the position. RATE = speed, SIZE = width</td></tr>
+    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>Regular movement around the position. RATE = speed, SIZE = width (0–1 on the slider; typed values go up to 8)</td></tr>
     <tr><td>RANDOM</td><td>Smooth wandering around the position</td></tr>
     <tr><td>PATH</td><td>Follows a drawn path in time with the song</td></tr>
     <tr><td>CHAOS</td><td>Follows a chaotic attractor: smooth, non-repeating, occasionally passing close to the listener. The reachable figure is drawn as dots</td></tr>
   </table></div>
   <p>The position is the centre of the motion. The settings column shows only the controls the selected motion uses.</p>
+  <p>The figure a motion draws stays on the canvas as a thin dotted line in the object's colour: CIRCLE, FIG 8, SPIRAL, PING and paths. RANDOM has no fixed figure.</p>
   <p><strong>Orbit Link</strong> — while another project sends an object's position (<a href="#link">06</a>), its MOTION buttons and position are locked. <span class="pill">ORBIT LINK: ON / OFF</span> turns reception off.</p>
 
   <h3>Path</h3>
-  <p>Shown and editable while the motion is PATH.</p>
+  <p>Shown while the motion is PATH, in the object's colour. <span class="pill">EDIT PATH</span> opens the points for editing; the button then reads <span class="pill">SAVE PATH</span>.</p>
   <div class="tw"><table>
     <tr><th>Input</th><th>Action</th></tr>
+    <tr><td>EDIT PATH / SAVE PATH</td><td>Opens the path for editing · closes it and saves the project with its backup</td></tr>
     <tr><td>Click on empty canvas</td><td>Adds a point</td></tr>
     <tr><td>Drag · right-click a point</td><td>Moves it · deletes it</td></tr>
     <tr><td>CURVE / CORNER</td><td>Smooth point (●) or sharp corner (■)</td></tr>
     <tr><td>PATH LENGTH</td><td>Bars per pass, 1–64</td></tr>
     <tr><td>LOOP · PING-PONG · ONCE</td><td>Behaviour at the end of the path</td></tr>
-    <tr><td>PATH: OPEN / CLOSED</td><td>Whether the last point joins the first</td></tr>
+    <tr><td>CLOSED LOOP / OPEN PATH</td><td>Whether the last point joins the first</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>All points smooth · empty the path · read it back from Live</td></tr>
   </table></div>
-  <p>The path follows Live's song position. A path is kept when the motion changes. Leaving a changed path opens a prompt: <strong>SAVE</strong>, <strong>DON'T SAVE</strong> (return to the previous path) or <strong>CANCEL</strong>.</p>
+  <p>The path follows Live's song position. A path is kept when the motion changes. Every change to a point applies at once in Live; nothing is asked when you leave the path.</p>
 
   <h3>Multiple objects</h3>
-  <p><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + click adds an object to the selection. Settings apply to all selected objects; dragging moves them together.</p>
+  <p><kbd>Shift</kbd> / <kbd>Ctrl</kbd> + click (<kbd>Cmd</kbd> on macOS) adds an object to the selection. Settings apply to all selected objects; dragging moves them together.</p>
 
   <h3>Groups</h3>
   <p>The object list works like a layer list: groups sit at the top with their members indented under them, the other objects follow.</p>
@@ -334,12 +340,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Section</th><th>Controls</th></tr>
     <tr><td>Name</td><td>Click to rename the group</td></tr>
-    <tr><td>POSITION · ROTATE · SCALE</td><td>Move, turn and resize the whole formation. This places the members once; it is not a movement</td></tr>
-    <tr><td>MOTION</td><td>As for an object: <strong>STATIC</strong> or a pattern from the list — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — with RATE and SIZE. The whole formation moves around the group's centre while each member keeps its own motion. PATH and CHAOS are not available for groups</td></tr>
+    <tr><td>POSITION · ROTATE · SCALE</td><td>Move, turn and resize the whole formation (X right · Y up · Z back). This places the members once; it is not a movement</td></tr>
+    <tr><td>MOTION</td><td>As for an object: <strong>STATIC</strong> or a pattern from the list — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — with RATE and SIZE. The pattern is a fixed figure around the centre of the formation: the whole formation travels along it while each member keeps its own motion. While the group is selected the figure is drawn as a dotted line. PATH and CHAOS are not available for groups</td></tr>
     <tr><td>RESET · DELETE GROUP</td><td>Position, rotation and scale back to none · remove the group (the objects stay)</td></tr>
   </table></div>
   <p>A group's motion runs in Live and is saved in the Live set with its members, so it works without TouchDesigner. POSITION still applies while the group moves: the motion follows the moved formation.</p>
-  <figure><img src="media/ui-group.jpg?v=1124" alt="OBJECT EDITOR with Group 1 open: its two members selected in the list and on the canvas, the group panel with POSITION, ROTATE, SCALE and MOTION on RANDOM" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.3 — A group: both members selected, the group panel on the right</figcaption></figure>
+  <figure><img src="media/ui-group.jpg?v=1127" alt="OBJECT EDITOR with Group 1 open: its two members selected in the list and on the canvas, the group panel with POSITION, ROTATE, SCALE and MOTION on CIRCLE, the group figure as a dotted circle" loading="lazy" width="1280" height="718"><figcaption>FIG. 2.3 — A group: both members selected, the group panel on the right</figcaption></figure>
 
   <h3>Copy and paste</h3>
   <p><span class="pill">COPY</span> (<kbd>Ctrl</kbd>+<kbd>C</kbd>) copies the selected object's motion, shape, sound settings and path. <span class="pill">PASTE</span> (<kbd>Ctrl</kbd>+<kbd>V</kbd>) applies them to the selected objects. Position is not copied.</p>
@@ -347,13 +353,13 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>Shape and sound</h3>
   <div class="tw"><table>
     <tr><th>Section</th><th>Controls</th></tr>
-    <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box) · FACING: CENTER (turns with the object to face the listener) / FIXED. A line has LENGTH; a box has its size along X · Y · Z (right, front, up) and is drawn as a translucent, glowing box in the 3D view · RX · RY · RZ, the rotation about the right, front and up axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE (a source along a line) or BOX (a source filling a box) · FACING: CENTER (turns with the object to face the listener) / FIXED. A line has LENGTH; a box has its size along X · Y · Z (right, up, back — TouchDesigner's axes) and is drawn as a translucent, glowing box in the 3D view · RX · RY · RZ, the rotation about the right, up and front–back axis · under each, automatic rotation (RANDOM, SPIN, LFO) with RANGE and RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#render">04</a>, <a href="#devices">08</a>)</td></tr>
   </table></div>
-  <figure><img src="media/ui-editor-set.jpg?v=1124b" alt="Editor settings: MOTION (RANDOM, RATE, SIZE), SHAPE (BOX with X Y Z, rotation), SOUND, GROUP" loading="lazy" width="312" height="652"><figcaption>FIG. 2.2 — Settings of a BOX object on RANDOM</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1127" alt="Editor settings: MOTION (FIG 8 with the X Y Z row, RATE, SIZE), SHAPE (BOX with X Y Z, rotation), SOUND, GROUP" loading="lazy" width="320" height="672"><figcaption>FIG. 2.2 — Settings of a BOX object on FIG 8</figcaption></figure>
 
   <h3>Undo and backup</h3>
-  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (<kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> with the mouse over the editor) cover edits made in the editor, up to 60 steps. Changes made in Live and scene recalls are not included. <span class="pill">SAVE</span> stores a backup of every object; <span class="pill">LOAD LAST</span> restores it.</p>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span> (<kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> with the mouse over the editor) cover edits made in the editor, including group motion and typed SIZE values, up to 60 steps. Changes made in Live and scene recalls are not included. A backup of every object is written each time the TouchDesigner project is saved (<a href="#setup-out">01.3</a>).</p>
 </section>
 
 <!-- 03 -->
@@ -372,17 +378,20 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>Control</th><th>Function</th></tr>
     <tr><td>SET UP OUTPUTS</td><td>Creates the <code>OUT 1/2</code>, <code>OUT 3/4</code> … tracks in Live and routes them to the interface. Repeat after changing the layout</td></tr>
     <tr><td>Status line</td><td><span class="mono">✓ renderer → OUT tracks → Live outputs</span> when complete, otherwise what is missing</td></tr>
-    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>Pink noise from one speaker at a time; the 3D view shows the speaker number</td></tr>
+    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>Pink noise from one speaker at a time, all other outputs silent; the 3D view shows the speaker number</td></tr>
+    <tr><td>Test level − · +</td><td>Volume of the test noise, −60 to 0 dB (default −18), independent of MASTER</td></tr>
     <tr><td>OUTPUT MAP</td><td>Live output per speaker, in speaker order. <span class="mono">3 4 1 2</span> swaps two pairs; empty = 1 2 3 …</td></tr>
     <tr><td>SPEAKER DISTANCE</td><td>Listener to speakers in metres. Used by reflections, Doppler and WFS</td></tr>
     <tr><td>DIST COMP</td><td>For speakers at different distances: nearer speakers are delayed and attenuated so all arrive together</td></tr>
   </table></div>
-  <figure><img src="media/ui-speakerout.jpg?v=1124" alt="SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE" loading="lazy" width="376" height="331"><figcaption>FIG. 3.1 — SPEAKERS tab after SET UP OUTPUTS</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1127" alt="SPEAKERS tab: SPEAKER LAYOUT, OUTPUTS with SET UP OUTPUTS, OUTPUT MAP, TEST and status, DISTANCE" loading="lazy" width="380" height="356"><figcaption>FIG. 3.1 — SPEAKERS tab after SET UP OUTPUTS</figcaption></figure>
   <p>Speaker playback is selected with MONITOR on the LIVE tab or the Master's Mode, <span class="pill on">SPEAKERS</span>.</p>
   <div class="note"><b>NOTE</b>In speaker mode, tracks without a Spatial Object are silent (Main is turned down).</div>
   <h3>Layouts</h3>
   <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · <strong>Custom</strong>.</p>
   <p><strong>Custom</strong>: <span class="pill">EDIT TABLE</span> lists one speaker per row — <span class="mono">name · az · el · dist · lfe</span> (dist 1 = the ring, lfe 1 for a subwoofer), up to 64. <span class="pill">MIRROR L ↔ R</span> adds the opposite side of every off-centre speaker.</p>
+  <p>The speaker editor under it steps through the speakers (◀ ▶) and sets one at a time: X · Y · Z in metres (X right, Y up, Z back) or azimuth / elevation / distance (<span class="pill">XYZ ⇄ AED</span>), with <span class="pill">+ ADD</span> · <span class="pill">DUP</span> · <span class="pill">DEL</span> · <span class="pill">LFE</span>. While a speaker is being edited the 3D view marks it and shows every speaker's number and name.</p>
+  <p><span class="pill">SAVE AS PRESET</span> stores the table under a name together with a panning model; <span class="pill">PRESETS</span> lists the stored ones.</p>
   <h3>Panning model</h3>
   <p>SPACE tab. Each layout selects a suitable model (<em>auto</em>); a different choice is remembered per layout.</p>
   <div class="tw"><table>
@@ -392,7 +401,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>AMBI</td><td>3rd-order Ambisonics. Even, enveloping field on rings and domes</td></tr>
     <tr><td>WFS</td><td>Wave field synthesis for speaker arrays. Sources can be placed inside the array</td></tr>
   </table></div>
-  <figure><img src="media/ui-space.jpg?v=1124" alt="SPACE tab: PANNING MODEL, ROOM presets, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="376" height="419"><figcaption>FIG. 3.2 — SPACE tab</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1127" alt="SPACE tab: PANNING MODEL, ROOM presets, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="380" height="416"><figcaption>FIG. 3.2 — SPACE tab</figcaption></figure>
 </section>
 
 <!-- 04 -->
@@ -428,7 +437,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="scenes">
   <div class="cap">05 — Scenes</div>
   <h2>Scenes</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1124" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1436" height="806"><figcaption>FIG. 5.1 — SCENES tab and the timeline with the arrangement clips</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1127" alt="SCENES tab in the sidebar and the timeline bar along the bottom with two linked locators, Intro and Verse" loading="lazy" width="1280" height="718"><figcaption>FIG. 5.1 — SCENES tab and the timeline with the arrangement clips</figcaption></figure>
   <p>A scene stores the position and motion of every object. Recalling it moves all objects there with a crossfade. Each scene is linked to a Live locator of the same name. Scenes are saved in the Live set and work without TouchDesigner.</p>
   <h3>SCENES tab</h3>
   <div class="tw"><table>
@@ -543,10 +552,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>Sidebar tab</th><th>Contents</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / headphones / speakers · <strong>MASTER</strong> volume and MUTE · connection status · <strong>TRACKS</strong>: show / hide, name label, mute, colour, level</td></tr>
     <tr><td>SPACE</td><td>Panning model · room (preset, reverb, reflections, ear height) · distance (Doppler, Air, Far thin, Near bass), each chosen from a list</td></tr>
-    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW (back to the starting view, auto orbit off) · THEME: WHITE / BLACK · show names, ears, head, dome guide (the speaker positions as a dashed outline), room, trails.</td></tr>
+    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW (back to the starting view, auto orbit off) · THEME: WHITE / BLACK · show names, ears, head, dome guide (the speaker positions as a dashed outline), room, trails, speaker numbers.</td></tr>
     <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
   </table></div>
-  <figure><img src="media/ui-live.jpg?v=1124" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="376" height="353"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1127" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="380" height="350"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
   <h3>Track colour</h3>
   <p>Click a track's colour square: Ableton's 70-colour palette opens, and the colour changes in Live too.</p>
   <figure><img src="media/ui-palette.jpg?v=1124" alt="Track colour palette with Ableton's 70 colours" loading="lazy" width="1436" height="806"><figcaption>FIG. 7.2 — Colour palette</figcaption></figure>
@@ -605,6 +614,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>A position sent over Orbit Link doesn't stay</td><td>It is a stream: keep sending. To fix a position permanently, set it in the editor</td></tr>
     <tr><td>Orbit Link In shows "no signal"</td><td>Orbit Score must be sending to this computer's address and port 9010, and nothing else may use that port</td></tr>
     <tr><td>Scene crossfades stutter</td><td>Keep Live in the foreground during a show, and use fades of a few beats</td></tr>
+    <tr><td>The layout or room changed when a set was opened</td><td>The screen took over that set's own settings; the LOG tab lists what changed. To carry settings to another set, store the speakers as a preset first</td></tr>
+    <tr><td>Paths, groups or scenes are gone after reopening a set</td><td>Save the Live set after editing (the screen's own save does not save Live). The backup in <code>spatialize_snapshots/</code> still holds the object settings and paths</td></tr>
+    <tr><td>The picture is limited to 1280 pixels</td><td>TouchDesigner Non-Commercial renders at most 1280 × 1280</td></tr>
   </table></div>
 </section>
 
@@ -620,6 +632,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/spat/form</td><td>uid and all its settings</td></tr>
     <tr><td>/spat/path</td><td>uid, n, then x y z curve per point</td></tr>
     <tr><td>/spat/scenes · /spat/cues · /spat/play</td><td>scene list · locators · playhead</td></tr>
+    <tr><td>/spat/cfginfo · /spat/cfg</td><td>id, revision and file name of the set's screen settings · the settings themselves (hex chunks)</td></tr>
   </table></div>
   <div class="tw"><table>
     <tr><th>Screen → Live (9002)</th><th>Carries</th></tr>
@@ -627,9 +640,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> — any object setting (keys as in <a href="#link">/orbit/set</a>)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z curve …</code></td></tr>
     <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code></td></tr>
-    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade …</td></tr>
+    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade … · cfgset · cfginfo · cfgget (the screen settings kept in the set)</td></tr>
   </table></div>
-  <p><strong>Co-ordinates</strong> — devices: x front, y left, z up, distance 1 = the speaker ring, azimuth + = left. Orbit Link: X right, Y up, −Z front. The editor's XYZ: X right, Y front, Z up (ADM).</p>
+  <p><strong>Co-ordinates</strong> — devices: x front, y left, z up, distance 1 = the speaker ring, azimuth + = left. Orbit Link: X right, Y up, −Z front. The editor's and the speaker editor's XYZ use the same axes as Orbit Link and TouchDesigner: X right, Y up, Z back.</p>
 </section>
 
 <!-- 11 -->
@@ -639,6 +652,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Version</th><th>Contents</th></tr>
     <tr><td>1.0</td><td>First public release (planned)</td></tr>
+    <tr><td>0.9 · beta (Nov 27)</td><td>The Live set holds the screen's settings (speaker layout, room, groups, scene options); each set brings its own · XYZ follows TouchDesigner's axes (Y up) · motion figures and paths stay visible as dotted lines · EDIT PATH / SAVE PATH · group motion as a fixed figure · SIZE above 1 by typing · speaker editor, presets, test level, speaker numbers · automatic backup with every project save</td></tr>
     <tr><td>0.9 · beta (Nov 24)</td><td>Groups with their own motion, saved in the Live set · box size along X · Y · Z, drawn as a glowing box · new transition window (Overshoot and Custom curves, AMOUNT and PEAK) · scene rows with object dots and curve icons · timeline with Live's arrangement clips, AUTO SCENE and play button · dropdowns on the SPACE and SCENES tabs · black theme reworked · delete asks first</td></tr>
     <tr><td>0.9 · beta</td><td>Scenes: transitions with curves, stagger and room, quantize, Scene and Morph from Live, <code>@Name</code> clips, preview, export / import, morph pad · editor: paths drawn on the canvas, several objects and groups, copy / paste, XYZ, undo · room and distance on headphones and speakers: reverb, reflections, measured HRTF, AIR, FAR THIN, NEAR BASS, Doppler · Orbit Link transport, chaos values, track colour and name, POP in / out</td></tr>
     <tr><td>0.8</td><td>Spatial Renderer: speakers inside Live, up to 64, VBAP / DBAP / Ambisonics / WFS, custom layouts, distance compensation · Chaos motion · Spread · Speed effect</td></tr>
@@ -738,7 +752,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3 class="subh">TouchDesigner</h3>
   <p>Orbit Score 프로젝트(<code>.toe</code>)는 Live와 함께 열려 있으면 자동으로 연결됩니다. Spatial Object가 있는 트랙이 Live 순서대로 <span class="pill">LIVE</span> 탭에 나열되고, 3D 뷰에 색 점으로 표시됩니다.</p>
   <p>3D 뷰에서 드래그는 시점 회전, 스크롤은 확대·축소입니다. <span class="mono">1.5 s</span> 같은 값 버튼은 누른 채 위아래로 드래그해 바꿉니다. Perform 모드(<kbd>F1</kbd>)에서 화면이 가장 부드럽습니다.</p>
-  <figure><img src="media/ui-3d.jpg?v=1124" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1436" height="806"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
+  <figure><img src="media/ui-3d.jpg?v=1127" alt="Orbit Score 3D VIEW: 왼쪽 3D 공간과 오브젝트, 오른쪽 사이드바" loading="lazy" width="1280" height="718"><figcaption>FIG. 1.1 — 3D VIEW와 사이드바</figcaption></figure>
   </section>
 
   <section id="ko-setup-out" class="sub">
@@ -746,10 +760,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3 class="subh">저장</h3>
   <div class="tw"><table>
     <tr><th>저장 위치</th><th>내용</th></tr>
-    <tr><td>Live 세트</td><td>오브젝트 설정, 경로, 씬</td></tr>
-    <tr><td>TouchDesigner 프로젝트</td><td>스피커 레이아웃, 룸 설정, 화면 옵션</td></tr>
+    <tr><td>Live 세트</td><td>오브젝트 설정, 경로, 그룹, 씬 · 스피커 레이아웃과 Custom 스피커 위치, 패닝 모델, 출력 맵 · 룸과 거리감 설정 · 마스터·테스트 레벨 · 씬 옵션</td></tr>
+    <tr><td>TouchDesigner 프로젝트</td><td>화면 옵션(테마, 카메라, 표시 항목) · 스피커 프리셋 목록 · 세트별 설정 사본</td></tr>
   </table></div>
-  <p>에디터의 <span class="pill">SAVE</span>는 TouchDesigner 프로젝트를 저장하고 모든 오브젝트 설정의 백업을 남깁니다.</p>
+  <p>화면은 빈 뷰어입니다. Live 세트를 열면 그 세트의 설정이 들어오므로, 세트마다 다른 스피커 레이아웃과 룸을 쓸 수 있습니다. 화면에서 바꾼 값은 약 2초 뒤 열려 있는 세트에 기록되며, <strong>Live 세트를 저장</strong>해야 남습니다. 설정이 없는 세트를 열면 화면에 있는 설정이 그 세트에 기록됩니다.</p>
+  <p>세트를 저장하지 않고 닫았다면, TouchDesigner 프로젝트에 보관된 사본(세트 파일 이름별)이 다음에 그 세트를 열 때 다시 기록됩니다. 설정을 받아오거나 다시 기록할 때마다 LOG 탭에 표시됩니다.</p>
+  <p>TouchDesigner 프로젝트를 저장하면 모든 오브젝트의 설정과 경로 백업도 <code>spatialize_snapshots/</code>에 세트별로 함께 저장됩니다.</p>
   </section>
 </section>
 
@@ -757,7 +773,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="ko-editor">
   <div class="cap">02 — Object editor</div>
   <h2>오브젝트 에디터</h2>
-  <figure><img src="media/ui-editor.jpg?v=1124" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.1 — 오브젝트 목록 · 캔버스 · 설정</figcaption></figure>
+  <figure><img src="media/ui-editor.jpg?v=1127" alt="OBJECT EDITOR: 왼쪽 오브젝트 목록, 가운데 캔버스, 오른쪽 설정" loading="lazy" width="1280" height="718"><figcaption>FIG. 2.1 — 오브젝트 목록 · 캔버스 · 설정</figcaption></figure>
   <p>캔버스는 위에서 본 공간입니다(가운데가 청취자, 위쪽이 정면). 편집한 값은 Live의 Spatial Object에 기록되고, Live에서 바꾼 값은 여기 반영됩니다.</p>
 
   <h3>위치</h3>
@@ -765,7 +781,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>입력</th><th>동작</th></tr>
     <tr><td>캔버스의 점 드래그</td><td>오브젝트 이동</td></tr>
     <tr><td>AZIMUTH · ELEVATION · DISTANCE</td><td>위아래 드래그로 변경, 더블클릭으로 입력 (<kbd>Enter</kbd> 적용, <kbd>Esc</kbd> 취소)</td></tr>
-    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>위치를 방위/고도/거리 또는 X 오른쪽 · Y 정면 · Z 위로 표시. 3D 뷰의 이름 아래 값도 같이 바뀜</td></tr>
+    <tr><td><span class="pill">AED</span> / <span class="pill">XYZ</span></td><td>위치를 방위/고도/거리 또는 X 오른쪽 · Y 위 · Z 뒤(TouchDesigner 축, 정면은 −Z)로 표시. 3D 뷰의 이름 아래 값도 같이 바뀜</td></tr>
+    <tr><td>X · Y · Z 줄</td><td>패턴 움직임일 때: 움직임의 중심을 한 줄에서 드래그하거나 입력</td></tr>
+    <tr><td>축과 격자</td><td>X 빨강 · Y 초록 · Z 파랑, 작은 화살표 표시. 격자는 바닥(X–Z)</td></tr>
     <tr><td>T · F · S, 그 위의 구</td><td>위·앞·옆 시점. 구 안을 드래그하면 임의의 각도</td></tr>
   </table></div>
 
@@ -774,30 +792,32 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Motion</th><th>동작</th></tr>
     <tr><td>STATIC</td><td>정지</td></tr>
-    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>위치를 중심으로 한 규칙적인 움직임. RATE = 속도, SIZE = 폭</td></tr>
+    <tr><td>CIRCLE · FIG 8 · SPIRAL · PING</td><td>위치를 중심으로 한 규칙적인 움직임. RATE = 속도, SIZE = 폭(슬라이더는 0–1, 직접 입력하면 8까지)</td></tr>
     <tr><td>RANDOM</td><td>위치 주변을 부드럽게 떠돎</td></tr>
     <tr><td>PATH</td><td>그린 경로를 곡에 맞춰 따라감</td></tr>
     <tr><td>CHAOS</td><td>카오스 어트랙터를 따라감. 매끄럽고 반복되지 않으며 가끔 청취자 가까이 지나감. 지나갈 수 있는 범위가 점으로 표시됨</td></tr>
   </table></div>
   <p>위치는 움직임의 중심입니다. 설정 열에는 선택한 움직임에 쓰이는 항목만 표시됩니다.</p>
+  <p>움직임이 그리는 모양은 캔버스에 오브젝트 색의 가는 점선으로 계속 표시됩니다: CIRCLE, FIG 8, SPIRAL, PING, 경로. RANDOM은 정해진 모양이 없습니다.</p>
   <p><strong>Orbit Link</strong> — 다른 프로젝트에서 위치를 받는 동안(<a href="#ko-link">06</a>) 해당 오브젝트의 MOTION 버튼과 위치는 잠깁니다. <span class="pill">ORBIT LINK: ON / OFF</span>로 수신을 끕니다.</p>
 
   <h3>경로</h3>
-  <p>움직임이 PATH일 때 표시되고 편집할 수 있습니다.</p>
+  <p>움직임이 PATH일 때 오브젝트 색으로 표시됩니다. <span class="pill">EDIT PATH</span>를 누르면 점을 편집할 수 있고, 버튼은 <span class="pill">SAVE PATH</span>로 바뀝니다.</p>
   <div class="tw"><table>
     <tr><th>입력</th><th>동작</th></tr>
+    <tr><td>EDIT PATH / SAVE PATH</td><td>경로 편집 열기 · 편집을 닫고 프로젝트와 백업 저장</td></tr>
     <tr><td>캔버스 빈 곳 클릭</td><td>점 추가</td></tr>
     <tr><td>점 드래그 · 우클릭</td><td>이동 · 삭제</td></tr>
     <tr><td>CURVE / CORNER</td><td>부드러운 점(●) 또는 꺾인 점(■)</td></tr>
     <tr><td>PATH LENGTH</td><td>한 바퀴의 마디 수, 1–64</td></tr>
     <tr><td>LOOP · PING-PONG · ONCE</td><td>경로 끝에서의 동작</td></tr>
-    <tr><td>PATH: OPEN / CLOSED</td><td>마지막 점과 첫 점의 연결 여부</td></tr>
+    <tr><td>CLOSED LOOP / OPEN PATH</td><td>마지막 점과 첫 점의 연결 여부</td></tr>
     <tr><td>ALL CURVES · CLEAR · RELOAD</td><td>전체 곡선화 · 경로 비우기 · Live에서 다시 읽기</td></tr>
   </table></div>
-  <p>경로는 Live 송 포지션을 따릅니다. 움직임을 바꿔도 경로는 유지됩니다. 고친 경로를 떠나면 <strong>SAVE</strong>, <strong>DON'T SAVE</strong>(이전 경로로 복원), <strong>CANCEL</strong>을 묻는 창이 열립니다.</p>
+  <p>경로는 Live 송 포지션을 따릅니다. 움직임을 바꿔도 경로는 유지됩니다. 점을 바꾸면 Live에 바로 적용되며, 경로를 떠날 때 따로 묻지 않습니다.</p>
 
   <h3>여러 오브젝트</h3>
-  <p><kbd>Ctrl</kbd> / <kbd>Shift</kbd> + 클릭으로 선택에 추가합니다. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 움직입니다.</p>
+  <p><kbd>Shift</kbd> / <kbd>Ctrl</kbd> + 클릭(macOS는 <kbd>Cmd</kbd>도 가능)으로 선택에 추가합니다. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 움직입니다.</p>
 
   <h3>그룹</h3>
   <p>오브젝트 목록은 레이어 목록처럼 동작합니다. 위쪽에 그룹이 있고 그 아래에 멤버가 들여쓰기로 표시되며, 나머지 오브젝트가 이어집니다.</p>
@@ -811,12 +831,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>섹션</th><th>컨트롤</th></tr>
     <tr><td>이름</td><td>눌러서 그룹 이름 변경</td></tr>
-    <tr><td>POSITION · ROTATE · SCALE</td><td>대형 전체를 옮기고, 돌리고, 크기를 바꿈. 멤버를 한 번 배치하는 것이며 움직임은 아님</td></tr>
-    <tr><td>MOTION</td><td>오브젝트와 같음: <strong>STATIC</strong> 또는 목록의 패턴 — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — 과 RATE, SIZE. 대형 전체가 그룹 중심을 기준으로 움직이고, 멤버는 각자의 움직임을 그대로 유지. 그룹에는 PATH와 CHAOS가 없음</td></tr>
+    <tr><td>POSITION · ROTATE · SCALE</td><td>대형 전체를 옮기고(X 오른쪽 · Y 위 · Z 뒤), 돌리고, 크기를 바꿈. 멤버를 한 번 배치하는 것이며 움직임은 아님</td></tr>
+    <tr><td>MOTION</td><td>오브젝트와 같음: <strong>STATIC</strong> 또는 목록의 패턴 — CIRCLE · FIG 8 · PING · SPIRAL · RANDOM — 과 RATE, SIZE. 패턴은 대형 중심 둘레의 고정된 모양이며, 대형 전체가 그 모양을 따라 움직이고 멤버는 각자의 움직임을 그대로 유지. 그룹을 선택하면 그 모양이 점선으로 표시됨. 그룹에는 PATH와 CHAOS가 없음</td></tr>
     <tr><td>RESET · DELETE GROUP</td><td>위치·회전·크기를 원래대로 · 그룹 삭제(오브젝트는 남음)</td></tr>
   </table></div>
   <p>그룹 움직임은 Live 안에서 계산되고 멤버와 함께 Live 세트에 저장되므로 TouchDesigner 없이도 동작합니다. 그룹이 움직이는 중에도 POSITION은 적용되어, 옮긴 대형을 기준으로 움직입니다.</p>
-  <figure><img src="media/ui-group.jpg?v=1124" alt="Group 1을 연 OBJECT EDITOR: 목록과 캔버스에서 두 멤버가 선택되고, 오른쪽 그룹 패널에 POSITION, ROTATE, SCALE, MOTION(RANDOM)" loading="lazy" width="1436" height="806"><figcaption>FIG. 2.3 — 그룹: 두 멤버가 함께 선택되고 오른쪽에 그룹 패널</figcaption></figure>
+  <figure><img src="media/ui-group.jpg?v=1127" alt="Group 1을 연 OBJECT EDITOR: 목록과 캔버스에서 두 멤버가 선택되고, 오른쪽 그룹 패널에 POSITION, ROTATE, SCALE, MOTION(CIRCLE), 점선 원으로 표시된 그룹 모양" loading="lazy" width="1280" height="718"><figcaption>FIG. 2.3 — 그룹: 두 멤버가 함께 선택되고 오른쪽에 그룹 패널</figcaption></figure>
 
   <h3>복사와 붙여넣기</h3>
   <p><span class="pill">COPY</span>(<kbd>Ctrl</kbd>+<kbd>C</kbd>)는 선택한 오브젝트의 움직임, 모양, 사운드 설정, 경로를 복사하고, <span class="pill">PASTE</span>(<kbd>Ctrl</kbd>+<kbd>V</kbd>)는 선택한 오브젝트에 적용합니다. 위치는 복사되지 않습니다.</p>
@@ -824,13 +844,13 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>모양과 사운드</h3>
   <div class="tw"><table>
     <tr><th>섹션</th><th>컨트롤</th></tr>
-    <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원) · FACING: CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED. 선은 LENGTH, 상자는 X · Y · Z(오른쪽·앞·위) 방향 크기를 가지며 3D 뷰에서 반투명하게 빛나는 상자로 그려짐 · RX · RY · RZ(오른쪽·앞·위 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
+    <tr><td>SHAPE</td><td>TYPE: POINT, LINE(선을 따라 펼쳐진 음원), BOX(상자를 채우는 음원) · FACING: CENTER(오브젝트와 함께 돌아 청취자를 향함) / FIXED. 선은 LENGTH, 상자는 X · Y · Z(오른쪽·위·뒤, TouchDesigner 축) 방향 크기를 가지며 3D 뷰에서 반투명하게 빛나는 상자로 그려짐 · RX · RY · RZ(오른쪽·위·앞뒤 축 둘레의 회전) · 각 축 아래 자동 회전(RANDOM, SPIN, LFO)과 RANGE, RATE</td></tr>
     <tr><td>SOUND</td><td>SPREAD · ROOM · AIR · DOPPLER · SPEED FX (<a href="#ko-render">04</a>, <a href="#ko-devices">08</a>)</td></tr>
   </table></div>
-  <figure><img src="media/ui-editor-set.jpg?v=1124b" alt="에디터 설정 열: MOTION(RANDOM, RATE, SIZE), SHAPE(BOX, X Y Z, 회전), SOUND, GROUP" loading="lazy" width="312" height="652"><figcaption>FIG. 2.2 — RANDOM으로 움직이는 BOX 오브젝트의 설정</figcaption></figure>
+  <figure><img src="media/ui-editor-set.jpg?v=1127" alt="에디터 설정 열: MOTION(FIG 8, X Y Z 줄, RATE, SIZE), SHAPE(BOX, X Y Z, 회전), SOUND, GROUP" loading="lazy" width="320" height="672"><figcaption>FIG. 2.2 — FIG 8로 움직이는 BOX 오브젝트의 설정</figcaption></figure>
 
   <h3>되돌리기와 백업</h3>
-  <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(마우스가 에디터 위에 있을 때 <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>)는 에디터에서의 편집을 최대 60단계까지 되돌립니다. Live에서 바꾼 값과 씬 불러오기는 포함되지 않습니다. <span class="pill">SAVE</span>는 모든 오브젝트의 백업을 저장하고, <span class="pill">LOAD LAST</span>는 이를 복원합니다.</p>
+  <p><span class="pill">UNDO</span> <span class="pill">REDO</span>(마우스가 에디터 위에 있을 때 <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>)는 에디터에서의 편집(그룹 움직임, 직접 입력한 SIZE 포함)을 최대 60단계까지 되돌립니다. Live에서 바꾼 값과 씬 불러오기는 포함되지 않습니다. 모든 오브젝트의 백업은 TouchDesigner 프로젝트를 저장할 때마다 기록됩니다(<a href="#ko-setup-out">01.3</a>).</p>
 </section>
 
 <!-- 03 -->
@@ -849,17 +869,20 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>컨트롤</th><th>기능</th></tr>
     <tr><td>SET UP OUTPUTS</td><td>Live에 <code>OUT 1/2</code>, <code>OUT 3/4</code> … 트랙을 만들고 인터페이스로 라우팅. 레이아웃 변경 후 다시 실행</td></tr>
     <tr><td>상태 표시</td><td>완료 시 <span class="mono">✓ renderer → OUT tracks → Live outputs</span>, 아니면 빠진 항목</td></tr>
-    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>스피커별 핑크 노이즈. 3D 뷰에 스피커 번호 표시</td></tr>
+    <tr><td>TEST · &lt; · &gt; · AUTO</td><td>스피커별 핑크 노이즈, 나머지 출력은 무음. 3D 뷰에 스피커 번호 표시</td></tr>
+    <tr><td>Test level − · +</td><td>테스트 노이즈 음량, −60–0 dB(기본 −18). MASTER와 별개</td></tr>
     <tr><td>OUTPUT MAP</td><td>스피커 순서대로 사용할 Live 출력. <span class="mono">3 4 1 2</span>는 두 쌍 교체, 비우면 1 2 3 …</td></tr>
     <tr><td>SPEAKER DISTANCE</td><td>청취 위치에서 스피커까지의 거리(m). 반사음, 도플러, WFS에 사용</td></tr>
     <tr><td>DIST COMP</td><td>스피커 거리가 다를 때 가까운 스피커를 지연·감쇠해 동시에 도달하게 함</td></tr>
   </table></div>
-  <figure><img src="media/ui-speakerout.jpg?v=1124" alt="SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE" loading="lazy" width="376" height="331"><figcaption>FIG. 3.1 — SET UP OUTPUTS 이후의 SPEAKERS 탭</figcaption></figure>
+  <figure><img src="media/ui-speakerout.jpg?v=1127" alt="SPEAKERS 탭: SPEAKER LAYOUT, OUTPUTS(SET UP OUTPUTS, OUTPUT MAP, TEST, 상태), DISTANCE" loading="lazy" width="380" height="356"><figcaption>FIG. 3.1 — SET UP OUTPUTS 이후의 SPEAKERS 탭</figcaption></figure>
   <p>스피커 재생은 LIVE 탭의 MONITOR 또는 Master의 Mode에서 <span class="pill on">SPEAKERS</span>로 선택합니다.</p>
   <div class="note"><b>NOTE</b>스피커 모드에서는 Spatial Object가 없는 트랙이 재생되지 않습니다(Main이 내려감).</div>
   <h3>레이아웃</h3>
   <p>Stereo · Quad · 5.1 · 7.1 · 5.1.4 · 7.1.4 · 9.1.6 · Hexagon 6 · Octagon 8 · Ring 16 · Cube 8 · Dome 25 · WFS line 32 · WFS rectangle 64 · <strong>Custom</strong>.</p>
   <p><strong>Custom</strong>: <span class="pill">EDIT TABLE</span>에 스피커를 한 줄씩 기록합니다 — <span class="mono">name · az · el · dist · lfe</span> (dist 1 = 링, 서브우퍼는 lfe 1), 최대 64개. <span class="pill">MIRROR L ↔ R</span>은 중앙선 밖 스피커의 반대편을 추가합니다.</p>
+  <p>그 아래의 스피커 에디터는 스피커를 하나씩 넘기며(◀ ▶) 설정합니다: 미터 단위 X · Y · Z(X 오른쪽, Y 위, Z 뒤) 또는 방위/고도/거리(<span class="pill">XYZ ⇄ AED</span>), <span class="pill">+ ADD</span> · <span class="pill">DUP</span> · <span class="pill">DEL</span> · <span class="pill">LFE</span>. 스피커를 편집하는 동안 3D 뷰에 해당 스피커가 표시되고 모든 스피커의 번호와 이름이 보입니다.</p>
+  <p><span class="pill">SAVE AS PRESET</span>은 표를 패닝 모델과 함께 이름을 붙여 저장하고, <span class="pill">PRESETS</span>에서 저장한 것을 고릅니다.</p>
   <h3>패닝 모델</h3>
   <p>SPACE 탭. 레이아웃마다 알맞은 모델이 자동 선택되며(<em>auto</em>), 다른 선택은 레이아웃별로 기억됩니다.</p>
   <div class="tw"><table>
@@ -869,7 +892,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>AMBI</td><td>3차 앰비소닉스. 링과 돔에서 고르고 감싸는 음장</td></tr>
     <tr><td>WFS</td><td>스피커 배열용 파면 합성. 배열 안쪽에 음원 배치 가능</td></tr>
   </table></div>
-  <figure><img src="media/ui-space.jpg?v=1124" alt="SPACE 탭: PANNING MODEL, ROOM 프리셋, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="376" height="419"><figcaption>FIG. 3.2 — SPACE 탭</figcaption></figure>
+  <figure><img src="media/ui-space.jpg?v=1127" alt="SPACE 탭: PANNING MODEL, ROOM 프리셋, REVERB, REFLECTIONS, EAR HEIGHT" loading="lazy" width="380" height="416"><figcaption>FIG. 3.2 — SPACE 탭</figcaption></figure>
 </section>
 
 <!-- 04 -->
@@ -905,7 +928,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="ko-scenes">
   <div class="cap">05 — Scenes</div>
   <h2>씬</h2>
-  <figure><img src="media/ui-scenes.jpg?v=1124" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1436" height="806"><figcaption>FIG. 5.1 — SCENES 탭과 어레인지먼트 클립이 보이는 타임라인</figcaption></figure>
+  <figure><img src="media/ui-scenes.jpg?v=1127" alt="사이드바 SCENES 탭과 아래쪽 타임라인 바, 연결된 로케이터 Intro와 Verse" loading="lazy" width="1280" height="718"><figcaption>FIG. 5.1 — SCENES 탭과 어레인지먼트 클립이 보이는 타임라인</figcaption></figure>
   <p>씬은 모든 오브젝트의 위치와 움직임을 저장합니다. 불러오면 오브젝트가 크로스페이드로 이동합니다. 씬은 같은 이름의 Live 로케이터와 연결되며, Live 세트에 저장되어 TouchDesigner 없이도 동작합니다.</p>
   <h3>SCENES 탭</h3>
   <div class="tw"><table>
@@ -1020,10 +1043,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><th>사이드바 탭</th><th>내용</th></tr>
     <tr><td>LIVE</td><td><strong>MONITOR</strong> 끔 / 헤드폰 / 스피커 · <strong>MASTER</strong> 볼륨과 MUTE · 연결 상태 · <strong>TRACKS</strong>: 표시, 이름표, 뮤트, 색, 레벨</td></tr>
     <tr><td>SPACE</td><td>패닝 모델 · 룸(프리셋, 리버브, 반사음, 귀 높이) · 거리감(Doppler, Air, Far thin, Near bass). 값은 목록에서 고름</td></tr>
-    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW(처음 시점으로, 자동 회전 끔) · THEME: WHITE / BLACK · 이름, 귀, 머리, 돔 가이드(스피커 위치를 점선으로), 룸, 궤적 표시</td></tr>
+    <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW(처음 시점으로, 자동 회전 끔) · THEME: WHITE / BLACK · 이름, 귀, 머리, 돔 가이드(스피커 위치를 점선으로), 룸, 궤적, 스피커 번호 표시</td></tr>
     <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
   </table></div>
-  <figure><img src="media/ui-live.jpg?v=1124" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="376" height="353"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
+  <figure><img src="media/ui-live.jpg?v=1127" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="380" height="350"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
   <h3>트랙 색</h3>
   <p>트랙의 색 사각형을 누르면 Ableton 70색 팔레트가 열리고, 고른 색이 Live에도 적용됩니다.</p>
   <figure><img src="media/ui-palette.jpg?v=1124" alt="Ableton 70색 트랙 색 팔레트" loading="lazy" width="1436" height="806"><figcaption>FIG. 7.2 — 색 팔레트</figcaption></figure>
@@ -1082,6 +1105,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Orbit Link로 보낸 위치가 유지되지 않음</td><td>스트림이므로 계속 보내야 합니다. 고정된 위치는 에디터에서 설정합니다</td></tr>
     <tr><td>Orbit Link In에 "no signal"</td><td>Orbit Score가 이 컴퓨터 주소의 9010 포트로 보내고 있는지, 같은 포트를 쓰는 다른 프로그램이 없는지 확인합니다</td></tr>
     <tr><td>씬 크로스페이드가 끊김</td><td>공연 중에는 Live를 앞에 두고, 페이드는 몇 박 정도로 설정합니다</td></tr>
+    <tr><td>세트를 열었더니 레이아웃이나 룸이 바뀜</td><td>화면이 그 세트의 설정을 받아온 것입니다. 무엇이 바뀌었는지는 LOG 탭에 표시됩니다. 설정을 다른 세트로 가져가려면 먼저 스피커를 프리셋으로 저장합니다</td></tr>
+    <tr><td>세트를 다시 열면 경로, 그룹, 씬이 사라짐</td><td>편집 후 Live 세트를 저장합니다(화면의 저장은 Live를 저장하지 않음). 오브젝트 설정과 경로는 <code>spatialize_snapshots/</code>의 백업에 남아 있습니다</td></tr>
+    <tr><td>화면이 1280픽셀로 제한됨</td><td>TouchDesigner Non-Commercial은 최대 1280 × 1280으로 렌더링합니다</td></tr>
   </table></div>
 </section>
 
@@ -1097,6 +1123,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/spat/form</td><td>uid와 모든 설정</td></tr>
     <tr><td>/spat/path</td><td>uid, n, 점마다 x y z curve</td></tr>
     <tr><td>/spat/scenes · /spat/cues · /spat/play</td><td>씬 목록 · 로케이터 · 재생 헤드</td></tr>
+    <tr><td>/spat/cfginfo · /spat/cfg</td><td>세트가 가진 화면 설정의 id, 리비전, 파일 이름 · 설정 본문(hex 조각)</td></tr>
   </table></div>
   <div class="tw"><table>
     <tr><th>화면 → Live (9002)</th><th>내용</th></tr>
@@ -1104,9 +1131,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/spat/objset</td><td><code>&lt;uid&gt; &lt;key&gt; &lt;value&gt;</code> — 오브젝트 설정 (키는 <a href="#ko-link">/orbit/set</a>과 같음)</td></tr>
     <tr><td>/spat/pathset</td><td><code>&lt;uid&gt; &lt;n&gt; x y z curve …</code></td></tr>
     <tr><td>/spat/color</td><td><code>&lt;uid&gt; r g b</code></td></tr>
-    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade …</td></tr>
+    <tr><td>/spat/scene</td><td>save · recall · del · rename · fade … · cfgset · cfginfo · cfgget (세트에 보관하는 화면 설정)</td></tr>
   </table></div>
-  <p><strong>좌표</strong> — 디바이스: x 정면, y 왼쪽, z 위, 거리 1 = 스피커 링, azimuth + = 왼쪽. Orbit Link: X 오른쪽, Y 위, −Z 정면. 에디터의 XYZ: X 오른쪽, Y 정면, Z 위(ADM).</p>
+  <p><strong>좌표</strong> — 디바이스: x 정면, y 왼쪽, z 위, 거리 1 = 스피커 링, azimuth + = 왼쪽. Orbit Link: X 오른쪽, Y 위, −Z 정면. 에디터와 스피커 에디터의 XYZ는 Orbit Link, TouchDesigner와 같은 축: X 오른쪽, Y 위, Z 뒤.</p>
 </section>
 
 <!-- 11 -->
@@ -1116,6 +1143,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>버전</th><th>내용</th></tr>
     <tr><td>1.0</td><td>첫 공식 릴리즈 (예정)</td></tr>
+    <tr><td>0.9 · beta (11월 27일)</td><td>Live 세트가 화면 설정(스피커 레이아웃, 룸, 그룹, 씬 옵션)을 보관, 세트마다 자기 설정이 들어옴 · XYZ를 TouchDesigner 축(Y 위)으로 · 움직임 모양과 경로를 점선으로 계속 표시 · EDIT PATH / SAVE PATH · 고정된 모양의 그룹 움직임 · SIZE 1 초과 입력 · 스피커 에디터, 프리셋, 테스트 레벨, 스피커 번호 · 프로젝트 저장 때 자동 백업</td></tr>
     <tr><td>0.9 · beta (11월 24일)</td><td>그룹과 그룹 움직임(Live 세트에 저장) · 상자 크기 X · Y · Z, 빛나는 상자로 표시 · 새 전환 창(Overshoot, Custom 커브, AMOUNT·PEAK) · 오브젝트 점과 커브 아이콘이 있는 씬 줄 · Live 어레인지먼트 클립을 보여 주는 타임라인, AUTO SCENE, 재생 버튼 · SPACE·SCENES 탭 목록 선택 · 블랙 테마 정리 · 삭제 전 확인</td></tr>
     <tr><td>0.9 · 베타</td><td>씬: 곡선·스태거·룸을 포함한 전환, 퀀타이즈, Live에서 Scene·Morph, <code>@이름</code> 클립, 미리보기, 내보내기/불러오기, Morph 패드 · 에디터: 캔버스에서 경로 그리기, 여러 오브젝트와 그룹, 복사·붙여넣기, XYZ, 되돌리기 · 헤드폰·스피커의 룸과 거리감: 리버브, 반사음, 실측 HRTF, AIR, FAR THIN, NEAR BASS, 도플러 · Orbit Link 트랜스포트, 카오스 값, 트랙 색·이름, POP 입·출력</td></tr>
     <tr><td>0.8</td><td>Spatial Renderer: Live 안에서 스피커 재생, 최대 64개, VBAP / DBAP / 앰비소닉스 / WFS, Custom 레이아웃, 거리 보정 · Chaos 움직임 · Spread · Speed 효과</td></tr>
