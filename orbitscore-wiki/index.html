@@ -618,7 +618,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p><strong>Send from a POP.</strong> Wire the POP into the right input. Point 0 moves object 1, point 1 moves object 2, and so on.</p>
   <figure><img src="media/link-send-pop.jpg?v=1125b" alt="Circle POP with four points, Transform POP and Noise POP wired into the right input of OrbitLink_Out" loading="lazy" width="1200" height="362"><figcaption>FIG. 6.3 — Send from a POP: four points move objects 1–4</figcaption></figure>
   <h3>OSC</h3>
-  <p>Orbit Link is plain OSC and can be used from Max, Unity, Unreal, Resolume and others. Orbit Score sends to port <strong>9010</strong> and receives on <strong>9011</strong> (set on the <code>Orbit_Score</code> component, OSC page). <code>n</code> = the object's number in Live's track order, from 1.</p>
+  <p>Orbit Link is plain OSC, so Max, Unity, Unreal, Resolume and others can listen to Orbit Score directly; the OrbitLink components are only needed inside TouchDesigner. LOG tab → <strong>OSC OUT</strong>: <span class="pill">ON</span> / OFF, the host, the port and the rate per second (double-click to type), with a line showing what is sent and where. Orbit Score sends to port <strong>9010</strong> and receives on <strong>9011</strong> (the receiving port is on the <code>Orbit_Score</code> component, OSC page). <code>n</code> = the object's number in Live's track order, from 1.</p>
   <div class="tw"><table>
     <tr><th>Sent → 9010</th><th>Arguments</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · azimuth elevation distance</td></tr>
@@ -646,7 +646,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>LIVE</td><td><strong>MONITOR</strong> Off / headphones / speakers · <strong>MASTER</strong> volume and MUTE · connection status · <strong>TRACKS</strong>: show / hide, name label, mute, colour, level</td></tr>
     <tr><td>SPACE</td><td>Panning model · room (preset and saved rooms, reverb, reflections with walls · depth · height, ear height) · distance (Doppler, Air, Far thin, Near bass), each chosen from a list</td></tr>
     <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW (back to the starting view, auto orbit off) · THEME: WHITE / BLACK · show names, ears, head, dome guide (the speaker positions as a dashed outline), room, trails, speaker numbers · <span class="pill">▲</span> <span class="pill">▼</span> at the left edge of the 3D view slide the picture up or down.</td></tr>
-    <tr><td>LOG</td><td>Connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
+    <tr><td>LOG</td><td>OSC OUT (positions to other software: on / off, host, port, rate) · connection, warnings (⚠ on the tab), device messages · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1127" alt="LIVE tab: MONITOR with MASTER and MUTE, SOURCE with PORT, TRACKS" loading="lazy" width="380" height="350"><figcaption>FIG. 7.1 — LIVE tab</figcaption></figure>
   <h3>Track colour</h3>
@@ -745,7 +745,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Version</th><th>Contents</th></tr>
     <tr><td>1.0</td><td>First public release (planned)</td></tr>
-    <tr><td>0.9 · beta (Nov 28)</td><td>Reverb drawn as round waves cut at the walls, brightness following level · room DEPTH and HEIGHT beside WALLS, saved room presets · values can be typed after a double-click · SCENES tab holds the scene editing controls; the morph pad pauses AUTO SCENE and glides back on OFF · click on a path line to add a point; CLEAR PATH only · UNDO / REDO beside the editor tools · ▲ ▼ and right-drag slide the 3D picture · Christmas fades in · softer box and plane trails · + New custom speaker layout · one <code>Orbit_Score</code> component with About and OSC pages · example project START HERE panel</td></tr>
+    <tr><td>0.9 · beta (Nov 28)</td><td>Reverb drawn as round waves cut at the walls, brightness following level · room DEPTH and HEIGHT beside WALLS, saved room presets · values can be typed after a double-click · SCENES tab holds the scene editing controls; the morph pad pauses AUTO SCENE and glides back on OFF · click on a path line to add a point; CLEAR PATH only · UNDO / REDO beside the editor tools · ▲ ▼ and right-drag slide the 3D picture · Christmas fades in · softer box and plane trails · + New custom speaker layout · one <code>Orbit_Score</code> component with About and OSC pages · example project START HERE panel · OSC OUT on the LOG tab</td></tr>
     <tr><td>0.9 · beta (Nov 27)</td><td>The Live set holds the screen's settings (speaker layout, room, groups, scene options); each set brings its own · XYZ follows TouchDesigner's axes (Y up) · motion figures and paths stay visible as dotted lines · EDIT PATH / SAVE PATH · group motion as a fixed figure · SIZE above 1 by typing · speaker editor, presets, test level, speaker numbers · automatic backup with every project save</td></tr>
     <tr><td>0.9 · beta (Nov 24)</td><td>Groups with their own motion, saved in the Live set · box size along X · Y · Z, drawn as a glowing box · new transition window (Overshoot and Custom curves, AMOUNT and PEAK) · scene rows with object dots and curve icons · timeline with Live's arrangement clips, AUTO SCENE and play button · dropdowns on the SPACE and SCENES tabs · black theme reworked · delete asks first</td></tr>
     <tr><td>0.9 · beta</td><td>Scenes: transitions with curves, stagger and room, quantize, Scene and Morph from Live, <code>@Name</code> clips, preview, export / import, morph pad · editor: paths drawn on the canvas, several objects and groups, copy / paste, XYZ, undo · room and distance on headphones and speakers: reverb, reflections, measured HRTF, AIR, FAR THIN, NEAR BASS, Doppler · Orbit Link transport, chaos values, track colour and name, POP in / out</td></tr>
@@ -1120,7 +1120,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p><strong>POP으로 보내기.</strong> POP을 오른쪽 입력에 연결합니다. 점 0이 오브젝트 1, 점 1이 오브젝트 2를 움직입니다.</p>
   <figure><img src="media/link-send-pop.jpg?v=1125b" alt="점 네 개의 Circle POP, Transform POP, Noise POP을 OrbitLink_Out 오른쪽 입력에 연결" loading="lazy" width="1200" height="362"><figcaption>FIG. 6.3 — POP으로 보내기: 점 네 개가 오브젝트 1–4를 움직임</figcaption></figure>
   <h3>OSC</h3>
-  <p>Orbit Link는 일반 OSC로 Max, Unity, Unreal, Resolume 등에서도 사용할 수 있습니다. Orbit Score는 <strong>9010</strong> 포트로 보내고 <strong>9011</strong>에서 받습니다(<code>Orbit_Score</code> 컴포넌트의 OSC 페이지에서 설정). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
+  <p>Orbit Link는 일반 OSC이므로 Max, Unity, Unreal, Resolume 등은 Orbit Score의 값을 바로 받을 수 있습니다. OrbitLink 컴포넌트는 TouchDesigner 안에서만 필요합니다. LOG 탭 → <strong>OSC OUT</strong>: <span class="pill">ON</span> / OFF, 호스트, 포트, 초당 횟수(더블클릭해 입력)와 무엇을 어디로 보내는지 보여주는 한 줄이 있습니다. Orbit Score는 <strong>9010</strong> 포트로 보내고 <strong>9011</strong>에서 받습니다(받는 포트는 <code>Orbit_Score</code> 컴포넌트의 OSC 페이지에서 설정). <code>n</code> = Live 트랙 순서상 오브젝트 번호(1부터).</p>
   <div class="tw"><table>
     <tr><th>송신 → 9010</th><th>인자</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · 방위 고도 거리</td></tr>
@@ -1148,7 +1148,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>LIVE</td><td><strong>MONITOR</strong> 끔 / 헤드폰 / 스피커 · <strong>MASTER</strong> 볼륨과 MUTE · 연결 상태 · <strong>TRACKS</strong>: 표시, 이름표, 뮤트, 색, 레벨</td></tr>
     <tr><td>SPACE</td><td>패닝 모델 · 룸(프리셋과 저장한 룸, 리버브, 반사음과 폭 · 깊이 · 높이, 귀 높이) · 거리감(Doppler, Air, Far thin, Near bass). 값은 목록에서 고름</td></tr>
     <tr><td>VIEW</td><td>AUTO ORBIT · RESET VIEW(처음 시점으로, 자동 회전 끔) · THEME: WHITE / BLACK · 이름, 귀, 머리, 돔 가이드(스피커 위치를 점선으로), 룸, 궤적, 스피커 번호 표시 · 3D 뷰 왼쪽 가장자리의 <span class="pill">▲</span> <span class="pill">▼</span>로 그림을 위아래로 이동</td></tr>
-    <tr><td>LOG</td><td>연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
+    <tr><td>LOG</td><td>OSC OUT(다른 소프트웨어로 위치 보내기: 켜기/끄기, 호스트, 포트, 초당 횟수) · 연결 상태, 경고(탭에 ⚠), 디바이스 메시지 · COPY · CLEAR · RESEND</td></tr>
   </table></div>
   <figure><img src="media/ui-live.jpg?v=1127" alt="LIVE 탭: MONITOR(MASTER, MUTE), SOURCE(PORT), TRACKS" loading="lazy" width="380" height="350"><figcaption>FIG. 7.1 — LIVE 탭</figcaption></figure>
   <h3>트랙 색</h3>
@@ -1247,7 +1247,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>버전</th><th>내용</th></tr>
     <tr><td>1.0</td><td>첫 공식 릴리즈 (예정)</td></tr>
-    <tr><td>0.9 · beta (11월 28일)</td><td>리버브를 벽에서 잘리는 둥근 파동으로 표시, 밝기는 음량을 따름 · WALLS 옆에 룸 DEPTH·HEIGHT, 룸 프리셋 저장 · 값 버튼 더블클릭으로 숫자 입력 · 씬 편집 컨트롤을 SCENES 탭으로 이동, 모프 패드가 AUTO SCENE을 멈추고 OFF 때 부드럽게 복귀 · 경로 선 위를 클릭해 점 추가, CLEAR PATH만 남김 · 에디터 도구 옆 UNDO / REDO · ▲ ▼와 오른쪽 드래그로 3D 그림 이동 · 크리스마스가 서서히 나타남 · 상자·면 잔상을 옅게 · 스피커 + New custom · <code>Orbit_Score</code> 컴포넌트 하나에 About·OSC 페이지 · 예제 프로젝트 START HERE 패널</td></tr>
+    <tr><td>0.9 · beta (11월 28일)</td><td>리버브를 벽에서 잘리는 둥근 파동으로 표시, 밝기는 음량을 따름 · WALLS 옆에 룸 DEPTH·HEIGHT, 룸 프리셋 저장 · 값 버튼 더블클릭으로 숫자 입력 · 씬 편집 컨트롤을 SCENES 탭으로 이동, 모프 패드가 AUTO SCENE을 멈추고 OFF 때 부드럽게 복귀 · 경로 선 위를 클릭해 점 추가, CLEAR PATH만 남김 · 에디터 도구 옆 UNDO / REDO · ▲ ▼와 오른쪽 드래그로 3D 그림 이동 · 크리스마스가 서서히 나타남 · 상자·면 잔상을 옅게 · 스피커 + New custom · <code>Orbit_Score</code> 컴포넌트 하나에 About·OSC 페이지 · 예제 프로젝트 START HERE 패널 · LOG 탭의 OSC OUT</td></tr>
     <tr><td>0.9 · beta (11월 27일)</td><td>Live 세트가 화면 설정(스피커 레이아웃, 룸, 그룹, 씬 옵션)을 보관, 세트마다 자기 설정이 들어옴 · XYZ를 TouchDesigner 축(Y 위)으로 · 움직임 모양과 경로를 점선으로 계속 표시 · EDIT PATH / SAVE PATH · 고정된 모양의 그룹 움직임 · SIZE 1 초과 입력 · 스피커 에디터, 프리셋, 테스트 레벨, 스피커 번호 · 프로젝트 저장 때 자동 백업</td></tr>
     <tr><td>0.9 · beta (11월 24일)</td><td>그룹과 그룹 움직임(Live 세트에 저장) · 상자 크기 X · Y · Z, 빛나는 상자로 표시 · 새 전환 창(Overshoot, Custom 커브, AMOUNT·PEAK) · 오브젝트 점과 커브 아이콘이 있는 씬 줄 · Live 어레인지먼트 클립을 보여 주는 타임라인, AUTO SCENE, 재생 버튼 · SPACE·SCENES 탭 목록 선택 · 블랙 테마 정리 · 삭제 전 확인</td></tr>
     <tr><td>0.9 · 베타</td><td>씬: 곡선·스태거·룸을 포함한 전환, 퀀타이즈, Live에서 Scene·Morph, <code>@이름</code> 클립, 미리보기, 내보내기/불러오기, Morph 패드 · 에디터: 캔버스에서 경로 그리기, 여러 오브젝트와 그룹, 복사·붙여넣기, XYZ, 되돌리기 · 헤드폰·스피커의 룸과 거리감: 리버브, 반사음, 실측 HRTF, AIR, FAR THIN, NEAR BASS, 도플러 · Orbit Link 트랜스포트, 카오스 값, 트랙 색·이름, POP 입·출력</td></tr>
