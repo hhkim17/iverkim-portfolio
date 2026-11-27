@@ -19,7 +19,7 @@
    One warm drop of orange (the tool's playhead colour) marks where you are; the rest stays black and white. */
 :root{
   --sheet:#dcdfea; --bg:#eef0f5; --card:#e7e9f0; --ink:#0f0f0f; --mid:#6e7380; --faint:#b9bdca; --hair:#d3d7e1; --fill:#e1e4ec;
-  --btn:#c8ccda; --on:#888d99; --drop:#f2a02a; --tint:#9eb8de;
+  --btn:#c8ccda; --on:#888d99; --drop:#f5ad2b; --tint:#9eb8de;
   --l:#7da2f2; --r:#f08a7a;
   --f-mono:"PT Mono",ui-monospace,Menlo,Consolas,"Noto Sans KR",monospace;
   --f-title:"Roboto",system-ui,sans-serif;
@@ -190,7 +190,19 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   /* inline max-width caps (480px etc.) must not beat the phone's width */
   figure img{max-width:100%!important}
 }
+/* CLASSIC view: plain black and white, nothing moving, square edges, one typeface — like an old computer screen */
+:root[data-view="classic"]{--sheet:#fff; --bg:#fff; --card:#fff; --ink:#000; --mid:#555; --faint:#bbb; --hair:#d6d6d6; --fill:#f1f1f1;
+  --btn:#fff; --on:#000; --drop:#000; --tint:#999; --l:#000; --r:#000; --grad:none; --f-title:var(--f-mono); --f-body:var(--f-mono); color-scheme:light}
+@media (prefers-color-scheme: dark){:root[data-view="classic"]:not([data-theme="light"]){--sheet:#000; --bg:#000; --card:#000; --ink:#fff; --mid:#aaa;
+  --faint:#555; --hair:#2c2c2c; --fill:#141414; --btn:#000; --on:#fff; --drop:#fff; --tint:#777; --l:#fff; --r:#fff; color-scheme:dark}}
+:root[data-view="classic"] .orbs,:root[data-view="classic"] body::after{display:none}
+:root[data-view="classic"] main[lang="ko"],:root[data-view="classic"] main[lang="ko"] h3{font-family:var(--f-mono)}
+:root[data-view="classic"] main,:root[data-view="classic"] .card,:root[data-view="classic"] .note,:root[data-view="classic"] pre,:root[data-view="classic"] .lang select{border-radius:0}
+:root[data-view="classic"] .card{border:1px solid var(--ink)}
+:root[data-view="classic"] .status,:root[data-view="classic"] .credit{letter-spacing:0;font-size:9px}
+:root[data-view="classic"] ::selection{background:var(--ink);color:var(--bg)}
 </style>
+<script>try{if(localStorage.getItem('orbit-score-view')==='classic')document.documentElement.dataset.view='classic';}catch(e){}</script>
 </head>
 <body>
 <div class="orbs" aria-hidden="true">
@@ -224,6 +236,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <li><a href="#log"><span>11</span><em class="t">VERSION HISTORY</em></a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
+  <label class="lang"><span class="cap">View</span><select id="viewSel" aria-label="View"><option value="color">COLOUR</option><option value="classic">CLASSIC · B&amp;W</option></select></label>
 </nav>
 
 <main data-lang="en" lang="en-GB">
@@ -1216,6 +1229,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
   links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
   var sel=document.getElementById('langSel');
+  var vsel=document.getElementById('viewSel');
+  vsel.value=root.dataset.view==='classic'?'classic':'color';
+  vsel.addEventListener('change',function(){
+    if(vsel.value==='classic') root.dataset.view='classic'; else delete root.dataset.view;
+    try{localStorage.setItem('orbit-score-view',vsel.value);}catch(e){}
+  });
   function setLang(l, keep){
     mains.forEach(function(m){m.hidden=(m.dataset.lang!==l);});
     root.lang=(l==='ko'?'ko':'en-GB');
