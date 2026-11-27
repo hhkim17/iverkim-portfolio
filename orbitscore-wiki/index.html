@@ -37,7 +37,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:300 12px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
 ::selection{background:var(--drop);color:#0f0f0f}
-/* behind everything: four large sound objects drifting slowly round the listener, as in the tool's 3D view */
+/* behind everything: four sound objects drifting slowly, as in the tool's 3D view; each has its own centre across the width so they never all gather on one side */
 .orbs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 .ob{position:absolute;left:50%;top:52%;animation:obx var(--d) ease-in-out infinite alternate;animation-delay:var(--o)}
 .ob i{display:block;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
@@ -206,10 +206,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </head>
 <body>
 <div class="orbs" aria-hidden="true">
-  <span class="ob" style="--c:#9f93d2;--s:28vmax;--rx:30vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
-  <span class="ob box" style="--c:#b4c97a;--s:21vmax;--r:18deg;--rd:110s;--rx:38vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
-  <span class="ob plane" style="--c:#7fa9dc;--s:25vmax;--r:-16deg;--rd:140s;--rx:24vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
-  <span class="ob line" style="--c:#f29ba6;--s:22vmax;--r:28deg;--rd:95s;--rx:42vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
+  <span class="ob" style="left:24%;--c:#9f93d2;--s:28vmax;--rx:15vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
+  <span class="ob box" style="left:44%;--c:#b4c97a;--s:21vmax;--r:18deg;--rd:110s;--rx:13vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
+  <span class="ob plane" style="left:62%;--c:#7fa9dc;--s:25vmax;--r:-16deg;--rd:140s;--rx:13vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
+  <span class="ob line" style="left:80%;--c:#f29ba6;--s:22vmax;--r:28deg;--rd:95s;--rx:14vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
 </div>
 <div class="page">
 <nav class="side" aria-label="Contents">
