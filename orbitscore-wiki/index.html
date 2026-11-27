@@ -34,14 +34,14 @@
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:24px}
-body{margin:0;background:var(--sheet);color:var(--ink);font:300 13px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--sheet);color:var(--ink);font:300 12px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
 ::selection{background:var(--drop);color:#0f0f0f}
 a{color:inherit;text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--drop)}
 code,kbd,.mono{font-family:var(--f-mono);font-size:.92em}
 code{background:var(--fill);padding:1px 5px;border-radius:4px}
 kbd{background:var(--card);border:1px solid var(--faint);border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:.85em}
-pre{font:11.5px/1.7 var(--f-mono);background:var(--fill);padding:14px 16px;overflow-x:auto;margin:14px 0;border-left:2px solid var(--drop);border-radius:0 6px 6px 0}
+pre{font:11px/1.7 var(--f-mono);background:var(--fill);padding:14px 16px;overflow-x:auto;margin:14px 0;border-left:2px solid var(--drop);border-radius:0 6px 6px 0}
 pre code{background:none;padding:0}
 img{max-width:100%;height:auto;display:block}
 strong{font-weight:500}
@@ -71,49 +71,49 @@ main[lang="ko"] h3{font-family:inherit}
 
 main{padding:40px 56px 120px;min-width:0;background:var(--bg);border-radius:12px}
 .hero{position:relative;padding:34px 30px 30px;margin-bottom:56px}
-.hero h1{font:300 44px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
+.hero h1{font:300 38px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
 .hero h1.logo{letter-spacing:0;line-height:0}
-.hero h1.logo img{width:200px;height:auto;display:block}
+.hero h1.logo img{width:170px;height:auto;display:block}
 .logo-img{filter:invert(1)}                 /* the logo is drawn in white: black on the light page */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo-img{filter:none}}
 :root[data-theme="dark"] .logo-img{filter:none}
 .brand.logo{letter-spacing:0;line-height:0}
 .brand.logo img{width:100px;height:auto;display:block}
 .hero p{max-width:640px;margin:0;color:var(--ink)}
-.hero .meta{font:11px/1.6 var(--f-mono);color:var(--mid);margin-top:16px}
+.hero .meta{font:10.5px/1.6 var(--f-mono);color:var(--mid);margin-top:16px}
 
 section{margin:0 0 72px}
 .cap{font:400 11px/1 var(--f-title);color:var(--mid);letter-spacing:.08em;margin:0 0 10px;text-transform:uppercase}
 .hero .cap{color:var(--drop)}
-h2{font:400 19px/1.3 var(--f-title);letter-spacing:.02em;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--ink)}
-h3{font:500 13.5px/1.5 var(--f-body);margin:28px 0 8px}
-h4{font:500 12.5px/1.5 var(--f-body);margin:22px 0 8px}
+h2{font:400 17px/1.3 var(--f-title);letter-spacing:.02em;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--ink)}
+h3{font:500 12.5px/1.5 var(--f-body);margin:28px 0 8px}
+h4{font:500 12px/1.5 var(--f-body);margin:22px 0 8px}
 .toc li.sub a{padding-left:18px;font-size:10px}
 .toc li.sub a span{min-width:26px}
 .subnav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 4px}
 .subnav a{font:400 11px/1 var(--f-title);letter-spacing:.06em;text-decoration:none;color:var(--ink);background:var(--btn);border-radius:999px;padding:8px 14px}
 .subnav a:hover{background:var(--on);color:var(--bg)}
 section.sub{margin-top:44px;padding-top:22px;border-top:1px solid var(--hair)}
-h3.subh{font-size:15px;margin-top:4px}
-h5{font:500 12px/1.5 var(--f-body);margin:18px 0 6px;color:var(--mid)}
+h3.subh{font-size:14px;margin-top:4px}
+h5{font:500 11.5px/1.5 var(--f-body);margin:18px 0 6px;color:var(--mid)}
 h3 .mono{font-weight:400}
-p{margin:0 0 12px;max-width:780px}
-ul,ol{max-width:780px;padding-left:20px;margin:0 0 14px}
+p{margin:0 0 12px;max-width:720px}
+ul,ol{max-width:720px;padding-left:20px;margin:0 0 14px}
 li{margin:3px 0}
 figure{margin:22px 0 28px;padding:14px;position:relative}
 figcaption{font:400 11px/1.5 var(--f-title);letter-spacing:.04em;color:var(--mid);margin-top:10px}
 figure img{border:1px solid var(--hair);border-radius:8px}
 
-table{border-collapse:collapse;width:100%;max-width:900px;margin:12px 0 20px;font-size:12.5px;line-height:1.6}
+table{border-collapse:collapse;width:100%;max-width:900px;margin:12px 0 20px;font-size:11.5px;line-height:1.6}
 th,td{text-align:left;vertical-align:top;padding:7px 16px 7px 0;border-bottom:1px solid var(--hair)}
 th{font:400 10.5px/1.4 var(--f-title);color:var(--mid);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--ink)}
-td:first-child{font-family:var(--f-mono);font-size:11.5px;width:27%}
+td:first-child{font-family:var(--f-mono);font-size:11px;width:27%}
 th:first-child{width:27%}
 th:nth-child(2):not(:last-child){width:24%}   /* three columns: name · range · meaning */
 td:last-child{padding-right:0}
 .tw{overflow-x:auto}
 
-.note{background:var(--card);border-left:2px solid var(--drop);border-radius:0 8px 8px 0;padding:12px 16px;margin:16px 0;max-width:780px;font-size:12.5px}
+.note{background:var(--card);border-left:2px solid var(--drop);border-radius:0 8px 8px 0;padding:12px 16px;margin:16px 0;max-width:780px;font-size:11.5px}
 .note b{font:500 10.5px var(--f-title);display:block;color:var(--mid);letter-spacing:.08em;margin-bottom:4px}
 .pill{display:inline-block;font:400 10.5px/1 var(--f-title);letter-spacing:.04em;background:var(--btn);border-radius:999px;padding:4px 9px;margin-right:4px;vertical-align:1px}
 .pill.on{background:var(--on);color:var(--bg)}
@@ -121,9 +121,9 @@ td:last-child{padding-right:0}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:900px;margin:12px 0 20px}
 .card{background:var(--card);border-radius:10px;padding:14px 16px}
 .card .k{font:400 10.5px var(--f-title);color:var(--mid);text-transform:uppercase;letter-spacing:.08em}
-.card .v{font:400 15px/1.4 var(--f-title);margin:4px 0 6px}
-.card p{font-size:12.5px;margin:0}
-svg.flow{width:100%;max-width:900px;height:auto;display:block}
+.card .v{font:400 14px/1.4 var(--f-title);margin:4px 0 6px}
+.card p{font-size:11.5px;margin:0}
+svg.flow{width:100%;max-width:760px;height:auto;display:block}
 svg.flow text{font-family:var(--f-mono);fill:var(--ink)}
 svg.flow .m{fill:var(--mid)}
 svg.flow .box{fill:var(--bg);stroke:var(--ink)}
