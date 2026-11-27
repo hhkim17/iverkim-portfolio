@@ -86,18 +86,20 @@ nav.side{position:sticky;top:8px;height:calc(100vh - 16px);overflow-y:auto;paddi
 .credit a{text-decoration:none}.credit a:hover{color:var(--ink)}
 .toc{list-style:none;margin:0;padding:0;counter-reset:t}
 .toc li{margin:0}
-.toc a{display:flex;gap:8px;font:400 10.5px/1.4 var(--f-title);letter-spacing:.05em;text-decoration:none;padding:6px 8px;border-radius:6px;color:var(--ink)}
+.toc a{display:flex;gap:8px;font:400 10.5px/1.4 var(--f-title);letter-spacing:.06em;text-decoration:none;padding:6px 8px;color:var(--mid)}
+.toc a .t{font-style:normal;padding-bottom:3px;border-bottom:2px solid transparent}
 .toc a span{color:var(--mid);min-width:17px}
-.toc a:hover{background:var(--fill)}
-.toc a.on{background:var(--ink);color:var(--card);box-shadow:inset 3px 0 0 var(--drop)}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--drop)}
+.toc a.on .t{border-bottom-color:var(--drop)}
 .toc a.on span{color:var(--drop)}
 .side .btns{display:flex;gap:6px;margin-top:22px}
-.btn{font:400 10px/1 var(--f-title);letter-spacing:.06em;background:var(--btn);color:var(--ink);border:0;border-radius:999px;padding:9px 10px;cursor:pointer;flex:1;text-align:center}
+.btn{font:400 10px/1 var(--f-title);letter-spacing:.06em;background:var(--btn);color:var(--ink);border:1px solid color-mix(in srgb,var(--ink) 55%,transparent);border-radius:999px;padding:9px 10px;cursor:pointer;flex:1;text-align:center}
 .btn:hover{filter:brightness(1.04)}
 .lang{display:block;margin-top:22px}
 .lang .cap{display:block;margin-bottom:8px}
-.lang select{appearance:none;-webkit-appearance:none;width:100%;font:11px/1 var(--f-mono);letter-spacing:.04em;color:var(--ink);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0h10L5 6z' fill='%23888'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid var(--faint);border-radius:6px;padding:10px 32px 10px 10px;cursor:pointer}
-.lang select:hover{background-color:var(--fill)}
+.lang select{appearance:none;-webkit-appearance:none;width:100%;font:400 11px/1 var(--f-title);letter-spacing:.06em;color:var(--ink);background:var(--btn) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M0 0h10L5 7z' fill='%23777'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid color-mix(in srgb,var(--ink) 55%,transparent);border-radius:3px;padding:10px 32px 10px 10px;cursor:pointer}
+.lang select:hover{filter:brightness(1.04)}
 .lang select:focus-visible{outline:1px solid var(--drop);outline-offset:2px}
 main[lang="ko"]{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
 main[lang="ko"] h3{font-family:inherit}
@@ -205,21 +207,21 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="credit">Designed &amp; developed by <a href="https://iverkim.com">Iver Kim</a></div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
-    <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
-    <li><a href="#setup"><span>01</span>INSTALLATION</a></li>
-    <li class="sub"><a href="#setup-live"><span>01.1</span>LIVE DEVICES</a></li>
-    <li class="sub"><a href="#setup-td"><span>01.2</span>TOUCHDESIGNER</a></li>
-    <li class="sub"><a href="#setup-out"><span>01.3</span>SAVING</a></li>
-    <li><a href="#editor"><span>02</span>OBJECT EDITOR</a></li>
-    <li><a href="#speakers"><span>03</span>SPEAKERS</a></li>
-    <li><a href="#render"><span>04</span>ROOM &amp; DISTANCE</a></li>
-    <li><a href="#scenes"><span>05</span>SCENES</a></li>
-    <li><a href="#link"><span>06</span>ORBIT LINK</a></li>
-    <li><a href="#ui"><span>07</span>SCREEN REFERENCE</a></li>
-    <li><a href="#devices"><span>08</span>DEVICE REFERENCE</a></li>
-    <li><a href="#trouble"><span>09</span>TROUBLESHOOTING</a></li>
-    <li><a href="#osc"><span>10</span>FOR DEVELOPERS</a></li>
-    <li><a href="#log"><span>11</span>VERSION HISTORY</a></li>
+    <li><a href="#overview"><span>00</span><em class="t">OVERVIEW</em></a></li>
+    <li><a href="#setup"><span>01</span><em class="t">INSTALLATION</em></a></li>
+    <li class="sub"><a href="#setup-live"><span>01.1</span><em class="t">LIVE DEVICES</em></a></li>
+    <li class="sub"><a href="#setup-td"><span>01.2</span><em class="t">TOUCHDESIGNER</em></a></li>
+    <li class="sub"><a href="#setup-out"><span>01.3</span><em class="t">SAVING</em></a></li>
+    <li><a href="#editor"><span>02</span><em class="t">OBJECT EDITOR</em></a></li>
+    <li><a href="#speakers"><span>03</span><em class="t">SPEAKERS</em></a></li>
+    <li><a href="#render"><span>04</span><em class="t">ROOM &amp; DISTANCE</em></a></li>
+    <li><a href="#scenes"><span>05</span><em class="t">SCENES</em></a></li>
+    <li><a href="#link"><span>06</span><em class="t">ORBIT LINK</em></a></li>
+    <li><a href="#ui"><span>07</span><em class="t">SCREEN REFERENCE</em></a></li>
+    <li><a href="#devices"><span>08</span><em class="t">DEVICE REFERENCE</em></a></li>
+    <li><a href="#trouble"><span>09</span><em class="t">TROUBLESHOOTING</em></a></li>
+    <li><a href="#osc"><span>10</span><em class="t">FOR DEVELOPERS</em></a></li>
+    <li><a href="#log"><span>11</span><em class="t">VERSION HISTORY</em></a></li>
   </ol>
   <label class="lang"><span class="cap">Language</span><select id="langSel" aria-label="Language"><option value="en">ENGLISH</option><option value="ko">한국어</option></select></label>
 </nav>
@@ -1209,7 +1211,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </div>
 <script>
 (function(){
-  // theme follows the system (prefers-color-scheme); language: ?lang= / saved choice / browser language
+  // theme follows the system (prefers-color-scheme); language: ?lang= / saved choice / English
   var root=document.documentElement, mains=document.querySelectorAll('main[data-lang]');
   var toc=document.getElementById('toc'), links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
   links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
@@ -1223,7 +1225,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   }
   var q=(new URLSearchParams(location.search)).get('lang'), saved=null;
   try{saved=localStorage.getItem('orbit-score-lang');}catch(e){}
-  var lang=(q==='ko'||q==='en')?q:(saved||((navigator.language||'').toLowerCase().indexOf('ko')===0?'ko':'en'));
+  var lang=(q==='ko'||q==='en')?q:(saved||'en');
   if(!q&&location.hash.indexOf('#ko-')===0) lang='ko';
   setLang(lang,false);
   sel.addEventListener('change',function(){
