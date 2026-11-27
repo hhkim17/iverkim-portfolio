@@ -52,11 +52,11 @@ body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:30
 .ob.box i,.ob.plane i,.ob.line i{background:none}
 .ob.box i::before,.ob.plane i::before,.ob.line i::before{content:"";position:absolute;inset:0;transform:rotate(var(--r,0deg));animation:obr var(--rd,90s) linear infinite}
 .ob.box i,.ob.plane i,.ob.line i{position:relative}
-.ob.box i::before{inset:20%;border-radius:12%;filter:blur(10px);
+.ob.box i::before{inset:16%;border-radius:26%;filter:blur(10px);
   background:linear-gradient(140deg,color-mix(in srgb,var(--c) 70%,#fff) 0,var(--c) 45%,color-mix(in srgb,var(--c) 40%,transparent) 100%)}
-.ob.plane i::before{inset:40% 2%;border-radius:3px;filter:blur(8px);
+.ob.plane i::before{inset:33% 4%;border-radius:999px;filter:blur(8px);
   background:linear-gradient(90deg,transparent 0,var(--c) 22%,color-mix(in srgb,var(--c) 75%,#fff) 50%,var(--c) 78%,transparent 100%)}
-.ob.line i::before{inset:calc(50% - 2px) 0;border-radius:2px;filter:blur(1.5px);
+.ob.line i::before{inset:calc(50% - 7px) 0;border-radius:999px;filter:blur(2.5px);
   background:linear-gradient(90deg,transparent 0,var(--c) 18%,color-mix(in srgb,var(--c) 70%,#fff) 50%,var(--c) 82%,transparent 100%)}
 @keyframes obr{from{transform:rotate(var(--r,0deg))}to{transform:rotate(calc(var(--r,0deg) + 360deg))}}
 @media (prefers-reduced-motion: reduce){.ob i::before{animation:none}}
