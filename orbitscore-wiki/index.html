@@ -37,6 +37,19 @@
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:300 12px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
 ::selection{background:var(--drop);color:#0f0f0f}
+/* behind everything: four large sound objects drifting slowly round the listener, as in the tool's 3D view */
+.orbs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.ob{position:absolute;left:50%;top:52%;animation:obx var(--d) ease-in-out infinite alternate;animation-delay:var(--o)}
+.ob i{display:block;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
+  background:radial-gradient(circle at 42% 40%,color-mix(in srgb,var(--c) 85%,#fff) 0,var(--c) 18%,transparent 66%);opacity:.5;
+  animation:oby var(--d) ease-in-out infinite alternate;animation-delay:calc(var(--o) - var(--d) / 2)}
+@keyframes obx{from{transform:translateX(calc(-1 * var(--rx)))}to{transform:translateX(var(--rx))}}
+@keyframes oby{from{transform:translateY(calc(-1 * var(--ry))) scale(.62)}to{transform:translateY(var(--ry)) scale(1.08)}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ob i{opacity:.26}}
+:root[data-theme="dark"] .ob i{opacity:.26}
+@media (prefers-reduced-motion: reduce){.ob,.ob i{animation-play-state:paused}}
+.page{position:relative;z-index:1}
+
 /* a little film grain over the whole page, like the tool's own screen */
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.22;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::after{opacity:.28}}
@@ -159,6 +172,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </style>
 </head>
 <body>
+<div class="orbs" aria-hidden="true">
+  <span class="ob" style="--c:#9f93d2;--s:54vmax;--rx:30vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
+  <span class="ob" style="--c:#b4c97a;--s:40vmax;--rx:38vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
+  <span class="ob" style="--c:#7fa9dc;--s:48vmax;--rx:24vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
+  <span class="ob" style="--c:#f29ba6;--s:34vmax;--rx:42vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
+</div>
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="120" height="51"></div>
