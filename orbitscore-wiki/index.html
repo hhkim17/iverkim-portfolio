@@ -196,11 +196,14 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   nav.side>.brand,nav.side>.pname,nav.side>.status,nav.side>.credit{flex:0 0 100%}
   nav.side>.pname{margin-top:6px}
   nav.side>.credit{margin-bottom:16px}
-  .menu{display:block;order:1;flex:1.2 1 0;margin:0;height:34px;padding:0 10px}
-  .lang{order:2;flex:1 1 0;min-width:0;margin:0}
+  .menu{display:flex;align-items:center;gap:8px;order:3;flex:0 0 100%;margin:14px 0 0;padding:6px 0;background:none;border:0;cursor:pointer;
+    font:400 10.5px/1 var(--f-title);letter-spacing:.08em;color:var(--ink);text-align:left}
+  .menu::after{content:"";border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid currentColor;transition:transform .15s}
+  .menu[aria-expanded="true"]::after{transform:rotate(180deg)}
+  .lang{order:1;flex:1 1 0;min-width:0;margin:0}
   .lang .cap{display:none}
   .lang select{height:34px;padding:0 24px 0 10px;font-size:10px;background-position:right 9px center;text-overflow:ellipsis}
-  .toc{order:3;flex:0 0 100%;margin-top:4px}
+  .toc{order:4;flex:0 0 100%;margin-top:4px}
   main{padding:28px 16px 80px}
   .hero{padding:24px 18px}
   .hero h1{font-size:34px;letter-spacing:.2em}
@@ -236,7 +239,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="pname">Orbit Score</div>
   <div class="status">v0.9 BETA · 2026.11</div>
   <div class="credit">Designed &amp; developed by <a href="https://iverkim.com">Iver Kim</a></div>
-  <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
+  <button class="menu" id="menuBtn" aria-expanded="false">CONTENTS</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span><em class="t">OVERVIEW</em></a></li>
     <li><a href="#setup"><span>01</span><em class="t">INSTALLATION</em></a></li>
