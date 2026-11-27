@@ -200,7 +200,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     font:400 10.5px/1 var(--f-title);letter-spacing:.08em;color:var(--ink);text-align:left}
   .menu::after{content:"";border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid currentColor;transition:transform .15s}
   .menu[aria-expanded="true"]::after{transform:rotate(180deg)}
-  .lang{order:1;flex:1 1 0;min-width:0;margin:0}
+  .lang{order:1;flex:0 0 calc((100% - 16px) / 3);min-width:0;margin:0}
+  nav.side>label.lang:first-of-type{margin-left:calc((100% - 16px) / 3 + 8px)}  /* three columns, the first left empty */
   .lang .cap{display:none}
   .lang select{height:34px;padding:0 24px 0 10px;font-size:10px;background-position:right 9px center;text-overflow:ellipsis}
   .toc{order:4;flex:0 0 100%;margin-top:4px}
