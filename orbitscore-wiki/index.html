@@ -80,7 +80,10 @@ strong{font-weight:500}
 /* sidebar = the tool's right panel */
 nav.side{position:sticky;top:8px;height:calc(100vh - 16px);overflow-y:auto;padding:22px 12px 36px;background:color-mix(in srgb,var(--card) 62%,transparent);border-radius:12px}
 .brand{font:400 21px/1 var(--f-title);letter-spacing:.42em;margin:0 0 10px}
-.status{font:400 9.5px/1.6 var(--f-title);letter-spacing:.06em;color:var(--mid);margin-bottom:22px}
+.pname{font:500 13px/1.3 var(--f-title);letter-spacing:.02em;color:var(--ink);margin-top:12px}
+.status{font:400 9.5px/1.6 var(--f-title);letter-spacing:.06em;color:var(--mid);margin-top:2px}
+.credit{font:400 9.5px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);margin-bottom:22px}
+.credit a{text-decoration:none}.credit a:hover{color:var(--ink)}
 .toc{list-style:none;margin:0;padding:0;counter-reset:t}
 .toc li{margin:0}
 .toc a{display:flex;gap:8px;font:400 10.5px/1.4 var(--f-title);letter-spacing:.05em;text-decoration:none;padding:6px 8px;border-radius:6px;color:var(--ink)}
@@ -197,7 +200,9 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="120" height="51"></div>
-  <div class="status">WIKI · v0.9 BETA · 2026.11</div>
+  <div class="pname">Orbit Score</div>
+  <div class="status">v0.9 BETA · 2026.11</div>
+  <div class="credit">Made by <a href="https://iverkim.com">Iver Kim</a></div>
   <button class="btn menu" id="menuBtn" aria-expanded="false">CONTENTS ▾</button>
   <ol class="toc" id="toc">
     <li><a href="#overview"><span>00</span>OVERVIEW</a></li>
