@@ -48,6 +48,18 @@ body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:30
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ob i{opacity:.26}}
 :root[data-theme="dark"] .ob i{opacity:.26}
 @media (prefers-reduced-motion: reduce){.ob,.ob i{animation-play-state:paused}}
+/* the other object shapes of the 3D view: BOX, PLANE, LINE */
+.ob.box i,.ob.plane i,.ob.line i{background:none}
+.ob.box i::before,.ob.plane i::before,.ob.line i::before{content:"";position:absolute;inset:0;transform:rotate(var(--r,0deg));animation:obr var(--rd,90s) linear infinite}
+.ob.box i,.ob.plane i,.ob.line i{position:relative}
+.ob.box i::before{inset:20%;border-radius:12%;filter:blur(10px);
+  background:linear-gradient(140deg,color-mix(in srgb,var(--c) 70%,#fff) 0,var(--c) 45%,color-mix(in srgb,var(--c) 40%,transparent) 100%)}
+.ob.plane i::before{inset:40% 2%;border-radius:3px;filter:blur(8px);
+  background:linear-gradient(90deg,transparent 0,var(--c) 22%,color-mix(in srgb,var(--c) 75%,#fff) 50%,var(--c) 78%,transparent 100%)}
+.ob.line i::before{inset:calc(50% - 2px) 0;border-radius:2px;filter:blur(1.5px);
+  background:linear-gradient(90deg,transparent 0,var(--c) 18%,color-mix(in srgb,var(--c) 70%,#fff) 50%,var(--c) 82%,transparent 100%)}
+@keyframes obr{from{transform:rotate(var(--r,0deg))}to{transform:rotate(calc(var(--r,0deg) + 360deg))}}
+@media (prefers-reduced-motion: reduce){.ob i::before{animation:none}}
 .page{position:relative;z-index:1}
 
 /* a little film grain over the whole page, like the tool's own screen */
@@ -88,6 +100,9 @@ main[lang="ko"]{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic"
 main[lang="ko"] h3{font-family:inherit}
 
 main{padding:40px 56px 120px;min-width:0;background:color-mix(in srgb,var(--bg) 62%,transparent);border-radius:12px}
+.ov-logo{display:flex;justify-content:center;margin:34px 0 38px}
+.ov-logo h1{margin:0;line-height:0}
+.ov-logo img{width:170px;height:auto;display:block}
 .hero{position:relative;padding:34px 30px 30px;margin-bottom:56px}
 .hero h1{font:300 38px/1.05 var(--f-title);letter-spacing:.28em;margin:0 0 18px}
 .hero h1.logo{letter-spacing:0;line-height:0}
@@ -174,10 +189,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </head>
 <body>
 <div class="orbs" aria-hidden="true">
-  <span class="ob" style="--c:#9f93d2;--s:54vmax;--rx:30vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
-  <span class="ob" style="--c:#b4c97a;--s:40vmax;--rx:38vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
-  <span class="ob" style="--c:#7fa9dc;--s:48vmax;--rx:24vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
-  <span class="ob" style="--c:#f29ba6;--s:34vmax;--rx:42vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
+  <span class="ob" style="--c:#9f93d2;--s:28vmax;--rx:30vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
+  <span class="ob box" style="--c:#b4c97a;--s:21vmax;--r:18deg;--rd:110s;--rx:38vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
+  <span class="ob plane" style="--c:#7fa9dc;--s:25vmax;--r:-16deg;--rd:140s;--rx:24vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
+  <span class="ob line" style="--c:#f29ba6;--s:22vmax;--r:28deg;--rd:95s;--rx:42vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
 </div>
 <div class="page">
 <nav class="side" aria-label="Contents">
@@ -205,15 +220,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </nav>
 
 <main data-lang="en" lang="en-GB">
-<header class="hero">
-  <h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1>
-  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · HEADPHONES OR 2–64 SPEAKERS</div>
-</header>
 
 <!-- 00 -->
 <section id="overview">
   <div class="cap">00 — Overview</div>
   <h2>What it is</h2>
+  <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
   <p>A spatial audio engine that places and moves the tracks of Ableton Live around the listener. Plays on headphones (binaural) or on up to 64 speakers; the movement of each track is seen and edited on a TouchDesigner screen.</p>
   <p>Orbit Score is three Max for Live devices and one TouchDesigner project. All the sound is made inside Live. The devices work out each track's direction and distance from its position and send it to headphones or speakers.</p>
   <p>Because of this, spatial sound and audiovisual projection run together from one source. The positions that move the sound go straight to TouchDesigner over Orbit Link, so a shape on the projection sits where its track is heard and moves at the same speed. Sound and image do not have to be lined up separately or synced by timecode: changing a scene or redrawing a path changes the projection at the same moment, and track colours and names come along too.</p>
@@ -697,15 +709,12 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </footer>
 </main>
 <main data-lang="ko" lang="ko" hidden>
-<header class="hero">
-  <h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1>
-  <div class="meta">ABLETON LIVE 12 · MAX FOR LIVE · TOUCHDESIGNER 2025 · 헤드폰 또는 스피커 2–64개</div>
-</header>
 
 <!-- 00 -->
 <section id="ko-overview">
   <div class="cap">00 — Overview</div>
   <h2>소개</h2>
+  <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
   <p>Ableton Live의 트랙을 청취자 주변에 놓고 움직이는 공간음향 엔진. 헤드폰(Binaural) 또는 스피커(최대 64개)로 재생하고, TouchDesigner 화면에서 보며 트랙의 움직임을 편집합니다.</p>
   <p>Orbit Score는 Max for Live 디바이스 세 개와 TouchDesigner 프로젝트 하나로 이루어져 있습니다. 소리는 모두 Live 안에서 만들어집니다. M4L 디바이스가 각 트랙의 위치에 따라 방향과 거리감을 계산해 헤드폰이나 스피커로 내보냅니다.</p>
   <p>그래서 공간음향 렌더링과 오디오비주얼 프로젝션을 한 곳에서 동시에 할 수 있습니다. 소리를 움직이는 위치 데이터가 Orbit Link로 TouchDesigner에 그대로 전달되므로, 프로젝션 속 형상은 그 트랙이 들리는 자리에서 같은 속도로 움직입니다. 소리와 영상을 따로 맞추거나 타임코드로 동기화할 필요가 없고, 씬을 바꾸거나 경로를 다시 그리면 프로젝션도 그 순간 함께 바뀝니다. 트랙의 색과 이름도 같이 넘어갑니다.</p>
