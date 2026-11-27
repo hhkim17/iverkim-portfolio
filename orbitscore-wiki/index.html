@@ -37,6 +37,10 @@
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:300 12px/1.7 var(--f-body);-webkit-font-smoothing:antialiased}
 ::selection{background:var(--drop);color:#0f0f0f}
+/* a little film grain over the whole page, like the tool's own screen */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.22;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::after{opacity:.28}}
+:root[data-theme="dark"] body::after{opacity:.28}
 a{color:inherit;text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--drop)}
 code,kbd,.mono{font-family:var(--f-mono);font-size:.92em}
