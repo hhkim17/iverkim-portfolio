@@ -39,10 +39,21 @@ body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:30
 ::selection{background:var(--drop);color:#0f0f0f}
 /* behind everything: four sound objects drifting slowly, as in the tool's 3D view; each has its own centre across the width so they never all gather on one side */
 .orbs{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.ob{position:absolute;left:50%;top:52%;animation:obx var(--d) ease-in-out infinite alternate;animation-delay:var(--o)}
+.ob{position:absolute;left:var(--x,50%);top:var(--y,52%);animation:obx var(--d) ease-in-out infinite alternate;animation-delay:var(--o)}
 .ob i{display:block;width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
   background:radial-gradient(circle at 42% 40%,color-mix(in srgb,var(--c) 85%,#fff) 0,var(--c) 18%,transparent 66%);opacity:.5;
   animation:oby var(--d) ease-in-out infinite alternate;animation-delay:calc(var(--o) - var(--d) / 2)}
+/* where each object drifts: wide screens spread them across, tall phone screens stack them top to bottom */
+.ob:nth-child(1){--x:24%;--s:35vmax;--rx:15vw;--ry:20vh}
+.ob:nth-child(2){--x:44%;--s:27vmax;--rx:13vw;--ry:26vh}
+.ob:nth-child(3){--x:62%;--s:32vmax;--rx:13vw;--ry:30vh}
+.ob:nth-child(4){--x:80%;--s:28vmax;--rx:14vw;--ry:14vh}
+@media (orientation:portrait){
+  .ob:nth-child(1){--x:36%;--y:14%;--s:78vmin;--rx:16vw;--ry:7vh}
+  .ob:nth-child(2){--x:66%;--y:38%;--s:60vmin;--rx:14vw;--ry:8vh}
+  .ob:nth-child(3){--x:38%;--y:62%;--s:70vmin;--rx:16vw;--ry:8vh}
+  .ob:nth-child(4){--x:62%;--y:86%;--s:64vmin;--rx:14vw;--ry:6vh}
+}
 @keyframes obx{from{transform:translateX(calc(-1 * var(--rx)))}to{transform:translateX(var(--rx))}}
 @keyframes oby{from{transform:translateY(calc(-1 * var(--ry))) scale(.62)}to{transform:translateY(var(--ry)) scale(1.08)}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ob i{opacity:.26}}
@@ -181,7 +192,15 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   nav.side{position:static;height:auto;padding:20px 16px}
   .page{padding:6px;gap:6px}
   .toc{display:none}.toc.open{display:block}
-  .menu{display:block;margin-top:4px}
+  nav.side{display:flex;flex-wrap:wrap;align-items:center;gap:0 8px;padding:20px 16px 12px}
+  nav.side>.brand,nav.side>.pname,nav.side>.status,nav.side>.credit{flex:0 0 100%}
+  nav.side>.pname{margin-top:6px}
+  nav.side>.credit{margin-bottom:16px}
+  .menu{display:block;order:1;flex:1.2 1 0;margin:0;height:34px;padding:0 10px}
+  .lang{order:2;flex:1 1 0;min-width:0;margin:0}
+  .lang .cap{display:none}
+  .lang select{height:34px;padding:0 24px 0 10px;font-size:10px;background-position:right 9px center;text-overflow:ellipsis}
+  .toc{order:3;flex:0 0 100%;margin-top:4px}
   main{padding:28px 16px 80px}
   .hero{padding:24px 18px}
   .hero h1{font-size:34px;letter-spacing:.2em}
@@ -206,10 +225,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 </head>
 <body>
 <div class="orbs" aria-hidden="true">
-  <span class="ob" style="left:24%;--c:#9f93d2;--s:28vmax;--rx:15vw;--ry:20vh;--d:46s;--o:-8s"><i></i></span>
-  <span class="ob box" style="left:44%;--c:#b4c97a;--s:21vmax;--r:18deg;--rd:110s;--rx:13vw;--ry:26vh;--d:61s;--o:-31s"><i></i></span>
-  <span class="ob plane" style="left:62%;--c:#7fa9dc;--s:25vmax;--r:-16deg;--rd:140s;--rx:13vw;--ry:30vh;--d:53s;--o:-44s"><i></i></span>
-  <span class="ob line" style="left:80%;--c:#f29ba6;--s:22vmax;--r:28deg;--rd:95s;--rx:14vw;--ry:14vh;--d:72s;--o:-17s"><i></i></span>
+  <span class="ob" style="--c:#9f93d2;--d:46s;--o:-8s"><i></i></span>
+  <span class="ob box" style="--c:#b4c97a;--r:18deg;--rd:110s;--d:61s;--o:-31s"><i></i></span>
+  <span class="ob plane" style="--c:#7fa9dc;--r:-16deg;--rd:140s;--d:53s;--o:-44s"><i></i></span>
+  <span class="ob line" style="--c:#f29ba6;--r:28deg;--rd:95s;--d:72s;--o:-17s"><i></i></span>
 </div>
 <div class="page">
 <nav class="side" aria-label="Contents">
@@ -260,7 +279,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <rect class="box" x="20" y="200" width="200" height="34"/><text x="120" y="217" font-size="11" text-anchor="middle" dominant-baseline="central">Spatial Renderer</text>
     <path class="dash" d="M120 158 V200"/>
     <rect class="box" x="300" y="200" width="160" height="34"/><text x="380" y="217" font-size="11" text-anchor="middle" dominant-baseline="central">Headphones · speakers</text>
-    <text x="380" y="128" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">usually on Main</text>
+    <text x="380" y="128" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">on the Main track</text>
     <text x="120" y="248" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">on the ORBIT RENDER track</text>
     <path class="dash" d="M220 217 H300"/>
     <text x="620" y="24" class="m" font-size="10.5">TOUCHDESIGNER</text>
@@ -307,7 +326,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>The devices are in the <code>Spatialize M4L</code> folder. Add it to Live's browser with <strong>Places → Add Folder…</strong>.</p>
   <div class="tw"><table>
     <tr><th>Device</th><th>Where</th></tr>
-    <tr><td>Spatial Master</td><td>One per set, on any track (the Main track is usual)</td></tr>
+    <tr><td>Spatial Master</td><td>One per set, on the Main track</td></tr>
     <tr><td>Spatial Object</td><td>On every track to be placed in space, at the end of the device chain</td></tr>
     <tr><td>Spatial Renderer</td><td>Speaker playback only: one per set, on an empty audio track named <code>ORBIT RENDER</code>, output to Main (<a href="#speakers">03</a>)</td></tr>
   </table></div>
@@ -388,7 +407,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p><kbd>Shift</kbd> / <kbd>Ctrl</kbd> + click (<kbd>Cmd</kbd> on macOS) adds an object to the selection. Settings apply to all selected objects; dragging moves them together.</p>
 
   <h3>Groups</h3>
-  <p>The object list works like a layer list: groups sit at the top with their members indented under them, the other objects follow.</p>
+  <p>The object list works like a layer list. Groups sit at the top, and the objects that belong to a group are listed under it; objects in no group follow below. To make a group, hold <kbd>Shift</kbd> and select several objects, then press <span class="pill">+ GROUP</span>: the new group is made of the selected objects.</p>
   <div class="tw"><table>
     <tr><th>Control</th><th>Action</th></tr>
     <tr><td>+ GROUP</td><td>New group (Group 1, Group 2 …) holding the selected objects</td></tr>
@@ -750,7 +769,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <rect class="box" x="20" y="200" width="200" height="34"/><text x="120" y="217" font-size="11" text-anchor="middle" dominant-baseline="central">Spatial Renderer</text>
     <path class="dash" d="M120 158 V200"/>
     <rect class="box" x="300" y="200" width="160" height="34"/><text x="380" y="217" font-size="11" text-anchor="middle" dominant-baseline="central">헤드폰 · 스피커</text>
-    <text x="380" y="128" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">보통 Main 트랙</text>
+    <text x="380" y="128" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">Main 트랙</text>
     <text x="120" y="248" class="m" font-size="9.5" text-anchor="middle" dominant-baseline="central">ORBIT RENDER 트랙</text>
     <path class="dash" d="M220 217 H300"/>
     <text x="620" y="24" class="m" font-size="10.5">TOUCHDESIGNER</text>
@@ -797,7 +816,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>디바이스는 <code>Spatialize M4L</code> 폴더에 있습니다. Live 브라우저의 <strong>Places → Add Folder…</strong>로 추가합니다.</p>
   <div class="tw"><table>
     <tr><th>디바이스</th><th>위치</th></tr>
-    <tr><td>Spatial Master</td><td>세트에 하나. 아무 트랙에나 둡니다 (보통 Main 트랙)</td></tr>
+    <tr><td>Spatial Master</td><td>세트에 하나. Main 트랙에 둡니다</td></tr>
     <tr><td>Spatial Object</td><td>공간에 배치할 트랙마다 하나. 디바이스 체인의 맨 끝</td></tr>
     <tr><td>Spatial Renderer</td><td>스피커 재생 시에만. 세트에 하나, 이름이 <code>ORBIT RENDER</code>인 빈 오디오 트랙에 두고 출력은 Main (<a href="#ko-speakers">03</a>)</td></tr>
   </table></div>
@@ -875,10 +894,10 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>경로는 Live 송 포지션을 따릅니다. 움직임을 바꿔도 경로는 유지됩니다. 점을 바꾸면 Live에 바로 적용되며, 경로를 떠날 때 따로 묻지 않습니다.</p>
 
   <h3>여러 오브젝트</h3>
-  <p><kbd>Shift</kbd> / <kbd>Ctrl</kbd> + 클릭(macOS는 <kbd>Cmd</kbd>도 가능)으로 선택에 추가합니다. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 움직입니다.</p>
+  <p><kbd>Shift</kbd> / <kbd>Ctrl</kbd> + 클릭(macOS는 <kbd>Cmd</kbd>)으로 선택에 추가합니다. 설정은 선택한 모든 오브젝트에 적용되고, 드래그하면 함께 움직입니다.</p>
 
   <h3>그룹</h3>
-  <p>오브젝트 목록은 레이어 목록처럼 동작합니다. 위쪽에 그룹이 있고 그 아래에 멤버가 들여쓰기로 표시되며, 나머지 오브젝트가 이어집니다.</p>
+  <p>오브젝트 목록은 레이어 목록처럼 동작합니다. 맨 위에 그룹이 있고, 그룹에 속한 오브젝트는 그 그룹 아래에 묶여 표시됩니다. 어느 그룹에도 속하지 않은 오브젝트는 그 아래에 이어집니다. 그룹을 만들려면 <kbd>Shift</kbd>를 누른 채 여러 오브젝트를 선택하고 <span class="pill">+ GROUP</span>을 누릅니다. 선택한 오브젝트들로 새 그룹이 만들어집니다.</p>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>동작</th></tr>
     <tr><td>+ GROUP</td><td>선택한 오브젝트로 새 그룹(Group 1, Group 2 …)을 만듦</td></tr>
