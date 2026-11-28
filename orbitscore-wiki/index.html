@@ -235,15 +235,16 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 .ov-illo .il-obj,.ov-illo .il-me{will-change:transform;backface-visibility:hidden}
 .ov-illo .il-trail{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:.95}
 .ov-illo .il-face{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round}
-.ov-illo .il-obj{animation:ildrift 4.4s ease-in-out infinite;transform-origin:50% 50%}
-.ov-illo .il-o2{animation-duration:5.4s;animation-delay:-1.5s}
-.ov-illo .il-o3{animation-duration:4.9s;animation-delay:-3s}
-.ov-illo .il-o4{animation-duration:4.1s;animation-delay:-1s}
-.ov-illo .il-me{animation:ilbreathe 3s ease-in-out infinite;transform-origin:50% 100%}
+.ov-illo .il-obj{animation:ildrift 6.4s ease-in-out infinite;transform-origin:50% 50%}
+.ov-illo .il-o2{animation-duration:7.6s;animation-delay:-2s}
+.ov-illo .il-o3{animation-duration:7s;animation-delay:-4s}
+.ov-illo .il-o4{animation-duration:6s;animation-delay:-1s}
+.ov-illo .il-me{animation:ilbreathe 4s ease-in-out infinite;transform-origin:50% 100%}
 @keyframes ildrift{0%,100%{transform:translate(0,0) rotate(0)}33%{transform:translate(12px,-14px) rotate(4deg)}66%{transform:translate(-10px,-6px) rotate(-3deg)}}
 @keyframes ilbreathe{50%{transform:scale(1.02,.985)}}
 @media (prefers-reduced-motion: reduce){.ov-illo .il-obj,.ov-illo .il-me{animation:none}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ov-illo .il-roomg{opacity:.32}:root:not([data-theme="light"]) .ov-illo .il-sh{opacity:.6}}
+:root[data-view="classic"] .ov-illo .il-obj,:root[data-view="classic"] .ov-illo .il-me{animation:none}
 :root[data-view="classic"] .ov-illo{filter:grayscale(1)}
 </style>
 <script>try{if(localStorage.getItem('orbit-score-view')==='classic')document.documentElement.dataset.view='classic';}catch(e){}</script>
