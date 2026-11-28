@@ -591,7 +591,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>OrbitLink_In.tox</h3>
   <p>A TouchDesigner component that receives Orbit Score's data. Output <strong>objects_chop</strong> is a CHOP with <code>count</code> and <code>o1_x o1_y o1_z</code>, <code>o2_x</code> … per object, in Live's track order. Status shows <span class="mono">3 objects · live</span> while data arrives.</p>
   <p>Hover over an output to see its name: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. The POP output (<code>points_pop</code>) gives one point per object (point 0 = object 1) with <code>P</code> (position), <code>Color</code> (track colour), <code>level</code>, <code>speed</code> and <code>id</code> (object number). It is always on and can go straight into instancing or any POP.</p>
-  <p>The node's viewer shows one row per track, with its name and a colour dot. Above the rows, <span class="mono">each object:</span> lists the values that are arriving (pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion); at the bottom, <span class="mono">set:</span> lists the set-wide ones (scene · transport · groups · room · morph). With more objects than fit, the mouse wheel over the active viewer scrolls it (Preview page → Scroll), and the last row shows <span class="mono">↑ n above · ↓ n more</span>. <code>names_dat</code> gives each object's track name and shape (point / line / box / plane).</p>
+  <p>The node's viewer shows one row per track, with its name and a colour dot. Above the rows, <span class="mono">each object:</span> lists the values that are arriving (pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion); at the bottom, <span class="mono">set:</span> lists the set-wide ones (scene · transport · groups · room · morph). With more objects than fit, the mouse wheel over the active viewer scrolls it (Preview page → Scroll), and the last row shows <span class="mono">↑ n above · ↓ n more</span>. Each row also says who moves the object: <span class="mono">moved by Orbit Score</span> or <span class="mono">moved by Orbit Link</span>. <code>names_dat</code> gives each object's track name and shape (point / line / box / plane).</p>
   <div class="tw"><table>
     <tr><th>Out toggle</th><th>Channels</th></tr>
     <tr><td>Az El Dist</td><td><code>o1_az o1_el o1_dist</code></td></tr>
@@ -617,15 +617,15 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Send POP Color</td><td>A point's <code>Color</code> sets its object's track colour in Live. Off by default, because the colour is saved in the set. Greyed out when the POP has no <code>Color</code></td></tr>
     <tr><td>Scene List From</td><td>An OrbitLink_In. Fills the scene menu, and gives the viewer the track names</td></tr>
   </table></div>
-  <p>The viewer has one row per object with its track name and what is sent for it (position, az el dist, or settings only), and scrolls like OrbitLink_In's. Values it cannot use are shown in orange and in Send Status: <span class="mono">unknown: pos_x</span> means a channel name it does not know, <span class="mono">needs x y z: o2</span> means only part of a position arrived.</p>
+  <p>The viewer has one row per object with its track name and what is sent for it (<span class="mono">sends position</span>, <span class="mono">sends az el dist</span> or <span class="mono">settings only</span>), and scrolls like OrbitLink_In's. Values it cannot use are shown in orange and in Send Status: <span class="mono">unknown: pos_x</span> means a channel name it does not know, <span class="mono">needs x y z: o2</span> means only part of a position arrived.</p>
   <p>While positions arrive, the objects follow them and their motion and position are locked in the editor. About 1.5 s after the stream stops, they return to their own motion. Received positions are not saved in the set.</p>
-  <div class="note"><b>NOTE</b>Feeding OrbitLink_In's values back into OrbitLink_Out for the same objects creates a feedback loop. A UDP port can be opened by one program at a time.</div>
+  <div class="note"><b>NOTE</b>If the position wired into OrbitLink_Out for an object is exactly OrbitLink_In's own position for that object, it is not sent: the row says <span class="mono">loop: not sent</span> and Send Status says <span class="mono">loop, not sent: o2</span>, until the values differ. OrbitLink_In's other channels (active, vx …, sx …, rx …, room_*, morph_*) wired into Out are skipped quietly. A UDP port can be opened by one program at a time.</div>
   <h3>Using In and Out together</h3>
   <p>A project can read from Orbit Score and send to it at the same time. The rule is one owner per value.</p>
   <div class="tw"><table>
     <tr><th>Value</th><th>Who sets it</th></tr>
     <tr><td>Level, speed and direction, active, chaos, transport · tempo · bar, scene progress</td><td>Always Orbit Score; the project only reads them</td></tr>
-    <tr><td>Position of an object or a group</td><td>One side only. While the project sends it, the object's own motion waits. Orbit Score reports that position straight back, so do not wire In's position for the same object into Out: it would hold the object where it is</td></tr>
+    <tr><td>Position of an object or a group</td><td>One side only. While the project sends it, the object's own motion waits. Orbit Score reports that position straight back, so do not wire In's position for the same object into Out. If you do, OrbitLink_Out notices and does not send it (see the note above)</td></tr>
     <tr><td>Settings (shape, size, rotation …), colour, name, mute, room, morph pad, scene recall</td><td>Either side; the last change applies</td></tr>
   </table></div>
   <p>Inside Orbit Score, an object's position stream comes first, then a group's position stream, then the morph pad, then the scene and the object's own motion. Position streams are never saved; settings sent over Orbit Link are saved in the Live set, like an edit in the editor.</p>
@@ -646,7 +646,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line / 2 box / 3 plane · radius units per second</td></tr>
     <tr><td>/orbit/n/size</td><td>x y z — the shape's size along its own axes (radius = 1); a line has x only, a plane x and z</td></tr>
     <tr><td>/orbit/n/rot</td><td>rx ry rz facing — degrees, as they are while a rotation Mod runs; facing 0 = turns with the object to face the centre, 1 = fixed</td></tr>
-    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, direction of travel in radius units per second · 0 | 1 · 0 | 1 (0 = muted or gone) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion · steered</td><td>x y z, direction of travel in radius units per second · 0 | 1 · 0 | 1 (0 = muted or gone) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos · 1 while Orbit Link moves the object</td></tr>
     <tr><td>/orbit/n/chaos</td><td>x y z of a CHAOS object's attractor (about −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>number of objects · layout id, speaker count</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>active scene · all scene names · from, to, progress 0–1 during a transition</td></tr>
@@ -1119,7 +1119,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>OrbitLink_In.tox</h3>
   <p>Orbit Score의 데이터를 받는 TouchDesigner 컴포넌트입니다. 출력 <strong>objects_chop</strong>은 <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code>, <code>o2_x</code> …가 담긴 CHOP입니다(Live 트랙 순서). 데이터가 들어오는 동안 Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p>
   <p>출력에 마우스를 올리면 이름이 보입니다: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. POP 출력(<code>points_pop</code>)은 오브젝트마다 점 하나(점 0 = 오브젝트 1)를 내보내며 <code>P</code>(위치), <code>Color</code>(트랙 색), <code>level</code>, <code>speed</code>, <code>id</code>(오브젝트 번호)를 담습니다. 항상 켜져 있고 인스턴싱이나 다른 POP에 바로 연결할 수 있습니다.</p>
-  <p>노드 뷰어에는 트랙마다 한 줄씩 이름과 색 점이 표시됩니다. 줄들 위의 <span class="mono">each object:</span>는 들어오고 있는 값을 보여 주고(pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion), 맨 아래의 <span class="mono">set:</span>은 세트 전체 값을 보여 줍니다(scene · transport · groups · room · morph). 오브젝트가 많아 다 보이지 않으면 활성화된 뷰어 위에서 마우스 휠로 스크롤하며(Preview 페이지 → Scroll), 마지막 줄에 <span class="mono">↑ n above · ↓ n more</span>가 표시됩니다. <code>names_dat</code>에는 오브젝트마다 트랙 이름과 모양(point / line / box / plane)이 담깁니다.</p>
+  <p>노드 뷰어에는 트랙마다 한 줄씩 이름과 색 점이 표시됩니다. 줄들 위의 <span class="mono">each object:</span>는 들어오고 있는 값을 보여 주고(pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion), 맨 아래의 <span class="mono">set:</span>은 세트 전체 값을 보여 줍니다(scene · transport · groups · room · morph). 오브젝트가 많아 다 보이지 않으면 활성화된 뷰어 위에서 마우스 휠로 스크롤하며(Preview 페이지 → Scroll), 마지막 줄에 <span class="mono">↑ n above · ↓ n more</span>가 표시됩니다. 줄마다 그 오브젝트를 누가 움직이는지도 표시됩니다: <span class="mono">moved by Orbit Score</span> 또는 <span class="mono">moved by Orbit Link</span>. <code>names_dat</code>에는 오브젝트마다 트랙 이름과 모양(point / line / box / plane)이 담깁니다.</p>
   <div class="tw"><table>
     <tr><th>Out 토글</th><th>채널</th></tr>
     <tr><td>Az El Dist</td><td><code>o1_az o1_el o1_dist</code></td></tr>
@@ -1145,15 +1145,15 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Send POP Color</td><td>점의 <code>Color</code>로 해당 오브젝트의 Live 트랙 색을 바꿉니다. 색은 세트에 저장되므로 기본은 꺼져 있습니다. POP에 <code>Color</code>가 없으면 비활성화됩니다</td></tr>
     <tr><td>Scene List From</td><td>OrbitLink_In을 지정합니다. 씬 메뉴를 채우고, 뷰어에 트랙 이름을 표시합니다</td></tr>
   </table></div>
-  <p>뷰어에는 오브젝트마다 한 줄씩 트랙 이름과 보내는 값의 종류(위치, az el dist, 설정만)가 표시되며, OrbitLink_In처럼 스크롤됩니다. 쓸 수 없는 값은 주황색으로, 그리고 Send Status에 표시됩니다. <span class="mono">unknown: pos_x</span>는 알 수 없는 채널 이름, <span class="mono">needs x y z: o2</span>는 위치 값 일부만 들어왔다는 뜻입니다.</p>
+  <p>뷰어에는 오브젝트마다 한 줄씩 트랙 이름과 보내는 값의 종류(<span class="mono">sends position</span>, <span class="mono">sends az el dist</span>, <span class="mono">settings only</span>)가 표시되며, OrbitLink_In처럼 스크롤됩니다. 쓸 수 없는 값은 주황색으로, 그리고 Send Status에 표시됩니다. <span class="mono">unknown: pos_x</span>는 알 수 없는 채널 이름, <span class="mono">needs x y z: o2</span>는 위치 값 일부만 들어왔다는 뜻입니다.</p>
   <p>위치를 받는 동안 오브젝트는 그 위치를 따르며, 에디터에서 움직임과 위치가 잠깁니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다.</p>
-  <div class="note"><b>NOTE</b>같은 오브젝트의 OrbitLink_In 값을 OrbitLink_Out으로 되돌리면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
+  <div class="note"><b>NOTE</b>어떤 오브젝트에 대해 OrbitLink_Out에 들어온 위치가 OrbitLink_In이 내보낸 그 오브젝트의 위치와 똑같으면 보내지 않습니다. 해당 줄에 <span class="mono">loop: not sent</span>, Send Status에 <span class="mono">loop, not sent: o2</span>가 표시되며, 값이 달라지면 바로 풀립니다. Out에 연결된 OrbitLink_In의 다른 채널(active, vx …, sx …, rx …, room_*, morph_*)은 조용히 건너뜁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
   <h3>In과 Out을 함께 쓰기</h3>
   <p>한 프로젝트가 Orbit Score에서 값을 받으면서 동시에 보낼 수 있습니다. 원칙은 값마다 주인이 하나라는 것입니다.</p>
   <div class="tw"><table>
     <tr><th>값</th><th>정하는 쪽</th></tr>
     <tr><td>레벨, 속도와 진행 방향, active, chaos, 트랜스포트 · 템포 · 마디, 씬 진행도</td><td>항상 Orbit Score. 프로젝트는 읽기만 합니다</td></tr>
-    <tr><td>오브젝트나 그룹의 위치</td><td>한쪽만. 프로젝트가 보내는 동안 오브젝트 자신의 움직임은 멈춰 기다립니다. Orbit Score는 그 위치를 바로 되돌려 보내므로, 같은 오브젝트의 In 위치를 Out에 연결하지 않습니다. 연결하면 오브젝트가 제자리에 묶입니다</td></tr>
+    <tr><td>오브젝트나 그룹의 위치</td><td>한쪽만. 프로젝트가 보내는 동안 오브젝트 자신의 움직임은 멈춰 기다립니다. Orbit Score는 그 위치를 바로 되돌려 보내므로, 같은 오브젝트의 In 위치를 Out에 연결하지 않습니다. 연결해도 OrbitLink_Out이 알아채고 보내지 않습니다(위 NOTE 참고)</td></tr>
     <tr><td>설정(모양, 크기, 회전 …), 색, 이름, 뮤트, 룸, Morph 패드, 씬 불러오기</td><td>어느 쪽이든. 마지막에 바꾼 값이 적용됩니다</td></tr>
   </table></div>
   <p>Orbit Score 안에서는 오브젝트 위치 스트림이 가장 먼저이고, 그다음 그룹 위치 스트림, Morph 패드, 씬과 오브젝트 자신의 움직임 순입니다. 위치 스트림은 저장되지 않으며, Orbit Link로 보낸 설정은 에디터에서 바꾼 것처럼 Live 세트에 저장됩니다.</p>
@@ -1174,7 +1174,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 / 2 상자 / 3 면 · 초당 반지름 단위</td></tr>
     <tr><td>/orbit/n/size</td><td>x y z — 모양 자체 축 기준의 크기(반지름 = 1). 선은 x만, 면은 x와 z</td></tr>
     <tr><td>/orbit/n/rot</td><td>rx ry rz facing — 각도(도). 회전 Mod가 돌 때는 그 순간 각도. facing 0 = 오브젝트와 함께 돌며 중심을 향함, 1 = 고정</td></tr>
-    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, 초당 반지름 단위의 진행 방향 · 0 | 1 · 0 | 1 (0 = 뮤트되었거나 없어짐) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion · steered</td><td>x y z, 초당 반지름 단위의 진행 방향 · 0 | 1 · 0 | 1 (0 = 뮤트되었거나 없어짐) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos · Orbit Link가 움직이는 동안 1</td></tr>
     <tr><td>/orbit/n/chaos</td><td>CHAOS 오브젝트의 어트랙터 x y z (약 −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>현재 씬 · 모든 씬 이름 · 전환 중 from, to, 진행도 0–1</td></tr>

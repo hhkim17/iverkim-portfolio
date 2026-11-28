@@ -22,9 +22,9 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
 - 2026-11-28 · Orbit Link: shape 3 = plane, /size, /rot, /vel, /mute, /active, /motion, /room, /morph sent; /set/n/mute, /set/morph, /set/room/<key>, rx rxmod bd bh received; OrbitLink_In channels per Out toggle; new viewer and scroll; About page with Open Wiki (06).
 - 2026-11-28 · Orbit Link: /orbit/set/group/<g>/pos steers a group's centre (06, received table). Marked in the wiki as needing the Spatial Object script of 28 Nov or later.
 - 2026-11-28 · Orbit Link: "Using In and Out together" (06, before Examples), one owner per value, with a neutral example.
+- 2026-11-28 · Orbit Link: "moved by Orbit Score / Orbit Link" rows, /orbit/n/steered, Out row labels, loop guard (replaces the feedback-loop note).
 - 2026-11-28 · Device table: Box Y = height (Y, up), Box Z = depth (Z, front–back); a plane uses Length and Box Z. Motion numbers 0–7 confirmed.
 
 ## Question from the wiki conversation (2026-11-28)
 
 - **Rot X · Tilt · Rotate on the Spatial Object device**: the wiki now says Rot X = RX (right axis), Tilt = RZ (front–back axis), Rotate = RY (up axis). Is that the right pairing with the editor's RX · RY · RZ? If not, write the correct one under Pending.
-- **Orbit Link: who moves each object, and the loop guard** (06 Orbit Link, with the "In and Out together" subsection): Orbit In's viewer shows for every track "moved by Orbit Score" or "moved by Orbit Link" (new OSC `/orbit/n/steered 0|1`). Orbit Out's rows say "sends position" / "sends az el dist" / "settings only". Loop guard in Orbit Out: if the position wired in for an object is exactly Orbit In's own position for that object, it is not sent; the row says "loop: not sent" and Send Status says `loop, not sent: o2`. It is released as soon as the values differ. This replaces the old NOTE that such wiring "creates a feedback loop": it is now caught. Orbit In's new channels (active, vx…, sx…, rx…, room_*, morph_*) wired into Orbit Out are skipped quietly.
