@@ -4,6 +4,10 @@ Changes made to Orbit Score that the wiki (`index.html`) does not cover yet.
 Written from the development conversation; the wiki is edited in another conversation.
 Add new items under **Pending** with a date. The wiki conversation moves them to **Done** once they are in the wiki (EN and KO).
 
+## Pending
+
+- 2026-11-28 · **Orbit In viewer wording** (06 Orbit Link, the viewer paragraph, EN and KO): the right column now reads `position: Orbit Score` (its own motion and scenes set the position) or `position: Orbit Out` (a position stream sent by an Orbit Out or another program sets it). It replaces "moved by Orbit Score / moved by Orbit Link", which could be read as "came in through this Orbit In".
+
 ## Pending (screenshots only)
 
 - **SPACE tab** (FIG. 3.2, `media/ui-space.jpg`): the current picture has no DEPTH / HEIGHT row under REFLECTIONS and no SAVE PRESET / DELETE.
