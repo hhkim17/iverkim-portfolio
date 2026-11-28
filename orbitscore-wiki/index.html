@@ -115,7 +115,7 @@ nav.side{position:sticky;top:8px;height:calc(100vh - 16px);overflow-y:auto;paddi
 main[lang="ko"]{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all}
 main[lang="ko"] h3{font-family:inherit}
 
-main{padding:40px 56px 120px;min-width:0;background:color-mix(in srgb,var(--bg) 46%,transparent);border-radius:12px}
+main{padding:40px 56px 120px;min-width:0;background:color-mix(in srgb,var(--bg) 28%,transparent);border-radius:12px}
 .ov-logo{display:flex;justify-content:center;margin:34px 0 38px}
 .ov-logo h1{margin:0;line-height:0}
 .ov-logo img{width:170px;height:auto;display:block}
@@ -228,14 +228,18 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 :root[data-view="classic"] .status,:root[data-view="classic"] .credit{letter-spacing:0;font-size:9px}
 :root[data-view="classic"] ::selection{background:var(--ink);color:var(--bg)}
 /* overview illustration: a warm room, a listener with headphones, sound objects with little faces drifting round, moved from a laptop */
-.ov-illo{display:block;width:100%;max-width:720px;height:auto;margin:0 auto 26px;overflow:visible}
+.ov-illo{position:relative;width:100%;max-width:480px;aspect-ratio:1000/700;margin:0 auto 22px}
+.ov-illo .il-layer{position:absolute;height:auto;overflow:visible}
+.ov-illo .il-bg{left:0;top:0;width:100%}
+/* each moving part is its own layer, so the browser slides it without redrawing the blurs */
+.ov-illo .il-obj,.ov-illo .il-me{will-change:transform;backface-visibility:hidden}
 .ov-illo .il-trail{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:.95}
 .ov-illo .il-face{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round}
-.ov-illo .il-obj{animation:ildrift 4.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ov-illo .il-obj{animation:ildrift 4.4s ease-in-out infinite;transform-origin:50% 50%}
 .ov-illo .il-o2{animation-duration:5.4s;animation-delay:-1.5s}
 .ov-illo .il-o3{animation-duration:4.9s;animation-delay:-3s}
 .ov-illo .il-o4{animation-duration:4.1s;animation-delay:-1s}
-.ov-illo .il-me{animation:ilbreathe 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.ov-illo .il-me{animation:ilbreathe 3s ease-in-out infinite;transform-origin:50% 100%}
 @keyframes ildrift{0%,100%{transform:translate(0,0) rotate(0)}33%{transform:translate(12px,-14px) rotate(4deg)}66%{transform:translate(-10px,-6px) rotate(-3deg)}}
 @keyframes ilbreathe{50%{transform:scale(1.02,.985)}}
 @media (prefers-reduced-motion: reduce){.ov-illo .il-obj,.ov-illo .il-me{animation:none}}
@@ -286,88 +290,38 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>What it is</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 0 1000 700" role="img" aria-label="Illustration: a listener with headphones sits in a warm room while sound objects with little faces drift around them; a laptop screen shows the same objects">
-  <defs>
-    <filter id="il-room" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="20"/></filter>
-    <filter id="il-f8" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
-    <filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
-    <filter id="il-f3" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
-    <filter id="il-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="34"/></filter>
-    <radialGradient id="il-vig" cx="50%" cy="52%" r="62%"><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-    <mask id="il-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="700"><rect width="1000" height="700" fill="url(#il-vig)"/></mask>
-    <linearGradient id="il-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6e4"/><stop offset="1" stop-color="#fcdfa8"/></linearGradient>
-    <linearGradient id="il-wallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f9d699"/><stop offset="1" stop-color="#fce6bf"/></linearGradient>
-    <linearGradient id="il-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcdc9c"/><stop offset="1" stop-color="#f6c76c"/></linearGradient>
-    <linearGradient id="il-me" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbfcfb"/><stop offset="1" stop-color="#e3ece8"/></linearGradient>
-    <linearGradient id="il-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58bde6"/><stop offset=".55" stop-color="#6cbfe4"/><stop offset="1" stop-color="#7f9fb0"/></linearGradient>
-    <radialGradient id="il-red" cx="60%" cy="62%" r="70%"><stop offset="0" stop-color="#f26a62"/><stop offset="1" stop-color="#df7c80"/></radialGradient>
-    <linearGradient id="il-purple" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b98be0"/><stop offset=".5" stop-color="#d48cf0"/><stop offset="1" stop-color="#9d7fd0"/></linearGradient>
-  </defs>
-  
+  <div class="ov-illo" role="img" aria-label="Illustration: a listener with headphones sits in a room while sound objects with little faces drift around them; a laptop screen shows the same objects">
+  <svg class="il-layer il-bg" viewBox="0 0 1000 700"><defs><filter id="il-room" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="20"/></filter>
+  <filter id="il-f8" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+  <filter id="il-f3" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <filter id="il-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="34"/></filter>
+  <radialGradient id="il-vig" cx="50%" cy="52%" r="62%"><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <mask id="il-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="700"><rect width="1000" height="700" fill="url(#il-vig)"/></mask>
+  <linearGradient id="il-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf8f2"/><stop offset="1" stop-color="#f0e6d4"/></linearGradient>
+  <linearGradient id="il-wallL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ece1cd"/><stop offset="1" stop-color="#f5efe4"/></linearGradient>
+  <linearGradient id="il-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eee2ca"/><stop offset="1" stop-color="#e4d1ad"/></linearGradient></defs>
   <!-- the room: a warm box whose walls melt into the page -->
   <g class="il-roomg" mask="url(#il-mask)"><g filter="url(#il-room)">
     <rect x="190" y="60" width="640" height="490" fill="url(#il-wall)"/>
     <polygon points="80,30 190,60 190,550 80,700" fill="url(#il-wallL)"/>
     <polygon points="830,60 940,30 940,700 830,550" fill="url(#il-wallL)" transform="scale(-1 1) translate(-1020 0)"/>
     <polygon points="190,545 830,545 950,700 70,700" fill="url(#il-floor)"/>
-    <rect x="186" y="60" width="10" height="490" fill="#f6dcb0" opacity=".7"/>
-    <rect x="824" y="60" width="10" height="490" fill="#f6dcb0" opacity=".7"/>
-    <rect x="190" y="540" width="640" height="10" fill="#f3d39c" opacity=".7"/>
+    <rect x="186" y="60" width="10" height="490" fill="#e6dccb" opacity=".7"/>
+    <rect x="824" y="60" width="10" height="490" fill="#e6dccb" opacity=".7"/>
+    <rect x="190" y="540" width="640" height="10" fill="#e2d6c0" opacity=".7"/>
   </g></g>
-  
   <!-- floor shadows -->
-  <g class="il-sh" filter="url(#il-f8)" fill="#d6a64d">
+  <g class="il-sh" filter="url(#il-f8)" fill="#bba57e">
     <ellipse cx="470" cy="635" rx="105" ry="22" opacity=".55"/>
     <ellipse cx="290" cy="655" rx="95" ry="16" opacity=".45"/>
     <ellipse cx="690" cy="655" rx="52" ry="20" opacity=".45"/>
     <path d="M640 560 q20 -20 40 -6 q24 -14 30 8 q26 4 12 22 q8 22 -18 20 q-12 18 -30 4 q-26 8 -26 -14 q-22 -10 -8 -34z" opacity=".4"/>
   </g>
-  
   <!-- glows behind two objects -->
   <circle cx="250" cy="390" r="80" fill="#f7c6e8" opacity=".55" filter="url(#il-glow)"/>
   <circle cx="640" cy="370" r="90" fill="#f4ef8f" opacity=".5" filter="url(#il-glow)"/>
-  
   <!-- the listener -->
-  <g class="il-me">
-    <path d="M470 440 c-42 0 -58 36 -58 70 c0 20 -24 40 -24 74 c0 40 38 46 82 46 s82 -6 82 -46 c0 -34 -24 -54 -24 -74 c0 -34 -16 -70 -58 -70z" fill="url(#il-me)" filter="url(#il-f5)"/>
-    <path d="M424 488 a46 46 0 0 1 92 0" fill="none" stroke="#8d8f95" stroke-width="7" stroke-linecap="round" filter="url(#il-f3)"/>
-    <ellipse cx="426" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3)"/>
-    <ellipse cx="514" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3)"/>
-    <path d="M452 481 q6 6 12 0 M478 481 q6 6 12 0" fill="none" stroke="#3b3b40" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M466 493 l4 -4 l4 4" fill="none" stroke="#3b3b40" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  
   <!-- sound objects with little faces and doodled trails -->
-  <g class="il-obj il-o1">
-    <path d="M235 180 c-40 -40 -10 -80 60 -82 c70 -2 100 18 110 40" class="il-trail"/>
-    <path d="M410 268 c-20 50 -40 100 -32 150" class="il-trail"/>
-    <g filter="url(#il-f5)">
-      <path d="M360 205 l52 -38 l50 30 l-8 56 l-52 30 l-48 -26 z" fill="#5fbf63"/>
-      <path d="M360 205 l52 -38 l50 30 l-48 28 z" fill="#79d47a"/>
-      <path d="M360 205 l54 20 l0 61 l-48 -26 z" fill="#6aa86a"/>
-    </g>
-    <circle cx="425" cy="218" r="2.2" fill="#fff"/><circle cx="437" cy="221" r="2.2" fill="#fff"/>
-    <path d="M428 230 q6 5 12 0" class="il-face"/>
-  </g>
-  <g class="il-obj il-o2">
-    <path d="M538 290 c30 4 50 6 68 -6" class="il-trail"/>
-    <g transform="rotate(18 650 220)" filter="url(#il-f5)"><rect x="628" y="150" width="44" height="140" rx="22" fill="url(#il-purple)"/><rect x="580" y="198" width="140" height="44" rx="22" fill="url(#il-purple)"/></g>
-    <circle cx="645" cy="216" r="2" fill="#fff"/><circle cx="655" cy="216" r="2" fill="#fff"/>
-    <path d="M647 227 q3 -3 6 0" class="il-face"/>
-  </g>
-  <g class="il-obj il-o3">
-    <path d="M188 425 c-40 -2 -50 20 -20 50 c30 30 80 34 120 36 c30 2 30 -16 -10 -22 c-40 -6 -100 -4 -76 30 c14 20 40 26 60 24" class="il-trail"/>
-    <ellipse cx="238" cy="395" rx="88" ry="38" transform="rotate(16 238 395)" fill="url(#il-blue)" filter="url(#il-f5)"/>
-    <circle cx="236" cy="388" r="2.2" fill="#fff"/><circle cx="252" cy="390" r="2.2" fill="#fff"/>
-    <ellipse cx="245" cy="398" rx="4" ry="3.2" fill="#fff"/>
-  </g>
-  <g class="il-obj il-o4">
-    <path d="M730 362 c14 18 40 22 54 12 c14 -10 4 -32 -10 -24 c-14 8 0 44 2 70 c2 22 -6 36 -16 44" class="il-trail"/>
-    <path d="M660 320 c40 0 56 40 50 80 c-6 40 -36 50 -60 50 c-30 0 -46 -20 -46 -56 c0 -42 20 -74 56 -74z" fill="url(#il-red)" filter="url(#il-f5)"/>
-    <circle cx="646" cy="384" r="2.4" fill="#fff"/><circle cx="664" cy="384" r="2.4" fill="#fff"/>
-    <path d="M644 396 l26 -4" class="il-face"/>
-  </g>
-  
   <!-- the laptop screen, seen at an angle -->
   <g class="il-scrg" transform="translate(808 465) skewY(4)">
     <rect x="0" y="0" width="156" height="106" rx="4" fill="#d8d8dc" filter="url(#il-f3)"/>
@@ -381,6 +335,49 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <path d="M114 66 l0 15 l4 -3.6 l3 6.2 l2.6 -1.2 l-3 -6.1 l5.4 -.4 z" fill="#fff"/>
   </g>
   </svg>
+  <svg class="il-layer il-me" viewBox="370 425 200 215" style="left:37.000%;top:60.714%;width:20.000%"><defs><filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <filter id="il-f3" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <linearGradient id="il-me" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbfcfb"/><stop offset="1" stop-color="#e3ece8"/></linearGradient></defs><g>
+    <path d="M470 440 c-42 0 -58 36 -58 70 c0 20 -24 40 -24 74 c0 40 38 46 82 46 s82 -6 82 -46 c0 -34 -24 -54 -24 -74 c0 -34 -16 -70 -58 -70z" fill="url(#il-me)" filter="url(#il-f5)"/>
+    <path d="M424 488 a46 46 0 0 1 92 0" fill="none" stroke="#8d8f95" stroke-width="7" stroke-linecap="round" filter="url(#il-f3)"/>
+    <ellipse cx="426" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3)"/>
+    <ellipse cx="514" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3)"/>
+    <path d="M452 481 q6 6 12 0 M478 481 q6 6 12 0" fill="none" stroke="#3b3b40" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M466 493 l4 -4 l4 4" fill="none" stroke="#3b3b40" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o1" viewBox="178 82 306 350" style="left:17.800%;top:11.714%;width:30.600%"><defs><filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter></defs><g>
+    <path d="M235 180 c-40 -40 -10 -80 60 -82 c70 -2 100 18 110 40" class="il-trail"/>
+    <path d="M410 268 c-20 50 -40 100 -32 150" class="il-trail"/>
+    <g filter="url(#il-f5)">
+      <path d="M360 205 l52 -38 l50 30 l-8 56 l-52 30 l-48 -26 z" fill="#5fbf63"/>
+      <path d="M360 205 l52 -38 l50 30 l-48 28 z" fill="#79d47a"/>
+      <path d="M360 205 l54 20 l0 61 l-48 -26 z" fill="#6aa86a"/>
+    </g>
+    <circle cx="425" cy="218" r="2.2" fill="#fff"/><circle cx="437" cy="221" r="2.2" fill="#fff"/>
+    <path d="M428 230 q6 5 12 0" class="il-face"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o2" viewBox="518 124 226 190" style="left:51.800%;top:17.714%;width:22.600%"><defs><filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <linearGradient id="il-purple" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b98be0"/><stop offset=".5" stop-color="#d48cf0"/><stop offset="1" stop-color="#9d7fd0"/></linearGradient></defs><g>
+    <path d="M538 290 c30 4 50 6 68 -6" class="il-trail"/>
+    <g transform="rotate(18 650 220)" filter="url(#il-f5)"><rect x="628" y="150" width="44" height="140" rx="22" fill="url(#il-purple)"/><rect x="580" y="198" width="140" height="44" rx="22" fill="url(#il-purple)"/></g>
+    <circle cx="645" cy="216" r="2" fill="#fff"/><circle cx="655" cy="216" r="2" fill="#fff"/>
+    <path d="M647 227 q3 -3 6 0" class="il-face"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o3" viewBox="118 322 236 206" style="left:11.800%;top:46.000%;width:23.600%"><defs><filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <linearGradient id="il-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58bde6"/><stop offset=".55" stop-color="#6cbfe4"/><stop offset="1" stop-color="#7f9fb0"/></linearGradient></defs><g>
+    <path d="M188 425 c-40 -2 -50 20 -20 50 c30 30 80 34 120 36 c30 2 30 -16 -10 -22 c-40 -6 -100 -4 -76 30 c14 20 40 26 60 24" class="il-trail"/>
+    <ellipse cx="238" cy="395" rx="88" ry="38" transform="rotate(16 238 395)" fill="url(#il-blue)" filter="url(#il-f5)"/>
+    <circle cx="236" cy="388" r="2.2" fill="#fff"/><circle cx="252" cy="390" r="2.2" fill="#fff"/>
+    <ellipse cx="245" cy="398" rx="4" ry="3.2" fill="#fff"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o4" viewBox="582 300 222 198" style="left:58.200%;top:42.857%;width:22.200%"><defs><filter id="il-f5" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <radialGradient id="il-red" cx="60%" cy="62%" r="70%"><stop offset="0" stop-color="#f26a62"/><stop offset="1" stop-color="#df7c80"/></radialGradient></defs><g>
+    <path d="M730 362 c14 18 40 22 54 12 c14 -10 4 -32 -10 -24 c-14 8 0 44 2 70 c2 22 -6 36 -16 44" class="il-trail"/>
+    <path d="M660 320 c40 0 56 40 50 80 c-6 40 -36 50 -60 50 c-30 0 -46 -20 -46 -56 c0 -42 20 -74 56 -74z" fill="url(#il-red)" filter="url(#il-f5)"/>
+    <circle cx="646" cy="384" r="2.4" fill="#fff"/><circle cx="664" cy="384" r="2.4" fill="#fff"/>
+    <path d="M644 396 l26 -4" class="il-face"/>
+  </g></svg>
+  </div><!--/ov-illo-->
   
   
   
@@ -912,88 +909,38 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>소개</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 0 1000 700" role="img" aria-label="그림: 따뜻한 방 안에 헤드폰을 쓴 청취자가 앉아 있고, 얼굴이 있는 소리 오브젝트들이 주위를 떠다니며, 노트북 화면에 같은 오브젝트들이 보입니다">
-  <defs>
-    <filter id="il-room-ko" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="20"/></filter>
-    <filter id="il-f8-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
-    <filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
-    <filter id="il-f3-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
-    <filter id="il-glow-ko" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="34"/></filter>
-    <radialGradient id="il-vig-ko" cx="50%" cy="52%" r="62%"><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-    <mask id="il-mask-ko" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="700"><rect width="1000" height="700" fill="url(#il-vig-ko)"/></mask>
-    <linearGradient id="il-wall-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6e4"/><stop offset="1" stop-color="#fcdfa8"/></linearGradient>
-    <linearGradient id="il-wallL-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f9d699"/><stop offset="1" stop-color="#fce6bf"/></linearGradient>
-    <linearGradient id="il-floor-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcdc9c"/><stop offset="1" stop-color="#f6c76c"/></linearGradient>
-    <linearGradient id="il-me-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbfcfb"/><stop offset="1" stop-color="#e3ece8"/></linearGradient>
-    <linearGradient id="il-blue-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58bde6"/><stop offset=".55" stop-color="#6cbfe4"/><stop offset="1" stop-color="#7f9fb0"/></linearGradient>
-    <radialGradient id="il-red-ko" cx="60%" cy="62%" r="70%"><stop offset="0" stop-color="#f26a62"/><stop offset="1" stop-color="#df7c80"/></radialGradient>
-    <linearGradient id="il-purple-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b98be0"/><stop offset=".5" stop-color="#d48cf0"/><stop offset="1" stop-color="#9d7fd0"/></linearGradient>
-  </defs>
-  
+  <div class="ov-illo" role="img" aria-label="그림: 방 안에 헤드폰을 쓴 청취자가 앉아 있고, 얼굴이 있는 소리 오브젝트들이 주위를 떠다니며, 노트북 화면에 같은 오브젝트들이 보입니다">
+  <svg class="il-layer il-bg" viewBox="0 0 1000 700"><defs><filter id="il-room-ko" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="20"/></filter>
+  <filter id="il-f8-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+  <filter id="il-f3-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <filter id="il-glow-ko" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="34"/></filter>
+  <radialGradient id="il-vig-ko" cx="50%" cy="52%" r="62%"><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  <mask id="il-mask-ko" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="700"><rect width="1000" height="700" fill="url(#il-vig-ko)"/></mask>
+  <linearGradient id="il-wall-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf8f2"/><stop offset="1" stop-color="#f0e6d4"/></linearGradient>
+  <linearGradient id="il-wallL-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ece1cd"/><stop offset="1" stop-color="#f5efe4"/></linearGradient>
+  <linearGradient id="il-floor-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eee2ca"/><stop offset="1" stop-color="#e4d1ad"/></linearGradient></defs>
   <!-- the room: a warm box whose walls melt into the page -->
   <g class="il-roomg" mask="url(#il-mask-ko)"><g filter="url(#il-room-ko)">
     <rect x="190" y="60" width="640" height="490" fill="url(#il-wall-ko)"/>
     <polygon points="80,30 190,60 190,550 80,700" fill="url(#il-wallL-ko)"/>
     <polygon points="830,60 940,30 940,700 830,550" fill="url(#il-wallL-ko)" transform="scale(-1 1) translate(-1020 0)"/>
     <polygon points="190,545 830,545 950,700 70,700" fill="url(#il-floor-ko)"/>
-    <rect x="186" y="60" width="10" height="490" fill="#f6dcb0" opacity=".7"/>
-    <rect x="824" y="60" width="10" height="490" fill="#f6dcb0" opacity=".7"/>
-    <rect x="190" y="540" width="640" height="10" fill="#f3d39c" opacity=".7"/>
+    <rect x="186" y="60" width="10" height="490" fill="#e6dccb" opacity=".7"/>
+    <rect x="824" y="60" width="10" height="490" fill="#e6dccb" opacity=".7"/>
+    <rect x="190" y="540" width="640" height="10" fill="#e2d6c0" opacity=".7"/>
   </g></g>
-  
   <!-- floor shadows -->
-  <g class="il-sh" filter="url(#il-f8-ko)" fill="#d6a64d">
+  <g class="il-sh" filter="url(#il-f8-ko)" fill="#bba57e">
     <ellipse cx="470" cy="635" rx="105" ry="22" opacity=".55"/>
     <ellipse cx="290" cy="655" rx="95" ry="16" opacity=".45"/>
     <ellipse cx="690" cy="655" rx="52" ry="20" opacity=".45"/>
     <path d="M640 560 q20 -20 40 -6 q24 -14 30 8 q26 4 12 22 q8 22 -18 20 q-12 18 -30 4 q-26 8 -26 -14 q-22 -10 -8 -34z" opacity=".4"/>
   </g>
-  
   <!-- glows behind two objects -->
   <circle cx="250" cy="390" r="80" fill="#f7c6e8" opacity=".55" filter="url(#il-glow-ko)"/>
   <circle cx="640" cy="370" r="90" fill="#f4ef8f" opacity=".5" filter="url(#il-glow-ko)"/>
-  
   <!-- the listener -->
-  <g class="il-me">
-    <path d="M470 440 c-42 0 -58 36 -58 70 c0 20 -24 40 -24 74 c0 40 38 46 82 46 s82 -6 82 -46 c0 -34 -24 -54 -24 -74 c0 -34 -16 -70 -58 -70z" fill="url(#il-me-ko)" filter="url(#il-f5-ko)"/>
-    <path d="M424 488 a46 46 0 0 1 92 0" fill="none" stroke="#8d8f95" stroke-width="7" stroke-linecap="round" filter="url(#il-f3-ko)"/>
-    <ellipse cx="426" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3-ko)"/>
-    <ellipse cx="514" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3-ko)"/>
-    <path d="M452 481 q6 6 12 0 M478 481 q6 6 12 0" fill="none" stroke="#3b3b40" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M466 493 l4 -4 l4 4" fill="none" stroke="#3b3b40" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  
   <!-- sound objects with little faces and doodled trails -->
-  <g class="il-obj il-o1">
-    <path d="M235 180 c-40 -40 -10 -80 60 -82 c70 -2 100 18 110 40" class="il-trail"/>
-    <path d="M410 268 c-20 50 -40 100 -32 150" class="il-trail"/>
-    <g filter="url(#il-f5-ko)">
-      <path d="M360 205 l52 -38 l50 30 l-8 56 l-52 30 l-48 -26 z" fill="#5fbf63"/>
-      <path d="M360 205 l52 -38 l50 30 l-48 28 z" fill="#79d47a"/>
-      <path d="M360 205 l54 20 l0 61 l-48 -26 z" fill="#6aa86a"/>
-    </g>
-    <circle cx="425" cy="218" r="2.2" fill="#fff"/><circle cx="437" cy="221" r="2.2" fill="#fff"/>
-    <path d="M428 230 q6 5 12 0" class="il-face"/>
-  </g>
-  <g class="il-obj il-o2">
-    <path d="M538 290 c30 4 50 6 68 -6" class="il-trail"/>
-    <g transform="rotate(18 650 220)" filter="url(#il-f5-ko)"><rect x="628" y="150" width="44" height="140" rx="22" fill="url(#il-purple-ko)"/><rect x="580" y="198" width="140" height="44" rx="22" fill="url(#il-purple-ko)"/></g>
-    <circle cx="645" cy="216" r="2" fill="#fff"/><circle cx="655" cy="216" r="2" fill="#fff"/>
-    <path d="M647 227 q3 -3 6 0" class="il-face"/>
-  </g>
-  <g class="il-obj il-o3">
-    <path d="M188 425 c-40 -2 -50 20 -20 50 c30 30 80 34 120 36 c30 2 30 -16 -10 -22 c-40 -6 -100 -4 -76 30 c14 20 40 26 60 24" class="il-trail"/>
-    <ellipse cx="238" cy="395" rx="88" ry="38" transform="rotate(16 238 395)" fill="url(#il-blue-ko)" filter="url(#il-f5-ko)"/>
-    <circle cx="236" cy="388" r="2.2" fill="#fff"/><circle cx="252" cy="390" r="2.2" fill="#fff"/>
-    <ellipse cx="245" cy="398" rx="4" ry="3.2" fill="#fff"/>
-  </g>
-  <g class="il-obj il-o4">
-    <path d="M730 362 c14 18 40 22 54 12 c14 -10 4 -32 -10 -24 c-14 8 0 44 2 70 c2 22 -6 36 -16 44" class="il-trail"/>
-    <path d="M660 320 c40 0 56 40 50 80 c-6 40 -36 50 -60 50 c-30 0 -46 -20 -46 -56 c0 -42 20 -74 56 -74z" fill="url(#il-red-ko)" filter="url(#il-f5-ko)"/>
-    <circle cx="646" cy="384" r="2.4" fill="#fff"/><circle cx="664" cy="384" r="2.4" fill="#fff"/>
-    <path d="M644 396 l26 -4" class="il-face"/>
-  </g>
-  
   <!-- the laptop screen, seen at an angle -->
   <g class="il-scrg" transform="translate(808 465) skewY(4)">
     <rect x="0" y="0" width="156" height="106" rx="4" fill="#d8d8dc" filter="url(#il-f3-ko)"/>
@@ -1007,6 +954,49 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <path d="M114 66 l0 15 l4 -3.6 l3 6.2 l2.6 -1.2 l-3 -6.1 l5.4 -.4 z" fill="#fff"/>
   </g>
   </svg>
+  <svg class="il-layer il-me" viewBox="370 425 200 215" style="left:37.000%;top:60.714%;width:20.000%"><defs><filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <filter id="il-f3-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"/></filter>
+  <linearGradient id="il-me-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#fbfcfb"/><stop offset="1" stop-color="#e3ece8"/></linearGradient></defs><g>
+    <path d="M470 440 c-42 0 -58 36 -58 70 c0 20 -24 40 -24 74 c0 40 38 46 82 46 s82 -6 82 -46 c0 -34 -24 -54 -24 -74 c0 -34 -16 -70 -58 -70z" fill="url(#il-me-ko)" filter="url(#il-f5-ko)"/>
+    <path d="M424 488 a46 46 0 0 1 92 0" fill="none" stroke="#8d8f95" stroke-width="7" stroke-linecap="round" filter="url(#il-f3-ko)"/>
+    <ellipse cx="426" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3-ko)"/>
+    <ellipse cx="514" cy="486" rx="11" ry="16" fill="#8d8f95" filter="url(#il-f3-ko)"/>
+    <path d="M452 481 q6 6 12 0 M478 481 q6 6 12 0" fill="none" stroke="#3b3b40" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M466 493 l4 -4 l4 4" fill="none" stroke="#3b3b40" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o1" viewBox="178 82 306 350" style="left:17.800%;top:11.714%;width:30.600%"><defs><filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter></defs><g>
+    <path d="M235 180 c-40 -40 -10 -80 60 -82 c70 -2 100 18 110 40" class="il-trail"/>
+    <path d="M410 268 c-20 50 -40 100 -32 150" class="il-trail"/>
+    <g filter="url(#il-f5-ko)">
+      <path d="M360 205 l52 -38 l50 30 l-8 56 l-52 30 l-48 -26 z" fill="#5fbf63"/>
+      <path d="M360 205 l52 -38 l50 30 l-48 28 z" fill="#79d47a"/>
+      <path d="M360 205 l54 20 l0 61 l-48 -26 z" fill="#6aa86a"/>
+    </g>
+    <circle cx="425" cy="218" r="2.2" fill="#fff"/><circle cx="437" cy="221" r="2.2" fill="#fff"/>
+    <path d="M428 230 q6 5 12 0" class="il-face"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o2" viewBox="518 124 226 190" style="left:51.800%;top:17.714%;width:22.600%"><defs><filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <linearGradient id="il-purple-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b98be0"/><stop offset=".5" stop-color="#d48cf0"/><stop offset="1" stop-color="#9d7fd0"/></linearGradient></defs><g>
+    <path d="M538 290 c30 4 50 6 68 -6" class="il-trail"/>
+    <g transform="rotate(18 650 220)" filter="url(#il-f5-ko)"><rect x="628" y="150" width="44" height="140" rx="22" fill="url(#il-purple-ko)"/><rect x="580" y="198" width="140" height="44" rx="22" fill="url(#il-purple-ko)"/></g>
+    <circle cx="645" cy="216" r="2" fill="#fff"/><circle cx="655" cy="216" r="2" fill="#fff"/>
+    <path d="M647 227 q3 -3 6 0" class="il-face"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o3" viewBox="118 322 236 206" style="left:11.800%;top:46.000%;width:23.600%"><defs><filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <linearGradient id="il-blue-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58bde6"/><stop offset=".55" stop-color="#6cbfe4"/><stop offset="1" stop-color="#7f9fb0"/></linearGradient></defs><g>
+    <path d="M188 425 c-40 -2 -50 20 -20 50 c30 30 80 34 120 36 c30 2 30 -16 -10 -22 c-40 -6 -100 -4 -76 30 c14 20 40 26 60 24" class="il-trail"/>
+    <ellipse cx="238" cy="395" rx="88" ry="38" transform="rotate(16 238 395)" fill="url(#il-blue-ko)" filter="url(#il-f5-ko)"/>
+    <circle cx="236" cy="388" r="2.2" fill="#fff"/><circle cx="252" cy="390" r="2.2" fill="#fff"/>
+    <ellipse cx="245" cy="398" rx="4" ry="3.2" fill="#fff"/>
+  </g></svg>
+  <svg class="il-layer il-obj il-o4" viewBox="582 300 222 198" style="left:58.200%;top:42.857%;width:22.200%"><defs><filter id="il-f5-ko" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4.5"/></filter>
+  <radialGradient id="il-red-ko" cx="60%" cy="62%" r="70%"><stop offset="0" stop-color="#f26a62"/><stop offset="1" stop-color="#df7c80"/></radialGradient></defs><g>
+    <path d="M730 362 c14 18 40 22 54 12 c14 -10 4 -32 -10 -24 c-14 8 0 44 2 70 c2 22 -6 36 -16 44" class="il-trail"/>
+    <path d="M660 320 c40 0 56 40 50 80 c-6 40 -36 50 -60 50 c-30 0 -46 -20 -46 -56 c0 -42 20 -74 56 -74z" fill="url(#il-red-ko)" filter="url(#il-f5-ko)"/>
+    <circle cx="646" cy="384" r="2.4" fill="#fff"/><circle cx="664" cy="384" r="2.4" fill="#fff"/>
+    <path d="M644 396 l26 -4" class="il-face"/>
+  </g></svg>
+  </div><!--/ov-illo-->
   
   
   
@@ -1542,7 +1532,6 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
   var sel=document.getElementById('langSel');
   var vsel=document.getElementById('viewSel');
-  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('svg.ov-illo').forEach(function(s){s.pauseAnimations();});}catch(e){}
   vsel.value=root.dataset.view==='classic'?'classic':'color';
   vsel.addEventListener('change',function(){
     if(vsel.value==='classic') root.dataset.view='classic'; else delete root.dataset.view;
