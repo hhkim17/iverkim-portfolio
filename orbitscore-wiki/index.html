@@ -686,8 +686,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>For Chaos motion. Lorenz swings between left and right, Rossler spirals and shoots up, Thomas wanders evenly. Chaos Shape changes the figure</td></tr>
-    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box · 0–2 each</td><td>A point, a line source through the centre, or a box: Length is its size along X (right), Box Y along Y (front), Box Z along Z (up) — the X · Y · Z of the editor</td></tr>
-    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>±180° each · Centre / Fixed</td><td>Rotation about the X, Y and Z axis (RX · RY · RZ in the editor). Rot X turns a line about itself, so only a box shows it</td></tr>
+    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 0–2 each</td><td>A point, a line source through the centre, a box, or a plane (a flat sheet). Length is the size along X (right), Box Y the depth along Z (front–back), Box Z the height along Y (up); a plane uses Length and Box Y. In the editor they are X, Z and Y</td></tr>
+    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>±180° each · Centre / Fixed</td><td>Rotation about the right axis, the front–back axis and the up axis: RX, RZ and RY in the editor. Rot X turns a line about itself, so only a box or a plane shows it</td></tr>
     <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>Lets each angle move by itself</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>Speakers: a wider, enveloping source instead of a point</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>How much of the shared room the object gets</td></tr>
@@ -1204,8 +1204,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>Chaos 움직임용. Lorenz는 좌우를 오가고, Rossler는 나선을 그리다 위로 튀고, Thomas는 고르게 떠돕니다. Chaos Shape는 모양을 바꿉니다</td></tr>
-    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box · 각 0–2</td><td>점 음원, 중심을 지나는 선 음원, 또는 상자: Length = X(오른쪽), Box Y = Y(앞), Box Z = Z(위) 방향 크기 — 에디터의 X · Y · Z와 같음</td></tr>
-    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>각 ±180° · Centre / Fixed</td><td>X·Y·Z 축 둘레의 회전(에디터의 RX · RY · RZ). Rot X는 선을 자기 축으로 돌리므로 상자에서만 보임</td></tr>
+    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 각 0–2</td><td>점 음원, 중심을 지나는 선 음원, 상자, 또는 면(납작한 판). Length = X(오른쪽) 방향 크기, Box Y = Z(앞뒤) 방향 깊이, Box Z = Y(위) 방향 높이이며, 면은 Length와 Box Y를 씁니다. 에디터에서는 각각 X, Z, Y입니다</td></tr>
+    <tr><td>Rot X · Tilt · Rotate · Facing</td><td>각 ±180° · Centre / Fixed</td><td>오른쪽 축, 앞뒤 축, 위 축 둘레의 회전: 에디터의 RX, RZ, RY. Rot X는 선을 자기 축으로 돌리므로 상자나 면에서만 보임</td></tr>
     <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>각 축의 각도를 저절로 움직임</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>스피커에서 점 대신 넓게 감싸는 소리</td></tr>
     <tr><td>Room Send</td><td>0–200 %</td><td>공용 룸을 받는 양</td></tr>
