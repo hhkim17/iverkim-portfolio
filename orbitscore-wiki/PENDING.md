@@ -11,6 +11,8 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
 - 2026-11-28 · **`steered` renamed to `orblink_out`** (06 Orbit Link, OSC "Sent" table and OrbitLink_In outputs, EN and KO): the OSC address is now `/orbit/n/orblink_out 0|1` (1 = the object's position is set by an Orbit Out / an outside stream, 0 = by Orbit Score itself). `/orbit/n/steered` no longer exists. OrbitLink_In has a matching channel `o1_orblink_out`, output together with the position (Out: Position x y z). It is per object because some objects can be moved from outside while others keep Orbit Score's motion (e.g. Orbit Out with Objects `1-2`).
 - 2026-11-28 · **Read channels by name** (06 Orbit Link, OrbitLink_In outputs): add one line: read `op('orbit_in')['o1_x']`, not by number; the Out: toggles change the channel order and count.
 
+- 2026-11-28 · **OrbitLink_In parameters** (06 Orbit Link, OrbitLink_In): "Select Object (0 = all)" is now **Select Objects**, a text field with a list: `*` = all objects, pick one track from the list (shown by name), or type several — numbers and ranges (`1 3`, `1-4 7`) or track names (`pad drum*`). One single object: its channels come without the `o<n>_` prefix; several: only those objects, with their own numbers. **Max Objects** is 1–16 (Orbit Score's limit). **Help** opens the instructions in a window (it used to print to the textport).
+
 ## Pending (screenshots only)
 
 - **SPACE tab** (FIG. 3.2, `media/ui-space.jpg`): the current picture has no DEPTH / HEIGHT row under REFLECTIONS and no SAVE PRESET / DELETE.
