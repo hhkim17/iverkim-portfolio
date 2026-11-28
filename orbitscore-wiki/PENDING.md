@@ -15,3 +15,5 @@ Remove an item once it is in the wiki (EN and KO).
 - 2026-11-28 · Project folder (01.3 Saving): in the wiki, EN and KO.
 - **Morph pad notice in the editor** (05 Scenes, morph pad paragraph; 02 Object editor): while the pad is on, the editor shows "MORPH PAD IS ON — It sets motion, shape, position." with a TURN PAD OFF button above MOTION. With the pad on, a motion or shape chosen in the editor goes back to the scene's within about 2 s; this was always so, the notice is new.
 - **Modulators** (02 Object editor): no text change. Fixed: a wave dropped on a slider now lands on the slider under the mouse (it could miss by one row).
+- **Morph pad, off state** (05 Scenes, morph pad paragraph): the pad is always shown on the SCENES tab; while OFF it is dimmed and grey and nothing on it reacts (corners are chosen after turning it ON). A note under MORPH PAD explains it before it is switched on: it takes over motion, shape and position, AUTO SCENE pauses, editor changes do not hold; turn it OFF to edit.
+- **Screenshot needed — SCENES tab** (FIG. 5.1, `media/ui-scenes.jpg`): now has the EDITING section, the morph pad note and the greyed pad.
