@@ -27,3 +27,8 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
   - Settings (shape, size, rotation …), colour, name, mute, room, morph pad, scene recall: either side; the last change applies.
   - Priority inside Orbit Score: object position stream > group position stream > morph pad > scene and own motion. Position streams are never saved; settings are saved in the Live set like an editor edit.
   - Example: the Seongsuyul visual sends positions and reads level, colour and shape. (Seongsuyul itself is not for the public wiki; use a neutral example.)
+
+## Answers to questions from the wiki conversation (2026-11-28)
+
+- **Box Y · Box Z on the Spatial Object device**: they follow TouchDesigner's axes, like the editor. Length = X (right), **Box Y = height (up)**, **Box Z = depth (front–back)**. The old text "Y front, Z up" is wrong and should be changed. (Checked in the device: the dial labelled Box Y is the parameter "Height" = `bh`, Box Z is "Depth" = `bd`; the modulator names in the script say the same.)
+- **`/orbit/n/motion` numbers**: confirmed, the device's Motion list order: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos. (The first entry was renamed from Manual to Static on Nov 28.)
