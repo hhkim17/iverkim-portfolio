@@ -227,39 +227,36 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 :root[data-view="classic"] svg.flow image{filter:grayscale(1)}
 :root[data-view="classic"] .status,:root[data-view="classic"] .credit{letter-spacing:0;font-size:9px}
 :root[data-view="classic"] ::selection{background:var(--ink);color:var(--bg)}
-/* overview illustration: a listener in a ring of speakers, sound objects floating round, moved from a laptop */
-.ov-illo{display:block;width:100%;max-width:700px;height:auto;margin:4px auto 34px;overflow:visible}
-.ov-illo .il-f0{stop-color:color-mix(in srgb,var(--ink) 8%,transparent)}
-.ov-illo .il-f1{stop-color:color-mix(in srgb,var(--ink) 0%,transparent)}
-.ov-illo .il-ring{fill:none;stroke:color-mix(in srgb,var(--ink) 32%,transparent);stroke-width:1.8;stroke-dasharray:.5 7;stroke-linecap:round}
-.ov-illo .il-orbit{fill:none;stroke:color-mix(in srgb,var(--ink) 24%,transparent);stroke-width:1.5;stroke-dasharray:.5 6;stroke-linecap:round}
-.ov-illo .il-shadow{fill:color-mix(in srgb,var(--ink) 11%,transparent)}
-.ov-illo .il-spk rect{fill:var(--card);stroke:var(--ink);stroke-width:1.8}
-.ov-illo .il-cone{fill:none;stroke:var(--ink);stroke-width:1.4}
-.ov-illo .il-ol{stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-.ov-illo .il-hi{stroke:#fff;stroke-width:3;stroke-linecap:round;opacity:.75}
-.ov-illo .il-wave{fill:none;stroke:#9f93d2;stroke-width:2;stroke-linecap:round}
-.ov-illo .il-body{fill:color-mix(in srgb,var(--drop) 70%,#fff);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-.ov-illo .il-head{fill:var(--card);stroke:var(--ink);stroke-width:2}
-.ov-illo .il-eye{fill:var(--ink)}
-.ov-illo .il-smile{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
-.ov-illo .il-band{fill:none;stroke:var(--ink);stroke-width:3.5;stroke-linecap:round}
-.ov-illo .il-cup{fill:var(--ink)}
-.ov-illo .il-lid,.ov-illo .il-base{fill:var(--card);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
-.ov-illo .il-screen{fill:#2b2933}
-.ov-illo .il-sring{fill:none;stroke:rgba(255,255,255,.4);stroke-width:1.4;stroke-dasharray:.5 4;stroke-linecap:round}
+/* overview illustration: a listener in a ring of speakers, sound objects floating round, moved from a laptop. No outlines: soft fills only */
+.ov-illo{display:block;width:100%;max-width:720px;height:auto;margin:4px auto 34px;overflow:visible}
+.ov-illo .il-f0{stop-color:color-mix(in srgb,#9f93d2 34%,transparent)}
+.ov-illo .il-f1{stop-color:color-mix(in srgb,#9fb5dc 16%,transparent)}
+.ov-illo .il-f2{stop-color:color-mix(in srgb,#9fb5dc 0%,transparent)}
+.ov-illo .il-w0{stop-color:color-mix(in srgb,var(--ink) 19%,transparent)}
+.ov-illo .il-w1{stop-color:color-mix(in srgb,var(--ink) 16%,transparent)}
+.ov-illo .il-w2{stop-color:color-mix(in srgb,var(--ink) 0%,transparent)}
+.ov-illo .il-seam{fill:none;stroke:color-mix(in srgb,var(--ink) 20%,transparent);stroke-width:7}
+.ov-illo .il-ring{fill:none;stroke:color-mix(in srgb,var(--ink) 26%,transparent);stroke-width:2;stroke-dasharray:.5 8;stroke-linecap:round}
+.ov-illo .il-orbit{fill:none;stroke:color-mix(in srgb,var(--ink) 18%,transparent);stroke-width:1.8;stroke-dasharray:.5 7;stroke-linecap:round}
+.ov-illo .il-shadow{fill:color-mix(in srgb,var(--ink) 10%,transparent)}
+.ov-illo .il-c0{stop-color:color-mix(in srgb,var(--ink) 8%,var(--card))}
+.ov-illo .il-c1{stop-color:color-mix(in srgb,var(--ink) 22%,var(--card))}
+.ov-illo .il-cone{fill:color-mix(in srgb,var(--ink) 38%,var(--card))}
+.ov-illo .il-hi{stroke:#fff;stroke-width:3.5;stroke-linecap:round;opacity:.7}
+.ov-illo .il-eye{fill:#3a3340}
+.ov-illo .il-smile{fill:none;stroke:#3a3340;stroke-width:1.8;stroke-linecap:round}
+.ov-illo .il-blush{fill:#f29ba6;opacity:.45}
+.ov-illo .il-band{fill:none;stroke:#57506a;stroke-width:4.5;stroke-linecap:round}
+.ov-illo .il-base{fill:color-mix(in srgb,var(--ink) 22%,var(--card))}
+.ov-illo .il-sring{fill:none;stroke:rgba(255,255,255,.4);stroke-width:1.2;stroke-dasharray:.5 3.5;stroke-linecap:round}
 .ov-illo .il-me{fill:#fff}
-.ov-illo .il-cursor{fill:#fff;stroke:#2b2933;stroke-width:1;stroke-linejoin:round}
-.ov-illo .il-notch{fill:color-mix(in srgb,var(--ink) 25%,transparent)}
-.ov-illo .il-link{fill:none;stroke:var(--drop);stroke-width:3.5;stroke-linecap:round;stroke-dasharray:.5 9;animation:ilflow 1.6s linear infinite}
-.ov-illo .il-link-move{display:none}
-.ov-illo .il-obj{animation:ilbob 5.5s ease-in-out infinite}
-.ov-illo .il-o2{animation-duration:6.5s;animation-delay:-2s}
-.ov-illo .il-o3{animation-duration:7s;animation-delay:-4s}
-.ov-illo .il-o4{animation-duration:6s;animation-delay:-1s}
-@keyframes ilbob{50%{transform:translateY(-7px)}}
-@keyframes ilflow{to{stroke-dashoffset:-19}}
-@media (prefers-reduced-motion: reduce){.ov-illo .il-obj,.ov-illo .il-link{animation:none}}
+.ov-illo .il-cursor{fill:#fff}
+.ov-illo .il-link{fill:none;stroke:var(--drop);stroke-width:4;stroke-linecap:round;stroke-dasharray:.5 10;animation:ilflow 1.6s linear infinite}
+.ov-illo .il-spin{animation:ilspin 14s linear infinite}
+.ov-illo .il-spin2{animation:ilspin 20s linear infinite reverse}
+@keyframes ilspin{to{transform:rotate(360deg)}}
+@keyframes ilflow{to{stroke-dashoffset:-21}}
+@media (prefers-reduced-motion: reduce){.ov-illo .il-spin,.ov-illo .il-spin2,.ov-illo .il-link{animation:none}}
 :root[data-view="classic"] .ov-illo{filter:grayscale(1)}
 </style>
 <script>try{if(localStorage.getItem('orbit-score-view')==='classic')document.documentElement.dataset.view='classic';}catch(e){}</script>
@@ -306,38 +303,60 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>What it is</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 46 720 254" role="img" aria-label="Illustration: a listener with headphones in a ring of speakers, with sound objects floating around them, moved from a laptop">
+  <svg class="ov-illo" viewBox="0 6 720 294" role="img" aria-label="Illustration: a listener with headphones in a room ringed with speakers, soft sound objects floating around them, moved from a laptop">
   <defs>
-    <radialGradient id="il-sph" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" stop-color="#9f93d2"/><stop offset="1" stop-color="#7b6fb8"/></radialGradient>
-    <linearGradient id="il-box" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe8b0"/><stop offset="1" stop-color="#9fb862"/></linearGradient>
-    <linearGradient id="il-pl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a9c6ec"/><stop offset="1" stop-color="#6f98cf"/></linearGradient>
-    <linearGradient id="il-ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6b8bf"/><stop offset="1" stop-color="#e98794"/></linearGradient>
-    <radialGradient id="il-floor" cx="50%" cy="45%" r="60%"><stop offset="0" class="il-f0"/><stop offset="1" class="il-f1"/></radialGradient>
+    <radialGradient id="il-sph" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#b3a8e6"/><stop offset="1" stop-color="#8a7dc9"/></radialGradient>
+    <linearGradient id="il-box" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef5d2"/><stop offset=".55" stop-color="#c3d68b"/><stop offset="1" stop-color="#a3bd66"/></linearGradient>
+    <linearGradient id="il-pl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6e5f8"/><stop offset=".6" stop-color="#93b6e4"/><stop offset="1" stop-color="#7aa2d8"/></linearGradient>
+    <linearGradient id="il-ln" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdd9dd"/><stop offset="1" stop-color="#ee95a1"/></linearGradient>
+    <radialGradient id="il-halo"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="il-feather" x="-25%" y="-35%" width="150%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="11" result="flow"/>
+      <feDisplacementMap in="SourceGraphic" in2="flow" scale="26" xChannelSelector="R" yChannelSelector="G" result="bled"/>
+      <feGaussianBlur in="bled" stdDeviation="7"/>
+    </filter>
+    <radialGradient id="il-fade" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <mask id="il-mask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="920" height="500"><ellipse cx="330" cy="150" rx="330" ry="190" fill="url(#il-fade)"/></mask>
+    <linearGradient id="il-floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-f0"/><stop offset=".6" class="il-f1"/><stop offset="1" class="il-f2"/></linearGradient>
+    <linearGradient id="il-wallB" x1="0" y1="1" x2="0" y2="0"><stop offset="0" class="il-w0"/><stop offset="1" class="il-w2"/></linearGradient>
+    <linearGradient id="il-wallL" x1="1" y1="0" x2="0" y2="0"><stop offset="0" class="il-w1"/><stop offset="1" class="il-w2"/></linearGradient>
+    <linearGradient id="il-wallR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="il-w1"/><stop offset="1" class="il-w2"/></linearGradient>
+    <radialGradient id="il-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f5ad2b" stop-opacity=".22"/><stop offset="1" stop-color="#f5ad2b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="il-cabg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-c0"/><stop offset="1" class="il-c1"/></linearGradient>
+    <linearGradient id="il-lidg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-c0"/><stop offset="1" class="il-c1"/></linearGradient>
+    <linearGradient id="il-scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3648"/><stop offset="1" stop-color="#23212b"/></linearGradient>
+    <linearGradient id="il-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdeee0"/><stop offset="1" stop-color="#f1d2b8"/></linearGradient>
+    <linearGradient id="il-shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd98f"/><stop offset="1" stop-color="#f0a93c"/></linearGradient>
+    <linearGradient id="il-phones" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6480"/><stop offset="1" stop-color="#3f3a50"/></linearGradient>
   </defs>
-  <ellipse cx="478" cy="220" rx="214" ry="70" fill="url(#il-floor)"/>
-  <ellipse class="il-ring" cx="478" cy="214" rx="170" ry="50"/>
-  <g class="il-spk" transform="translate(478.0 164.0)"><ellipse cx="0" cy="1.6" rx="9.5" ry="3.2" class="il-shadow"/><rect x="-7.9" y="-22.1" width="15.8" height="22.1" rx="5.2"/><circle cx="0" cy="-7.9" r="4.4" class="il-cone"/><circle cx="0" cy="-17.2" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(393.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(563.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(318.3 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(637.7 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
-  <ellipse class="il-orbit" cx="478" cy="168" rx="118" ry="30" transform="rotate(-8 478 168)"/>
-  <ellipse class="il-orbit" cx="484" cy="122" rx="70" ry="18" transform="rotate(12 484 122)"/>
-  <g class="il-person"><ellipse cx="478" cy="216" rx="34" ry="6" class="il-shadow"/><path d="M448 216 c0 -26 12 -34 30 -34 s30 8 30 34 z" class="il-body"/><circle cx="478" cy="168" r="19" class="il-head"/><circle cx="472" cy="167" r="1.9" class="il-eye"/><circle cx="484" cy="167" r="1.9" class="il-eye"/><path d="M473 174 q5 4 10 0" class="il-smile"/><path d="M456 167 a22 22 0 0 1 44 0" class="il-band"/><rect x="452" y="159" width="10" height="17" rx="5" class="il-cup"/><rect x="494" y="159" width="10" height="17" rx="5" class="il-cup"/></g>
-  <ellipse cx="370" cy="196" rx="16" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o1"><g transform="translate(372 120)"><circle r="21" fill="url(#il-sph)" class="il-ol"/></g></g>
-  <ellipse cx="604" cy="216" rx="17" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o2"><g transform="translate(604 150) rotate(14)"><rect x="-17" y="-17" width="34" height="34" rx="9" fill="url(#il-box)" class="il-ol"/><path d="M-9 -9 h10" class="il-hi"/></g></g>
-  <ellipse cx="396" cy="252" rx="24" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o3"><g transform="translate(396 222) skewX(-22)"><rect x="-26" y="-8" width="52" height="16" rx="8" fill="url(#il-pl)" class="il-ol"/></g></g>
-  <ellipse cx="560" cy="196" rx="20" ry="3.5" class="il-shadow"/>
-  <g class="il-obj il-o4"><g transform="translate(560 92) rotate(-24)"><rect x="-30" y="-6" width="60" height="12" rx="6" fill="url(#il-ln)" class="il-ol"/></g></g>
-  <g class="il-spk" transform="translate(318.3 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(637.7 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(478.0 264.0)"><ellipse cx="0" cy="2.2" rx="13.1" ry="4.4" class="il-shadow"/><rect x="-10.9" y="-30.5" width="21.8" height="30.5" rx="7.3"/><circle cx="0" cy="-11.0" r="6.1" class="il-cone"/><circle cx="0" cy="-23.8" r="2.6" class="il-cone"/></g>
-  <g class="il-laptop"><ellipse cx="144" cy="260" rx="96" ry="9" class="il-shadow"/><rect x="59" y="128" width="170" height="110" rx="16" class="il-lid"/><rect x="69" y="138" width="150" height="88" rx="9" class="il-screen"/><ellipse cx="144" cy="190" rx="52" ry="15" class="il-sring"/><circle cx="116" cy="170" r="5" fill="#9f93d2"/><rect x="176" y="172" width="8" height="8" rx="2.5" fill="#b4c97a"/><rect x="124" y="196" width="14" height="5" rx="2.5" fill="#7fa9dc"/><rect x="158" y="158" width="14" height="4" rx="2" fill="#f29ba6" transform="rotate(-24 165 160)"/><circle cx="144" cy="186" r="4" class="il-me"/><path d="M182 188 l0 13 l3.5 -3.2 l2.6 5.6 l2.4 -1.1 l-2.6 -5.5 l4.8 -0.3 z" class="il-cursor"/><path d="M46 240 h196 a10 10 0 0 1 -10 12 h-176 a10 10 0 0 1 -10 -12 z" class="il-base"/><rect x="129" y="240" width="30" height="3" rx="1.5" class="il-notch"/></g>
-  <path class="il-link" d="M232 186 C 268 150, 286 150, 318 176"/>
-  <path class="il-link-move" d="M232 186 C 268 150, 286 150, 318 176"/>
+  <g mask="url(#il-mask)"><g filter="url(#il-feather)"><polygon points="180,-30 180,112 94,292 94,-30" fill="url(#il-wallL)"/><polygon points="480,-30 480,112 566,292 566,-30" fill="url(#il-wallR)"/><rect x="180" y="-30" width="300" height="142" fill="url(#il-wallB)"/><polygon points="180,112 480,112 566,292 94,292" fill="url(#il-floor)"/><path d="M180 10 V112 M480 10 V112 M180 112 H480" class="il-seam"/></g></g>
+  <ellipse cx="330" cy="205" rx="130" ry="44" fill="url(#il-glow)"/>
+  <ellipse class="il-ring" cx="330" cy="205" rx="215" ry="62"/>
+  <g transform="translate(224 64)"><rect x="-9" y="-13" width="18" height="26" rx="7" fill="url(#il-cabg)"/><circle cy="3" r="5" class="il-cone"/><circle cy="-6" r="2.2" class="il-cone"/></g>
+  <g transform="translate(436 64)"><rect x="-9" y="-13" width="18" height="26" rx="7" fill="url(#il-cabg)"/><circle cy="3" r="5" class="il-cone"/><circle cy="-6" r="2.2" class="il-cone"/></g>
+  <g transform="translate(256.5 146.7)"><ellipse cy="1.5" rx="11.1" ry="3.2" class="il-shadow"/><rect x="-8.6" y="-24.3" width="17.2" height="24.3" rx="6.6" fill="url(#il-cabg)"/><circle cy="-8.8" r="4.9" class="il-cone"/><circle cy="-19.0" r="2.1" class="il-cone"/></g>
+  <g transform="translate(403.5 146.7)"><ellipse cy="1.5" rx="11.1" ry="3.2" class="il-shadow"/><rect x="-8.6" y="-24.3" width="17.2" height="24.3" rx="6.6" fill="url(#il-cabg)"/><circle cy="-8.8" r="4.9" class="il-cone"/><circle cy="-19.0" r="2.1" class="il-cone"/></g>
+  <g transform="translate(506.1 169.4)"><ellipse cy="1.6" rx="12.1" ry="3.5" class="il-shadow"/><rect x="-9.3" y="-26.3" width="18.6" height="26.3" rx="7.1" fill="url(#il-cabg)"/><circle cy="-9.5" r="5.3" class="il-cone"/><circle cy="-20.5" r="2.3" class="il-cone"/></g>
+  <g transform="translate(153.9 169.4)"><ellipse cy="1.6" rx="12.1" ry="3.5" class="il-shadow"/><rect x="-9.3" y="-26.3" width="18.6" height="26.3" rx="7.1" fill="url(#il-cabg)"/><circle cy="-9.5" r="5.3" class="il-cone"/><circle cy="-20.5" r="2.3" class="il-cone"/></g>
+  <ellipse rx="17" ry="4" class="il-shadow il-oshadow"><animateMotion dur="17s" begin="-2s" repeatCount="indefinite" path="M195 205 a135 34 0 1 0 270 0 a135 34 0 1 0 -270 0"/></ellipse>
+  <ellipse rx="18" ry="4" class="il-shadow il-oshadow"><animateMotion dur="23s" begin="-9s" repeatCount="indefinite" path="M148 205 a182 50 0 1 0 364 0 a182 50 0 1 0 -364 0"/></ellipse>
+  <ellipse rx="27" ry="6" class="il-shadow il-oshadow"><animateMotion dur="19s" begin="-13s" repeatCount="indefinite" path="M165 205 a165 58 0 1 0 330 0 a165 58 0 1 0 -330 0"/></ellipse>
+  <ellipse rx="20" ry="5" class="il-shadow il-oshadow"><animateMotion dur="13s" begin="-5s" repeatCount="indefinite" path="M240 205 a90 22 0 1 0 180 0 a90 22 0 1 0 -180 0"/></ellipse>
+  <ellipse class="il-orbit" cx="330" cy="93" rx="135" ry="34"/>
+  <ellipse class="il-orbit" cx="330" cy="143" rx="182" ry="50"/>
+  <g><ellipse cx="330" cy="211" rx="38" ry="7" class="il-shadow"/><path d="M297 211 c0 -28 13 -37 33 -37 s33 9 33 37 z" fill="url(#il-shirt)"/><circle cx="330" cy="161" r="21" fill="url(#il-skin)"/><circle cx="323" cy="160" r="2" class="il-eye"/><circle cx="337" cy="160" r="2" class="il-eye"/><path d="M324 168 q5.5 4.5 11 0" class="il-smile"/><circle cx="318" cy="167" r="3.6" class="il-blush"/><circle cx="342" cy="167" r="3.6" class="il-blush"/><path d="M306 160 a24 24 0 0 1 48 0" class="il-band"/><rect x="301" y="151" width="11" height="19" rx="5.5" fill="url(#il-phones)"/><rect x="348" y="151" width="11" height="19" rx="5.5" fill="url(#il-phones)"/></g>
+  <g class="il-obj il-o1"><circle r="34" fill="url(#il-halo)"/><circle r="23" fill="url(#il-sph)"/><animateMotion dur="17s" begin="-2s" repeatCount="indefinite" path="M195 93 a135 34 0 1 0 270 0 a135 34 0 1 0 -270 0"/></g>
+  <g class="il-obj il-o2"><circle r="36" fill="url(#il-halo)"/><g class="il-spin"><rect x="-18" y="-18" width="36" height="36" rx="12" fill="url(#il-box)"/><circle cx="-7" cy="-8" r="4" fill="#fff" opacity=".55"/></g><animateMotion dur="23s" begin="-9s" repeatCount="indefinite" path="M148 143 a182 50 0 1 0 364 0 a182 50 0 1 0 -364 0"/></g>
+  <g class="il-obj il-o3"><circle r="40" fill="url(#il-halo)"/><g transform="skewX(-22)"><rect x="-30" y="-10" width="60" height="20" rx="10" fill="url(#il-pl)"/></g><animateMotion dur="19s" begin="-13s" repeatCount="indefinite" path="M165 181 a165 58 0 1 0 330 0 a165 58 0 1 0 -330 0"/></g>
+  <g class="il-obj il-o4"><circle r="38" fill="url(#il-halo)"/><g class="il-spin2"><rect x="-32" y="-8" width="64" height="16" rx="8" fill="url(#il-ln)"/></g><animateMotion dur="13s" begin="-5s" repeatCount="indefinite" path="M240 67 a90 22 0 1 0 180 0 a90 22 0 1 0 -180 0"/></g>
+  <g transform="translate(115.0 205.0)"><ellipse cy="1.8" rx="13.5" ry="3.9" class="il-shadow"/><rect x="-10.4" y="-29.4" width="20.8" height="29.4" rx="8.0" fill="url(#il-cabg)"/><circle cy="-10.6" r="5.9" class="il-cone"/><circle cy="-22.9" r="2.6" class="il-cone"/></g>
+  <g transform="translate(545.0 205.0)"><ellipse cy="1.8" rx="13.5" ry="3.9" class="il-shadow"/><rect x="-10.4" y="-29.4" width="20.8" height="29.4" rx="8.0" fill="url(#il-cabg)"/><circle cy="-10.6" r="5.9" class="il-cone"/><circle cy="-22.9" r="2.6" class="il-cone"/></g>
+  <g transform="translate(153.9 240.6)"><ellipse cy="2.0" rx="14.9" ry="4.3" class="il-shadow"/><rect x="-11.5" y="-32.5" width="23.0" height="32.5" rx="8.8" fill="url(#il-cabg)"/><circle cy="-11.7" r="6.5" class="il-cone"/><circle cy="-25.3" r="2.8" class="il-cone"/></g>
+  <g transform="translate(506.1 240.6)"><ellipse cy="2.0" rx="14.9" ry="4.3" class="il-shadow"/><rect x="-11.5" y="-32.5" width="23.0" height="32.5" rx="8.8" fill="url(#il-cabg)"/><circle cy="-11.7" r="6.5" class="il-cone"/><circle cy="-25.3" r="2.8" class="il-cone"/></g>
+  <g transform="translate(256.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
+  <g transform="translate(403.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
+  <g><ellipse cx="642" cy="272" rx="70" ry="7" class="il-shadow"/><rect x="583" y="190" width="118" height="76" rx="12" fill="url(#il-lidg)"/><rect x="590" y="197" width="104" height="62" rx="7" fill="url(#il-scr)"/><ellipse cx="642" cy="232" rx="36" ry="10" class="il-sring"/><circle cx="622" cy="217" r="4" fill="#b3a8e6"/><rect x="663" y="219" width="7" height="7" rx="2.4" fill="#c3d68b"/><rect x="627" y="236" width="11" height="4" rx="2" fill="#93b6e4"/><rect x="650" y="208" width="11" height="3.4" rx="1.7" fill="#ee95a1" transform="rotate(-22 655 210)"/><circle cx="642" cy="229" r="3" class="il-me"/><path d="M668 232 l0 10 l2.8 -2.5 l2 4.3 l1.9 -.9 l-2 -4.2 l3.7 -.3 z" class="il-cursor"/><path d="M574 266 h136 a8 8 0 0 1 -8 9 h-120 a8 8 0 0 1 -8 -9 z" class="il-base"/></g>
+  <path class="il-link" d="M578 214 C 556 180, 536 174, 510 188"/>
   </svg>
   <p>A spatial audio engine that places and moves the tracks of Ableton Live around the listener, with their movement seen and edited on a TouchDesigner screen.</p>
   <p>Orbit Score is three Max for Live devices and one TouchDesigner project. All the sound is made inside Live: the devices work out each track's direction and distance from its position and send it to headphones (binaural) or up to 64 speakers. Movement made in the Object Editor in TouchDesigner is saved with the Live set, so in performance Ableton Live alone is enough to play it back.</p>
@@ -867,38 +886,60 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>소개</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 46 720 254" role="img" aria-label="그림: 스피커 링 안에서 헤드폰을 쓴 청취자 주위로 소리 오브젝트가 떠다니고, 노트북에서 그 움직임을 조작합니다">
+  <svg class="ov-illo" viewBox="0 6 720 294" role="img" aria-label="그림: 스피커로 둘러싸인 방 안에서 헤드폰을 쓴 청취자 주위로 부드러운 소리 오브젝트가 떠다니고, 노트북에서 그 움직임을 조작합니다">
   <defs>
-    <radialGradient id="il-sph-ko" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" stop-color="#9f93d2"/><stop offset="1" stop-color="#7b6fb8"/></radialGradient>
-    <linearGradient id="il-box-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe8b0"/><stop offset="1" stop-color="#9fb862"/></linearGradient>
-    <linearGradient id="il-pl-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a9c6ec"/><stop offset="1" stop-color="#6f98cf"/></linearGradient>
-    <linearGradient id="il-ln-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6b8bf"/><stop offset="1" stop-color="#e98794"/></linearGradient>
-    <radialGradient id="il-floor-ko" cx="50%" cy="45%" r="60%"><stop offset="0" class="il-f0"/><stop offset="1" class="il-f1"/></radialGradient>
+    <radialGradient id="il-sph-ko" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#b3a8e6"/><stop offset="1" stop-color="#8a7dc9"/></radialGradient>
+    <linearGradient id="il-box-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef5d2"/><stop offset=".55" stop-color="#c3d68b"/><stop offset="1" stop-color="#a3bd66"/></linearGradient>
+    <linearGradient id="il-pl-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6e5f8"/><stop offset=".6" stop-color="#93b6e4"/><stop offset="1" stop-color="#7aa2d8"/></linearGradient>
+    <linearGradient id="il-ln-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdd9dd"/><stop offset="1" stop-color="#ee95a1"/></linearGradient>
+    <radialGradient id="il-halo-ko"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="il-feather-ko" x="-25%" y="-35%" width="150%" height="170%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="11" result="flow"/>
+      <feDisplacementMap in="SourceGraphic" in2="flow" scale="26" xChannelSelector="R" yChannelSelector="G" result="bled"/>
+      <feGaussianBlur in="bled" stdDeviation="7"/>
+    </filter>
+    <radialGradient id="il-fade-ko" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset=".62" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <mask id="il-mask-ko" maskUnits="userSpaceOnUse" x="-100" y="-100" width="920" height="500"><ellipse cx="330" cy="150" rx="330" ry="190" fill="url(#il-fade-ko)"/></mask>
+    <linearGradient id="il-floor-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-f0"/><stop offset=".6" class="il-f1"/><stop offset="1" class="il-f2"/></linearGradient>
+    <linearGradient id="il-wallB-ko" x1="0" y1="1" x2="0" y2="0"><stop offset="0" class="il-w0"/><stop offset="1" class="il-w2"/></linearGradient>
+    <linearGradient id="il-wallL-ko" x1="1" y1="0" x2="0" y2="0"><stop offset="0" class="il-w1"/><stop offset="1" class="il-w2"/></linearGradient>
+    <linearGradient id="il-wallR-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" class="il-w1"/><stop offset="1" class="il-w2"/></linearGradient>
+    <radialGradient id="il-glow-ko" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f5ad2b" stop-opacity=".22"/><stop offset="1" stop-color="#f5ad2b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="il-cabg-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-c0"/><stop offset="1" class="il-c1"/></linearGradient>
+    <linearGradient id="il-lidg-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="il-c0"/><stop offset="1" class="il-c1"/></linearGradient>
+    <linearGradient id="il-scr-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3648"/><stop offset="1" stop-color="#23212b"/></linearGradient>
+    <linearGradient id="il-skin-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdeee0"/><stop offset="1" stop-color="#f1d2b8"/></linearGradient>
+    <linearGradient id="il-shirt-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd98f"/><stop offset="1" stop-color="#f0a93c"/></linearGradient>
+    <linearGradient id="il-phones-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6480"/><stop offset="1" stop-color="#3f3a50"/></linearGradient>
   </defs>
-  <ellipse cx="478" cy="220" rx="214" ry="70" fill="url(#il-floor-ko)"/>
-  <ellipse class="il-ring" cx="478" cy="214" rx="170" ry="50"/>
-  <g class="il-spk" transform="translate(478.0 164.0)"><ellipse cx="0" cy="1.6" rx="9.5" ry="3.2" class="il-shadow"/><rect x="-7.9" y="-22.1" width="15.8" height="22.1" rx="5.2"/><circle cx="0" cy="-7.9" r="4.4" class="il-cone"/><circle cx="0" cy="-17.2" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(393.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(563.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(318.3 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(637.7 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
-  <ellipse class="il-orbit" cx="478" cy="168" rx="118" ry="30" transform="rotate(-8 478 168)"/>
-  <ellipse class="il-orbit" cx="484" cy="122" rx="70" ry="18" transform="rotate(12 484 122)"/>
-  <g class="il-person"><ellipse cx="478" cy="216" rx="34" ry="6" class="il-shadow"/><path d="M448 216 c0 -26 12 -34 30 -34 s30 8 30 34 z" class="il-body"/><circle cx="478" cy="168" r="19" class="il-head"/><circle cx="472" cy="167" r="1.9" class="il-eye"/><circle cx="484" cy="167" r="1.9" class="il-eye"/><path d="M473 174 q5 4 10 0" class="il-smile"/><path d="M456 167 a22 22 0 0 1 44 0" class="il-band"/><rect x="452" y="159" width="10" height="17" rx="5" class="il-cup"/><rect x="494" y="159" width="10" height="17" rx="5" class="il-cup"/></g>
-  <ellipse cx="370" cy="196" rx="16" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o1"><g transform="translate(372 120)"><circle r="21" fill="url(#il-sph-ko)" class="il-ol"/></g></g>
-  <ellipse cx="604" cy="216" rx="17" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o2"><g transform="translate(604 150) rotate(14)"><rect x="-17" y="-17" width="34" height="34" rx="9" fill="url(#il-box-ko)" class="il-ol"/><path d="M-9 -9 h10" class="il-hi"/></g></g>
-  <ellipse cx="396" cy="252" rx="24" ry="4" class="il-shadow"/>
-  <g class="il-obj il-o3"><g transform="translate(396 222) skewX(-22)"><rect x="-26" y="-8" width="52" height="16" rx="8" fill="url(#il-pl-ko)" class="il-ol"/></g></g>
-  <ellipse cx="560" cy="196" rx="20" ry="3.5" class="il-shadow"/>
-  <g class="il-obj il-o4"><g transform="translate(560 92) rotate(-24)"><rect x="-30" y="-6" width="60" height="12" rx="6" fill="url(#il-ln-ko)" class="il-ol"/></g></g>
-  <g class="il-spk" transform="translate(318.3 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(637.7 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
-  <g class="il-spk" transform="translate(478.0 264.0)"><ellipse cx="0" cy="2.2" rx="13.1" ry="4.4" class="il-shadow"/><rect x="-10.9" y="-30.5" width="21.8" height="30.5" rx="7.3"/><circle cx="0" cy="-11.0" r="6.1" class="il-cone"/><circle cx="0" cy="-23.8" r="2.6" class="il-cone"/></g>
-  <g class="il-laptop"><ellipse cx="144" cy="260" rx="96" ry="9" class="il-shadow"/><rect x="59" y="128" width="170" height="110" rx="16" class="il-lid"/><rect x="69" y="138" width="150" height="88" rx="9" class="il-screen"/><ellipse cx="144" cy="190" rx="52" ry="15" class="il-sring"/><circle cx="116" cy="170" r="5" fill="#9f93d2"/><rect x="176" y="172" width="8" height="8" rx="2.5" fill="#b4c97a"/><rect x="124" y="196" width="14" height="5" rx="2.5" fill="#7fa9dc"/><rect x="158" y="158" width="14" height="4" rx="2" fill="#f29ba6" transform="rotate(-24 165 160)"/><circle cx="144" cy="186" r="4" class="il-me"/><path d="M182 188 l0 13 l3.5 -3.2 l2.6 5.6 l2.4 -1.1 l-2.6 -5.5 l4.8 -0.3 z" class="il-cursor"/><path d="M46 240 h196 a10 10 0 0 1 -10 12 h-176 a10 10 0 0 1 -10 -12 z" class="il-base"/><rect x="129" y="240" width="30" height="3" rx="1.5" class="il-notch"/></g>
-  <path class="il-link" d="M232 186 C 268 150, 286 150, 318 176"/>
-  <path class="il-link-move" d="M232 186 C 268 150, 286 150, 318 176"/>
+  <g mask="url(#il-mask-ko)"><g filter="url(#il-feather-ko)"><polygon points="180,-30 180,112 94,292 94,-30" fill="url(#il-wallL-ko)"/><polygon points="480,-30 480,112 566,292 566,-30" fill="url(#il-wallR-ko)"/><rect x="180" y="-30" width="300" height="142" fill="url(#il-wallB-ko)"/><polygon points="180,112 480,112 566,292 94,292" fill="url(#il-floor-ko)"/><path d="M180 10 V112 M480 10 V112 M180 112 H480" class="il-seam"/></g></g>
+  <ellipse cx="330" cy="205" rx="130" ry="44" fill="url(#il-glow-ko)"/>
+  <ellipse class="il-ring" cx="330" cy="205" rx="215" ry="62"/>
+  <g transform="translate(224 64)"><rect x="-9" y="-13" width="18" height="26" rx="7" fill="url(#il-cabg-ko)"/><circle cy="3" r="5" class="il-cone"/><circle cy="-6" r="2.2" class="il-cone"/></g>
+  <g transform="translate(436 64)"><rect x="-9" y="-13" width="18" height="26" rx="7" fill="url(#il-cabg-ko)"/><circle cy="3" r="5" class="il-cone"/><circle cy="-6" r="2.2" class="il-cone"/></g>
+  <g transform="translate(256.5 146.7)"><ellipse cy="1.5" rx="11.1" ry="3.2" class="il-shadow"/><rect x="-8.6" y="-24.3" width="17.2" height="24.3" rx="6.6" fill="url(#il-cabg-ko)"/><circle cy="-8.8" r="4.9" class="il-cone"/><circle cy="-19.0" r="2.1" class="il-cone"/></g>
+  <g transform="translate(403.5 146.7)"><ellipse cy="1.5" rx="11.1" ry="3.2" class="il-shadow"/><rect x="-8.6" y="-24.3" width="17.2" height="24.3" rx="6.6" fill="url(#il-cabg-ko)"/><circle cy="-8.8" r="4.9" class="il-cone"/><circle cy="-19.0" r="2.1" class="il-cone"/></g>
+  <g transform="translate(506.1 169.4)"><ellipse cy="1.6" rx="12.1" ry="3.5" class="il-shadow"/><rect x="-9.3" y="-26.3" width="18.6" height="26.3" rx="7.1" fill="url(#il-cabg-ko)"/><circle cy="-9.5" r="5.3" class="il-cone"/><circle cy="-20.5" r="2.3" class="il-cone"/></g>
+  <g transform="translate(153.9 169.4)"><ellipse cy="1.6" rx="12.1" ry="3.5" class="il-shadow"/><rect x="-9.3" y="-26.3" width="18.6" height="26.3" rx="7.1" fill="url(#il-cabg-ko)"/><circle cy="-9.5" r="5.3" class="il-cone"/><circle cy="-20.5" r="2.3" class="il-cone"/></g>
+  <ellipse rx="17" ry="4" class="il-shadow il-oshadow"><animateMotion dur="17s" begin="-2s" repeatCount="indefinite" path="M195 205 a135 34 0 1 0 270 0 a135 34 0 1 0 -270 0"/></ellipse>
+  <ellipse rx="18" ry="4" class="il-shadow il-oshadow"><animateMotion dur="23s" begin="-9s" repeatCount="indefinite" path="M148 205 a182 50 0 1 0 364 0 a182 50 0 1 0 -364 0"/></ellipse>
+  <ellipse rx="27" ry="6" class="il-shadow il-oshadow"><animateMotion dur="19s" begin="-13s" repeatCount="indefinite" path="M165 205 a165 58 0 1 0 330 0 a165 58 0 1 0 -330 0"/></ellipse>
+  <ellipse rx="20" ry="5" class="il-shadow il-oshadow"><animateMotion dur="13s" begin="-5s" repeatCount="indefinite" path="M240 205 a90 22 0 1 0 180 0 a90 22 0 1 0 -180 0"/></ellipse>
+  <ellipse class="il-orbit" cx="330" cy="93" rx="135" ry="34"/>
+  <ellipse class="il-orbit" cx="330" cy="143" rx="182" ry="50"/>
+  <g><ellipse cx="330" cy="211" rx="38" ry="7" class="il-shadow"/><path d="M297 211 c0 -28 13 -37 33 -37 s33 9 33 37 z" fill="url(#il-shirt-ko)"/><circle cx="330" cy="161" r="21" fill="url(#il-skin-ko)"/><circle cx="323" cy="160" r="2" class="il-eye"/><circle cx="337" cy="160" r="2" class="il-eye"/><path d="M324 168 q5.5 4.5 11 0" class="il-smile"/><circle cx="318" cy="167" r="3.6" class="il-blush"/><circle cx="342" cy="167" r="3.6" class="il-blush"/><path d="M306 160 a24 24 0 0 1 48 0" class="il-band"/><rect x="301" y="151" width="11" height="19" rx="5.5" fill="url(#il-phones-ko)"/><rect x="348" y="151" width="11" height="19" rx="5.5" fill="url(#il-phones-ko)"/></g>
+  <g class="il-obj il-o1"><circle r="34" fill="url(#il-halo-ko)"/><circle r="23" fill="url(#il-sph-ko)"/><animateMotion dur="17s" begin="-2s" repeatCount="indefinite" path="M195 93 a135 34 0 1 0 270 0 a135 34 0 1 0 -270 0"/></g>
+  <g class="il-obj il-o2"><circle r="36" fill="url(#il-halo-ko)"/><g class="il-spin"><rect x="-18" y="-18" width="36" height="36" rx="12" fill="url(#il-box-ko)"/><circle cx="-7" cy="-8" r="4" fill="#fff" opacity=".55"/></g><animateMotion dur="23s" begin="-9s" repeatCount="indefinite" path="M148 143 a182 50 0 1 0 364 0 a182 50 0 1 0 -364 0"/></g>
+  <g class="il-obj il-o3"><circle r="40" fill="url(#il-halo-ko)"/><g transform="skewX(-22)"><rect x="-30" y="-10" width="60" height="20" rx="10" fill="url(#il-pl-ko)"/></g><animateMotion dur="19s" begin="-13s" repeatCount="indefinite" path="M165 181 a165 58 0 1 0 330 0 a165 58 0 1 0 -330 0"/></g>
+  <g class="il-obj il-o4"><circle r="38" fill="url(#il-halo-ko)"/><g class="il-spin2"><rect x="-32" y="-8" width="64" height="16" rx="8" fill="url(#il-ln-ko)"/></g><animateMotion dur="13s" begin="-5s" repeatCount="indefinite" path="M240 67 a90 22 0 1 0 180 0 a90 22 0 1 0 -180 0"/></g>
+  <g transform="translate(115.0 205.0)"><ellipse cy="1.8" rx="13.5" ry="3.9" class="il-shadow"/><rect x="-10.4" y="-29.4" width="20.8" height="29.4" rx="8.0" fill="url(#il-cabg-ko)"/><circle cy="-10.6" r="5.9" class="il-cone"/><circle cy="-22.9" r="2.6" class="il-cone"/></g>
+  <g transform="translate(545.0 205.0)"><ellipse cy="1.8" rx="13.5" ry="3.9" class="il-shadow"/><rect x="-10.4" y="-29.4" width="20.8" height="29.4" rx="8.0" fill="url(#il-cabg-ko)"/><circle cy="-10.6" r="5.9" class="il-cone"/><circle cy="-22.9" r="2.6" class="il-cone"/></g>
+  <g transform="translate(153.9 240.6)"><ellipse cy="2.0" rx="14.9" ry="4.3" class="il-shadow"/><rect x="-11.5" y="-32.5" width="23.0" height="32.5" rx="8.8" fill="url(#il-cabg-ko)"/><circle cy="-11.7" r="6.5" class="il-cone"/><circle cy="-25.3" r="2.8" class="il-cone"/></g>
+  <g transform="translate(506.1 240.6)"><ellipse cy="2.0" rx="14.9" ry="4.3" class="il-shadow"/><rect x="-11.5" y="-32.5" width="23.0" height="32.5" rx="8.8" fill="url(#il-cabg-ko)"/><circle cy="-11.7" r="6.5" class="il-cone"/><circle cy="-25.3" r="2.8" class="il-cone"/></g>
+  <g transform="translate(256.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg-ko)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
+  <g transform="translate(403.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg-ko)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
+  <g><ellipse cx="642" cy="272" rx="70" ry="7" class="il-shadow"/><rect x="583" y="190" width="118" height="76" rx="12" fill="url(#il-lidg-ko)"/><rect x="590" y="197" width="104" height="62" rx="7" fill="url(#il-scr-ko)"/><ellipse cx="642" cy="232" rx="36" ry="10" class="il-sring"/><circle cx="622" cy="217" r="4" fill="#b3a8e6"/><rect x="663" y="219" width="7" height="7" rx="2.4" fill="#c3d68b"/><rect x="627" y="236" width="11" height="4" rx="2" fill="#93b6e4"/><rect x="650" y="208" width="11" height="3.4" rx="1.7" fill="#ee95a1" transform="rotate(-22 655 210)"/><circle cx="642" cy="229" r="3" class="il-me"/><path d="M668 232 l0 10 l2.8 -2.5 l2 4.3 l1.9 -.9 l-2 -4.2 l3.7 -.3 z" class="il-cursor"/><path d="M574 266 h136 a8 8 0 0 1 -8 9 h-120 a8 8 0 0 1 -8 -9 z" class="il-base"/></g>
+  <path class="il-link" d="M578 214 C 556 180, 536 174, 510 188"/>
   </svg>
   <p>TouchDesigner 화면에서 보며 트랙의 움직임을 편집하고, Ableton Live의 트랙을 청취자 주변에 놓고 움직이는 공간음향 엔진.</p>
   <p>Orbit Score는 Max for Live 디바이스 세 개와 TouchDesigner 프로젝트 하나로 이루어져 있습니다. 소리는 모두 Live 안에서 만들어지며, M4L 디바이스가 각 트랙의 위치에 따라 방향과 거리감을 계산해 헤드폰(Binaural)이나 스피커(최대 64개)로 내보냅니다. TouchDesigner의 Object Editor에서 만든 움직임은 Live 세트에 함께 저장되므로, 공연 때는 Ableton Live만 켜도 그대로 재생됩니다.</p>
@@ -1432,6 +1473,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   links.forEach(function(a){a.dataset.id=a.getAttribute('href').slice(1);});
   var sel=document.getElementById('langSel');
   var vsel=document.getElementById('viewSel');
+  try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('svg.ov-illo').forEach(function(s){s.pauseAnimations();});}catch(e){}
   vsel.value=root.dataset.view==='classic'?'classic':'color';
   vsel.addEventListener('change',function(){
     if(vsel.value==='classic') root.dataset.view='classic'; else delete root.dataset.view;
