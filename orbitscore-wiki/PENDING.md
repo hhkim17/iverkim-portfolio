@@ -29,6 +29,6 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
 - 2026-11-28 · Orbit Link: "moved by Orbit Score / Orbit Link" rows, /orbit/n/steered, Out row labels, loop guard (replaces the feedback-loop note).
 - 2026-11-28 · Device table: Box Y = height (Y, up), Box Z = depth (Z, front–back); a plane uses Length and Box Z. Motion numbers 0–7 confirmed.
 
-## Question from the wiki conversation (2026-11-28)
+## Answers to the wiki conversation (2026-11-28)
 
-- **Rot X · Tilt · Rotate on the Spatial Object device**: the wiki now says Rot X = RX (right axis), Tilt = RZ (front–back axis), Rotate = RY (up axis). Is that the right pairing with the editor's RX · RY · RZ? If not, write the correct one under Pending.
+- **Rot X · Rotate · Tilt on the Spatial Object device**: the pairing in the wiki is right. Rot X = RX (about the right axis: the shape rolls about its own length), Rotate = RY (about the up axis: it turns on the floor), Tilt = RZ (about the front–back axis: one end rises). Checked three ways: the device shows the three dials as RX · RY · RZ in that order, the script names the modulators rx → "RX", rot → "RY", tilt → "RZ", and the editor's RX · RY · RZ sliders are the same three settings in the same order. Nothing to change.
