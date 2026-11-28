@@ -91,7 +91,7 @@ strong{font-weight:500}
 /* sidebar = the tool's right panel */
 nav.side{position:sticky;top:8px;height:calc(100vh - 16px);overflow-y:auto;padding:22px 12px 36px}
 .brand{font:400 21px/1 var(--f-title);letter-spacing:.42em;margin:0 0 10px}
-.pname{font:500 13px/1.3 var(--f-title);letter-spacing:.02em;color:var(--ink);margin-top:12px}
+.pname{display:block;height:15px;width:auto;color:var(--ink);margin-top:14px;margin-bottom:6px}  /* "orbitscore" in the dot letters */
 .status{font:400 9.5px/1.6 var(--f-title);letter-spacing:.06em;color:var(--mid);margin-top:2px}
 .credit{font:400 9.5px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);margin-bottom:22px}
 .credit a{text-decoration:none}.credit a:hover{color:var(--ink)}
@@ -237,7 +237,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <div class="page">
 <nav class="side" aria-label="Contents">
   <div class="brand logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="120" height="51"></div>
-  <div class="pname">Orbit Score</div>
+  <svg class="pname" viewBox="0 0 220 40" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Orbit Score" fill="currentColor"><rect x="11" y="1" width="8" height="8"/><rect x="51" y="1" width="8" height="8"/><rect x="91" y="1" width="8" height="8"/><rect x="141" y="1" width="8" height="8"/><rect x="161" y="1" width="8" height="8"/><rect x="211" y="1" width="8" height="8"/><rect x="1" y="11" width="8" height="8"/><rect x="21" y="11" width="8" height="8"/><rect x="51" y="11" width="8" height="8"/><rect x="61" y="11" width="8" height="8"/><rect x="81" y="11" width="8" height="8"/><rect x="91" y="11" width="8" height="8"/><rect x="101" y="11" width="8" height="8"/><rect x="131" y="11" width="8" height="8"/><rect x="151" y="11" width="8" height="8"/><rect x="171" y="11" width="8" height="8"/><rect x="201" y="11" width="8" height="8"/><rect x="211" y="11" width="8" height="8"/><rect x="11" y="21" width="8" height="8"/><rect x="31" y="21" width="8" height="8"/><rect x="41" y="21" width="8" height="8"/><rect x="71" y="21" width="8" height="8"/><rect x="91" y="21" width="8" height="8"/><rect x="111" y="21" width="8" height="8"/><rect x="121" y="21" width="8" height="8"/><rect x="141" y="21" width="8" height="8"/><rect x="161" y="21" width="8" height="8"/><rect x="181" y="21" width="8" height="8"/><rect x="191" y="21" width="8" height="8"/><rect x="211" y="21" width="8" height="8"/><rect x="31" y="31" width="8" height="8"/><rect x="71" y="31" width="8" height="8"/><rect x="101" y="31" width="8" height="8"/><rect x="111" y="31" width="8" height="8"/><rect x="181" y="31" width="8" height="8"/></svg>
   <div class="status">v0.9 BETA · 2026.11</div>
   <div class="credit">Designed &amp; developed by <a href="https://iverkim.com">Iver Kim</a></div>
   <button class="menu" id="menuBtn" aria-expanded="false">CONTENTS</button>
