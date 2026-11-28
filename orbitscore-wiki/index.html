@@ -227,6 +227,40 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 :root[data-view="classic"] svg.flow image{filter:grayscale(1)}
 :root[data-view="classic"] .status,:root[data-view="classic"] .credit{letter-spacing:0;font-size:9px}
 :root[data-view="classic"] ::selection{background:var(--ink);color:var(--bg)}
+/* overview illustration: a listener in a ring of speakers, sound objects floating round, moved from a laptop */
+.ov-illo{display:block;width:100%;max-width:700px;height:auto;margin:4px auto 34px;overflow:visible}
+.ov-illo .il-f0{stop-color:color-mix(in srgb,var(--ink) 8%,transparent)}
+.ov-illo .il-f1{stop-color:color-mix(in srgb,var(--ink) 0%,transparent)}
+.ov-illo .il-ring{fill:none;stroke:color-mix(in srgb,var(--ink) 32%,transparent);stroke-width:1.8;stroke-dasharray:.5 7;stroke-linecap:round}
+.ov-illo .il-orbit{fill:none;stroke:color-mix(in srgb,var(--ink) 24%,transparent);stroke-width:1.5;stroke-dasharray:.5 6;stroke-linecap:round}
+.ov-illo .il-shadow{fill:color-mix(in srgb,var(--ink) 11%,transparent)}
+.ov-illo .il-spk rect{fill:var(--card);stroke:var(--ink);stroke-width:1.8}
+.ov-illo .il-cone{fill:none;stroke:var(--ink);stroke-width:1.4}
+.ov-illo .il-ol{stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+.ov-illo .il-hi{stroke:#fff;stroke-width:3;stroke-linecap:round;opacity:.75}
+.ov-illo .il-wave{fill:none;stroke:#9f93d2;stroke-width:2;stroke-linecap:round}
+.ov-illo .il-body{fill:color-mix(in srgb,var(--drop) 70%,#fff);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+.ov-illo .il-head{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.ov-illo .il-eye{fill:var(--ink)}
+.ov-illo .il-smile{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round}
+.ov-illo .il-band{fill:none;stroke:var(--ink);stroke-width:3.5;stroke-linecap:round}
+.ov-illo .il-cup{fill:var(--ink)}
+.ov-illo .il-lid,.ov-illo .il-base{fill:var(--card);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+.ov-illo .il-screen{fill:#2b2933}
+.ov-illo .il-sring{fill:none;stroke:rgba(255,255,255,.4);stroke-width:1.4;stroke-dasharray:.5 4;stroke-linecap:round}
+.ov-illo .il-me{fill:#fff}
+.ov-illo .il-cursor{fill:#fff;stroke:#2b2933;stroke-width:1;stroke-linejoin:round}
+.ov-illo .il-notch{fill:color-mix(in srgb,var(--ink) 25%,transparent)}
+.ov-illo .il-link{fill:none;stroke:var(--drop);stroke-width:3.5;stroke-linecap:round;stroke-dasharray:.5 9;animation:ilflow 1.6s linear infinite}
+.ov-illo .il-link-move{display:none}
+.ov-illo .il-obj{animation:ilbob 5.5s ease-in-out infinite}
+.ov-illo .il-o2{animation-duration:6.5s;animation-delay:-2s}
+.ov-illo .il-o3{animation-duration:7s;animation-delay:-4s}
+.ov-illo .il-o4{animation-duration:6s;animation-delay:-1s}
+@keyframes ilbob{50%{transform:translateY(-7px)}}
+@keyframes ilflow{to{stroke-dashoffset:-19}}
+@media (prefers-reduced-motion: reduce){.ov-illo .il-obj,.ov-illo .il-link{animation:none}}
+:root[data-view="classic"] .ov-illo{filter:grayscale(1)}
 </style>
 <script>try{if(localStorage.getItem('orbit-score-view')==='classic')document.documentElement.dataset.view='classic';}catch(e){}</script>
 </head>
@@ -272,6 +306,39 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>What it is</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
+  <svg class="ov-illo" viewBox="0 46 720 254" role="img" aria-label="Illustration: a listener with headphones in a ring of speakers, with sound objects floating around them, moved from a laptop">
+  <defs>
+    <radialGradient id="il-sph" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" stop-color="#9f93d2"/><stop offset="1" stop-color="#7b6fb8"/></radialGradient>
+    <linearGradient id="il-box" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe8b0"/><stop offset="1" stop-color="#9fb862"/></linearGradient>
+    <linearGradient id="il-pl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a9c6ec"/><stop offset="1" stop-color="#6f98cf"/></linearGradient>
+    <linearGradient id="il-ln" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6b8bf"/><stop offset="1" stop-color="#e98794"/></linearGradient>
+    <radialGradient id="il-floor" cx="50%" cy="45%" r="60%"><stop offset="0" class="il-f0"/><stop offset="1" class="il-f1"/></radialGradient>
+  </defs>
+  <ellipse cx="478" cy="220" rx="214" ry="70" fill="url(#il-floor)"/>
+  <ellipse class="il-ring" cx="478" cy="214" rx="170" ry="50"/>
+  <g class="il-spk" transform="translate(478.0 164.0)"><ellipse cx="0" cy="1.6" rx="9.5" ry="3.2" class="il-shadow"/><rect x="-7.9" y="-22.1" width="15.8" height="22.1" rx="5.2"/><circle cx="0" cy="-7.9" r="4.4" class="il-cone"/><circle cx="0" cy="-17.2" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(393.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(563.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(318.3 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(637.7 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
+  <ellipse class="il-orbit" cx="478" cy="168" rx="118" ry="30" transform="rotate(-8 478 168)"/>
+  <ellipse class="il-orbit" cx="484" cy="122" rx="70" ry="18" transform="rotate(12 484 122)"/>
+  <g class="il-person"><ellipse cx="478" cy="216" rx="34" ry="6" class="il-shadow"/><path d="M448 216 c0 -26 12 -34 30 -34 s30 8 30 34 z" class="il-body"/><circle cx="478" cy="168" r="19" class="il-head"/><circle cx="472" cy="167" r="1.9" class="il-eye"/><circle cx="484" cy="167" r="1.9" class="il-eye"/><path d="M473 174 q5 4 10 0" class="il-smile"/><path d="M456 167 a22 22 0 0 1 44 0" class="il-band"/><rect x="452" y="159" width="10" height="17" rx="5" class="il-cup"/><rect x="494" y="159" width="10" height="17" rx="5" class="il-cup"/></g>
+  <ellipse cx="370" cy="196" rx="16" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o1"><g transform="translate(372 120)"><circle r="21" fill="url(#il-sph)" class="il-ol"/></g></g>
+  <ellipse cx="604" cy="216" rx="17" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o2"><g transform="translate(604 150) rotate(14)"><rect x="-17" y="-17" width="34" height="34" rx="9" fill="url(#il-box)" class="il-ol"/><path d="M-9 -9 h10" class="il-hi"/></g></g>
+  <ellipse cx="396" cy="252" rx="24" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o3"><g transform="translate(396 222) skewX(-22)"><rect x="-26" y="-8" width="52" height="16" rx="8" fill="url(#il-pl)" class="il-ol"/></g></g>
+  <ellipse cx="560" cy="196" rx="20" ry="3.5" class="il-shadow"/>
+  <g class="il-obj il-o4"><g transform="translate(560 92) rotate(-24)"><rect x="-30" y="-6" width="60" height="12" rx="6" fill="url(#il-ln)" class="il-ol"/></g></g>
+  <g class="il-spk" transform="translate(318.3 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(637.7 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(478.0 264.0)"><ellipse cx="0" cy="2.2" rx="13.1" ry="4.4" class="il-shadow"/><rect x="-10.9" y="-30.5" width="21.8" height="30.5" rx="7.3"/><circle cx="0" cy="-11.0" r="6.1" class="il-cone"/><circle cx="0" cy="-23.8" r="2.6" class="il-cone"/></g>
+  <g class="il-laptop"><ellipse cx="144" cy="260" rx="96" ry="9" class="il-shadow"/><rect x="59" y="128" width="170" height="110" rx="16" class="il-lid"/><rect x="69" y="138" width="150" height="88" rx="9" class="il-screen"/><ellipse cx="144" cy="190" rx="52" ry="15" class="il-sring"/><circle cx="116" cy="170" r="5" fill="#9f93d2"/><rect x="176" y="172" width="8" height="8" rx="2.5" fill="#b4c97a"/><rect x="124" y="196" width="14" height="5" rx="2.5" fill="#7fa9dc"/><rect x="158" y="158" width="14" height="4" rx="2" fill="#f29ba6" transform="rotate(-24 165 160)"/><circle cx="144" cy="186" r="4" class="il-me"/><path d="M182 188 l0 13 l3.5 -3.2 l2.6 5.6 l2.4 -1.1 l-2.6 -5.5 l4.8 -0.3 z" class="il-cursor"/><path d="M46 240 h196 a10 10 0 0 1 -10 12 h-176 a10 10 0 0 1 -10 -12 z" class="il-base"/><rect x="129" y="240" width="30" height="3" rx="1.5" class="il-notch"/></g>
+  <path class="il-link" d="M232 186 C 268 150, 286 150, 318 176"/>
+  <path class="il-link-move" d="M232 186 C 268 150, 286 150, 318 176"/>
+  </svg>
   <p>A spatial audio engine that places and moves the tracks of Ableton Live around the listener, with their movement seen and edited on a TouchDesigner screen.</p>
   <p>Orbit Score is three Max for Live devices and one TouchDesigner project. All the sound is made inside Live: the devices work out each track's direction and distance from its position and send it to headphones (binaural) or up to 64 speakers. Movement made in the Object Editor in TouchDesigner is saved with the Live set, so in performance Ableton Live alone is enough to play it back.</p>
   <p>This is what lets spatial audio rendering and audiovisual projection run together in one place. The positions that move the sound can be used as they are inside TouchDesigner, so they are easy to map onto a project, which suits immersive work in spaces with both projection and multichannel speakers. Sound and image do not have to be lined up separately or synced by timecode: changing a scene or redrawing a path changes the projection at the same moment. The positions can also be sent over Orbit Link (OSC) to other software that receives OSC, such as Unreal Engine, Unity or Max/MSP.</p>
@@ -800,6 +867,39 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>소개</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
+  <svg class="ov-illo" viewBox="0 46 720 254" role="img" aria-label="그림: 스피커 링 안에서 헤드폰을 쓴 청취자 주위로 소리 오브젝트가 떠다니고, 노트북에서 그 움직임을 조작합니다">
+  <defs>
+    <radialGradient id="il-sph-ko" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".35" stop-color="#9f93d2"/><stop offset="1" stop-color="#7b6fb8"/></radialGradient>
+    <linearGradient id="il-box-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dbe8b0"/><stop offset="1" stop-color="#9fb862"/></linearGradient>
+    <linearGradient id="il-pl-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a9c6ec"/><stop offset="1" stop-color="#6f98cf"/></linearGradient>
+    <linearGradient id="il-ln-ko" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6b8bf"/><stop offset="1" stop-color="#e98794"/></linearGradient>
+    <radialGradient id="il-floor-ko" cx="50%" cy="45%" r="60%"><stop offset="0" class="il-f0"/><stop offset="1" class="il-f1"/></radialGradient>
+  </defs>
+  <ellipse cx="478" cy="220" rx="214" ry="70" fill="url(#il-floor-ko)"/>
+  <ellipse class="il-ring" cx="478" cy="214" rx="170" ry="50"/>
+  <g class="il-spk" transform="translate(478.0 164.0)"><ellipse cx="0" cy="1.6" rx="9.5" ry="3.2" class="il-shadow"/><rect x="-7.9" y="-22.1" width="15.8" height="22.1" rx="5.2"/><circle cx="0" cy="-7.9" r="4.4" class="il-cone"/><circle cx="0" cy="-17.2" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(393.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(563.0 170.7)"><ellipse cx="0" cy="1.6" rx="9.7" ry="3.2" class="il-shadow"/><rect x="-8.1" y="-22.6" width="16.2" height="22.6" rx="5.4"/><circle cx="0" cy="-8.1" r="4.5" class="il-cone"/><circle cx="0" cy="-17.6" r="1.9" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(318.3 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(637.7 196.9)"><ellipse cx="0" cy="1.8" rx="10.6" ry="3.5" class="il-shadow"/><rect x="-8.9" y="-24.8" width="17.7" height="24.8" rx="5.9"/><circle cx="0" cy="-8.9" r="5.0" class="il-cone"/><circle cx="0" cy="-19.4" r="2.1" class="il-cone"/></g>
+  <ellipse class="il-orbit" cx="478" cy="168" rx="118" ry="30" transform="rotate(-8 478 168)"/>
+  <ellipse class="il-orbit" cx="484" cy="122" rx="70" ry="18" transform="rotate(12 484 122)"/>
+  <g class="il-person"><ellipse cx="478" cy="216" rx="34" ry="6" class="il-shadow"/><path d="M448 216 c0 -26 12 -34 30 -34 s30 8 30 34 z" class="il-body"/><circle cx="478" cy="168" r="19" class="il-head"/><circle cx="472" cy="167" r="1.9" class="il-eye"/><circle cx="484" cy="167" r="1.9" class="il-eye"/><path d="M473 174 q5 4 10 0" class="il-smile"/><path d="M456 167 a22 22 0 0 1 44 0" class="il-band"/><rect x="452" y="159" width="10" height="17" rx="5" class="il-cup"/><rect x="494" y="159" width="10" height="17" rx="5" class="il-cup"/></g>
+  <ellipse cx="370" cy="196" rx="16" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o1"><g transform="translate(372 120)"><circle r="21" fill="url(#il-sph-ko)" class="il-ol"/></g></g>
+  <ellipse cx="604" cy="216" rx="17" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o2"><g transform="translate(604 150) rotate(14)"><rect x="-17" y="-17" width="34" height="34" rx="9" fill="url(#il-box-ko)" class="il-ol"/><path d="M-9 -9 h10" class="il-hi"/></g></g>
+  <ellipse cx="396" cy="252" rx="24" ry="4" class="il-shadow"/>
+  <g class="il-obj il-o3"><g transform="translate(396 222) skewX(-22)"><rect x="-26" y="-8" width="52" height="16" rx="8" fill="url(#il-pl-ko)" class="il-ol"/></g></g>
+  <ellipse cx="560" cy="196" rx="20" ry="3.5" class="il-shadow"/>
+  <g class="il-obj il-o4"><g transform="translate(560 92) rotate(-24)"><rect x="-30" y="-6" width="60" height="12" rx="6" fill="url(#il-ln-ko)" class="il-ol"/></g></g>
+  <g class="il-spk" transform="translate(318.3 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(637.7 231.1)"><ellipse cx="0" cy="2.0" rx="11.9" ry="4.0" class="il-shadow"/><rect x="-9.9" y="-27.7" width="19.8" height="27.7" rx="6.6"/><circle cx="0" cy="-10.0" r="5.5" class="il-cone"/><circle cx="0" cy="-21.6" r="2.4" class="il-cone"/></g>
+  <g class="il-spk" transform="translate(478.0 264.0)"><ellipse cx="0" cy="2.2" rx="13.1" ry="4.4" class="il-shadow"/><rect x="-10.9" y="-30.5" width="21.8" height="30.5" rx="7.3"/><circle cx="0" cy="-11.0" r="6.1" class="il-cone"/><circle cx="0" cy="-23.8" r="2.6" class="il-cone"/></g>
+  <g class="il-laptop"><ellipse cx="144" cy="260" rx="96" ry="9" class="il-shadow"/><rect x="59" y="128" width="170" height="110" rx="16" class="il-lid"/><rect x="69" y="138" width="150" height="88" rx="9" class="il-screen"/><ellipse cx="144" cy="190" rx="52" ry="15" class="il-sring"/><circle cx="116" cy="170" r="5" fill="#9f93d2"/><rect x="176" y="172" width="8" height="8" rx="2.5" fill="#b4c97a"/><rect x="124" y="196" width="14" height="5" rx="2.5" fill="#7fa9dc"/><rect x="158" y="158" width="14" height="4" rx="2" fill="#f29ba6" transform="rotate(-24 165 160)"/><circle cx="144" cy="186" r="4" class="il-me"/><path d="M182 188 l0 13 l3.5 -3.2 l2.6 5.6 l2.4 -1.1 l-2.6 -5.5 l4.8 -0.3 z" class="il-cursor"/><path d="M46 240 h196 a10 10 0 0 1 -10 12 h-176 a10 10 0 0 1 -10 -12 z" class="il-base"/><rect x="129" y="240" width="30" height="3" rx="1.5" class="il-notch"/></g>
+  <path class="il-link" d="M232 186 C 268 150, 286 150, 318 176"/>
+  <path class="il-link-move" d="M232 186 C 268 150, 286 150, 318 176"/>
+  </svg>
   <p>TouchDesigner 화면에서 보며 트랙의 움직임을 편집하고, Ableton Live의 트랙을 청취자 주변에 놓고 움직이는 공간음향 엔진.</p>
   <p>Orbit Score는 Max for Live 디바이스 세 개와 TouchDesigner 프로젝트 하나로 이루어져 있습니다. 소리는 모두 Live 안에서 만들어지며, M4L 디바이스가 각 트랙의 위치에 따라 방향과 거리감을 계산해 헤드폰(Binaural)이나 스피커(최대 64개)로 내보냅니다. TouchDesigner의 Object Editor에서 만든 움직임은 Live 세트에 함께 저장되므로, 공연 때는 Ableton Live만 켜도 그대로 재생됩니다.</p>
   <p>이 구조 덕분에 공간음향 렌더링과 오디오비주얼 프로젝션을 한 곳에서 동시에 할 수 있습니다. 소리를 움직이는 위치 데이터를 TouchDesigner 안에서 그대로 쓸 수 있어 프로젝트에 값을 매핑하기 쉽고, 프로젝션과 다채널 스피커를 함께 쓰는 공간의 이머시브 콘텐츠 제작에 잘 맞습니다. 소리와 영상을 따로 맞추거나 타임코드로 동기화할 필요가 없으며, 씬을 바꾸거나 경로를 다시 그리면 프로젝션도 그 순간 함께 바뀝니다. 위치 데이터는 Orbit Link(OSC)로 OSC를 받을 수 있는 다른 소프트웨어(Unreal Engine, Unity, Max/MSP 등)에도 보낼 수 있습니다.</p>
