@@ -21,14 +21,9 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
 - 2026-11-28 · Spatial Object: POSITION / CENTER OF THE MOTION / PATH label and the "now" readout (08). Layout and credit: screenshot only.
 - 2026-11-28 · Orbit Link: shape 3 = plane, /size, /rot, /vel, /mute, /active, /motion, /room, /morph sent; /set/n/mute, /set/morph, /set/room/<key>, rx rxmod bd bh received; OrbitLink_In channels per Out toggle; new viewer and scroll; About page with Open Wiki (06).
 - 2026-11-28 · Orbit Link: /orbit/set/group/<g>/pos steers a group's centre (06, received table). Marked in the wiki as needing the Spatial Object script of 28 Nov or later.
-- **Orbit Link: using In and Out together** (06 Orbit Link, new short subsection before Examples; the user asked for this to be explained clearly): rule "one owner per value".
-  - Always Orbit Score → project (read only): level, speed and direction, active, chaos, transport / tempo / bar, scene progress.
-  - Position (object, group): one side only. While the project sends it, the object's own motion in Orbit Score waits; Orbit Score reports that position back at once, so do not wire In's position for the same object into Out (it would hold the object where it is).
-  - Settings (shape, size, rotation …), colour, name, mute, room, morph pad, scene recall: either side; the last change applies.
-  - Priority inside Orbit Score: object position stream > group position stream > morph pad > scene and own motion. Position streams are never saved; settings are saved in the Live set like an editor edit.
-  - Example: the Seongsuyul visual sends positions and reads level, colour and shape. (Seongsuyul itself is not for the public wiki; use a neutral example.)
+- 2026-11-28 · Orbit Link: "Using In and Out together" (06, before Examples), one owner per value, with a neutral example.
+- 2026-11-28 · Device table: Box Y = height (Y, up), Box Z = depth (Z, front–back); a plane uses Length and Box Z. Motion numbers 0–7 confirmed.
 
-## Answers to questions from the wiki conversation (2026-11-28)
+## Question from the wiki conversation (2026-11-28)
 
-- **Box Y · Box Z on the Spatial Object device**: they follow TouchDesigner's axes, like the editor. Length = X (right), **Box Y = height (up)**, **Box Z = depth (front–back)**. The old text "Y front, Z up" is wrong and should be changed. (Checked in the device: the dial labelled Box Y is the parameter "Height" = `bh`, Box Z is "Depth" = `bd`; the modulator names in the script say the same.)
-- **`/orbit/n/motion` numbers**: confirmed, the device's Motion list order: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos. (The first entry was renamed from Manual to Static on Nov 28.)
+- **Rot X · Tilt · Rotate on the Spatial Object device**: the wiki now says Rot X = RX (right axis), Tilt = RZ (front–back axis), Rotate = RY (up axis). Is that the right pairing with the editor's RX · RY · RZ? If not, write the correct one under Pending.

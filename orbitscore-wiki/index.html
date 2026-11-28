@@ -620,6 +620,16 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>The viewer has one row per object with its track name and what is sent for it (position, az el dist, or settings only), and scrolls like OrbitLink_In's. Values it cannot use are shown in orange and in Send Status: <span class="mono">unknown: pos_x</span> means a channel name it does not know, <span class="mono">needs x y z: o2</span> means only part of a position arrived.</p>
   <p>While positions arrive, the objects follow them and their motion and position are locked in the editor. About 1.5 s after the stream stops, they return to their own motion. Received positions are not saved in the set.</p>
   <div class="note"><b>NOTE</b>Feeding OrbitLink_In's values back into OrbitLink_Out for the same objects creates a feedback loop. A UDP port can be opened by one program at a time.</div>
+  <h3>Using In and Out together</h3>
+  <p>A project can read from Orbit Score and send to it at the same time. The rule is one owner per value.</p>
+  <div class="tw"><table>
+    <tr><th>Value</th><th>Who sets it</th></tr>
+    <tr><td>Level, speed and direction, active, chaos, transport · tempo · bar, scene progress</td><td>Always Orbit Score; the project only reads them</td></tr>
+    <tr><td>Position of an object or a group</td><td>One side only. While the project sends it, the object's own motion waits. Orbit Score reports that position straight back, so do not wire In's position for the same object into Out: it would hold the object where it is</td></tr>
+    <tr><td>Settings (shape, size, rotation …), colour, name, mute, room, morph pad, scene recall</td><td>Either side; the last change applies</td></tr>
+  </table></div>
+  <p>Inside Orbit Score, an object's position stream comes first, then a group's position stream, then the morph pad, then the scene and the object's own motion. Position streams are never saved; settings sent over Orbit Link are saved in the Live set, like an edit in the editor.</p>
+  <p>For example, a visual can send the positions of its shapes to Orbit Score and read back each object's level, colour and shape to draw them.</p>
   <h3>Examples</h3>
   <p>The example project <code>test Audiovisual.toe</code> opens on a <strong>START HERE</strong> panel. Choose who places the objects (Orbit Score, the visual shown, or a generator), whether another device sends or receives, and which visual is shown (1, 2, 3 or ALL OFF); the panel wires the network and turns on the viewer. The rule it follows: a visual whose output is connected makes its own positions and sends them, while still reading level, colour and tempo from Orbit Score, so nothing loops. A visual uses either input positions or output, not both; if both are connected, it shows an error.</p>
   <p><strong>Receive: positions to visuals.</strong> Point a Geometry COMP's instancing at OrbitLink_In's POP output: <code>P(0) P(1) P(2)</code> for translate and <code>Color(0) Color(1) Color(2)</code> for colour. Each object becomes one instance in its track colour.</p>
@@ -636,7 +646,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line / 2 box / 3 plane · radius units per second</td></tr>
     <tr><td>/orbit/n/size</td><td>x y z — the shape's size along its own axes (radius = 1); a line has x only, a plane x and z</td></tr>
     <tr><td>/orbit/n/rot</td><td>rx ry rz facing — degrees, as they are while a rotation Mod runs; facing 0 = turns with the object to face the centre, 1 = fixed</td></tr>
-    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, direction of travel in radius units per second · 0 | 1 · 0 | 1 (0 = muted or gone) · 0–7, the device's Motion list from Static = 0</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, direction of travel in radius units per second · 0 | 1 · 0 | 1 (0 = muted or gone) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos</td></tr>
     <tr><td>/orbit/n/chaos</td><td>x y z of a CHAOS object's attractor (about −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>number of objects · layout id, speaker count</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>active scene · all scene names · from, to, progress 0–1 during a transition</td></tr>
@@ -686,7 +696,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>For Chaos motion. Lorenz swings between left and right, Rossler spirals and shoots up, Thomas wanders evenly. Chaos Shape changes the figure</td></tr>
-    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 0–2 each</td><td>A point, a line source through the centre, a box, or a plane (a flat sheet). Length is the size along X (right), Box Y the depth along Z (front–back), Box Z the height along Y (up); a plane uses Length and Box Y. In the editor they are X, Z and Y</td></tr>
+    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 0–2 each</td><td>A point, a line source through the centre, a box, or a plane (a flat sheet). Length is the size along X (right), Box Y the height along Y (up), Box Z the depth along Z (front–back) — the X · Y · Z of the editor. A plane uses Length and Box Z</td></tr>
     <tr><td>Rot X · Tilt · Rotate · Facing</td><td>±180° each · Centre / Fixed</td><td>Rotation about the right axis, the front–back axis and the up axis: RX, RZ and RY in the editor. Rot X turns a line about itself, so only a box or a plane shows it</td></tr>
     <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>Lets each angle move by itself</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>Speakers: a wider, enveloping source instead of a point</td></tr>
@@ -1138,6 +1148,16 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>뷰어에는 오브젝트마다 한 줄씩 트랙 이름과 보내는 값의 종류(위치, az el dist, 설정만)가 표시되며, OrbitLink_In처럼 스크롤됩니다. 쓸 수 없는 값은 주황색으로, 그리고 Send Status에 표시됩니다. <span class="mono">unknown: pos_x</span>는 알 수 없는 채널 이름, <span class="mono">needs x y z: o2</span>는 위치 값 일부만 들어왔다는 뜻입니다.</p>
   <p>위치를 받는 동안 오브젝트는 그 위치를 따르며, 에디터에서 움직임과 위치가 잠깁니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다.</p>
   <div class="note"><b>NOTE</b>같은 오브젝트의 OrbitLink_In 값을 OrbitLink_Out으로 되돌리면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
+  <h3>In과 Out을 함께 쓰기</h3>
+  <p>한 프로젝트가 Orbit Score에서 값을 받으면서 동시에 보낼 수 있습니다. 원칙은 값마다 주인이 하나라는 것입니다.</p>
+  <div class="tw"><table>
+    <tr><th>값</th><th>정하는 쪽</th></tr>
+    <tr><td>레벨, 속도와 진행 방향, active, chaos, 트랜스포트 · 템포 · 마디, 씬 진행도</td><td>항상 Orbit Score. 프로젝트는 읽기만 합니다</td></tr>
+    <tr><td>오브젝트나 그룹의 위치</td><td>한쪽만. 프로젝트가 보내는 동안 오브젝트 자신의 움직임은 멈춰 기다립니다. Orbit Score는 그 위치를 바로 되돌려 보내므로, 같은 오브젝트의 In 위치를 Out에 연결하지 않습니다. 연결하면 오브젝트가 제자리에 묶입니다</td></tr>
+    <tr><td>설정(모양, 크기, 회전 …), 색, 이름, 뮤트, 룸, Morph 패드, 씬 불러오기</td><td>어느 쪽이든. 마지막에 바꾼 값이 적용됩니다</td></tr>
+  </table></div>
+  <p>Orbit Score 안에서는 오브젝트 위치 스트림이 가장 먼저이고, 그다음 그룹 위치 스트림, Morph 패드, 씬과 오브젝트 자신의 움직임 순입니다. 위치 스트림은 저장되지 않으며, Orbit Link로 보낸 설정은 에디터에서 바꾼 것처럼 Live 세트에 저장됩니다.</p>
+  <p>예를 들어 비주얼이 자기 도형들의 위치를 Orbit Score로 보내고, 각 오브젝트의 레벨, 색, 모양을 받아 와서 그리는 데 쓸 수 있습니다.</p>
   <h3>사용 예</h3>
   <p>예제 프로젝트 <code>test Audiovisual.toe</code>는 <strong>START HERE</strong> 패널로 열립니다. 오브젝트를 누가 배치할지(Orbit Score, 보이는 비주얼, 제너레이터), 다른 장치가 보내거나 받는지, 어떤 비주얼을 보일지(1, 2, 3, ALL OFF)를 고르면 패널이 네트워크를 연결하고 뷰어를 켭니다. 규칙은 하나입니다. 출력이 연결된 비주얼은 위치를 스스로 만들어 보내고, 음량·색·템포는 그대로 Orbit Score에서 받으므로 루프가 생기지 않습니다. 한 비주얼은 입력 위치와 출력 중 하나만 쓰며, 둘 다 연결하면 오류를 표시합니다.</p>
   <p><strong>받기: 위치로 비주얼 만들기.</strong> Geometry COMP 인스턴싱에 OrbitLink_In의 POP 출력을 지정하고, 이동에 <code>P(0) P(1) P(2)</code>, 색에 <code>Color(0) Color(1) Color(2)</code>를 넣습니다. 오브젝트마다 트랙 색의 인스턴스가 하나씩 생깁니다.</p>
@@ -1154,7 +1174,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 / 2 상자 / 3 면 · 초당 반지름 단위</td></tr>
     <tr><td>/orbit/n/size</td><td>x y z — 모양 자체 축 기준의 크기(반지름 = 1). 선은 x만, 면은 x와 z</td></tr>
     <tr><td>/orbit/n/rot</td><td>rx ry rz facing — 각도(도). 회전 Mod가 돌 때는 그 순간 각도. facing 0 = 오브젝트와 함께 돌며 중심을 향함, 1 = 고정</td></tr>
-    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, 초당 반지름 단위의 진행 방향 · 0 | 1 · 0 | 1 (0 = 뮤트되었거나 없어짐) · 0–7, 디바이스 Motion 목록 순서(Static = 0)</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, 초당 반지름 단위의 진행 방향 · 0 | 1 · 0 | 1 (0 = 뮤트되었거나 없어짐) · 0–7: 0 Static · 1 Circle · 2 Random · 3 Figure 8 · 4 Ping-Pong · 5 Spiral · 6 Path · 7 Chaos</td></tr>
     <tr><td>/orbit/n/chaos</td><td>CHAOS 오브젝트의 어트랙터 x y z (약 −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>현재 씬 · 모든 씬 이름 · 전환 중 from, to, 진행도 0–1</td></tr>
@@ -1204,7 +1224,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>
     <tr><td>Attractor · Chaos Shape</td><td>Lorenz / Rossler / Thomas · 0–100 %</td><td>Chaos 움직임용. Lorenz는 좌우를 오가고, Rossler는 나선을 그리다 위로 튀고, Thomas는 고르게 떠돕니다. Chaos Shape는 모양을 바꿉니다</td></tr>
-    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 각 0–2</td><td>점 음원, 중심을 지나는 선 음원, 상자, 또는 면(납작한 판). Length = X(오른쪽) 방향 크기, Box Y = Z(앞뒤) 방향 깊이, Box Z = Y(위) 방향 높이이며, 면은 Length와 Box Y를 씁니다. 에디터에서는 각각 X, Z, Y입니다</td></tr>
+    <tr><td>Shape · Length · Box Y · Box Z</td><td>Point / Line / Box / Plane · 각 0–2</td><td>점 음원, 중심을 지나는 선 음원, 상자, 또는 면(납작한 판). Length = X(오른쪽) 방향 크기, Box Y = Y(위) 방향 높이, Box Z = Z(앞뒤) 방향 깊이 — 에디터의 X · Y · Z와 같음. 면은 Length와 Box Z를 씁니다</td></tr>
     <tr><td>Rot X · Tilt · Rotate · Facing</td><td>각 ±180° · Centre / Fixed</td><td>오른쪽 축, 앞뒤 축, 위 축 둘레의 회전: 에디터의 RX, RZ, RY. Rot X는 선을 자기 축으로 돌리므로 상자나 면에서만 보임</td></tr>
     <tr><td>Rot X Mod · Tilt Mod · Rotate Mod · Mod Range · Mod Rate</td><td>Fixed / Random / Spin / LFO · 0–180° · 0.01–2 Hz</td><td>각 축의 각도를 저절로 움직임</td></tr>
     <tr><td>Spread</td><td>0–180°</td><td>스피커에서 점 대신 넓게 감싸는 소리</td></tr>
