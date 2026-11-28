@@ -228,7 +228,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 :root[data-view="classic"] .status,:root[data-view="classic"] .credit{letter-spacing:0;font-size:9px}
 :root[data-view="classic"] ::selection{background:var(--ink);color:var(--bg)}
 /* overview illustration: a listener in a ring of speakers, sound objects floating round, moved from a laptop. No outlines: soft fills only */
-.ov-illo{display:block;width:100%;max-width:720px;height:auto;margin:4px auto 34px;overflow:visible}
+.ov-illo{display:block;width:100%;max-width:780px;height:auto;margin:-10px auto 20px;overflow:visible}
 .ov-illo .il-f0{stop-color:color-mix(in srgb,#9f93d2 34%,transparent)}
 .ov-illo .il-f1{stop-color:color-mix(in srgb,#9fb5dc 16%,transparent)}
 .ov-illo .il-f2{stop-color:color-mix(in srgb,#9fb5dc 0%,transparent)}
@@ -240,8 +240,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 .ov-illo .il-orbit{fill:none;stroke:color-mix(in srgb,var(--ink) 18%,transparent);stroke-width:1.8;stroke-dasharray:.5 7;stroke-linecap:round}
 .ov-illo .il-shadow{fill:color-mix(in srgb,var(--ink) 10%,transparent)}
 .ov-illo .il-c0{stop-color:color-mix(in srgb,var(--ink) 8%,var(--card))}
-.ov-illo .il-c1{stop-color:color-mix(in srgb,var(--ink) 22%,var(--card))}
-.ov-illo .il-cone{fill:color-mix(in srgb,var(--ink) 38%,var(--card))}
+.ov-illo .il-c1{stop-color:color-mix(in srgb,var(--ink) 17%,var(--card))}
+.ov-illo .il-cone{fill:color-mix(in srgb,var(--ink) 28%,var(--card))}
 .ov-illo .il-hi{stroke:#fff;stroke-width:3.5;stroke-linecap:round;opacity:.7}
 .ov-illo .il-eye{fill:#3a3340}
 .ov-illo .il-smile{fill:none;stroke:#3a3340;stroke-width:1.8;stroke-linecap:round}
@@ -303,7 +303,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>What it is</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 6 720 294" role="img" aria-label="Illustration: a listener with headphones in a room ringed with speakers, soft sound objects floating around them, moved from a laptop">
+  <svg class="ov-illo" viewBox="-40 -24 800 344" role="img" aria-label="Illustration: a listener with headphones in a room ringed with speakers, soft sound objects floating around them, moved from a laptop">
   <defs>
     <radialGradient id="il-sph" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#b3a8e6"/><stop offset="1" stop-color="#8a7dc9"/></radialGradient>
     <linearGradient id="il-box" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef5d2"/><stop offset=".55" stop-color="#c3d68b"/><stop offset="1" stop-color="#a3bd66"/></linearGradient>
@@ -328,7 +328,11 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <linearGradient id="il-skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdeee0"/><stop offset="1" stop-color="#f1d2b8"/></linearGradient>
     <linearGradient id="il-shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd98f"/><stop offset="1" stop-color="#f0a93c"/></linearGradient>
     <linearGradient id="il-phones" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6480"/><stop offset="1" stop-color="#3f3a50"/></linearGradient>
+    <filter id="il-vigb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="34"/></filter>
+    <mask id="il-vig" maskUnits="userSpaceOnUse" x="-40" y="-24" width="800" height="344"><rect x="30" y="34" width="660" height="236" rx="90" fill="#fff" filter="url(#il-vigb)"/></mask>
+    <filter id="il-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
   </defs>
+  <g mask="url(#il-vig)"><g filter="url(#il-soft)">
   <g mask="url(#il-mask)"><g filter="url(#il-feather)"><polygon points="180,-30 180,112 94,292 94,-30" fill="url(#il-wallL)"/><polygon points="480,-30 480,112 566,292 566,-30" fill="url(#il-wallR)"/><rect x="180" y="-30" width="300" height="142" fill="url(#il-wallB)"/><polygon points="180,112 480,112 566,292 94,292" fill="url(#il-floor)"/><path d="M180 10 V112 M480 10 V112 M180 112 H480" class="il-seam"/></g></g>
   <ellipse cx="330" cy="205" rx="130" ry="44" fill="url(#il-glow)"/>
   <ellipse class="il-ring" cx="330" cy="205" rx="215" ry="62"/>
@@ -357,7 +361,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <g transform="translate(403.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
   <g><ellipse cx="642" cy="272" rx="70" ry="7" class="il-shadow"/><rect x="583" y="190" width="118" height="76" rx="12" fill="url(#il-lidg)"/><rect x="590" y="197" width="104" height="62" rx="7" fill="url(#il-scr)"/><ellipse cx="642" cy="232" rx="36" ry="10" class="il-sring"/><circle cx="622" cy="217" r="4" fill="#b3a8e6"/><rect x="663" y="219" width="7" height="7" rx="2.4" fill="#c3d68b"/><rect x="627" y="236" width="11" height="4" rx="2" fill="#93b6e4"/><rect x="650" y="208" width="11" height="3.4" rx="1.7" fill="#ee95a1" transform="rotate(-22 655 210)"/><circle cx="642" cy="229" r="3" class="il-me"/><path d="M668 232 l0 10 l2.8 -2.5 l2 4.3 l1.9 -.9 l-2 -4.2 l3.7 -.3 z" class="il-cursor"/><path d="M574 266 h136 a8 8 0 0 1 -8 9 h-120 a8 8 0 0 1 -8 -9 z" class="il-base"/></g>
   <path class="il-link" d="M578 214 C 556 180, 536 174, 510 188"/>
-  </svg>
+  </g></g></svg>
   <p>A spatial audio engine that places and moves the tracks of Ableton Live around the listener, with their movement seen and edited on a TouchDesigner screen.</p>
   <p>Orbit Score is three Max for Live devices and one TouchDesigner project. All the sound is made inside Live: the devices work out each track's direction and distance from its position and send it to headphones (binaural) or up to 64 speakers. Movement made in the Object Editor in TouchDesigner is saved with the Live set, so in performance Ableton Live alone is enough to play it back.</p>
   <p>This is what lets spatial audio rendering and audiovisual projection run together in one place. The positions that move the sound can be used as they are inside TouchDesigner, so they are easy to map onto a project, which suits immersive work in spaces with both projection and multichannel speakers. Sound and image do not have to be lined up separately or synced by timecode: changing a scene or redrawing a path changes the projection at the same moment. The positions can also be sent over Orbit Link (OSC) to other software that receives OSC, such as Unreal Engine, Unity or Max/MSP.</p>
@@ -886,7 +890,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="cap">00 — Overview</div>
   <h2>소개</h2>
   <div class="ov-logo"><h1 class="logo"><img class="logo-img" src="media/orbs-logo.png?v=1124" alt="ORBIT SCORE" width="244" height="104"></h1></div>
-  <svg class="ov-illo" viewBox="0 6 720 294" role="img" aria-label="그림: 스피커로 둘러싸인 방 안에서 헤드폰을 쓴 청취자 주위로 부드러운 소리 오브젝트가 떠다니고, 노트북에서 그 움직임을 조작합니다">
+  <svg class="ov-illo" viewBox="-40 -24 800 344" role="img" aria-label="그림: 스피커로 둘러싸인 방 안에서 헤드폰을 쓴 청취자 주위로 부드러운 소리 오브젝트가 떠다니고, 노트북에서 그 움직임을 조작합니다">
   <defs>
     <radialGradient id="il-sph-ko" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#b3a8e6"/><stop offset="1" stop-color="#8a7dc9"/></radialGradient>
     <linearGradient id="il-box-ko" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef5d2"/><stop offset=".55" stop-color="#c3d68b"/><stop offset="1" stop-color="#a3bd66"/></linearGradient>
@@ -911,7 +915,11 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <linearGradient id="il-skin-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdeee0"/><stop offset="1" stop-color="#f1d2b8"/></linearGradient>
     <linearGradient id="il-shirt-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbd98f"/><stop offset="1" stop-color="#f0a93c"/></linearGradient>
     <linearGradient id="il-phones-ko" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6480"/><stop offset="1" stop-color="#3f3a50"/></linearGradient>
+    <filter id="il-vigb-ko" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="34"/></filter>
+    <mask id="il-vig-ko" maskUnits="userSpaceOnUse" x="-40" y="-24" width="800" height="344"><rect x="30" y="34" width="660" height="236" rx="90" fill="#fff" filter="url(#il-vigb-ko)"/></mask>
+    <filter id="il-soft-ko" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="1.1"/></filter>
   </defs>
+  <g mask="url(#il-vig-ko)"><g filter="url(#il-soft-ko)">
   <g mask="url(#il-mask-ko)"><g filter="url(#il-feather-ko)"><polygon points="180,-30 180,112 94,292 94,-30" fill="url(#il-wallL-ko)"/><polygon points="480,-30 480,112 566,292 566,-30" fill="url(#il-wallR-ko)"/><rect x="180" y="-30" width="300" height="142" fill="url(#il-wallB-ko)"/><polygon points="180,112 480,112 566,292 94,292" fill="url(#il-floor-ko)"/><path d="M180 10 V112 M480 10 V112 M180 112 H480" class="il-seam"/></g></g>
   <ellipse cx="330" cy="205" rx="130" ry="44" fill="url(#il-glow-ko)"/>
   <ellipse class="il-ring" cx="330" cy="205" rx="215" ry="62"/>
@@ -940,7 +948,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <g transform="translate(403.5 263.3)"><ellipse cy="2.2" rx="15.8" ry="4.6" class="il-shadow"/><rect x="-12.2" y="-34.5" width="24.4" height="34.5" rx="9.3" fill="url(#il-cabg-ko)"/><circle cy="-12.4" r="6.9" class="il-cone"/><circle cy="-26.9" r="3.0" class="il-cone"/></g>
   <g><ellipse cx="642" cy="272" rx="70" ry="7" class="il-shadow"/><rect x="583" y="190" width="118" height="76" rx="12" fill="url(#il-lidg-ko)"/><rect x="590" y="197" width="104" height="62" rx="7" fill="url(#il-scr-ko)"/><ellipse cx="642" cy="232" rx="36" ry="10" class="il-sring"/><circle cx="622" cy="217" r="4" fill="#b3a8e6"/><rect x="663" y="219" width="7" height="7" rx="2.4" fill="#c3d68b"/><rect x="627" y="236" width="11" height="4" rx="2" fill="#93b6e4"/><rect x="650" y="208" width="11" height="3.4" rx="1.7" fill="#ee95a1" transform="rotate(-22 655 210)"/><circle cx="642" cy="229" r="3" class="il-me"/><path d="M668 232 l0 10 l2.8 -2.5 l2 4.3 l1.9 -.9 l-2 -4.2 l3.7 -.3 z" class="il-cursor"/><path d="M574 266 h136 a8 8 0 0 1 -8 9 h-120 a8 8 0 0 1 -8 -9 z" class="il-base"/></g>
   <path class="il-link" d="M578 214 C 556 180, 536 174, 510 188"/>
-  </svg>
+  </g></g></svg>
   <p>TouchDesigner 화면에서 보며 트랙의 움직임을 편집하고, Ableton Live의 트랙을 청취자 주변에 놓고 움직이는 공간음향 엔진.</p>
   <p>Orbit Score는 Max for Live 디바이스 세 개와 TouchDesigner 프로젝트 하나로 이루어져 있습니다. 소리는 모두 Live 안에서 만들어지며, M4L 디바이스가 각 트랙의 위치에 따라 방향과 거리감을 계산해 헤드폰(Binaural)이나 스피커(최대 64개)로 내보냅니다. TouchDesigner의 Object Editor에서 만든 움직임은 Live 세트에 함께 저장되므로, 공연 때는 Ableton Live만 켜도 그대로 재생됩니다.</p>
   <p>이 구조 덕분에 공간음향 렌더링과 오디오비주얼 프로젝션을 한 곳에서 동시에 할 수 있습니다. 소리를 움직이는 위치 데이터를 TouchDesigner 안에서 그대로 쓸 수 있어 프로젝트에 값을 매핑하기 쉽고, 프로젝션과 다채널 스피커를 함께 쓰는 공간의 이머시브 콘텐츠 제작에 잘 맞습니다. 소리와 영상을 따로 맞추거나 타임코드로 동기화할 필요가 없으며, 씬을 바꾸거나 경로를 다시 그리면 프로젝션도 그 순간 함께 바뀝니다. 위치 데이터는 Orbit Link(OSC)로 OSC를 받을 수 있는 다른 소프트웨어(Unreal Engine, Unity, Max/MSP 등)에도 보낼 수 있습니다.</p>
