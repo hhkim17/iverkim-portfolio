@@ -74,9 +74,9 @@ body{margin:0;background:var(--sheet) var(--grad) fixed;color:var(--ink);font:30
 .page{position:relative;z-index:1}
 
 /* a little film grain over the whole page, like the tool's own screen */
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.22;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::after{opacity:.28}}
-:root[data-theme="dark"] body::after{opacity:.28}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.2;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::after{opacity:.28;mix-blend-mode:soft-light}}  /* light: multiply shows the grain on a pale page; dark: soft-light */
+:root[data-theme="dark"] body::after{opacity:.28;mix-blend-mode:soft-light}
 a{color:inherit;text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--drop)}
 code,kbd,.mono{font-family:var(--f-mono);font-size:.92em}
@@ -397,6 +397,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>The position is the centre of the motion. The settings column shows only the controls the selected motion uses.</p>
   <p>The figure a motion draws stays on the canvas as a thin dotted line in the object's colour: CIRCLE, FIG 8, SPIRAL, PING and paths. RANDOM has no fixed figure.</p>
   <p><strong>Orbit Link</strong> — while another project sends an object's position (<a href="#link">06</a>), its MOTION buttons and position are locked. <span class="pill">ORBIT LINK: ON / OFF</span> turns reception off.</p>
+  <p><strong>Morph pad</strong> — while the morph pad is on (<a href="#scenes">05</a>) it sets motion, shape and position, and the editor shows <em>MORPH PAD IS ON — It sets motion, shape, position.</em> with <span class="pill">TURN PAD OFF</span> above MOTION. Changing a setting, a path or a modulator of an object switches the pad off and applies the edit.</p>
 
   <h3>Path</h3>
   <p>Shown while the motion is PATH, in the object's colour. <span class="pill">EDIT PATH</span> opens the points for editing; the button then reads <span class="pill">SAVE PATH</span>.</p>
@@ -562,7 +563,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>During a transition, values change gradually; a change of motion crossfades the position between the old and new movement; a point grows into a line and back.</p>
   <h3>Morph pad</h3>
-  <p><span class="pill">MORPH PAD: ON</span> shows a pad with a scene on each corner (click a corner to choose one; two corners are enough). Drag the dot to blend the corner scenes; each corner shows how much of it is used. Nothing is overwritten. While the pad is on, AUTO SCENE (scenes from the timeline) pauses; OFF glides the objects back to the active scene over 1.5 s and turns AUTO SCENE back on. Pressing AUTO SCENE also switches the pad off.</p>
+  <p>The pad is always on the SCENES tab. While it is OFF it is dimmed and grey and does not react; a note directly under the MORPH PAD line says what it does before it is switched on. <span class="pill">MORPH PAD: ON</span> wakes it: click a corner to give it a scene (two corners are enough), then drag the dot to blend the corner scenes; each corner shows how much of it is used. Nothing is overwritten.</p>
+  <p>While the pad is on it sets motion, shape and position, and AUTO SCENE (scenes from the timeline) pauses. Editing an object — a setting, a path or a modulator — switches the pad off and applies the edit; the MORPH PAD line shows <em>turned off: you edited an object</em> for a few seconds. OFF glides the objects back to the active scene over 1.5 s and turns AUTO SCENE back on. Pressing AUTO SCENE also switches the pad off.</p>
   <h3>Spatial Master</h3>
   <div class="tw"><table>
     <tr><th>Control</th><th>Function</th></tr>
@@ -585,17 +587,20 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="link">
   <div class="cap">06 — Orbit Link</div>
   <h2>Orbit Link</h2>
-  <p>Orbit Link sends the objects' positions, levels, colours and the scene state as OSC to other projects, and receives positions and settings from them.</p>
+  <p>Orbit Link sends the objects' positions, levels, colours and the scene state as OSC to other projects, and receives positions and settings from them. Both components have an About page (product, version, author, copyright) with <strong>Open Wiki</strong>, which opens this page.</p>
   <h3>OrbitLink_In.tox</h3>
   <p>A TouchDesigner component that receives Orbit Score's data. Output <strong>objects_chop</strong> is a CHOP with <code>count</code> and <code>o1_x o1_y o1_z</code>, <code>o2_x</code> … per object, in Live's track order. Status shows <span class="mono">3 objects · live</span> while data arrives.</p>
   <p>Hover over an output to see its name: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. The POP output (<code>points_pop</code>) gives one point per object (point 0 = object 1) with <code>P</code> (position), <code>Color</code> (track colour), <code>level</code>, <code>speed</code> and <code>id</code> (object number). It is always on and can go straight into instancing or any POP.</p>
-  <p>The node's viewer shows the port, the status and, for each object, its track name and <code>x y z</code>.</p>
+  <p>The node's viewer shows one row per track, with its name and a colour dot. Above the rows, <span class="mono">each object:</span> lists the values that are arriving (pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion); at the bottom, <span class="mono">set:</span> lists the set-wide ones (scene · transport · groups · room · morph). With more objects than fit, the mouse wheel over the active viewer scrolls it (Preview page → Scroll), and the last row shows <span class="mono">↑ n above · ↓ n more</span>. <code>names_dat</code> gives each object's track name and shape (point / line / box / plane).</p>
   <div class="tw"><table>
     <tr><th>Out toggle</th><th>Channels</th></tr>
     <tr><td>Az El Dist</td><td><code>o1_az o1_el o1_dist</code></td></tr>
-    <tr><td>Level · Colour · Shape · Speed</td><td><code>o1_level</code> · <code>o1_r o1_g o1_b</code> · <code>o1_shape</code> · <code>o1_speed</code></td></tr>
+    <tr><td>Level</td><td><code>o1_level o1_active</code></td></tr>
+    <tr><td>Colour</td><td><code>o1_r o1_g o1_b</code></td></tr>
+    <tr><td>Speed</td><td><code>o1_speed o1_vx o1_vy o1_vz</code></td></tr>
+    <tr><td>Shape, size, rotation</td><td><code>o1_shape o1_sx o1_sy o1_sz o1_rx o1_ry o1_rz o1_facing o1_motion</code></td></tr>
     <tr><td>Chaos</td><td><code>o1_cx o1_cy o1_cz</code></td></tr>
-    <tr><td>Transport</td><td><code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse scene_prog</code></td></tr>
+    <tr><td>Transport</td><td><code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse scene_prog</code>, <code>room_*</code>, <code>morph_on morph_x morph_y</code></td></tr>
   </table></div>
   <p>Positions are in ring radii: 1 = the speaker ring, X right, Y up, −Z front.</p>
   <h3>OrbitLink_Out.tox</h3>
@@ -612,7 +617,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Send POP Color</td><td>A point's <code>Color</code> sets its object's track colour in Live. Off by default, because the colour is saved in the set. Greyed out when the POP has no <code>Color</code></td></tr>
     <tr><td>Scene List From</td><td>An OrbitLink_In. Fills the scene menu, and gives the viewer the track names</td></tr>
   </table></div>
-  <p>The viewer lists what is sent, one line per object with its track name and <code>x y z</code>. Values it cannot use are shown in orange and in Send Status: <span class="mono">unknown: pos_x</span> means a channel name it does not know, <span class="mono">needs x y z: o2</span> means only part of a position arrived.</p>
+  <p>The viewer has one row per object with its track name and what is sent for it (position, az el dist, or settings only), and scrolls like OrbitLink_In's. Values it cannot use are shown in orange and in Send Status: <span class="mono">unknown: pos_x</span> means a channel name it does not know, <span class="mono">needs x y z: o2</span> means only part of a position arrived.</p>
   <p>While positions arrive, the objects follow them and their motion and position are locked in the editor. About 1.5 s after the stream stops, they return to their own motion. Received positions are not saved in the set.</p>
   <div class="note"><b>NOTE</b>Feeding OrbitLink_In's values back into OrbitLink_Out for the same objects creates a feedback loop. A UDP port can be opened by one program at a time.</div>
   <h3>Examples</h3>
@@ -628,18 +633,26 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>Sent → 9010</th><th>Arguments</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · azimuth elevation distance</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line / 2 box · radius units per second</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>track name · r g b (0–1) · 0–1 · 0 point / 1 line / 2 box / 3 plane · radius units per second</td></tr>
+    <tr><td>/orbit/n/size</td><td>x y z — the shape's size along its own axes (radius = 1); a line has x only, a plane x and z</td></tr>
+    <tr><td>/orbit/n/rot</td><td>rx ry rz facing — degrees, as they are while a rotation Mod runs; facing 0 = turns with the object to face the centre, 1 = fixed</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, direction of travel in radius units per second · 0 | 1 · 0 | 1 (0 = muted or gone) · 0–7, the device's Motion list from Static = 0</td></tr>
     <tr><td>/orbit/n/chaos</td><td>x y z of a CHAOS object's attractor (about −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>number of objects · layout id, speaker count</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>active scene · all scene names · from, to, progress 0–1 during a transition</td></tr>
+    <tr><td>/orbit/room · /orbit/morph</td><td>reverb time amount reflections walls depth height level · on x y of the morph pad</td></tr>
     <tr><td>/orbit/transport · /orbit/phase · /orbit/songpos · /orbit/beat · /orbit/section</td><td>playing, tempo, bar, beat · beat and bar phase · song position in beats · once per beat · current locator, progress, next locator</td></tr>
   </table></div>
   <div class="tw"><table>
     <tr><th>Received ← 9011</th><th>Arguments</th></tr>
     <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>Position stream; send at least every 0.5 s</td></tr>
     <tr><td>/orbit/set/n/color · /orbit/set/n/name</td><td>r g b (0–1) · text — the Live track's colour and name</td></tr>
-    <tr><td>/orbit/set/n/&lt;setting&gt;</td><td>Any Spatial Object setting (motion, rate, size, shape, spread, roomsend … <a href="#devices">08</a>); saved in the set</td></tr>
+    <tr><td>/orbit/set/n/&lt;setting&gt;</td><td>Any Spatial Object setting (motion, rate, size, shape — 3 = plane, spread, roomsend, rx, rxmod, bd, bh … <a href="#devices">08</a>); saved in the set</td></tr>
+    <tr><td>/orbit/set/n/mute</td><td>0 | 1</td></tr>
+    <tr><td>/orbit/set/group/&lt;g&gt;/pos</td><td>x y z — while it keeps arriving, group <code>g</code>'s centre follows it instead of its Group Motion. Members keep their places around the centre and their own motions; Spin and Breathe go on. About 1.5 s after the last message the group eases back to its own motion. Not saved in the set; needs the Spatial Object of 28 Nov or later</td></tr>
     <tr><td>/orbit/set/scene</td><td>Recalls a scene by name</td></tr>
+    <tr><td>/orbit/set/morph</td><td>x y [on] — moves the morph pad and switches it on; on 0 switches it off</td></tr>
+    <tr><td>/orbit/set/room/&lt;key&gt;</td><td>value; key = reverb · time · amount · reflections · walls · level</td></tr>
   </table></div>
 </section>
 
@@ -668,7 +681,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>Spatial Object</h3>
   <div class="tw"><table>
     <tr><th>Parameter</th><th>Range</th><th>Meaning</th></tr>
-    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The centre of the motion. Azimuth 0 = front, + = left; Elevation 0 = ear level; Distance 1 = the speaker ring</td></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>The centre of the motion, or the position itself when Static. Azimuth 0 = front, + = left; Elevation 0 = ear level; Distance 1 = the speaker ring. The label above the dials says which: POSITION (Static), CENTER OF THE MOTION (patterns, Chaos) or PATH · dials not used (Path: the dials are greyed out). Below them, <code>now +42° −4° 1.18</code> shows where the object is at this moment</td></tr>
     <tr><td>Motion</td><td>8 modes</td><td>Static · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>Speed and width of the motion (Circle: Size 0.5 = a circle at Distance)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64 bars · Loop / Ping-Pong / Once · Open / Closed</td><td>For Path motion</td></tr>
@@ -902,6 +915,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <p>위치는 움직임의 중심입니다. 설정 열에는 선택한 움직임에 쓰이는 항목만 표시됩니다.</p>
   <p>움직임이 그리는 모양은 캔버스에 오브젝트 색의 가는 점선으로 계속 표시됩니다: CIRCLE, FIG 8, SPIRAL, PING, 경로. RANDOM은 정해진 모양이 없습니다.</p>
   <p><strong>Orbit Link</strong> — 다른 프로젝트에서 위치를 받는 동안(<a href="#ko-link">06</a>) 해당 오브젝트의 MOTION 버튼과 위치는 잠깁니다. <span class="pill">ORBIT LINK: ON / OFF</span>로 수신을 끕니다.</p>
+  <p><strong>Morph 패드</strong> — Morph 패드가 켜진 동안(<a href="#ko-scenes">05</a>)은 패드가 움직임, 모양, 위치를 정하며, 에디터의 MOTION 위에 <em>MORPH PAD IS ON — It sets motion, shape, position.</em>과 <span class="pill">TURN PAD OFF</span> 버튼이 표시됩니다. 오브젝트의 설정, 경로, 모듈레이터를 바꾸면 패드가 꺼지고 바꾼 내용이 적용됩니다.</p>
 
   <h3>경로</h3>
   <p>움직임이 PATH일 때 오브젝트 색으로 표시됩니다. <span class="pill">EDIT PATH</span>를 누르면 점을 편집할 수 있고, 버튼은 <span class="pill">SAVE PATH</span>로 바뀝니다.</p>
@@ -1067,7 +1081,8 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   </table></div>
   <p>전환 중에는 값이 서서히 바뀌고, 움직임이 바뀌면 이전 움직임과 새 움직임 사이에서 위치가 크로스페이드되며, 점은 선으로 늘어나고 줄어듭니다.</p>
   <h3>Morph 패드</h3>
-  <p><span class="pill">MORPH PAD: ON</span>을 켜면 네 모서리에 씬을 지정하는 패드가 표시됩니다(모서리를 눌러 고르며, 두 모서리만으로도 동작). 점을 끌면 모서리 씬이 섞이고, 모서리마다 섞인 비율이 표시됩니다. 값을 덮어쓰지 않습니다. 패드가 켜진 동안 AUTO SCENE(타임라인의 씬)은 멈추고, OFF로 하면 오브젝트가 1.5초에 걸쳐 지금 씬으로 돌아가며 AUTO SCENE이 다시 켜집니다. AUTO SCENE을 눌러도 패드가 꺼집니다.</p>
+  <p>패드는 SCENES 탭에 항상 표시됩니다. OFF일 때는 흐린 회색이고 눌러도 반응하지 않으며, MORPH PAD 줄 바로 아래의 안내문이 켜기 전에 하는 일을 알려 줍니다. <span class="pill">MORPH PAD: ON</span>으로 켜고 모서리를 눌러 씬을 지정한 뒤(두 모서리만으로도 동작), 점을 끌면 모서리 씬이 섞이고 모서리마다 섞인 비율이 표시됩니다. 값을 덮어쓰지 않습니다.</p>
+  <p>패드가 켜진 동안은 패드가 움직임, 모양, 위치를 정하고 AUTO SCENE(타임라인의 씬)은 멈춥니다. 오브젝트를 편집하면(설정, 경로, 모듈레이터) 패드가 꺼지고 편집한 내용이 적용되며, MORPH PAD 줄에 몇 초간 <em>turned off: you edited an object</em>가 표시됩니다. OFF로 하면 오브젝트가 1.5초에 걸쳐 지금 씬으로 돌아가며 AUTO SCENE이 다시 켜집니다. AUTO SCENE을 눌러도 패드가 꺼집니다.</p>
   <h3>Spatial Master</h3>
   <div class="tw"><table>
     <tr><th>컨트롤</th><th>기능</th></tr>
@@ -1090,17 +1105,20 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
 <section id="ko-link">
   <div class="cap">06 — Orbit Link</div>
   <h2>Orbit Link</h2>
-  <p>Orbit Link는 오브젝트의 위치, 레벨, 색, 씬 상태를 OSC로 다른 프로젝트에 보내고, 다른 프로젝트에서 위치와 설정을 받습니다.</p>
+  <p>Orbit Link는 오브젝트의 위치, 레벨, 색, 씬 상태를 OSC로 다른 프로젝트에 보내고, 다른 프로젝트에서 위치와 설정을 받습니다. 두 컴포넌트에는 About 페이지(제품, 버전, 제작자, 저작권)가 있고, <strong>Open Wiki</strong>를 누르면 이 위키가 열립니다.</p>
   <h3>OrbitLink_In.tox</h3>
   <p>Orbit Score의 데이터를 받는 TouchDesigner 컴포넌트입니다. 출력 <strong>objects_chop</strong>은 <code>count</code>와 오브젝트별 <code>o1_x o1_y o1_z</code>, <code>o2_x</code> …가 담긴 CHOP입니다(Live 트랙 순서). 데이터가 들어오는 동안 Status에 <span class="mono">3 objects · live</span>가 표시됩니다.</p>
   <p>출력에 마우스를 올리면 이름이 보입니다: <code>names_dat</code>, <code>objects_chop</code>, <code>scenes_dat</code>, <code>points_pop</code>. POP 출력(<code>points_pop</code>)은 오브젝트마다 점 하나(점 0 = 오브젝트 1)를 내보내며 <code>P</code>(위치), <code>Color</code>(트랙 색), <code>level</code>, <code>speed</code>, <code>id</code>(오브젝트 번호)를 담습니다. 항상 켜져 있고 인스턴싱이나 다른 POP에 바로 연결할 수 있습니다.</p>
-  <p>노드 뷰어에는 포트, 상태, 그리고 오브젝트마다 트랙 이름과 <code>x y z</code>가 표시됩니다.</p>
+  <p>노드 뷰어에는 트랙마다 한 줄씩 이름과 색 점이 표시됩니다. 줄들 위의 <span class="mono">each object:</span>는 들어오고 있는 값을 보여 주고(pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion), 맨 아래의 <span class="mono">set:</span>은 세트 전체 값을 보여 줍니다(scene · transport · groups · room · morph). 오브젝트가 많아 다 보이지 않으면 활성화된 뷰어 위에서 마우스 휠로 스크롤하며(Preview 페이지 → Scroll), 마지막 줄에 <span class="mono">↑ n above · ↓ n more</span>가 표시됩니다. <code>names_dat</code>에는 오브젝트마다 트랙 이름과 모양(point / line / box / plane)이 담깁니다.</p>
   <div class="tw"><table>
     <tr><th>Out 토글</th><th>채널</th></tr>
     <tr><td>Az El Dist</td><td><code>o1_az o1_el o1_dist</code></td></tr>
-    <tr><td>Level · Colour · Shape · Speed</td><td><code>o1_level</code> · <code>o1_r o1_g o1_b</code> · <code>o1_shape</code> · <code>o1_speed</code></td></tr>
+    <tr><td>Level</td><td><code>o1_level o1_active</code></td></tr>
+    <tr><td>Colour</td><td><code>o1_r o1_g o1_b</code></td></tr>
+    <tr><td>Speed</td><td><code>o1_speed o1_vx o1_vy o1_vz</code></td></tr>
+    <tr><td>Shape, size, rotation</td><td><code>o1_shape o1_sx o1_sy o1_sz o1_rx o1_ry o1_rz o1_facing o1_motion</code></td></tr>
     <tr><td>Chaos</td><td><code>o1_cx o1_cy o1_cz</code></td></tr>
-    <tr><td>Transport</td><td><code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse scene_prog</code></td></tr>
+    <tr><td>Transport</td><td><code>playing tempo bar beat beat_phase bar_phase songpos section_prog beat_count beat_pulse scene_prog</code>, <code>room_*</code>, <code>morph_on morph_x morph_y</code></td></tr>
   </table></div>
   <p>위치 단위는 링 반지름입니다: 1 = 스피커 링, X 오른쪽, Y 위, −Z 정면.</p>
   <h3>OrbitLink_Out.tox</h3>
@@ -1117,7 +1135,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
     <tr><td>Send POP Color</td><td>점의 <code>Color</code>로 해당 오브젝트의 Live 트랙 색을 바꿉니다. 색은 세트에 저장되므로 기본은 꺼져 있습니다. POP에 <code>Color</code>가 없으면 비활성화됩니다</td></tr>
     <tr><td>Scene List From</td><td>OrbitLink_In을 지정합니다. 씬 메뉴를 채우고, 뷰어에 트랙 이름을 표시합니다</td></tr>
   </table></div>
-  <p>뷰어에는 보내는 값이 오브젝트마다 한 줄씩 트랙 이름, <code>x y z</code>와 함께 표시됩니다. 쓸 수 없는 값은 주황색으로, 그리고 Send Status에 표시됩니다. <span class="mono">unknown: pos_x</span>는 알 수 없는 채널 이름, <span class="mono">needs x y z: o2</span>는 위치 값 일부만 들어왔다는 뜻입니다.</p>
+  <p>뷰어에는 오브젝트마다 한 줄씩 트랙 이름과 보내는 값의 종류(위치, az el dist, 설정만)가 표시되며, OrbitLink_In처럼 스크롤됩니다. 쓸 수 없는 값은 주황색으로, 그리고 Send Status에 표시됩니다. <span class="mono">unknown: pos_x</span>는 알 수 없는 채널 이름, <span class="mono">needs x y z: o2</span>는 위치 값 일부만 들어왔다는 뜻입니다.</p>
   <p>위치를 받는 동안 오브젝트는 그 위치를 따르며, 에디터에서 움직임과 위치가 잠깁니다. 전송이 멈추면 약 1.5초 뒤 원래 움직임으로 돌아갑니다. 받은 위치는 세트에 저장되지 않습니다.</p>
   <div class="note"><b>NOTE</b>같은 오브젝트의 OrbitLink_In 값을 OrbitLink_Out으로 되돌리면 피드백이 생깁니다. UDP 포트 하나는 한 프로그램만 열 수 있습니다.</div>
   <h3>사용 예</h3>
@@ -1133,18 +1151,26 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <div class="tw"><table>
     <tr><th>송신 → 9010</th><th>인자</th></tr>
     <tr><td>/orbit/n/pos · /orbit/n/aed</td><td>x y z · 방위 고도 거리</td></tr>
-    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 / 2 상자 · 초당 반지름 단위</td></tr>
+    <tr><td>/orbit/n/name · color · level · shape · speed</td><td>트랙 이름 · r g b (0–1) · 0–1 · 0 점 / 1 선 / 2 상자 / 3 면 · 초당 반지름 단위</td></tr>
+    <tr><td>/orbit/n/size</td><td>x y z — 모양 자체 축 기준의 크기(반지름 = 1). 선은 x만, 면은 x와 z</td></tr>
+    <tr><td>/orbit/n/rot</td><td>rx ry rz facing — 각도(도). 회전 Mod가 돌 때는 그 순간 각도. facing 0 = 오브젝트와 함께 돌며 중심을 향함, 1 = 고정</td></tr>
+    <tr><td>/orbit/n/vel · mute · active · motion</td><td>x y z, 초당 반지름 단위의 진행 방향 · 0 | 1 · 0 | 1 (0 = 뮤트되었거나 없어짐) · 0–7, 디바이스 Motion 목록 순서(Static = 0)</td></tr>
     <tr><td>/orbit/n/chaos</td><td>CHAOS 오브젝트의 어트랙터 x y z (약 −1 … 1)</td></tr>
     <tr><td>/orbit/count · /orbit/layout</td><td>오브젝트 수 · 레이아웃 id, 스피커 수</td></tr>
     <tr><td>/orbit/scene · /orbit/scenes · /orbit/scenefade</td><td>현재 씬 · 모든 씬 이름 · 전환 중 from, to, 진행도 0–1</td></tr>
+    <tr><td>/orbit/room · /orbit/morph</td><td>reverb time amount reflections walls depth height level · Morph 패드의 on x y</td></tr>
     <tr><td>/orbit/transport · /orbit/phase · /orbit/songpos · /orbit/beat · /orbit/section</td><td>재생, 템포, 마디, 박 · 박·마디 위상 · 송 포지션(박) · 박마다 한 번 · 현재 로케이터, 진행도, 다음 로케이터</td></tr>
   </table></div>
   <div class="tw"><table>
     <tr><th>수신 ← 9011</th><th>인자</th></tr>
     <tr><td>/orbit/set/n/pos · aed · az · el · dist</td><td>위치 스트림. 최소 0.5초마다 전송</td></tr>
     <tr><td>/orbit/set/n/color · /orbit/set/n/name</td><td>r g b (0–1) · 텍스트 — Live 트랙의 색과 이름</td></tr>
-    <tr><td>/orbit/set/n/&lt;설정&gt;</td><td>Spatial Object의 모든 설정 (motion, rate, size, shape, spread, roomsend … <a href="#ko-devices">08</a>). 세트에 저장됨</td></tr>
+    <tr><td>/orbit/set/n/&lt;설정&gt;</td><td>Spatial Object의 모든 설정 (motion, rate, size, shape — 3 = 면, spread, roomsend, rx, rxmod, bd, bh … <a href="#ko-devices">08</a>). 세트에 저장됨</td></tr>
+    <tr><td>/orbit/set/n/mute</td><td>0 | 1</td></tr>
+    <tr><td>/orbit/set/group/&lt;g&gt;/pos</td><td>x y z — 계속 들어오는 동안 그룹 <code>g</code>의 중심이 Group Motion 대신 이 값을 따릅니다. 멤버는 중심 주변의 자리와 각자의 움직임을 유지하고, Spin과 Breathe도 계속됩니다. 마지막 메시지 약 1.5초 뒤 그룹은 원래 움직임으로 부드럽게 돌아갑니다. 세트에 저장되지 않으며, 11월 28일 이후의 Spatial Object가 필요합니다</td></tr>
     <tr><td>/orbit/set/scene</td><td>이름으로 씬 불러오기</td></tr>
+    <tr><td>/orbit/set/morph</td><td>x y [on] — Morph 패드를 움직이고 켭니다. on 0이면 끕니다</td></tr>
+    <tr><td>/orbit/set/room/&lt;key&gt;</td><td>값. key = reverb · time · amount · reflections · walls · level</td></tr>
   </table></div>
 </section>
 
@@ -1173,7 +1199,7 @@ footer{font:400 11px/1.6 var(--f-title);letter-spacing:.04em;color:var(--mid);bo
   <h3>Spatial Object</h3>
   <div class="tw"><table>
     <tr><th>파라미터</th><th>범위</th><th>뜻</th></tr>
-    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 중심. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링</td></tr>
+    <tr><td>Azimuth · Elevation · Distance</td><td>±180° · ±90° · 0–2</td><td>움직임의 중심. Static이면 위치 자체. Azimuth 0 = 정면, + = 왼쪽 / Elevation 0 = 귀 높이 / Distance 1 = 스피커 링. 다이얼 위 라벨이 어느 쪽인지 알려 줍니다: POSITION(Static), CENTER OF THE MOTION(패턴, Chaos), PATH · dials not used(Path: 다이얼이 회색으로 꺼짐). 다이얼 아래의 <code>now +42° −4° 1.18</code>은 오브젝트가 지금 있는 위치입니다</td></tr>
     <tr><td>Motion</td><td>8종</td><td>Static · Circle · Random · Figure 8 · Ping-Pong · Spiral · Path · Chaos</td></tr>
     <tr><td>Rate · Size</td><td>Hz · 0–1</td><td>움직임의 속도와 폭 (Circle: Size 0.5 = Distance 크기의 원)</td></tr>
     <tr><td>Path Length · Path Mode · Closed</td><td>1–64마디 · Loop / Ping-Pong / Once · Open / Closed</td><td>Path 움직임용</td></tr>

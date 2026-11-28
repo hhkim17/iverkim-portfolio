@@ -2,26 +2,22 @@
 
 Changes made to Orbit Score that the wiki (`index.html`) does not cover yet.
 Written from the development conversation; the wiki is edited in another conversation.
-Remove an item once it is in the wiki (EN and KO).
+Add new items under **Pending** with a date. The wiki conversation moves them to **Done** once they are in the wiki (EN and KO).
 
-## 2026-11-28
+## Pending (screenshots only)
 
-- **Screenshot needed — SPACE tab** (FIG. 3.2, `media/ui-space.jpg`): the current picture has no DEPTH / HEIGHT row under REFLECTIONS and no SAVE PRESET / DELETE.
-- **Screenshot (optional) — LOG tab**: OSC OUT section at the top (Send positions ON, host, PORT, rate, status line). The wiki text already describes it; there is no LOG picture yet.
+- **SPACE tab** (FIG. 3.2, `media/ui-space.jpg`): the current picture has no DEPTH / HEIGHT row under REFLECTIONS and no SAVE PRESET / DELETE.
+- **SCENES tab** (FIG. 5.1, `media/ui-scenes.jpg`): now has the EDITING section, the morph pad note and the greyed pad.
+- **Spatial Object device** (FIG. 8.1, `media/dev-object.jpg`): new layout, the POSITION / CENTER OF THE MOTION label, the "now" readout, "Orbit Score · © 2026 Iver Kim".
+- **Orbit Link viewer** (FIG. 6.1–6.3, `media/link-*.jpg`): they show the old viewer (x y z per object).
+- **LOG tab** (optional, no picture yet): OSC OUT section at the top.
 
-## Done / decided
+## Done
 
-- 2026-11-28 · Orbit_Score component parameter pages (About / OSC / File): the user decided the wiki does not describe them; the note and table were removed from 01.2. No need to add the File page.
-- 2026-11-28 · Project folder (01.3 Saving): in the wiki, EN and KO.
-- **Morph pad notice in the editor** (05 Scenes, morph pad paragraph; 02 Object editor): while the pad is on, the editor shows "MORPH PAD IS ON — It sets motion, shape, position." with a TURN PAD OFF button above MOTION. With the pad on, a motion or shape chosen in the editor goes back to the scene's within about 2 s; this was always so, the notice is new.
-- **Modulators** (02 Object editor): no text change. Fixed: a wave dropped on a slider now lands on the slider under the mouse (it could miss by one row).
-- **Morph pad, off state** (05 Scenes, morph pad paragraph): the pad is always shown on the SCENES tab; while OFF it is dimmed and grey and nothing on it reacts (corners are chosen after turning it ON). A note under MORPH PAD explains it before it is switched on: it takes over motion, shape and position, AUTO SCENE pauses, editor changes do not hold; turn it OFF to edit.
-- **Screenshot needed — SCENES tab** (FIG. 5.1, `media/ui-scenes.jpg`): now has the EDITING section, the morph pad note and the greyed pad.
-- **Morph pad turns off on an edit** (05 Scenes, morph pad paragraph; replaces "turn it OFF to edit" in the item above): changing a setting, a path or a modulator of an object in the editor switches the pad off (it glides back to the scene) and the edit is applied; the MORPH PAD line shows "turned off: you edited an object" for a few seconds. The note under MORPH PAD now starts "The morph pad blends the corner scenes by hand…" and sits directly under the MORPH PAD line.
-- **Spatial Object device layout** (01.1 Live devices / 08 Device reference): sections realigned on one grid; top right of the device now reads "Orbit Score · © 2026 Iver Kim". No function changed. **Screenshot needed** if the wiki shows the Spatial Object device.
-- **Spatial Object: centre and "now"** (08 Device reference / 01.1): the Azimuth · Elevation · Distance dials are the centre of the motion (the position itself when Static). A label above them says POSITION (Static), CENTER OF THE MOTION (patterns, chaos) or "PATH · dials not used" (Path: the dials are greyed out). Under the dials "now +42° −4° 1.18" shows where the object is at this moment. Screenshot of the device needed.
-- **Orbit Link: shape, size, rotation** (06 Orbit Link, OSC table and OrbitLink_In outputs): `/orbit/n/shape` is now 0 point · 1 line · 2 box · 3 plane (was 0 | 1). New: `/orbit/n/size x y z` (the shape's size along its own axes, radius = 1; a line has x only, a plane x and z) and `/orbit/n/rot rx ry rz facing` (degrees, the angles as they are while a rotation Mod runs; facing 0 = turns with the object to face the centre, 1 = fixed). OrbitLink_In: "Out: Shape, size, rotation" adds channels `o1_shape o1_sx o1_sy o1_sz o1_rx o1_ry o1_rz o1_facing`; the names DAT says point / line / box / plane.
-- **Orbit Link: more values out** (06 Orbit Link, OSC table "Sent → 9010" and OrbitLink_In outputs): `/orbit/n/vel x y z` (direction of travel, radius / s), `/orbit/n/mute 0|1`, `/orbit/n/active 0|1` (0 = muted or gone), `/orbit/n/motion 0..7`, `/orbit/room reverb time amount reflections walls depth height level`, `/orbit/morph on x y`. OrbitLink_In channels: `o1_active` (with Out: Level), `o1_vx o1_vy o1_vz` (with Out: Speed), `o1_motion` (with Out: Shape…), `room_*` and `morph_on morph_x morph_y` (with Out: Transport).
-- **Orbit Link: more values in** (OSC table "Received ← 9011"): `/orbit/set/n/mute 0|1`; `/orbit/set/morph x y [on]` (moves the morph pad, switches it on; on 0 = off); `/orbit/set/room/<key> v` with key reverb · time · amount · reflections · walls · level; `/orbit/set/n/shape 3` = plane; the settings list also takes `rx rxmod bd bh` (already worked, was not listed).
-- **OrbitLink_In / OrbitLink_Out viewer** (06 Orbit Link, "The viewer lists what is sent…" and FIG. 6.x): the viewer no longer prints x y z for every object. Orbit In: one row per track (name, colour dot), above the rows "each object: pos · aed · level · colour · speed · vel · chaos · shape · size · rot · active · motion" (only what is arriving), at the bottom "set: scene · transport · groups · room · morph". Orbit Out: each row says what is sent for it (position / az el dist / settings only). With more objects than fit, the mouse wheel over the active viewer scrolls (Preview page → Scroll); the last row shows "↑ n above · ↓ n more". Top right: "Orbit Link In v0.9 beta © 2026 Iver Kim". New About page on both components (product, version, author, copyright, wiki, Open Wiki). **Screenshots needed**: FIG. 6.1–6.3 show the old viewer.
-- **Orbit Link: steer a whole group** (06 Orbit Link, "Received ← 9011"): `/orbit/set/group/<g>/pos x y z` — while it keeps arriving the group's centre follows it instead of the Group Motion; members keep their places around the centre and their own motions, Spin and Breathe go on; about 1.5 s after the last message the group eases back to its own motion. Not saved in the set. Needs the Spatial Object script of Nov 28 or later. (Not tested with a live stream yet.)
+- 2026-11-28 · Component parameter pages (About / OSC / File): not described in the wiki, by the user's decision.
+- 2026-11-28 · Project folder (01.3 Saving).
+- 2026-11-28 · Morph pad: always shown, greyed while OFF, the note under MORPH PAD, edits switch it off ("turned off: you edited an object"), the editor notice with TURN PAD OFF (02 and 05).
+- 2026-11-28 · Modulator drop fix: no wiki change needed.
+- 2026-11-28 · Spatial Object: POSITION / CENTER OF THE MOTION / PATH label and the "now" readout (08). Layout and credit: screenshot only.
+- 2026-11-28 · Orbit Link: shape 3 = plane, /size, /rot, /vel, /mute, /active, /motion, /room, /morph sent; /set/n/mute, /set/morph, /set/room/<key>, rx rxmod bd bh received; OrbitLink_In channels per Out toggle; new viewer and scroll; About page with Open Wiki (06).
+- 2026-11-28 · Orbit Link: /orbit/set/group/<g>/pos steers a group's centre (06, received table). Marked in the wiki as needing the Spatial Object script of 28 Nov or later.
