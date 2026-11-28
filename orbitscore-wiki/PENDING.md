@@ -21,3 +21,9 @@ Add new items under **Pending** with a date. The wiki conversation moves them to
 - 2026-11-28 · Spatial Object: POSITION / CENTER OF THE MOTION / PATH label and the "now" readout (08). Layout and credit: screenshot only.
 - 2026-11-28 · Orbit Link: shape 3 = plane, /size, /rot, /vel, /mute, /active, /motion, /room, /morph sent; /set/n/mute, /set/morph, /set/room/<key>, rx rxmod bd bh received; OrbitLink_In channels per Out toggle; new viewer and scroll; About page with Open Wiki (06).
 - 2026-11-28 · Orbit Link: /orbit/set/group/<g>/pos steers a group's centre (06, received table). Marked in the wiki as needing the Spatial Object script of 28 Nov or later.
+- **Orbit Link: using In and Out together** (06 Orbit Link, new short subsection before Examples; the user asked for this to be explained clearly): rule "one owner per value".
+  - Always Orbit Score → project (read only): level, speed and direction, active, chaos, transport / tempo / bar, scene progress.
+  - Position (object, group): one side only. While the project sends it, the object's own motion in Orbit Score waits; Orbit Score reports that position back at once, so do not wire In's position for the same object into Out (it would hold the object where it is).
+  - Settings (shape, size, rotation …), colour, name, mute, room, morph pad, scene recall: either side; the last change applies.
+  - Priority inside Orbit Score: object position stream > group position stream > morph pad > scene and own motion. Position streams are never saved; settings are saved in the Live set like an editor edit.
+  - Example: the Seongsuyul visual sends positions and reads level, colour and shape. (Seongsuyul itself is not for the public wiki; use a neutral example.)
